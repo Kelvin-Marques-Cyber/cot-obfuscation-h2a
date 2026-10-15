@@ -1,285 +1,173 @@
-"""Gera notebooks limpos e reproduzíveis, sem credenciais ou saídas inventadas."""
+"""Gera notebooks Colab executáveis em ordem, com código-fonte fixado por commit."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
+import subprocess
 import textwrap
 
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def md(text):
-    return {"cell_type":"markdown","metadata":{},"source":textwrap.dedent(text).strip()+"\n"}
+def md(source):
+    return dict(cell_type="markdown",metadata={},source=textwrap.dedent(source).strip()+"\n")
 
 
-def code(text):
-    return {"cell_type":"code","execution_count":None,"metadata":{},"outputs":[],
-            "source":textwrap.dedent(text).strip()+"\n"}
+def code(source):
+    return dict(cell_type="code",metadata={},execution_count=None,outputs=[],
+                source=textwrap.dedent(source).strip()+"\n")
 
 
-BOOTSTRAP="""
+BOOTSTRAP='''
+# Execute esta célula. As opções abaixo já estão prontas para o teste curto.
+PROFILE = "quick" # @param ["quick", "pilot", "full"]
+SALVAR_NO_DRIVE = True # @param {type:"boolean"}
+
 from pathlib import Path
-import os, sys, json, subprocess
-cwd = Path.cwd()
-candidates = [cwd, cwd.parent, cwd / "revisao_2026", cwd.parent / "revisao_2026",
-              cwd / "cot-obfuscation-h2a" / "revisao_2026"]
-ROOT = next((p for p in candidates if (p / "src/instruments.py").is_file()), None)
-if ROOT is None:
-    clone = cwd / "cot-obfuscation-h2a"
-    if not clone.exists():
-        subprocess.run(["git", "clone", "https://github.com/Kelvin-Marques-Cyber/cot-obfuscation-h2a.git",
-                        str(clone)], check=True)
-    ROOT = clone / "revisao_2026"
-assert (ROOT / "src/instruments.py").is_file(), ROOT
-ROOT = ROOT.resolve()
-sys.path.insert(0, str(ROOT / "src"))
-os.chdir(ROOT)
-ENV = dict(os.environ, PYTHONPATH=str(ROOT / "src") + os.pathsep + os.environ.get("PYTHONPATH", ""))
-from notebook_runtime import run_logged
+import json, os, subprocess, sys, tempfile, shutil
+SOURCE_REF = "__SOURCE_REF__"
+NEEDS_GPU = __NEEDS_GPU__
+try:
+    from google.colab import drive
+    ON_COLAB = True
+except ImportError:
+    ON_COLAB = False
 
-def run_step(command, log_name):
-    # Atualiza credenciais/variáveis configuradas depois da célula inicial.
-    current_env = dict(os.environ)
-    current_env["PYTHONPATH"] = str(ROOT / "src") + os.pathsep + os.environ.get("PYTHONPATH", "")
-    current_env["PYTHONUNBUFFERED"] = "1"
-    return run_logged(command, ROOT / "logs" / log_name, cwd=ROOT, env=current_env)
+def bootstrap_run(command):
+    result = subprocess.run(command, capture_output=True, text=True)
+    if result.stdout.strip():
+        print(result.stdout, flush=True)
+    if result.returncode:
+        raise RuntimeError("Falha ao preparar o código do laboratório:\\n" + result.stdout + result.stderr)
 
-print("Raiz:", ROOT)
-"""
-
-GPU_SETUP="""
-INSTALL_DEPS = False  # True na primeira instalação; depois reinicie o kernel se necessário.
-if INSTALL_DEPS:
-    import importlib.util
-    if importlib.util.find_spec("torch") is None:
-        raise RuntimeError("Instale primeiro PyTorch/CUDA para sua GPU: https://pytorch.org/get-started/locally/")
-    run_step([sys.executable, "-m", "pip", "install", "-r", "requirements-gpu.txt"], "gpu_install.log")
-    run_step([sys.executable, "-m", "pip", "check"], "gpu_pip_check.log")
-
-import torch
-assert torch.cuda.is_available(), "Selecione runtime GPU. Para CPU, use o notebook 01."
-print("Torch:", torch.__version__, "CUDA:", torch.version.cuda)
-print("GPU:", torch.cuda.get_device_name(0))
-print("Capacidade:", torch.cuda.get_device_capability(0))
-print("VRAM GiB:", round(torch.cuda.get_device_properties(0).total_memory/2**30, 2))
-from importlib.metadata import version
-assert version("trl") == "0.22.2", "Use a versão fixada e reinicie o kernel."
-assert version("transformers") == "4.56.2", "Use a versão fixada e reinicie o kernel."
-"""
-
-SHELL_TRAIN="""
-EXECUTAR_TREINO = False  # Ative após conferir modelo, plano e diretório persistente.
-if EXECUTAR_TREINO:
-    RUN_ROOT.mkdir(parents=True, exist_ok=True)
-    # Um plano existente é reutilizado, sem reconsultar a revisão mutável main.
-    frozen_path = RUN_ROOT / "frozen_plan.json"
-    if frozen_path.exists():
-        stored = json.loads(frozen_path.read_text())
-        strip_revision = lambda entries: [{k:v for k,v in c.items() if k != "revision"} for c in entries]
-        assert strip_revision(stored) == strip_revision(plan), "Plano mudou: use novo RUN_ROOT."
-        plan = stored
-    else:
-        from huggingface_hub import model_info
-        shas = {(c["model_id"], c["revision"]): model_info(c["model_id"], revision=c["revision"]).sha for c in plan}
-        for cfg in plan:
-            cfg["revision"] = shas[(cfg["model_id"], cfg["revision"])]
-        frozen_path.write_text(json.dumps(plan, indent=2))
-    (RUN_ROOT / "pip-freeze.txt").write_text(subprocess.check_output(
-        [sys.executable, "-m", "pip", "freeze"], text=True))
-    for i, cfg in enumerate(plan):
-        config_path = RUN_ROOT / f"config_{i:04d}.json"
-        config_path.write_text(json.dumps(cfg, indent=2))
-        print("Executando:", i+1, "/", len(plan), cfg["model_id"], cfg["condition"], cfg["train_seed"], flush=True)
-        run_step([sys.executable, "-m", "gpu_lab.train", "--config", str(config_path),
-                  "--data", str(DATA_PATH)], f"train_{i:04d}.log")
+override = os.environ.get("COT_PROJECT_ROOT")
+if override:
+    ROOT = Path(override).resolve()
+elif ON_COLAB:
+    cache = Path("/content/cot-lab/source")
+    cache.mkdir(parents=True, exist_ok=True)
+    checkout = cache / SOURCE_REF
+    if not (checkout / ".git").is_dir():
+        temporary = Path(tempfile.mkdtemp(prefix="download-", dir=cache))
+        try:
+            bootstrap_run(["git", "init", "--quiet", str(temporary)])
+            bootstrap_run(["git", "-C", str(temporary), "fetch", "--quiet", "--depth", "1",
+                "https://github.com/Kelvin-Marques-Cyber/cot-obfuscation-h2a.git", SOURCE_REF])
+            bootstrap_run(["git", "-C", str(temporary), "checkout", "--quiet", "--detach", "FETCH_HEAD"])
+            temporary.rename(checkout)
+        finally:
+            if temporary.exists():
+                shutil.rmtree(temporary)
+    actual_ref = subprocess.check_output(["git", "-C", str(checkout), "rev-parse", "HEAD"], text=True).strip()
+    assert actual_ref == SOURCE_REF, "Checkout diverge do notebook. Abra a versão atual no GitHub."
+    ROOT = checkout / "revisao_2026"
 else:
-    print("Plano preparado. Nenhum treino executado nesta célula.")
-"""
+    cwd = Path.cwd()
+    candidates = [cwd, cwd.parent, cwd / "revisao_2026", cwd.parent / "revisao_2026"]
+    ROOT = next((p for p in candidates if (p / "src/colab_runtime.py").is_file()), None)
+    if ROOT is None:
+        raise RuntimeError("Fora do Colab, abra o notebook dentro do clone do repositório.")
+
+assert (ROOT / "src/colab_runtime.py").is_file(), "Código do laboratório não encontrado."
+if os.environ.get("COT_STORAGE_ROOT"):
+    STORAGE = Path(os.environ["COT_STORAGE_ROOT"])
+elif ON_COLAB and SALVAR_NO_DRIVE:
+    drive.mount("/content/drive")
+    STORAGE = Path("/content/drive/MyDrive/CoT_Obfuscation_Lab/colab_v3")
+else:
+    STORAGE = Path("/content/cot-lab/results") if ON_COLAB else Path.home()/"CoT_Obfuscation_Lab/colab_v3"
+    if ON_COLAB:
+        print("Resultados nesta sessão: baixe o ZIP final antes de encerrar o Colab.")
+STORAGE.mkdir(parents=True, exist_ok=True)
+os.environ["COT_SOURCE_REF"] = SOURCE_REF
+sys.path.insert(0, str(ROOT / "src"))
+from colab_runtime import ColabSession
+SESSION = ColabSession(ROOT, STORAGE, PROFILE, gpu=NEEDS_GPU)
+(STORAGE / ("session_"+PROFILE+".json")).write_text(json.dumps({"source_ref":SOURCE_REF,
+    "profile":PROFILE,"persistent_drive":bool(ON_COLAB and SALVAR_NO_DRIVE),"storage":str(STORAGE)}, indent=2))
+print("Código:", SOURCE_REF[:12], "| Perfil:", PROFILE)
+print("Resultados:", STORAGE)
+'''
 
 
-def write(name,cells):
-    for i,c in enumerate(cells):
-        c["id"]=hashlib.sha256((name+str(i)).encode()).hexdigest()[:12]
-        if c["cell_type"]=="code":
-            compile(c["source"],name,"exec")
-    nb={"cells":cells,"metadata":{"kernelspec":{"display_name":"Python 3","language":"python","name":"python3"},
-        "language_info":{"name":"python","version":"3.12"},
-        "execution_status":"GPU notebooks are prospective; no fabricated outputs"},
-        "nbformat":4,"nbformat_minor":5}
-    (ROOT/"notebooks"/name).write_text(json.dumps(nb,indent=1,ensure_ascii=False)+"\n")
+def write(name,cells,gpu):
+    for i,cell in enumerate(cells):
+        cell["id"]=hashlib.sha256((name+str(i)).encode()).hexdigest()[:12]
+        if cell["cell_type"]=="code":
+            compile(cell["source"],name,"exec")
+    metadata={"kernelspec":{"display_name":"Python 3","language":"python","name":"python3"},
+        "language_info":{"name":"python"},"colab":{"name":name,"provenance":[]},
+        "execution_status":"Notebook code prepared; CUDA execution must be validated on the user's runtime."}
+    if gpu:
+        metadata.update(accelerator="GPU")
+        metadata["colab"]["gpuType"]="T4"
+    (ROOT/"notebooks"/name).write_text(json.dumps(dict(cells=cells,metadata=metadata,
+        nbformat=4,nbformat_minor=5),indent=1,ensure_ascii=False)+"\n")
 
 
-def main():
+def main(source_ref):
+    if len(source_ref)!=40 or any(c not in "0123456789abcdef" for c in source_ref):
+        raise ValueError("Informe o SHA completo do commit que contém o runtime.")
     (ROOT/"notebooks").mkdir(exist_ok=True)
+    bootstrap=lambda gpu: code(BOOTSTRAP.replace("__SOURCE_REF__",source_ref).replace("__NEEDS_GPU__",str(gpu)))
+    setup=code("SESSION.ensure_environment()")
+    common=("Use **Ambiente de execução → Executar tudo**. Autorize o Drive quando solicitado. "
+        "Instalação, revisões, dados, treino, avaliação e retomada são automáticos. "
+        "O perfil **quick** é um teste curto de infraestrutura; não é o estudo completo. "
+        "**pilot** e **full** aumentam o trabalho e ficam em pastas distintas. "
+        "Não é necessário alterar flags de execução nem fornecer chave de API.")
     write("01_reanalise_reprodutivel.ipynb",[
-        md("# 01 - Reanálise reproduzível\nExecuta a auditoria CPU, os testes e os gráficos. Não treina um LLM. Na primeira execução, mantenha INSTALL_DEPS = True. A instalação e os cálculos usam processos separados; não é necessário reiniciar para executar esta reanálise. Logs completos ficam em logs/."),
-        code(BOOTSTRAP),
-        code("""
-        INSTALL_DEPS = True  # Instala as versões fixadas; não exige GPU.
-        if INSTALL_DEPS:
-            run_step([sys.executable, "-m", "pip", "install", "-r", "requirements.lock.txt"], "01_install.log")
-        run_step([sys.executable, "-u", "-m", "unittest", "discover", "-s", "tests", "-v"], "01_tests.log")
-        run_step([sys.executable, "-u", "src/reanalyse.py"], "01_reanalysis.log")
-        """),
-        code("""
-        # Biblioteca padrão: evita importar no kernel pacotes já carregados
-        # antes da instalação. Os cálculos usam o ambiente recém-instalado.
-        import csv, html
-        from IPython.display import display, HTML
-        for filename in ["summary.csv", "contrasts.csv", "grading_stress_summary.csv"]:
-            with (ROOT / "results" / filename).open(encoding="utf-8", newline="") as f:
-                rows = list(csv.reader(f))
-            header = "".join("<th>" + html.escape(v) + "</th>" for v in rows[0])
-            body = "".join("<tr>" + "".join("<td>" + html.escape(v) + "</td>" for v in row) + "</tr>" for row in rows[1:])
-            display(HTML("<h3>" + filename + "</h3><table><thead><tr>" + header + "</tr></thead><tbody>" + body + "</tbody></table>"))
-        """),
-        md("Os resultados são reprocessamento de métricas depositadas e testes mecânicos. As 540 saídas integrais não estão no CSV original.")
-    ])
-    write("02_piloto_sft_corrigido.ipynb",[
-        md("# 02 - Piloto SFT corrigido\nTrês alvos supervisionados; não é um teste de emergência por supervisão exclusiva de saída. Use GPU e volume persistente. Código compilado, treino não executado na revisão."),
-        code(BOOTSTRAP),code(GPU_SETUP),
-        md("## Dados e plano\nA mesma partição é compartilhada pelas condições e sementes de treino. Semente de dados e de treino são distintas. IDs evitam colisões entre partições."),
-        code("""
-        from instruments import make_disjoint_data
-        from gpu_lab.benchmark import write_dataset
-        from gpu_lab.train import validate_config
-        SMOKE = True
-        RUN_ROOT = (ROOT / "runs/sft").resolve()  # Troque para seu volume persistente.
-        DATA_PATH = ROOT / "data/sft_disjoint.jsonl"
-        data = make_disjoint_data(n_per_split=8 if SMOKE else 500, seed=20261015)
-        print(write_dataset(DATA_PATH, data))
-        template = json.loads((ROOT / "configs/sft_smoke.json").read_text())
-        plan = []
-        for seed in ([42] if SMOKE else [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]):
-            for level in (["A"] if SMOKE else ["A", "B", "C"]):
-                for condition in ["explicit", "direct", "generic"]:
-                    cfg = dict(template, train_seed=seed, level=level, condition=condition,
-                               max_steps=4 if SMOKE else 200, output_root=str(RUN_ROOT))
-                    validate_config(cfg)
-                    plan.append(cfg)
-        print("Execuções planejadas:", len(plan))
-        print(json.dumps(plan[0], indent=2))
-        """),code(SHELL_TRAIN),
-        md("## Avaliar e retomar\nA avaliação preserva enunciado, gabarito, saída integral, revisão dos pesos, tokens e motivo do término. O modo early usa o mesmo orçamento total, incluindo o prefixo forçado."),
-        code("""
-        EXECUTAR_AVALIACAO = False
-        if EXECUTAR_AVALIACAO:
-            for status in sorted(RUN_ROOT.glob("*/status.json")):
-                if json.loads(status.read_text()).get("status") == "trained":
-                    run_step([sys.executable, "-m", "gpu_lab.evaluate",
-                        "--run-dir", str(status.parent), "--data", str(DATA_PATH),
-                        "--budget", "384"], f"sft_eval_{status.parent.name}.log")
-        """)
-    ])
-    write("03_grpo_multiescala.ipynb",[
-        md("# 03 - GRPO multiescala\nRecompensa de exploração e monitores separados de rastro/resumo. Benchmark sintético próprio; não é réplica dos datasets do artigo-alvo. Dificuldade da dica é proxy, não necessidade causal comprovada. Treino CUDA não executado na revisão."),
-        code(BOOTSTRAP),code(GPU_SETUP),
-        code("""
-        from gpu_lab.benchmark import create_dataset, write_dataset
-        from gpu_lab.train import validate_config
-        SMOKE = True
-        RUN_ROOT = (ROOT / "runs/grpo").resolve()  # Defina armazenamento persistente.
-        DATA_PATH = ROOT / "data/grpo_synthetic.jsonl"
-        data = create_dataset(n_per_cell=4 if SMOKE else 500, seed=20261015)
-        print(write_dataset(DATA_PATH, data))
-        MONITOR_MODEL = os.environ.get("MONITOR_MODEL", "")
-        MONITOR_REVISION = os.environ.get("MONITOR_REVISION", "")
-        print("Endpoint configurado:", bool(os.environ.get("MONITOR_BASE_URL")))
-        # Não imprima chaves. Configure MONITOR_API_KEY somente no ambiente.
-        MODELS = {"Qwen/Qwen3-4B": 12, "Qwen/Qwen3-14B": 6,
-                  "meta-llama/Llama-3.1-8B-Instruct": 12}
-        CONDITIONS = ["none"] if SMOKE else ["none", "cot_monitor", "summary_monitor"]
-        LEVELS = ["low"] if SMOKE else ["low", "medium", "high"]
-        template = json.loads((ROOT / "configs/grpo_smoke.json").read_text())
-        plan = []
-        chosen = {"Qwen/Qwen3-4B": 1} if SMOKE else MODELS
-        for model_id, n_seeds in chosen.items():
-            for seed in range(42, 42 + n_seeds):
-                for level in LEVELS:
-                    for condition in CONDITIONS:
-                        cfg = dict(template, model_id=model_id, train_seed=seed, level=level,
-                            condition=condition, monitor_model=MONITOR_MODEL,
-                            monitor_revision=MONITOR_REVISION, output_root=str(RUN_ROOT),
-                            max_steps=4 if SMOKE else 4000)
-                        validate_config(cfg)
-                        plan.append(cfg)
-        print("Execuções planejadas:", len(plan))
-        print("SMOKE testa infraestrutura; o controle sozinho não mede ofuscação.")
-        """),
-        md("## Congelar revisões antes dos treinamentos\nEsta célula resolve os identificadores de modelos para SHAs imutáveis e salva o plano. Para estudo confirmatório, registre também protocolo e análise antes da coleta."),
-        code("""
-        from huggingface_hub import model_info
-        FREEZE_REVISIONS = False
-        if FREEZE_REVISIONS:
-            shas = {name: model_info(name, revision="main").sha for name in {c["model_id"] for c in plan}}
-            for cfg in plan:
-                cfg["revision"] = shas[cfg["model_id"]]
-            RUN_ROOT.mkdir(parents=True, exist_ok=True)
-            (RUN_ROOT / "frozen_plan.json").write_text(json.dumps(plan, indent=2))
-        """),
-        code(SHELL_TRAIN),
-        md("Repita o plano idêntico para retomar checkpoints. Não mude budgets ou datasets sob o mesmo identificador de execução. Os testes das condições verificam que o monitor de resumo não recebe o rastro. Use o notebook 04 para a avaliação.")
-    ])
+        md("# 01 — Reanálise reproduzível (CPU)\n"+common+"\n\nEste notebook não treina modelos."),
+        bootstrap(False),setup,
+        code('SESSION.command(["-m","unittest","discover","-s","tests","-v"], "01_tests.log")\n'
+             'SESSION.command(["src/reanalyse.py","--output-root",str(STORAGE/"reanalysis")], "01_reanalysis.log")'),
+        code('for name in ["summary.csv","contrasts.csv","grading_stress_summary.csv"]:\n'
+             '    SESSION.show_csv(STORAGE/"reanalysis/results"/name)\n'
+             'from IPython.display import display, Image\n'
+             'for path in sorted((STORAGE/"reanalysis/figures").glob("*.png")):\n'
+             '    display(Image(data=path.read_bytes()))'),
+        code('SESSION.bundle("reanalysis")'),
+        md("Os dados históricos contêm métricas, sem as 540 gerações integrais. Os testes do corretor são mecânicos.")
+    ],False)
+    for number,mode,title in [(2,"sft","Piloto SFT corrigido"),(3,"grpo","GRPO com monitores locais")]:
+        explanation=("Compara alvos explícito, direto e genérico." if mode=="sft" else
+            "Executa controle, monitor de rastro e monitor de resumo. O monitor local usa Qwen2.5-0.5B "
+            "por classificação de verossimilhança em CPU; nenhum endpoint é necessário. "
+            "O instrumento é exploratório e exige calibração para pesquisa confirmatória.")
+        write(f"{number:02d}_"+("piloto_sft_corrigido" if mode=="sft" else "grpo_multiescala")+".ipynb",[
+            md(f"# {number:02d} — {title} (GPU)\n"+common+"\n\n"+explanation+
+               "\n\nSelecione GPU T4 antes de executar. O perfil full inclui modelos e grades maiores; acesso a modelos restritos depende da conta do Hugging Face."),
+            bootstrap(True),setup,
+            code(f'SESSION.pipeline("prepare", "{mode}")'),
+            code(f'SESSION.pipeline("train", "{mode}")'),
+            code(f'SESSION.pipeline("evaluate", "{mode}")\nSESSION.pipeline("analyze", "{mode}")'),
+            code(f'SESSION.show_csv(STORAGE/PROFILE/"analysis/{mode}/new_model_summary.csv")\n'
+                 f'SESSION.bundle("{mode}")'),
+            md("Pesos e checkpoints permanecem no Drive. O ZIP contém métricas, saídas, configurações e logs. Reexecutar retoma as etapas pendentes.")
+        ],True)
     write("04_avaliacao_monitores_anotacao.ipynb",[
-        md("# 04 - Avaliação independente e anotação\nAvaliação integral, modos de intervenção, monitor independente e exportação cega. Requer execuções próprias já treinadas. Sem dados, não produz tabelas fictícias."),
-        code(BOOTSTRAP),
-        code("""
-        RUN_ROOT = (ROOT / "runs/grpo").resolve()
-        DATA_PATH = ROOT / "data/grpo_synthetic.jsonl"
-        statuses = sorted(RUN_ROOT.glob("*/status.json"))
-        trained = [p.parent for p in statuses if json.loads(p.read_text()).get("status") == "trained"]
-        print("Execuções treinadas encontradas:", len(trained))
-        EXECUTAR_AVALIACAO = False
-        if EXECUTAR_AVALIACAO:
-            assert trained, "Nenhum adaptador treinado."
-            for run_dir in trained:
-                for base_only in [True, False]:
-                    args = [sys.executable, "-m", "gpu_lab.evaluate", "--run-dir", str(run_dir),
-                            "--data", str(DATA_PATH), "--budget", "384"]
-                    if base_only:
-                        args.append("--base-only")
-                    run_step(args, f"grpo_eval_{run_dir.name}_base{base_only}.log")
-        """),
-        code("""
-        from gpu_lab.analysis import analyze, export_annotations, independent_probe
-        HAS_GENERATIONS = any(RUN_ROOT.rglob("evaluation_*.jsonl"))
-        if HAS_GENERATIONS:
-            display(analyze(RUN_ROOT, ROOT / "results/new_models"))
-            print("Itens para anotação:", export_annotations(RUN_ROOT, ROOT / "annotation"))
-            print("Sonda textual:", independent_probe(RUN_ROOT, ROOT / "results/new_models/probe.json"))
-        else:
-            print("Ainda não há gerações; execute as células de avaliação após o treino.")
-        """),
-        md("## Monitor independente\nUse identidade diferente da usada na recompensa. O avaliador não deve receber nomes das condições. Verifique falsos positivos e sensibilidade contra o comportamento observável, sem interpretar automaticamente como intenção."),
-        code("""
-        from gpu_lab.independent_monitor import evaluate_monitor
-        EXECUTAR_MONITOR = False
-        INDEPENDENT_MODEL = os.environ.get("INDEPENDENT_MONITOR_MODEL", "")
-        INDEPENDENT_REVISION = os.environ.get("INDEPENDENT_MONITOR_REVISION", "")
-        INDEPENDENT_BASE_URL = os.environ.get("INDEPENDENT_MONITOR_BASE_URL", "")
-        if EXECUTAR_MONITOR:
-            assert all([INDEPENDENT_MODEL, INDEPENDENT_REVISION, INDEPENDENT_BASE_URL])
-            for source in sorted(RUN_ROOT.rglob("evaluation_*.jsonl")):
-                cfg = json.loads((source.parent / "manifest.json").read_text())["resolved_config"]
-                assert INDEPENDENT_MODEL != cfg.get("monitor_model"), "Use monitor independente."
-                evaluate_monitor(source, source.with_name("independent_" + source.name),
-                    INDEPENDENT_MODEL, INDEPENDENT_REVISION, INDEPENDENT_BASE_URL)
-        """),
-        md("## Concordância humana\nPreencha cópias de blinded_annotations.csv com rater e label. Não distribua private_annotation_key.csv aos avaliadores. O alfa pode ser negativo e pode ser indefinido com ausência de variação."),
-        code("""
-        from gpu_lab.analysis import nominal_alpha
-        import csv
-        ANNOTATIONS = ROOT / "annotation/completed_annotations.csv"
-        if ANNOTATIONS.exists():
-            with ANNOTATIONS.open() as f:
-                annotations = list(csv.DictReader(f))
-            print("Alfa nominal:", nominal_alpha(annotations))
-        else:
-            print("Nenhuma anotação humana foi fornecida.")
-        """),
-        md("A agregação descritiva e a comparação early/full não substituem o modelo hierárquico, o estudo de poder e as análises de equivalência do protocolo. O artigo não é atualizado automaticamente para evitar incorporar coleta exploratória como confirmatória.")
-    ])
-    print("4 notebooks gerados e código Python compilado.")
+        md("# 04 — Avaliação independente e anotação (GPU)\n"+common+
+           "\n\nUsa os treinos do notebook 03. Caso faltem, prepara e conclui automaticamente o plano do mesmo perfil. "
+           "O monitor independente local SmolLM2-135M tem pesos distintos do ator e do monitor da recompensa. "
+           "Monitora o modo full; os cinco modos têm métricas comportamentais. "
+           "Modelos pequenos são instrumentos exploratórios; sua saída não é anotação humana."),
+        bootstrap(True),setup,
+        code('SESSION.pipeline("evaluate", "grpo")'),
+        code('SESSION.pipeline("independent", "grpo")\nSESSION.pipeline("analyze", "grpo")'),
+        code('SESSION.show_csv(STORAGE/PROFILE/"analysis/grpo/new_model_summary.csv")\n'
+             'SESSION.show_csv(STORAGE/PROFILE/"analysis/grpo/paired_early_answer.csv")\n'
+             'print("Formulário de anotação:",STORAGE/PROFILE/"annotation/grpo/blinded_annotations.csv")\n'
+             'print("Chave privada (não distribuir aos anotadores):",STORAGE/PROFILE/"annotation/grpo/private_annotation_key.csv")\n'
+             'SESSION.bundle("grpo")'),
+        md("A anotação humana permanece manual. Salve completed_annotations.csv na pasta de anotação e reexecute para calcular concordância. "
+           "Sem esse arquivo, o relatório registra not_collected; nenhum rótulo é inventado. O PDF do artigo não é alterado pela coleta exploratória.")
+    ],True)
+    print("4 notebooks gerados; código Python compilado; fonte fixada em",source_ref)
 
 
 if __name__=="__main__":
-    main()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source-ref",default=None)
+    args=parser.parse_args()
+    ref=args.source_ref or subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
+    main(ref)
