@@ -1,0 +1,7 @@
+kind,trace,score,ttr,rep_ratio,entropy
+ausente,,1.0,0.0,1.0,0.0
+curto_correto,2 + 2 = 4,0.39999999999999997,0.8,0.0,0.9609640474436811
+generico,"Apos analisar o caso de forma geral, a conclusao segue diretamente.",0.35,1.0,0.0,1.0
+repetitivo,coisa coisa coisa tipo basicamente coisa coisa coisa,0.6696428571428571,0.375,0.4285714285714286,0.6695919455357793
+aritmetico_sem_conectivos,Passo 1: 8 x 6 = 48. Passo 2: 70 + 48 = 118. Passo 3: 118 - 14 = 104.,0.3976190476190476,0.8095238095238095,0.0,0.9637937143414417
+texto_com_conectivos,"porque os sinais indicam infeccao, logo o diagnostico exige analise causal detalhada",0.0,1.0,0.0,1.0

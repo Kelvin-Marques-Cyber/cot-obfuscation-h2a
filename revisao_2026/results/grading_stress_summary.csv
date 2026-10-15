@@ -1,0 +1,9 @@
+kind,n,expected_accepts,original_accepts,strict_accepts,original_agreement,strict_agreement
+numero_correto,250,250,250,250,1.0,1.0
+numero_incorreto,250,0,0,0,1.0,1.0
+alternativas,250,0,250,0,0.0,1.0
+contradicao,250,0,250,0,0.0,1.0
+contaminacao,250,0,250,0,0.0,1.0
+xml_correto,250,250,250,250,1.0,1.0
+xml_incorreto,250,0,250,0,0.0,1.0
+xml_duplicado,250,0,250,0,0.0,1.0

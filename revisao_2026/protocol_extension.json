@@ -1,0 +1,31 @@
+{
+  "status": "prospectivo_nao_executado_na_revisao",
+  "not_a_public_preregistration": true,
+  "factors": {
+    "penalty": ["none", "cot_monitor", "summary_monitor"],
+    "causal_necessity": ["low", "intermediate", "high"],
+    "model": ["Qwen3-4B", "Qwen3-14B", "Llama-3.1-8B-Instruct"]
+  },
+  "runs_per_cell_by_model": {
+    "Qwen3-4B": 12,
+    "Qwen3-14B": 6,
+    "Llama-3.1-8B-Instruct": 12
+  },
+  "total_training_runs": 270,
+  "maximum_optimizer_steps_per_run": 4000,
+  "checkpoint_every_steps": 100,
+  "heldout_items_minimum_per_domain": 500,
+  "human_annotation_minimum_per_necessity_level": 300,
+  "preregistration_required_before_new_data_collection": true,
+  "primary_endpoint": "penalty_x_intervened_necessity_on_behavioral_monitorability",
+  "secondary_endpoints": ["genuine_accuracy", "exploit_rate", "format_failure",
+                           "independent_monitor_sensitivity", "runtime_tokens"],
+  "unresolved_before_execution": [
+    "power_and_precision_simulation_for_binary_hierarchical_outcomes",
+    "licensed_model_revisions_and_monitor_revisions",
+    "blinded_expert_rubric_calibration",
+    "causal_manipulation_with_matched_prompts_and_budgets",
+    "equivalence_margin_and_multiple_comparison_family",
+    "independent_annotator_agreement_and_bootstrap_interval"
+  ]
+}

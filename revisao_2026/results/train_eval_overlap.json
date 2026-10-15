@@ -1,0 +1,74 @@
+[
+  {
+    "level": "A",
+    "seed": 42,
+    "train_count": 150,
+    "eval_count": 30,
+    "intersection": 1,
+    "prompts": [
+      "Calcule 11 - 99"
+    ]
+  },
+  {
+    "level": "A",
+    "seed": 43,
+    "train_count": 150,
+    "eval_count": 30,
+    "intersection": 1,
+    "prompts": [
+      "Calcule 11 - 99"
+    ]
+  },
+  {
+    "level": "A",
+    "seed": 44,
+    "train_count": 150,
+    "eval_count": 30,
+    "intersection": 1,
+    "prompts": [
+      "Calcule 11 - 99"
+    ]
+  },
+  {
+    "level": "A",
+    "seed": "union",
+    "train_union": 152,
+    "eval_union": 32,
+    "intersection": 1,
+    "prompts": [
+      "Calcule 11 - 99"
+    ]
+  },
+  {
+    "level": "C",
+    "seed": 42,
+    "train_count": 150,
+    "eval_count": 30,
+    "intersection": 0,
+    "prompts": []
+  },
+  {
+    "level": "C",
+    "seed": 43,
+    "train_count": 150,
+    "eval_count": 30,
+    "intersection": 0,
+    "prompts": []
+  },
+  {
+    "level": "C",
+    "seed": 44,
+    "train_count": 150,
+    "eval_count": 30,
+    "intersection": 0,
+    "prompts": []
+  },
+  {
+    "level": "C",
+    "seed": "union",
+    "train_union": 152,
+    "eval_union": 32,
+    "intersection": 0,
+    "prompts": []
+  }
+]

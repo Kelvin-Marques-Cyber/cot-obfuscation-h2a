@@ -1,0 +1,24 @@
+# Requer GPU (CUDA). Em Colab/vast.ai, prefira a célula de instalação do notebook,
+# que usa --no-deps para preservar o PyTorch pré-instalado do ambiente.
+#
+# Versões fixadas e testadas com este estudo:
+transformers==4.56.2
+trl==0.22.2
+unsloth
+unsloth_zoo
+bitsandbytes
+accelerate
+peft
+xformers
+datasets
+# Análise e figuras:
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+tqdm
+# Opcional, para executar o notebook via linha de comando:
+papermill
+

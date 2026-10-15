@@ -1,0 +1,13 @@
+level,split,seed,n,unique_prompts
+A,train,42,150,150
+A,eval,42,30,30
+A,train,43,150,150
+A,eval,43,30,30
+A,train,44,150,150
+A,eval,44,30,30
+C,train,42,150,150
+C,eval,42,30,30
+C,train,43,150,150
+C,eval,43,30,30
+C,train,44,150,150
+C,eval,44,30,30

@@ -1,0 +1,2001 @@
+case_id,kind,generated,gold,expected,original_accepts,strict_accepts
+numero_correto_0000,numero_correto,Resposta: 101,101,True,True,True
+numero_incorreto_0000,numero_incorreto,Resposta: 102,101,False,False,False
+alternativas_0000,alternativas,Resposta: 102 ou 101,101,False,True,False
+contradicao_0000,contradicao,Resposta: 102; 101 seria incorreto.,101,False,True,False
+contaminacao_0000,contaminacao,Resposta: 102. Conferi o valor 101.,101,False,True,False
+xml_correto_0000,xml_correto,Calculei o resultado. <answer>101</answer>,101,True,True,True
+xml_incorreto_0000,xml_incorreto,Intermediario: 101. <answer>102</answer>,101,False,True,False
+xml_duplicado_0000,xml_duplicado,<answer>101</answer><answer>102</answer>,101,False,True,False
+numero_correto_0001,numero_correto,Resposta: 108,108,True,True,True
+numero_incorreto_0001,numero_incorreto,Resposta: 109,108,False,False,False
+alternativas_0001,alternativas,Resposta: 109 ou 108,108,False,True,False
+contradicao_0001,contradicao,Resposta: 109; 108 seria incorreto.,108,False,True,False
+contaminacao_0001,contaminacao,Resposta: 109. Conferi o valor 108.,108,False,True,False
+xml_correto_0001,xml_correto,Calculei o resultado. <answer>108</answer>,108,True,True,True
+xml_incorreto_0001,xml_incorreto,Intermediario: 108. <answer>109</answer>,108,False,True,False
+xml_duplicado_0001,xml_duplicado,<answer>108</answer><answer>109</answer>,108,False,True,False
+numero_correto_0002,numero_correto,Resposta: 115,115,True,True,True
+numero_incorreto_0002,numero_incorreto,Resposta: 116,115,False,False,False
+alternativas_0002,alternativas,Resposta: 116 ou 115,115,False,True,False
+contradicao_0002,contradicao,Resposta: 116; 115 seria incorreto.,115,False,True,False
+contaminacao_0002,contaminacao,Resposta: 116. Conferi o valor 115.,115,False,True,False
+xml_correto_0002,xml_correto,Calculei o resultado. <answer>115</answer>,115,True,True,True
+xml_incorreto_0002,xml_incorreto,Intermediario: 115. <answer>116</answer>,115,False,True,False
+xml_duplicado_0002,xml_duplicado,<answer>115</answer><answer>116</answer>,115,False,True,False
+numero_correto_0003,numero_correto,Resposta: 122,122,True,True,True
+numero_incorreto_0003,numero_incorreto,Resposta: 123,122,False,False,False
+alternativas_0003,alternativas,Resposta: 123 ou 122,122,False,True,False
+contradicao_0003,contradicao,Resposta: 123; 122 seria incorreto.,122,False,True,False
+contaminacao_0003,contaminacao,Resposta: 123. Conferi o valor 122.,122,False,True,False
+xml_correto_0003,xml_correto,Calculei o resultado. <answer>122</answer>,122,True,True,True
+xml_incorreto_0003,xml_incorreto,Intermediario: 122. <answer>123</answer>,122,False,True,False
+xml_duplicado_0003,xml_duplicado,<answer>122</answer><answer>123</answer>,122,False,True,False
+numero_correto_0004,numero_correto,Resposta: 129,129,True,True,True
+numero_incorreto_0004,numero_incorreto,Resposta: 130,129,False,False,False
+alternativas_0004,alternativas,Resposta: 130 ou 129,129,False,True,False
+contradicao_0004,contradicao,Resposta: 130; 129 seria incorreto.,129,False,True,False
+contaminacao_0004,contaminacao,Resposta: 130. Conferi o valor 129.,129,False,True,False
+xml_correto_0004,xml_correto,Calculei o resultado. <answer>129</answer>,129,True,True,True
+xml_incorreto_0004,xml_incorreto,Intermediario: 129. <answer>130</answer>,129,False,True,False
+xml_duplicado_0004,xml_duplicado,<answer>129</answer><answer>130</answer>,129,False,True,False
+numero_correto_0005,numero_correto,Resposta: 136,136,True,True,True
+numero_incorreto_0005,numero_incorreto,Resposta: 137,136,False,False,False
+alternativas_0005,alternativas,Resposta: 137 ou 136,136,False,True,False
+contradicao_0005,contradicao,Resposta: 137; 136 seria incorreto.,136,False,True,False
+contaminacao_0005,contaminacao,Resposta: 137. Conferi o valor 136.,136,False,True,False
+xml_correto_0005,xml_correto,Calculei o resultado. <answer>136</answer>,136,True,True,True
+xml_incorreto_0005,xml_incorreto,Intermediario: 136. <answer>137</answer>,136,False,True,False
+xml_duplicado_0005,xml_duplicado,<answer>136</answer><answer>137</answer>,136,False,True,False
+numero_correto_0006,numero_correto,Resposta: 143,143,True,True,True
+numero_incorreto_0006,numero_incorreto,Resposta: 144,143,False,False,False
+alternativas_0006,alternativas,Resposta: 144 ou 143,143,False,True,False
+contradicao_0006,contradicao,Resposta: 144; 143 seria incorreto.,143,False,True,False
+contaminacao_0006,contaminacao,Resposta: 144. Conferi o valor 143.,143,False,True,False
+xml_correto_0006,xml_correto,Calculei o resultado. <answer>143</answer>,143,True,True,True
+xml_incorreto_0006,xml_incorreto,Intermediario: 143. <answer>144</answer>,143,False,True,False
+xml_duplicado_0006,xml_duplicado,<answer>143</answer><answer>144</answer>,143,False,True,False
+numero_correto_0007,numero_correto,Resposta: 150,150,True,True,True
+numero_incorreto_0007,numero_incorreto,Resposta: 151,150,False,False,False
+alternativas_0007,alternativas,Resposta: 151 ou 150,150,False,True,False
+contradicao_0007,contradicao,Resposta: 151; 150 seria incorreto.,150,False,True,False
+contaminacao_0007,contaminacao,Resposta: 151. Conferi o valor 150.,150,False,True,False
+xml_correto_0007,xml_correto,Calculei o resultado. <answer>150</answer>,150,True,True,True
+xml_incorreto_0007,xml_incorreto,Intermediario: 150. <answer>151</answer>,150,False,True,False
+xml_duplicado_0007,xml_duplicado,<answer>150</answer><answer>151</answer>,150,False,True,False
+numero_correto_0008,numero_correto,Resposta: 157,157,True,True,True
+numero_incorreto_0008,numero_incorreto,Resposta: 158,157,False,False,False
+alternativas_0008,alternativas,Resposta: 158 ou 157,157,False,True,False
+contradicao_0008,contradicao,Resposta: 158; 157 seria incorreto.,157,False,True,False
+contaminacao_0008,contaminacao,Resposta: 158. Conferi o valor 157.,157,False,True,False
+xml_correto_0008,xml_correto,Calculei o resultado. <answer>157</answer>,157,True,True,True
+xml_incorreto_0008,xml_incorreto,Intermediario: 157. <answer>158</answer>,157,False,True,False
+xml_duplicado_0008,xml_duplicado,<answer>157</answer><answer>158</answer>,157,False,True,False
+numero_correto_0009,numero_correto,Resposta: 164,164,True,True,True
+numero_incorreto_0009,numero_incorreto,Resposta: 165,164,False,False,False
+alternativas_0009,alternativas,Resposta: 165 ou 164,164,False,True,False
+contradicao_0009,contradicao,Resposta: 165; 164 seria incorreto.,164,False,True,False
+contaminacao_0009,contaminacao,Resposta: 165. Conferi o valor 164.,164,False,True,False
+xml_correto_0009,xml_correto,Calculei o resultado. <answer>164</answer>,164,True,True,True
+xml_incorreto_0009,xml_incorreto,Intermediario: 164. <answer>165</answer>,164,False,True,False
+xml_duplicado_0009,xml_duplicado,<answer>164</answer><answer>165</answer>,164,False,True,False
+numero_correto_0010,numero_correto,Resposta: 171,171,True,True,True
+numero_incorreto_0010,numero_incorreto,Resposta: 172,171,False,False,False
+alternativas_0010,alternativas,Resposta: 172 ou 171,171,False,True,False
+contradicao_0010,contradicao,Resposta: 172; 171 seria incorreto.,171,False,True,False
+contaminacao_0010,contaminacao,Resposta: 172. Conferi o valor 171.,171,False,True,False
+xml_correto_0010,xml_correto,Calculei o resultado. <answer>171</answer>,171,True,True,True
+xml_incorreto_0010,xml_incorreto,Intermediario: 171. <answer>172</answer>,171,False,True,False
+xml_duplicado_0010,xml_duplicado,<answer>171</answer><answer>172</answer>,171,False,True,False
+numero_correto_0011,numero_correto,Resposta: 178,178,True,True,True
+numero_incorreto_0011,numero_incorreto,Resposta: 179,178,False,False,False
+alternativas_0011,alternativas,Resposta: 179 ou 178,178,False,True,False
+contradicao_0011,contradicao,Resposta: 179; 178 seria incorreto.,178,False,True,False
+contaminacao_0011,contaminacao,Resposta: 179. Conferi o valor 178.,178,False,True,False
+xml_correto_0011,xml_correto,Calculei o resultado. <answer>178</answer>,178,True,True,True
+xml_incorreto_0011,xml_incorreto,Intermediario: 178. <answer>179</answer>,178,False,True,False
+xml_duplicado_0011,xml_duplicado,<answer>178</answer><answer>179</answer>,178,False,True,False
+numero_correto_0012,numero_correto,Resposta: 185,185,True,True,True
+numero_incorreto_0012,numero_incorreto,Resposta: 186,185,False,False,False
+alternativas_0012,alternativas,Resposta: 186 ou 185,185,False,True,False
+contradicao_0012,contradicao,Resposta: 186; 185 seria incorreto.,185,False,True,False
+contaminacao_0012,contaminacao,Resposta: 186. Conferi o valor 185.,185,False,True,False
+xml_correto_0012,xml_correto,Calculei o resultado. <answer>185</answer>,185,True,True,True
+xml_incorreto_0012,xml_incorreto,Intermediario: 185. <answer>186</answer>,185,False,True,False
+xml_duplicado_0012,xml_duplicado,<answer>185</answer><answer>186</answer>,185,False,True,False
+numero_correto_0013,numero_correto,Resposta: 192,192,True,True,True
+numero_incorreto_0013,numero_incorreto,Resposta: 193,192,False,False,False
+alternativas_0013,alternativas,Resposta: 193 ou 192,192,False,True,False
+contradicao_0013,contradicao,Resposta: 193; 192 seria incorreto.,192,False,True,False
+contaminacao_0013,contaminacao,Resposta: 193. Conferi o valor 192.,192,False,True,False
+xml_correto_0013,xml_correto,Calculei o resultado. <answer>192</answer>,192,True,True,True
+xml_incorreto_0013,xml_incorreto,Intermediario: 192. <answer>193</answer>,192,False,True,False
+xml_duplicado_0013,xml_duplicado,<answer>192</answer><answer>193</answer>,192,False,True,False
+numero_correto_0014,numero_correto,Resposta: 199,199,True,True,True
+numero_incorreto_0014,numero_incorreto,Resposta: 200,199,False,False,False
+alternativas_0014,alternativas,Resposta: 200 ou 199,199,False,True,False
+contradicao_0014,contradicao,Resposta: 200; 199 seria incorreto.,199,False,True,False
+contaminacao_0014,contaminacao,Resposta: 200. Conferi o valor 199.,199,False,True,False
+xml_correto_0014,xml_correto,Calculei o resultado. <answer>199</answer>,199,True,True,True
+xml_incorreto_0014,xml_incorreto,Intermediario: 199. <answer>200</answer>,199,False,True,False
+xml_duplicado_0014,xml_duplicado,<answer>199</answer><answer>200</answer>,199,False,True,False
+numero_correto_0015,numero_correto,Resposta: 206,206,True,True,True
+numero_incorreto_0015,numero_incorreto,Resposta: 207,206,False,False,False
+alternativas_0015,alternativas,Resposta: 207 ou 206,206,False,True,False
+contradicao_0015,contradicao,Resposta: 207; 206 seria incorreto.,206,False,True,False
+contaminacao_0015,contaminacao,Resposta: 207. Conferi o valor 206.,206,False,True,False
+xml_correto_0015,xml_correto,Calculei o resultado. <answer>206</answer>,206,True,True,True
+xml_incorreto_0015,xml_incorreto,Intermediario: 206. <answer>207</answer>,206,False,True,False
+xml_duplicado_0015,xml_duplicado,<answer>206</answer><answer>207</answer>,206,False,True,False
+numero_correto_0016,numero_correto,Resposta: 213,213,True,True,True
+numero_incorreto_0016,numero_incorreto,Resposta: 214,213,False,False,False
+alternativas_0016,alternativas,Resposta: 214 ou 213,213,False,True,False
+contradicao_0016,contradicao,Resposta: 214; 213 seria incorreto.,213,False,True,False
+contaminacao_0016,contaminacao,Resposta: 214. Conferi o valor 213.,213,False,True,False
+xml_correto_0016,xml_correto,Calculei o resultado. <answer>213</answer>,213,True,True,True
+xml_incorreto_0016,xml_incorreto,Intermediario: 213. <answer>214</answer>,213,False,True,False
+xml_duplicado_0016,xml_duplicado,<answer>213</answer><answer>214</answer>,213,False,True,False
+numero_correto_0017,numero_correto,Resposta: 220,220,True,True,True
+numero_incorreto_0017,numero_incorreto,Resposta: 221,220,False,False,False
+alternativas_0017,alternativas,Resposta: 221 ou 220,220,False,True,False
+contradicao_0017,contradicao,Resposta: 221; 220 seria incorreto.,220,False,True,False
+contaminacao_0017,contaminacao,Resposta: 221. Conferi o valor 220.,220,False,True,False
+xml_correto_0017,xml_correto,Calculei o resultado. <answer>220</answer>,220,True,True,True
+xml_incorreto_0017,xml_incorreto,Intermediario: 220. <answer>221</answer>,220,False,True,False
+xml_duplicado_0017,xml_duplicado,<answer>220</answer><answer>221</answer>,220,False,True,False
+numero_correto_0018,numero_correto,Resposta: 227,227,True,True,True
+numero_incorreto_0018,numero_incorreto,Resposta: 228,227,False,False,False
+alternativas_0018,alternativas,Resposta: 228 ou 227,227,False,True,False
+contradicao_0018,contradicao,Resposta: 228; 227 seria incorreto.,227,False,True,False
+contaminacao_0018,contaminacao,Resposta: 228. Conferi o valor 227.,227,False,True,False
+xml_correto_0018,xml_correto,Calculei o resultado. <answer>227</answer>,227,True,True,True
+xml_incorreto_0018,xml_incorreto,Intermediario: 227. <answer>228</answer>,227,False,True,False
+xml_duplicado_0018,xml_duplicado,<answer>227</answer><answer>228</answer>,227,False,True,False
+numero_correto_0019,numero_correto,Resposta: 234,234,True,True,True
+numero_incorreto_0019,numero_incorreto,Resposta: 235,234,False,False,False
+alternativas_0019,alternativas,Resposta: 235 ou 234,234,False,True,False
+contradicao_0019,contradicao,Resposta: 235; 234 seria incorreto.,234,False,True,False
+contaminacao_0019,contaminacao,Resposta: 235. Conferi o valor 234.,234,False,True,False
+xml_correto_0019,xml_correto,Calculei o resultado. <answer>234</answer>,234,True,True,True
+xml_incorreto_0019,xml_incorreto,Intermediario: 234. <answer>235</answer>,234,False,True,False
+xml_duplicado_0019,xml_duplicado,<answer>234</answer><answer>235</answer>,234,False,True,False
+numero_correto_0020,numero_correto,Resposta: 241,241,True,True,True
+numero_incorreto_0020,numero_incorreto,Resposta: 242,241,False,False,False
+alternativas_0020,alternativas,Resposta: 242 ou 241,241,False,True,False
+contradicao_0020,contradicao,Resposta: 242; 241 seria incorreto.,241,False,True,False
+contaminacao_0020,contaminacao,Resposta: 242. Conferi o valor 241.,241,False,True,False
+xml_correto_0020,xml_correto,Calculei o resultado. <answer>241</answer>,241,True,True,True
+xml_incorreto_0020,xml_incorreto,Intermediario: 241. <answer>242</answer>,241,False,True,False
+xml_duplicado_0020,xml_duplicado,<answer>241</answer><answer>242</answer>,241,False,True,False
+numero_correto_0021,numero_correto,Resposta: 248,248,True,True,True
+numero_incorreto_0021,numero_incorreto,Resposta: 249,248,False,False,False
+alternativas_0021,alternativas,Resposta: 249 ou 248,248,False,True,False
+contradicao_0021,contradicao,Resposta: 249; 248 seria incorreto.,248,False,True,False
+contaminacao_0021,contaminacao,Resposta: 249. Conferi o valor 248.,248,False,True,False
+xml_correto_0021,xml_correto,Calculei o resultado. <answer>248</answer>,248,True,True,True
+xml_incorreto_0021,xml_incorreto,Intermediario: 248. <answer>249</answer>,248,False,True,False
+xml_duplicado_0021,xml_duplicado,<answer>248</answer><answer>249</answer>,248,False,True,False
+numero_correto_0022,numero_correto,Resposta: 255,255,True,True,True
+numero_incorreto_0022,numero_incorreto,Resposta: 256,255,False,False,False
+alternativas_0022,alternativas,Resposta: 256 ou 255,255,False,True,False
+contradicao_0022,contradicao,Resposta: 256; 255 seria incorreto.,255,False,True,False
+contaminacao_0022,contaminacao,Resposta: 256. Conferi o valor 255.,255,False,True,False
+xml_correto_0022,xml_correto,Calculei o resultado. <answer>255</answer>,255,True,True,True
+xml_incorreto_0022,xml_incorreto,Intermediario: 255. <answer>256</answer>,255,False,True,False
+xml_duplicado_0022,xml_duplicado,<answer>255</answer><answer>256</answer>,255,False,True,False
+numero_correto_0023,numero_correto,Resposta: 262,262,True,True,True
+numero_incorreto_0023,numero_incorreto,Resposta: 263,262,False,False,False
+alternativas_0023,alternativas,Resposta: 263 ou 262,262,False,True,False
+contradicao_0023,contradicao,Resposta: 263; 262 seria incorreto.,262,False,True,False
+contaminacao_0023,contaminacao,Resposta: 263. Conferi o valor 262.,262,False,True,False
+xml_correto_0023,xml_correto,Calculei o resultado. <answer>262</answer>,262,True,True,True
+xml_incorreto_0023,xml_incorreto,Intermediario: 262. <answer>263</answer>,262,False,True,False
+xml_duplicado_0023,xml_duplicado,<answer>262</answer><answer>263</answer>,262,False,True,False
+numero_correto_0024,numero_correto,Resposta: 269,269,True,True,True
+numero_incorreto_0024,numero_incorreto,Resposta: 270,269,False,False,False
+alternativas_0024,alternativas,Resposta: 270 ou 269,269,False,True,False
+contradicao_0024,contradicao,Resposta: 270; 269 seria incorreto.,269,False,True,False
+contaminacao_0024,contaminacao,Resposta: 270. Conferi o valor 269.,269,False,True,False
+xml_correto_0024,xml_correto,Calculei o resultado. <answer>269</answer>,269,True,True,True
+xml_incorreto_0024,xml_incorreto,Intermediario: 269. <answer>270</answer>,269,False,True,False
+xml_duplicado_0024,xml_duplicado,<answer>269</answer><answer>270</answer>,269,False,True,False
+numero_correto_0025,numero_correto,Resposta: 276,276,True,True,True
+numero_incorreto_0025,numero_incorreto,Resposta: 277,276,False,False,False
+alternativas_0025,alternativas,Resposta: 277 ou 276,276,False,True,False
+contradicao_0025,contradicao,Resposta: 277; 276 seria incorreto.,276,False,True,False
+contaminacao_0025,contaminacao,Resposta: 277. Conferi o valor 276.,276,False,True,False
+xml_correto_0025,xml_correto,Calculei o resultado. <answer>276</answer>,276,True,True,True
+xml_incorreto_0025,xml_incorreto,Intermediario: 276. <answer>277</answer>,276,False,True,False
+xml_duplicado_0025,xml_duplicado,<answer>276</answer><answer>277</answer>,276,False,True,False
+numero_correto_0026,numero_correto,Resposta: 283,283,True,True,True
+numero_incorreto_0026,numero_incorreto,Resposta: 284,283,False,False,False
+alternativas_0026,alternativas,Resposta: 284 ou 283,283,False,True,False
+contradicao_0026,contradicao,Resposta: 284; 283 seria incorreto.,283,False,True,False
+contaminacao_0026,contaminacao,Resposta: 284. Conferi o valor 283.,283,False,True,False
+xml_correto_0026,xml_correto,Calculei o resultado. <answer>283</answer>,283,True,True,True
+xml_incorreto_0026,xml_incorreto,Intermediario: 283. <answer>284</answer>,283,False,True,False
+xml_duplicado_0026,xml_duplicado,<answer>283</answer><answer>284</answer>,283,False,True,False
+numero_correto_0027,numero_correto,Resposta: 290,290,True,True,True
+numero_incorreto_0027,numero_incorreto,Resposta: 291,290,False,False,False
+alternativas_0027,alternativas,Resposta: 291 ou 290,290,False,True,False
+contradicao_0027,contradicao,Resposta: 291; 290 seria incorreto.,290,False,True,False
+contaminacao_0027,contaminacao,Resposta: 291. Conferi o valor 290.,290,False,True,False
+xml_correto_0027,xml_correto,Calculei o resultado. <answer>290</answer>,290,True,True,True
+xml_incorreto_0027,xml_incorreto,Intermediario: 290. <answer>291</answer>,290,False,True,False
+xml_duplicado_0027,xml_duplicado,<answer>290</answer><answer>291</answer>,290,False,True,False
+numero_correto_0028,numero_correto,Resposta: 297,297,True,True,True
+numero_incorreto_0028,numero_incorreto,Resposta: 298,297,False,False,False
+alternativas_0028,alternativas,Resposta: 298 ou 297,297,False,True,False
+contradicao_0028,contradicao,Resposta: 298; 297 seria incorreto.,297,False,True,False
+contaminacao_0028,contaminacao,Resposta: 298. Conferi o valor 297.,297,False,True,False
+xml_correto_0028,xml_correto,Calculei o resultado. <answer>297</answer>,297,True,True,True
+xml_incorreto_0028,xml_incorreto,Intermediario: 297. <answer>298</answer>,297,False,True,False
+xml_duplicado_0028,xml_duplicado,<answer>297</answer><answer>298</answer>,297,False,True,False
+numero_correto_0029,numero_correto,Resposta: 304,304,True,True,True
+numero_incorreto_0029,numero_incorreto,Resposta: 305,304,False,False,False
+alternativas_0029,alternativas,Resposta: 305 ou 304,304,False,True,False
+contradicao_0029,contradicao,Resposta: 305; 304 seria incorreto.,304,False,True,False
+contaminacao_0029,contaminacao,Resposta: 305. Conferi o valor 304.,304,False,True,False
+xml_correto_0029,xml_correto,Calculei o resultado. <answer>304</answer>,304,True,True,True
+xml_incorreto_0029,xml_incorreto,Intermediario: 304. <answer>305</answer>,304,False,True,False
+xml_duplicado_0029,xml_duplicado,<answer>304</answer><answer>305</answer>,304,False,True,False
+numero_correto_0030,numero_correto,Resposta: 311,311,True,True,True
+numero_incorreto_0030,numero_incorreto,Resposta: 312,311,False,False,False
+alternativas_0030,alternativas,Resposta: 312 ou 311,311,False,True,False
+contradicao_0030,contradicao,Resposta: 312; 311 seria incorreto.,311,False,True,False
+contaminacao_0030,contaminacao,Resposta: 312. Conferi o valor 311.,311,False,True,False
+xml_correto_0030,xml_correto,Calculei o resultado. <answer>311</answer>,311,True,True,True
+xml_incorreto_0030,xml_incorreto,Intermediario: 311. <answer>312</answer>,311,False,True,False
+xml_duplicado_0030,xml_duplicado,<answer>311</answer><answer>312</answer>,311,False,True,False
+numero_correto_0031,numero_correto,Resposta: 318,318,True,True,True
+numero_incorreto_0031,numero_incorreto,Resposta: 319,318,False,False,False
+alternativas_0031,alternativas,Resposta: 319 ou 318,318,False,True,False
+contradicao_0031,contradicao,Resposta: 319; 318 seria incorreto.,318,False,True,False
+contaminacao_0031,contaminacao,Resposta: 319. Conferi o valor 318.,318,False,True,False
+xml_correto_0031,xml_correto,Calculei o resultado. <answer>318</answer>,318,True,True,True
+xml_incorreto_0031,xml_incorreto,Intermediario: 318. <answer>319</answer>,318,False,True,False
+xml_duplicado_0031,xml_duplicado,<answer>318</answer><answer>319</answer>,318,False,True,False
+numero_correto_0032,numero_correto,Resposta: 325,325,True,True,True
+numero_incorreto_0032,numero_incorreto,Resposta: 326,325,False,False,False
+alternativas_0032,alternativas,Resposta: 326 ou 325,325,False,True,False
+contradicao_0032,contradicao,Resposta: 326; 325 seria incorreto.,325,False,True,False
+contaminacao_0032,contaminacao,Resposta: 326. Conferi o valor 325.,325,False,True,False
+xml_correto_0032,xml_correto,Calculei o resultado. <answer>325</answer>,325,True,True,True
+xml_incorreto_0032,xml_incorreto,Intermediario: 325. <answer>326</answer>,325,False,True,False
+xml_duplicado_0032,xml_duplicado,<answer>325</answer><answer>326</answer>,325,False,True,False
+numero_correto_0033,numero_correto,Resposta: 332,332,True,True,True
+numero_incorreto_0033,numero_incorreto,Resposta: 333,332,False,False,False
+alternativas_0033,alternativas,Resposta: 333 ou 332,332,False,True,False
+contradicao_0033,contradicao,Resposta: 333; 332 seria incorreto.,332,False,True,False
+contaminacao_0033,contaminacao,Resposta: 333. Conferi o valor 332.,332,False,True,False
+xml_correto_0033,xml_correto,Calculei o resultado. <answer>332</answer>,332,True,True,True
+xml_incorreto_0033,xml_incorreto,Intermediario: 332. <answer>333</answer>,332,False,True,False
+xml_duplicado_0033,xml_duplicado,<answer>332</answer><answer>333</answer>,332,False,True,False
+numero_correto_0034,numero_correto,Resposta: 339,339,True,True,True
+numero_incorreto_0034,numero_incorreto,Resposta: 340,339,False,False,False
+alternativas_0034,alternativas,Resposta: 340 ou 339,339,False,True,False
+contradicao_0034,contradicao,Resposta: 340; 339 seria incorreto.,339,False,True,False
+contaminacao_0034,contaminacao,Resposta: 340. Conferi o valor 339.,339,False,True,False
+xml_correto_0034,xml_correto,Calculei o resultado. <answer>339</answer>,339,True,True,True
+xml_incorreto_0034,xml_incorreto,Intermediario: 339. <answer>340</answer>,339,False,True,False
+xml_duplicado_0034,xml_duplicado,<answer>339</answer><answer>340</answer>,339,False,True,False
+numero_correto_0035,numero_correto,Resposta: 346,346,True,True,True
+numero_incorreto_0035,numero_incorreto,Resposta: 347,346,False,False,False
+alternativas_0035,alternativas,Resposta: 347 ou 346,346,False,True,False
+contradicao_0035,contradicao,Resposta: 347; 346 seria incorreto.,346,False,True,False
+contaminacao_0035,contaminacao,Resposta: 347. Conferi o valor 346.,346,False,True,False
+xml_correto_0035,xml_correto,Calculei o resultado. <answer>346</answer>,346,True,True,True
+xml_incorreto_0035,xml_incorreto,Intermediario: 346. <answer>347</answer>,346,False,True,False
+xml_duplicado_0035,xml_duplicado,<answer>346</answer><answer>347</answer>,346,False,True,False
+numero_correto_0036,numero_correto,Resposta: 353,353,True,True,True
+numero_incorreto_0036,numero_incorreto,Resposta: 354,353,False,False,False
+alternativas_0036,alternativas,Resposta: 354 ou 353,353,False,True,False
+contradicao_0036,contradicao,Resposta: 354; 353 seria incorreto.,353,False,True,False
+contaminacao_0036,contaminacao,Resposta: 354. Conferi o valor 353.,353,False,True,False
+xml_correto_0036,xml_correto,Calculei o resultado. <answer>353</answer>,353,True,True,True
+xml_incorreto_0036,xml_incorreto,Intermediario: 353. <answer>354</answer>,353,False,True,False
+xml_duplicado_0036,xml_duplicado,<answer>353</answer><answer>354</answer>,353,False,True,False
+numero_correto_0037,numero_correto,Resposta: 360,360,True,True,True
+numero_incorreto_0037,numero_incorreto,Resposta: 361,360,False,False,False
+alternativas_0037,alternativas,Resposta: 361 ou 360,360,False,True,False
+contradicao_0037,contradicao,Resposta: 361; 360 seria incorreto.,360,False,True,False
+contaminacao_0037,contaminacao,Resposta: 361. Conferi o valor 360.,360,False,True,False
+xml_correto_0037,xml_correto,Calculei o resultado. <answer>360</answer>,360,True,True,True
+xml_incorreto_0037,xml_incorreto,Intermediario: 360. <answer>361</answer>,360,False,True,False
+xml_duplicado_0037,xml_duplicado,<answer>360</answer><answer>361</answer>,360,False,True,False
+numero_correto_0038,numero_correto,Resposta: 367,367,True,True,True
+numero_incorreto_0038,numero_incorreto,Resposta: 368,367,False,False,False
+alternativas_0038,alternativas,Resposta: 368 ou 367,367,False,True,False
+contradicao_0038,contradicao,Resposta: 368; 367 seria incorreto.,367,False,True,False
+contaminacao_0038,contaminacao,Resposta: 368. Conferi o valor 367.,367,False,True,False
+xml_correto_0038,xml_correto,Calculei o resultado. <answer>367</answer>,367,True,True,True
+xml_incorreto_0038,xml_incorreto,Intermediario: 367. <answer>368</answer>,367,False,True,False
+xml_duplicado_0038,xml_duplicado,<answer>367</answer><answer>368</answer>,367,False,True,False
+numero_correto_0039,numero_correto,Resposta: 374,374,True,True,True
+numero_incorreto_0039,numero_incorreto,Resposta: 375,374,False,False,False
+alternativas_0039,alternativas,Resposta: 375 ou 374,374,False,True,False
+contradicao_0039,contradicao,Resposta: 375; 374 seria incorreto.,374,False,True,False
+contaminacao_0039,contaminacao,Resposta: 375. Conferi o valor 374.,374,False,True,False
+xml_correto_0039,xml_correto,Calculei o resultado. <answer>374</answer>,374,True,True,True
+xml_incorreto_0039,xml_incorreto,Intermediario: 374. <answer>375</answer>,374,False,True,False
+xml_duplicado_0039,xml_duplicado,<answer>374</answer><answer>375</answer>,374,False,True,False
+numero_correto_0040,numero_correto,Resposta: 381,381,True,True,True
+numero_incorreto_0040,numero_incorreto,Resposta: 382,381,False,False,False
+alternativas_0040,alternativas,Resposta: 382 ou 381,381,False,True,False
+contradicao_0040,contradicao,Resposta: 382; 381 seria incorreto.,381,False,True,False
+contaminacao_0040,contaminacao,Resposta: 382. Conferi o valor 381.,381,False,True,False
+xml_correto_0040,xml_correto,Calculei o resultado. <answer>381</answer>,381,True,True,True
+xml_incorreto_0040,xml_incorreto,Intermediario: 381. <answer>382</answer>,381,False,True,False
+xml_duplicado_0040,xml_duplicado,<answer>381</answer><answer>382</answer>,381,False,True,False
+numero_correto_0041,numero_correto,Resposta: 388,388,True,True,True
+numero_incorreto_0041,numero_incorreto,Resposta: 389,388,False,False,False
+alternativas_0041,alternativas,Resposta: 389 ou 388,388,False,True,False
+contradicao_0041,contradicao,Resposta: 389; 388 seria incorreto.,388,False,True,False
+contaminacao_0041,contaminacao,Resposta: 389. Conferi o valor 388.,388,False,True,False
+xml_correto_0041,xml_correto,Calculei o resultado. <answer>388</answer>,388,True,True,True
+xml_incorreto_0041,xml_incorreto,Intermediario: 388. <answer>389</answer>,388,False,True,False
+xml_duplicado_0041,xml_duplicado,<answer>388</answer><answer>389</answer>,388,False,True,False
+numero_correto_0042,numero_correto,Resposta: 395,395,True,True,True
+numero_incorreto_0042,numero_incorreto,Resposta: 396,395,False,False,False
+alternativas_0042,alternativas,Resposta: 396 ou 395,395,False,True,False
+contradicao_0042,contradicao,Resposta: 396; 395 seria incorreto.,395,False,True,False
+contaminacao_0042,contaminacao,Resposta: 396. Conferi o valor 395.,395,False,True,False
+xml_correto_0042,xml_correto,Calculei o resultado. <answer>395</answer>,395,True,True,True
+xml_incorreto_0042,xml_incorreto,Intermediario: 395. <answer>396</answer>,395,False,True,False
+xml_duplicado_0042,xml_duplicado,<answer>395</answer><answer>396</answer>,395,False,True,False
+numero_correto_0043,numero_correto,Resposta: 402,402,True,True,True
+numero_incorreto_0043,numero_incorreto,Resposta: 403,402,False,False,False
+alternativas_0043,alternativas,Resposta: 403 ou 402,402,False,True,False
+contradicao_0043,contradicao,Resposta: 403; 402 seria incorreto.,402,False,True,False
+contaminacao_0043,contaminacao,Resposta: 403. Conferi o valor 402.,402,False,True,False
+xml_correto_0043,xml_correto,Calculei o resultado. <answer>402</answer>,402,True,True,True
+xml_incorreto_0043,xml_incorreto,Intermediario: 402. <answer>403</answer>,402,False,True,False
+xml_duplicado_0043,xml_duplicado,<answer>402</answer><answer>403</answer>,402,False,True,False
+numero_correto_0044,numero_correto,Resposta: 409,409,True,True,True
+numero_incorreto_0044,numero_incorreto,Resposta: 410,409,False,False,False
+alternativas_0044,alternativas,Resposta: 410 ou 409,409,False,True,False
+contradicao_0044,contradicao,Resposta: 410; 409 seria incorreto.,409,False,True,False
+contaminacao_0044,contaminacao,Resposta: 410. Conferi o valor 409.,409,False,True,False
+xml_correto_0044,xml_correto,Calculei o resultado. <answer>409</answer>,409,True,True,True
+xml_incorreto_0044,xml_incorreto,Intermediario: 409. <answer>410</answer>,409,False,True,False
+xml_duplicado_0044,xml_duplicado,<answer>409</answer><answer>410</answer>,409,False,True,False
+numero_correto_0045,numero_correto,Resposta: 416,416,True,True,True
+numero_incorreto_0045,numero_incorreto,Resposta: 417,416,False,False,False
+alternativas_0045,alternativas,Resposta: 417 ou 416,416,False,True,False
+contradicao_0045,contradicao,Resposta: 417; 416 seria incorreto.,416,False,True,False
+contaminacao_0045,contaminacao,Resposta: 417. Conferi o valor 416.,416,False,True,False
+xml_correto_0045,xml_correto,Calculei o resultado. <answer>416</answer>,416,True,True,True
+xml_incorreto_0045,xml_incorreto,Intermediario: 416. <answer>417</answer>,416,False,True,False
+xml_duplicado_0045,xml_duplicado,<answer>416</answer><answer>417</answer>,416,False,True,False
+numero_correto_0046,numero_correto,Resposta: 423,423,True,True,True
+numero_incorreto_0046,numero_incorreto,Resposta: 424,423,False,False,False
+alternativas_0046,alternativas,Resposta: 424 ou 423,423,False,True,False
+contradicao_0046,contradicao,Resposta: 424; 423 seria incorreto.,423,False,True,False
+contaminacao_0046,contaminacao,Resposta: 424. Conferi o valor 423.,423,False,True,False
+xml_correto_0046,xml_correto,Calculei o resultado. <answer>423</answer>,423,True,True,True
+xml_incorreto_0046,xml_incorreto,Intermediario: 423. <answer>424</answer>,423,False,True,False
+xml_duplicado_0046,xml_duplicado,<answer>423</answer><answer>424</answer>,423,False,True,False
+numero_correto_0047,numero_correto,Resposta: 430,430,True,True,True
+numero_incorreto_0047,numero_incorreto,Resposta: 431,430,False,False,False
+alternativas_0047,alternativas,Resposta: 431 ou 430,430,False,True,False
+contradicao_0047,contradicao,Resposta: 431; 430 seria incorreto.,430,False,True,False
+contaminacao_0047,contaminacao,Resposta: 431. Conferi o valor 430.,430,False,True,False
+xml_correto_0047,xml_correto,Calculei o resultado. <answer>430</answer>,430,True,True,True
+xml_incorreto_0047,xml_incorreto,Intermediario: 430. <answer>431</answer>,430,False,True,False
+xml_duplicado_0047,xml_duplicado,<answer>430</answer><answer>431</answer>,430,False,True,False
+numero_correto_0048,numero_correto,Resposta: 437,437,True,True,True
+numero_incorreto_0048,numero_incorreto,Resposta: 438,437,False,False,False
+alternativas_0048,alternativas,Resposta: 438 ou 437,437,False,True,False
+contradicao_0048,contradicao,Resposta: 438; 437 seria incorreto.,437,False,True,False
+contaminacao_0048,contaminacao,Resposta: 438. Conferi o valor 437.,437,False,True,False
+xml_correto_0048,xml_correto,Calculei o resultado. <answer>437</answer>,437,True,True,True
+xml_incorreto_0048,xml_incorreto,Intermediario: 437. <answer>438</answer>,437,False,True,False
+xml_duplicado_0048,xml_duplicado,<answer>437</answer><answer>438</answer>,437,False,True,False
+numero_correto_0049,numero_correto,Resposta: 444,444,True,True,True
+numero_incorreto_0049,numero_incorreto,Resposta: 445,444,False,False,False
+alternativas_0049,alternativas,Resposta: 445 ou 444,444,False,True,False
+contradicao_0049,contradicao,Resposta: 445; 444 seria incorreto.,444,False,True,False
+contaminacao_0049,contaminacao,Resposta: 445. Conferi o valor 444.,444,False,True,False
+xml_correto_0049,xml_correto,Calculei o resultado. <answer>444</answer>,444,True,True,True
+xml_incorreto_0049,xml_incorreto,Intermediario: 444. <answer>445</answer>,444,False,True,False
+xml_duplicado_0049,xml_duplicado,<answer>444</answer><answer>445</answer>,444,False,True,False
+numero_correto_0050,numero_correto,Resposta: 451,451,True,True,True
+numero_incorreto_0050,numero_incorreto,Resposta: 452,451,False,False,False
+alternativas_0050,alternativas,Resposta: 452 ou 451,451,False,True,False
+contradicao_0050,contradicao,Resposta: 452; 451 seria incorreto.,451,False,True,False
+contaminacao_0050,contaminacao,Resposta: 452. Conferi o valor 451.,451,False,True,False
+xml_correto_0050,xml_correto,Calculei o resultado. <answer>451</answer>,451,True,True,True
+xml_incorreto_0050,xml_incorreto,Intermediario: 451. <answer>452</answer>,451,False,True,False
+xml_duplicado_0050,xml_duplicado,<answer>451</answer><answer>452</answer>,451,False,True,False
+numero_correto_0051,numero_correto,Resposta: 458,458,True,True,True
+numero_incorreto_0051,numero_incorreto,Resposta: 459,458,False,False,False
+alternativas_0051,alternativas,Resposta: 459 ou 458,458,False,True,False
+contradicao_0051,contradicao,Resposta: 459; 458 seria incorreto.,458,False,True,False
+contaminacao_0051,contaminacao,Resposta: 459. Conferi o valor 458.,458,False,True,False
+xml_correto_0051,xml_correto,Calculei o resultado. <answer>458</answer>,458,True,True,True
+xml_incorreto_0051,xml_incorreto,Intermediario: 458. <answer>459</answer>,458,False,True,False
+xml_duplicado_0051,xml_duplicado,<answer>458</answer><answer>459</answer>,458,False,True,False
+numero_correto_0052,numero_correto,Resposta: 465,465,True,True,True
+numero_incorreto_0052,numero_incorreto,Resposta: 466,465,False,False,False
+alternativas_0052,alternativas,Resposta: 466 ou 465,465,False,True,False
+contradicao_0052,contradicao,Resposta: 466; 465 seria incorreto.,465,False,True,False
+contaminacao_0052,contaminacao,Resposta: 466. Conferi o valor 465.,465,False,True,False
+xml_correto_0052,xml_correto,Calculei o resultado. <answer>465</answer>,465,True,True,True
+xml_incorreto_0052,xml_incorreto,Intermediario: 465. <answer>466</answer>,465,False,True,False
+xml_duplicado_0052,xml_duplicado,<answer>465</answer><answer>466</answer>,465,False,True,False
+numero_correto_0053,numero_correto,Resposta: 472,472,True,True,True
+numero_incorreto_0053,numero_incorreto,Resposta: 473,472,False,False,False
+alternativas_0053,alternativas,Resposta: 473 ou 472,472,False,True,False
+contradicao_0053,contradicao,Resposta: 473; 472 seria incorreto.,472,False,True,False
+contaminacao_0053,contaminacao,Resposta: 473. Conferi o valor 472.,472,False,True,False
+xml_correto_0053,xml_correto,Calculei o resultado. <answer>472</answer>,472,True,True,True
+xml_incorreto_0053,xml_incorreto,Intermediario: 472. <answer>473</answer>,472,False,True,False
+xml_duplicado_0053,xml_duplicado,<answer>472</answer><answer>473</answer>,472,False,True,False
+numero_correto_0054,numero_correto,Resposta: 479,479,True,True,True
+numero_incorreto_0054,numero_incorreto,Resposta: 480,479,False,False,False
+alternativas_0054,alternativas,Resposta: 480 ou 479,479,False,True,False
+contradicao_0054,contradicao,Resposta: 480; 479 seria incorreto.,479,False,True,False
+contaminacao_0054,contaminacao,Resposta: 480. Conferi o valor 479.,479,False,True,False
+xml_correto_0054,xml_correto,Calculei o resultado. <answer>479</answer>,479,True,True,True
+xml_incorreto_0054,xml_incorreto,Intermediario: 479. <answer>480</answer>,479,False,True,False
+xml_duplicado_0054,xml_duplicado,<answer>479</answer><answer>480</answer>,479,False,True,False
+numero_correto_0055,numero_correto,Resposta: 486,486,True,True,True
+numero_incorreto_0055,numero_incorreto,Resposta: 487,486,False,False,False
+alternativas_0055,alternativas,Resposta: 487 ou 486,486,False,True,False
+contradicao_0055,contradicao,Resposta: 487; 486 seria incorreto.,486,False,True,False
+contaminacao_0055,contaminacao,Resposta: 487. Conferi o valor 486.,486,False,True,False
+xml_correto_0055,xml_correto,Calculei o resultado. <answer>486</answer>,486,True,True,True
+xml_incorreto_0055,xml_incorreto,Intermediario: 486. <answer>487</answer>,486,False,True,False
+xml_duplicado_0055,xml_duplicado,<answer>486</answer><answer>487</answer>,486,False,True,False
+numero_correto_0056,numero_correto,Resposta: 493,493,True,True,True
+numero_incorreto_0056,numero_incorreto,Resposta: 494,493,False,False,False
+alternativas_0056,alternativas,Resposta: 494 ou 493,493,False,True,False
+contradicao_0056,contradicao,Resposta: 494; 493 seria incorreto.,493,False,True,False
+contaminacao_0056,contaminacao,Resposta: 494. Conferi o valor 493.,493,False,True,False
+xml_correto_0056,xml_correto,Calculei o resultado. <answer>493</answer>,493,True,True,True
+xml_incorreto_0056,xml_incorreto,Intermediario: 493. <answer>494</answer>,493,False,True,False
+xml_duplicado_0056,xml_duplicado,<answer>493</answer><answer>494</answer>,493,False,True,False
+numero_correto_0057,numero_correto,Resposta: 500,500,True,True,True
+numero_incorreto_0057,numero_incorreto,Resposta: 501,500,False,False,False
+alternativas_0057,alternativas,Resposta: 501 ou 500,500,False,True,False
+contradicao_0057,contradicao,Resposta: 501; 500 seria incorreto.,500,False,True,False
+contaminacao_0057,contaminacao,Resposta: 501. Conferi o valor 500.,500,False,True,False
+xml_correto_0057,xml_correto,Calculei o resultado. <answer>500</answer>,500,True,True,True
+xml_incorreto_0057,xml_incorreto,Intermediario: 500. <answer>501</answer>,500,False,True,False
+xml_duplicado_0057,xml_duplicado,<answer>500</answer><answer>501</answer>,500,False,True,False
+numero_correto_0058,numero_correto,Resposta: 507,507,True,True,True
+numero_incorreto_0058,numero_incorreto,Resposta: 508,507,False,False,False
+alternativas_0058,alternativas,Resposta: 508 ou 507,507,False,True,False
+contradicao_0058,contradicao,Resposta: 508; 507 seria incorreto.,507,False,True,False
+contaminacao_0058,contaminacao,Resposta: 508. Conferi o valor 507.,507,False,True,False
+xml_correto_0058,xml_correto,Calculei o resultado. <answer>507</answer>,507,True,True,True
+xml_incorreto_0058,xml_incorreto,Intermediario: 507. <answer>508</answer>,507,False,True,False
+xml_duplicado_0058,xml_duplicado,<answer>507</answer><answer>508</answer>,507,False,True,False
+numero_correto_0059,numero_correto,Resposta: 514,514,True,True,True
+numero_incorreto_0059,numero_incorreto,Resposta: 515,514,False,False,False
+alternativas_0059,alternativas,Resposta: 515 ou 514,514,False,True,False
+contradicao_0059,contradicao,Resposta: 515; 514 seria incorreto.,514,False,True,False
+contaminacao_0059,contaminacao,Resposta: 515. Conferi o valor 514.,514,False,True,False
+xml_correto_0059,xml_correto,Calculei o resultado. <answer>514</answer>,514,True,True,True
+xml_incorreto_0059,xml_incorreto,Intermediario: 514. <answer>515</answer>,514,False,True,False
+xml_duplicado_0059,xml_duplicado,<answer>514</answer><answer>515</answer>,514,False,True,False
+numero_correto_0060,numero_correto,Resposta: 521,521,True,True,True
+numero_incorreto_0060,numero_incorreto,Resposta: 522,521,False,False,False
+alternativas_0060,alternativas,Resposta: 522 ou 521,521,False,True,False
+contradicao_0060,contradicao,Resposta: 522; 521 seria incorreto.,521,False,True,False
+contaminacao_0060,contaminacao,Resposta: 522. Conferi o valor 521.,521,False,True,False
+xml_correto_0060,xml_correto,Calculei o resultado. <answer>521</answer>,521,True,True,True
+xml_incorreto_0060,xml_incorreto,Intermediario: 521. <answer>522</answer>,521,False,True,False
+xml_duplicado_0060,xml_duplicado,<answer>521</answer><answer>522</answer>,521,False,True,False
+numero_correto_0061,numero_correto,Resposta: 528,528,True,True,True
+numero_incorreto_0061,numero_incorreto,Resposta: 529,528,False,False,False
+alternativas_0061,alternativas,Resposta: 529 ou 528,528,False,True,False
+contradicao_0061,contradicao,Resposta: 529; 528 seria incorreto.,528,False,True,False
+contaminacao_0061,contaminacao,Resposta: 529. Conferi o valor 528.,528,False,True,False
+xml_correto_0061,xml_correto,Calculei o resultado. <answer>528</answer>,528,True,True,True
+xml_incorreto_0061,xml_incorreto,Intermediario: 528. <answer>529</answer>,528,False,True,False
+xml_duplicado_0061,xml_duplicado,<answer>528</answer><answer>529</answer>,528,False,True,False
+numero_correto_0062,numero_correto,Resposta: 535,535,True,True,True
+numero_incorreto_0062,numero_incorreto,Resposta: 536,535,False,False,False
+alternativas_0062,alternativas,Resposta: 536 ou 535,535,False,True,False
+contradicao_0062,contradicao,Resposta: 536; 535 seria incorreto.,535,False,True,False
+contaminacao_0062,contaminacao,Resposta: 536. Conferi o valor 535.,535,False,True,False
+xml_correto_0062,xml_correto,Calculei o resultado. <answer>535</answer>,535,True,True,True
+xml_incorreto_0062,xml_incorreto,Intermediario: 535. <answer>536</answer>,535,False,True,False
+xml_duplicado_0062,xml_duplicado,<answer>535</answer><answer>536</answer>,535,False,True,False
+numero_correto_0063,numero_correto,Resposta: 542,542,True,True,True
+numero_incorreto_0063,numero_incorreto,Resposta: 543,542,False,False,False
+alternativas_0063,alternativas,Resposta: 543 ou 542,542,False,True,False
+contradicao_0063,contradicao,Resposta: 543; 542 seria incorreto.,542,False,True,False
+contaminacao_0063,contaminacao,Resposta: 543. Conferi o valor 542.,542,False,True,False
+xml_correto_0063,xml_correto,Calculei o resultado. <answer>542</answer>,542,True,True,True
+xml_incorreto_0063,xml_incorreto,Intermediario: 542. <answer>543</answer>,542,False,True,False
+xml_duplicado_0063,xml_duplicado,<answer>542</answer><answer>543</answer>,542,False,True,False
+numero_correto_0064,numero_correto,Resposta: 549,549,True,True,True
+numero_incorreto_0064,numero_incorreto,Resposta: 550,549,False,False,False
+alternativas_0064,alternativas,Resposta: 550 ou 549,549,False,True,False
+contradicao_0064,contradicao,Resposta: 550; 549 seria incorreto.,549,False,True,False
+contaminacao_0064,contaminacao,Resposta: 550. Conferi o valor 549.,549,False,True,False
+xml_correto_0064,xml_correto,Calculei o resultado. <answer>549</answer>,549,True,True,True
+xml_incorreto_0064,xml_incorreto,Intermediario: 549. <answer>550</answer>,549,False,True,False
+xml_duplicado_0064,xml_duplicado,<answer>549</answer><answer>550</answer>,549,False,True,False
+numero_correto_0065,numero_correto,Resposta: 556,556,True,True,True
+numero_incorreto_0065,numero_incorreto,Resposta: 557,556,False,False,False
+alternativas_0065,alternativas,Resposta: 557 ou 556,556,False,True,False
+contradicao_0065,contradicao,Resposta: 557; 556 seria incorreto.,556,False,True,False
+contaminacao_0065,contaminacao,Resposta: 557. Conferi o valor 556.,556,False,True,False
+xml_correto_0065,xml_correto,Calculei o resultado. <answer>556</answer>,556,True,True,True
+xml_incorreto_0065,xml_incorreto,Intermediario: 556. <answer>557</answer>,556,False,True,False
+xml_duplicado_0065,xml_duplicado,<answer>556</answer><answer>557</answer>,556,False,True,False
+numero_correto_0066,numero_correto,Resposta: 563,563,True,True,True
+numero_incorreto_0066,numero_incorreto,Resposta: 564,563,False,False,False
+alternativas_0066,alternativas,Resposta: 564 ou 563,563,False,True,False
+contradicao_0066,contradicao,Resposta: 564; 563 seria incorreto.,563,False,True,False
+contaminacao_0066,contaminacao,Resposta: 564. Conferi o valor 563.,563,False,True,False
+xml_correto_0066,xml_correto,Calculei o resultado. <answer>563</answer>,563,True,True,True
+xml_incorreto_0066,xml_incorreto,Intermediario: 563. <answer>564</answer>,563,False,True,False
+xml_duplicado_0066,xml_duplicado,<answer>563</answer><answer>564</answer>,563,False,True,False
+numero_correto_0067,numero_correto,Resposta: 570,570,True,True,True
+numero_incorreto_0067,numero_incorreto,Resposta: 571,570,False,False,False
+alternativas_0067,alternativas,Resposta: 571 ou 570,570,False,True,False
+contradicao_0067,contradicao,Resposta: 571; 570 seria incorreto.,570,False,True,False
+contaminacao_0067,contaminacao,Resposta: 571. Conferi o valor 570.,570,False,True,False
+xml_correto_0067,xml_correto,Calculei o resultado. <answer>570</answer>,570,True,True,True
+xml_incorreto_0067,xml_incorreto,Intermediario: 570. <answer>571</answer>,570,False,True,False
+xml_duplicado_0067,xml_duplicado,<answer>570</answer><answer>571</answer>,570,False,True,False
+numero_correto_0068,numero_correto,Resposta: 577,577,True,True,True
+numero_incorreto_0068,numero_incorreto,Resposta: 578,577,False,False,False
+alternativas_0068,alternativas,Resposta: 578 ou 577,577,False,True,False
+contradicao_0068,contradicao,Resposta: 578; 577 seria incorreto.,577,False,True,False
+contaminacao_0068,contaminacao,Resposta: 578. Conferi o valor 577.,577,False,True,False
+xml_correto_0068,xml_correto,Calculei o resultado. <answer>577</answer>,577,True,True,True
+xml_incorreto_0068,xml_incorreto,Intermediario: 577. <answer>578</answer>,577,False,True,False
+xml_duplicado_0068,xml_duplicado,<answer>577</answer><answer>578</answer>,577,False,True,False
+numero_correto_0069,numero_correto,Resposta: 584,584,True,True,True
+numero_incorreto_0069,numero_incorreto,Resposta: 585,584,False,False,False
+alternativas_0069,alternativas,Resposta: 585 ou 584,584,False,True,False
+contradicao_0069,contradicao,Resposta: 585; 584 seria incorreto.,584,False,True,False
+contaminacao_0069,contaminacao,Resposta: 585. Conferi o valor 584.,584,False,True,False
+xml_correto_0069,xml_correto,Calculei o resultado. <answer>584</answer>,584,True,True,True
+xml_incorreto_0069,xml_incorreto,Intermediario: 584. <answer>585</answer>,584,False,True,False
+xml_duplicado_0069,xml_duplicado,<answer>584</answer><answer>585</answer>,584,False,True,False
+numero_correto_0070,numero_correto,Resposta: 591,591,True,True,True
+numero_incorreto_0070,numero_incorreto,Resposta: 592,591,False,False,False
+alternativas_0070,alternativas,Resposta: 592 ou 591,591,False,True,False
+contradicao_0070,contradicao,Resposta: 592; 591 seria incorreto.,591,False,True,False
+contaminacao_0070,contaminacao,Resposta: 592. Conferi o valor 591.,591,False,True,False
+xml_correto_0070,xml_correto,Calculei o resultado. <answer>591</answer>,591,True,True,True
+xml_incorreto_0070,xml_incorreto,Intermediario: 591. <answer>592</answer>,591,False,True,False
+xml_duplicado_0070,xml_duplicado,<answer>591</answer><answer>592</answer>,591,False,True,False
+numero_correto_0071,numero_correto,Resposta: 598,598,True,True,True
+numero_incorreto_0071,numero_incorreto,Resposta: 599,598,False,False,False
+alternativas_0071,alternativas,Resposta: 599 ou 598,598,False,True,False
+contradicao_0071,contradicao,Resposta: 599; 598 seria incorreto.,598,False,True,False
+contaminacao_0071,contaminacao,Resposta: 599. Conferi o valor 598.,598,False,True,False
+xml_correto_0071,xml_correto,Calculei o resultado. <answer>598</answer>,598,True,True,True
+xml_incorreto_0071,xml_incorreto,Intermediario: 598. <answer>599</answer>,598,False,True,False
+xml_duplicado_0071,xml_duplicado,<answer>598</answer><answer>599</answer>,598,False,True,False
+numero_correto_0072,numero_correto,Resposta: 605,605,True,True,True
+numero_incorreto_0072,numero_incorreto,Resposta: 606,605,False,False,False
+alternativas_0072,alternativas,Resposta: 606 ou 605,605,False,True,False
+contradicao_0072,contradicao,Resposta: 606; 605 seria incorreto.,605,False,True,False
+contaminacao_0072,contaminacao,Resposta: 606. Conferi o valor 605.,605,False,True,False
+xml_correto_0072,xml_correto,Calculei o resultado. <answer>605</answer>,605,True,True,True
+xml_incorreto_0072,xml_incorreto,Intermediario: 605. <answer>606</answer>,605,False,True,False
+xml_duplicado_0072,xml_duplicado,<answer>605</answer><answer>606</answer>,605,False,True,False
+numero_correto_0073,numero_correto,Resposta: 612,612,True,True,True
+numero_incorreto_0073,numero_incorreto,Resposta: 613,612,False,False,False
+alternativas_0073,alternativas,Resposta: 613 ou 612,612,False,True,False
+contradicao_0073,contradicao,Resposta: 613; 612 seria incorreto.,612,False,True,False
+contaminacao_0073,contaminacao,Resposta: 613. Conferi o valor 612.,612,False,True,False
+xml_correto_0073,xml_correto,Calculei o resultado. <answer>612</answer>,612,True,True,True
+xml_incorreto_0073,xml_incorreto,Intermediario: 612. <answer>613</answer>,612,False,True,False
+xml_duplicado_0073,xml_duplicado,<answer>612</answer><answer>613</answer>,612,False,True,False
+numero_correto_0074,numero_correto,Resposta: 619,619,True,True,True
+numero_incorreto_0074,numero_incorreto,Resposta: 620,619,False,False,False
+alternativas_0074,alternativas,Resposta: 620 ou 619,619,False,True,False
+contradicao_0074,contradicao,Resposta: 620; 619 seria incorreto.,619,False,True,False
+contaminacao_0074,contaminacao,Resposta: 620. Conferi o valor 619.,619,False,True,False
+xml_correto_0074,xml_correto,Calculei o resultado. <answer>619</answer>,619,True,True,True
+xml_incorreto_0074,xml_incorreto,Intermediario: 619. <answer>620</answer>,619,False,True,False
+xml_duplicado_0074,xml_duplicado,<answer>619</answer><answer>620</answer>,619,False,True,False
+numero_correto_0075,numero_correto,Resposta: 626,626,True,True,True
+numero_incorreto_0075,numero_incorreto,Resposta: 627,626,False,False,False
+alternativas_0075,alternativas,Resposta: 627 ou 626,626,False,True,False
+contradicao_0075,contradicao,Resposta: 627; 626 seria incorreto.,626,False,True,False
+contaminacao_0075,contaminacao,Resposta: 627. Conferi o valor 626.,626,False,True,False
+xml_correto_0075,xml_correto,Calculei o resultado. <answer>626</answer>,626,True,True,True
+xml_incorreto_0075,xml_incorreto,Intermediario: 626. <answer>627</answer>,626,False,True,False
+xml_duplicado_0075,xml_duplicado,<answer>626</answer><answer>627</answer>,626,False,True,False
+numero_correto_0076,numero_correto,Resposta: 633,633,True,True,True
+numero_incorreto_0076,numero_incorreto,Resposta: 634,633,False,False,False
+alternativas_0076,alternativas,Resposta: 634 ou 633,633,False,True,False
+contradicao_0076,contradicao,Resposta: 634; 633 seria incorreto.,633,False,True,False
+contaminacao_0076,contaminacao,Resposta: 634. Conferi o valor 633.,633,False,True,False
+xml_correto_0076,xml_correto,Calculei o resultado. <answer>633</answer>,633,True,True,True
+xml_incorreto_0076,xml_incorreto,Intermediario: 633. <answer>634</answer>,633,False,True,False
+xml_duplicado_0076,xml_duplicado,<answer>633</answer><answer>634</answer>,633,False,True,False
+numero_correto_0077,numero_correto,Resposta: 640,640,True,True,True
+numero_incorreto_0077,numero_incorreto,Resposta: 641,640,False,False,False
+alternativas_0077,alternativas,Resposta: 641 ou 640,640,False,True,False
+contradicao_0077,contradicao,Resposta: 641; 640 seria incorreto.,640,False,True,False
+contaminacao_0077,contaminacao,Resposta: 641. Conferi o valor 640.,640,False,True,False
+xml_correto_0077,xml_correto,Calculei o resultado. <answer>640</answer>,640,True,True,True
+xml_incorreto_0077,xml_incorreto,Intermediario: 640. <answer>641</answer>,640,False,True,False
+xml_duplicado_0077,xml_duplicado,<answer>640</answer><answer>641</answer>,640,False,True,False
+numero_correto_0078,numero_correto,Resposta: 647,647,True,True,True
+numero_incorreto_0078,numero_incorreto,Resposta: 648,647,False,False,False
+alternativas_0078,alternativas,Resposta: 648 ou 647,647,False,True,False
+contradicao_0078,contradicao,Resposta: 648; 647 seria incorreto.,647,False,True,False
+contaminacao_0078,contaminacao,Resposta: 648. Conferi o valor 647.,647,False,True,False
+xml_correto_0078,xml_correto,Calculei o resultado. <answer>647</answer>,647,True,True,True
+xml_incorreto_0078,xml_incorreto,Intermediario: 647. <answer>648</answer>,647,False,True,False
+xml_duplicado_0078,xml_duplicado,<answer>647</answer><answer>648</answer>,647,False,True,False
+numero_correto_0079,numero_correto,Resposta: 654,654,True,True,True
+numero_incorreto_0079,numero_incorreto,Resposta: 655,654,False,False,False
+alternativas_0079,alternativas,Resposta: 655 ou 654,654,False,True,False
+contradicao_0079,contradicao,Resposta: 655; 654 seria incorreto.,654,False,True,False
+contaminacao_0079,contaminacao,Resposta: 655. Conferi o valor 654.,654,False,True,False
+xml_correto_0079,xml_correto,Calculei o resultado. <answer>654</answer>,654,True,True,True
+xml_incorreto_0079,xml_incorreto,Intermediario: 654. <answer>655</answer>,654,False,True,False
+xml_duplicado_0079,xml_duplicado,<answer>654</answer><answer>655</answer>,654,False,True,False
+numero_correto_0080,numero_correto,Resposta: 661,661,True,True,True
+numero_incorreto_0080,numero_incorreto,Resposta: 662,661,False,False,False
+alternativas_0080,alternativas,Resposta: 662 ou 661,661,False,True,False
+contradicao_0080,contradicao,Resposta: 662; 661 seria incorreto.,661,False,True,False
+contaminacao_0080,contaminacao,Resposta: 662. Conferi o valor 661.,661,False,True,False
+xml_correto_0080,xml_correto,Calculei o resultado. <answer>661</answer>,661,True,True,True
+xml_incorreto_0080,xml_incorreto,Intermediario: 661. <answer>662</answer>,661,False,True,False
+xml_duplicado_0080,xml_duplicado,<answer>661</answer><answer>662</answer>,661,False,True,False
+numero_correto_0081,numero_correto,Resposta: 668,668,True,True,True
+numero_incorreto_0081,numero_incorreto,Resposta: 669,668,False,False,False
+alternativas_0081,alternativas,Resposta: 669 ou 668,668,False,True,False
+contradicao_0081,contradicao,Resposta: 669; 668 seria incorreto.,668,False,True,False
+contaminacao_0081,contaminacao,Resposta: 669. Conferi o valor 668.,668,False,True,False
+xml_correto_0081,xml_correto,Calculei o resultado. <answer>668</answer>,668,True,True,True
+xml_incorreto_0081,xml_incorreto,Intermediario: 668. <answer>669</answer>,668,False,True,False
+xml_duplicado_0081,xml_duplicado,<answer>668</answer><answer>669</answer>,668,False,True,False
+numero_correto_0082,numero_correto,Resposta: 675,675,True,True,True
+numero_incorreto_0082,numero_incorreto,Resposta: 676,675,False,False,False
+alternativas_0082,alternativas,Resposta: 676 ou 675,675,False,True,False
+contradicao_0082,contradicao,Resposta: 676; 675 seria incorreto.,675,False,True,False
+contaminacao_0082,contaminacao,Resposta: 676. Conferi o valor 675.,675,False,True,False
+xml_correto_0082,xml_correto,Calculei o resultado. <answer>675</answer>,675,True,True,True
+xml_incorreto_0082,xml_incorreto,Intermediario: 675. <answer>676</answer>,675,False,True,False
+xml_duplicado_0082,xml_duplicado,<answer>675</answer><answer>676</answer>,675,False,True,False
+numero_correto_0083,numero_correto,Resposta: 682,682,True,True,True
+numero_incorreto_0083,numero_incorreto,Resposta: 683,682,False,False,False
+alternativas_0083,alternativas,Resposta: 683 ou 682,682,False,True,False
+contradicao_0083,contradicao,Resposta: 683; 682 seria incorreto.,682,False,True,False
+contaminacao_0083,contaminacao,Resposta: 683. Conferi o valor 682.,682,False,True,False
+xml_correto_0083,xml_correto,Calculei o resultado. <answer>682</answer>,682,True,True,True
+xml_incorreto_0083,xml_incorreto,Intermediario: 682. <answer>683</answer>,682,False,True,False
+xml_duplicado_0083,xml_duplicado,<answer>682</answer><answer>683</answer>,682,False,True,False
+numero_correto_0084,numero_correto,Resposta: 689,689,True,True,True
+numero_incorreto_0084,numero_incorreto,Resposta: 690,689,False,False,False
+alternativas_0084,alternativas,Resposta: 690 ou 689,689,False,True,False
+contradicao_0084,contradicao,Resposta: 690; 689 seria incorreto.,689,False,True,False
+contaminacao_0084,contaminacao,Resposta: 690. Conferi o valor 689.,689,False,True,False
+xml_correto_0084,xml_correto,Calculei o resultado. <answer>689</answer>,689,True,True,True
+xml_incorreto_0084,xml_incorreto,Intermediario: 689. <answer>690</answer>,689,False,True,False
+xml_duplicado_0084,xml_duplicado,<answer>689</answer><answer>690</answer>,689,False,True,False
+numero_correto_0085,numero_correto,Resposta: 696,696,True,True,True
+numero_incorreto_0085,numero_incorreto,Resposta: 697,696,False,False,False
+alternativas_0085,alternativas,Resposta: 697 ou 696,696,False,True,False
+contradicao_0085,contradicao,Resposta: 697; 696 seria incorreto.,696,False,True,False
+contaminacao_0085,contaminacao,Resposta: 697. Conferi o valor 696.,696,False,True,False
+xml_correto_0085,xml_correto,Calculei o resultado. <answer>696</answer>,696,True,True,True
+xml_incorreto_0085,xml_incorreto,Intermediario: 696. <answer>697</answer>,696,False,True,False
+xml_duplicado_0085,xml_duplicado,<answer>696</answer><answer>697</answer>,696,False,True,False
+numero_correto_0086,numero_correto,Resposta: 703,703,True,True,True
+numero_incorreto_0086,numero_incorreto,Resposta: 704,703,False,False,False
+alternativas_0086,alternativas,Resposta: 704 ou 703,703,False,True,False
+contradicao_0086,contradicao,Resposta: 704; 703 seria incorreto.,703,False,True,False
+contaminacao_0086,contaminacao,Resposta: 704. Conferi o valor 703.,703,False,True,False
+xml_correto_0086,xml_correto,Calculei o resultado. <answer>703</answer>,703,True,True,True
+xml_incorreto_0086,xml_incorreto,Intermediario: 703. <answer>704</answer>,703,False,True,False
+xml_duplicado_0086,xml_duplicado,<answer>703</answer><answer>704</answer>,703,False,True,False
+numero_correto_0087,numero_correto,Resposta: 710,710,True,True,True
+numero_incorreto_0087,numero_incorreto,Resposta: 711,710,False,False,False
+alternativas_0087,alternativas,Resposta: 711 ou 710,710,False,True,False
+contradicao_0087,contradicao,Resposta: 711; 710 seria incorreto.,710,False,True,False
+contaminacao_0087,contaminacao,Resposta: 711. Conferi o valor 710.,710,False,True,False
+xml_correto_0087,xml_correto,Calculei o resultado. <answer>710</answer>,710,True,True,True
+xml_incorreto_0087,xml_incorreto,Intermediario: 710. <answer>711</answer>,710,False,True,False
+xml_duplicado_0087,xml_duplicado,<answer>710</answer><answer>711</answer>,710,False,True,False
+numero_correto_0088,numero_correto,Resposta: 717,717,True,True,True
+numero_incorreto_0088,numero_incorreto,Resposta: 718,717,False,False,False
+alternativas_0088,alternativas,Resposta: 718 ou 717,717,False,True,False
+contradicao_0088,contradicao,Resposta: 718; 717 seria incorreto.,717,False,True,False
+contaminacao_0088,contaminacao,Resposta: 718. Conferi o valor 717.,717,False,True,False
+xml_correto_0088,xml_correto,Calculei o resultado. <answer>717</answer>,717,True,True,True
+xml_incorreto_0088,xml_incorreto,Intermediario: 717. <answer>718</answer>,717,False,True,False
+xml_duplicado_0088,xml_duplicado,<answer>717</answer><answer>718</answer>,717,False,True,False
+numero_correto_0089,numero_correto,Resposta: 724,724,True,True,True
+numero_incorreto_0089,numero_incorreto,Resposta: 725,724,False,False,False
+alternativas_0089,alternativas,Resposta: 725 ou 724,724,False,True,False
+contradicao_0089,contradicao,Resposta: 725; 724 seria incorreto.,724,False,True,False
+contaminacao_0089,contaminacao,Resposta: 725. Conferi o valor 724.,724,False,True,False
+xml_correto_0089,xml_correto,Calculei o resultado. <answer>724</answer>,724,True,True,True
+xml_incorreto_0089,xml_incorreto,Intermediario: 724. <answer>725</answer>,724,False,True,False
+xml_duplicado_0089,xml_duplicado,<answer>724</answer><answer>725</answer>,724,False,True,False
+numero_correto_0090,numero_correto,Resposta: 731,731,True,True,True
+numero_incorreto_0090,numero_incorreto,Resposta: 732,731,False,False,False
+alternativas_0090,alternativas,Resposta: 732 ou 731,731,False,True,False
+contradicao_0090,contradicao,Resposta: 732; 731 seria incorreto.,731,False,True,False
+contaminacao_0090,contaminacao,Resposta: 732. Conferi o valor 731.,731,False,True,False
+xml_correto_0090,xml_correto,Calculei o resultado. <answer>731</answer>,731,True,True,True
+xml_incorreto_0090,xml_incorreto,Intermediario: 731. <answer>732</answer>,731,False,True,False
+xml_duplicado_0090,xml_duplicado,<answer>731</answer><answer>732</answer>,731,False,True,False
+numero_correto_0091,numero_correto,Resposta: 738,738,True,True,True
+numero_incorreto_0091,numero_incorreto,Resposta: 739,738,False,False,False
+alternativas_0091,alternativas,Resposta: 739 ou 738,738,False,True,False
+contradicao_0091,contradicao,Resposta: 739; 738 seria incorreto.,738,False,True,False
+contaminacao_0091,contaminacao,Resposta: 739. Conferi o valor 738.,738,False,True,False
+xml_correto_0091,xml_correto,Calculei o resultado. <answer>738</answer>,738,True,True,True
+xml_incorreto_0091,xml_incorreto,Intermediario: 738. <answer>739</answer>,738,False,True,False
+xml_duplicado_0091,xml_duplicado,<answer>738</answer><answer>739</answer>,738,False,True,False
+numero_correto_0092,numero_correto,Resposta: 745,745,True,True,True
+numero_incorreto_0092,numero_incorreto,Resposta: 746,745,False,False,False
+alternativas_0092,alternativas,Resposta: 746 ou 745,745,False,True,False
+contradicao_0092,contradicao,Resposta: 746; 745 seria incorreto.,745,False,True,False
+contaminacao_0092,contaminacao,Resposta: 746. Conferi o valor 745.,745,False,True,False
+xml_correto_0092,xml_correto,Calculei o resultado. <answer>745</answer>,745,True,True,True
+xml_incorreto_0092,xml_incorreto,Intermediario: 745. <answer>746</answer>,745,False,True,False
+xml_duplicado_0092,xml_duplicado,<answer>745</answer><answer>746</answer>,745,False,True,False
+numero_correto_0093,numero_correto,Resposta: 752,752,True,True,True
+numero_incorreto_0093,numero_incorreto,Resposta: 753,752,False,False,False
+alternativas_0093,alternativas,Resposta: 753 ou 752,752,False,True,False
+contradicao_0093,contradicao,Resposta: 753; 752 seria incorreto.,752,False,True,False
+contaminacao_0093,contaminacao,Resposta: 753. Conferi o valor 752.,752,False,True,False
+xml_correto_0093,xml_correto,Calculei o resultado. <answer>752</answer>,752,True,True,True
+xml_incorreto_0093,xml_incorreto,Intermediario: 752. <answer>753</answer>,752,False,True,False
+xml_duplicado_0093,xml_duplicado,<answer>752</answer><answer>753</answer>,752,False,True,False
+numero_correto_0094,numero_correto,Resposta: 759,759,True,True,True
+numero_incorreto_0094,numero_incorreto,Resposta: 760,759,False,False,False
+alternativas_0094,alternativas,Resposta: 760 ou 759,759,False,True,False
+contradicao_0094,contradicao,Resposta: 760; 759 seria incorreto.,759,False,True,False
+contaminacao_0094,contaminacao,Resposta: 760. Conferi o valor 759.,759,False,True,False
+xml_correto_0094,xml_correto,Calculei o resultado. <answer>759</answer>,759,True,True,True
+xml_incorreto_0094,xml_incorreto,Intermediario: 759. <answer>760</answer>,759,False,True,False
+xml_duplicado_0094,xml_duplicado,<answer>759</answer><answer>760</answer>,759,False,True,False
+numero_correto_0095,numero_correto,Resposta: 766,766,True,True,True
+numero_incorreto_0095,numero_incorreto,Resposta: 767,766,False,False,False
+alternativas_0095,alternativas,Resposta: 767 ou 766,766,False,True,False
+contradicao_0095,contradicao,Resposta: 767; 766 seria incorreto.,766,False,True,False
+contaminacao_0095,contaminacao,Resposta: 767. Conferi o valor 766.,766,False,True,False
+xml_correto_0095,xml_correto,Calculei o resultado. <answer>766</answer>,766,True,True,True
+xml_incorreto_0095,xml_incorreto,Intermediario: 766. <answer>767</answer>,766,False,True,False
+xml_duplicado_0095,xml_duplicado,<answer>766</answer><answer>767</answer>,766,False,True,False
+numero_correto_0096,numero_correto,Resposta: 773,773,True,True,True
+numero_incorreto_0096,numero_incorreto,Resposta: 774,773,False,False,False
+alternativas_0096,alternativas,Resposta: 774 ou 773,773,False,True,False
+contradicao_0096,contradicao,Resposta: 774; 773 seria incorreto.,773,False,True,False
+contaminacao_0096,contaminacao,Resposta: 774. Conferi o valor 773.,773,False,True,False
+xml_correto_0096,xml_correto,Calculei o resultado. <answer>773</answer>,773,True,True,True
+xml_incorreto_0096,xml_incorreto,Intermediario: 773. <answer>774</answer>,773,False,True,False
+xml_duplicado_0096,xml_duplicado,<answer>773</answer><answer>774</answer>,773,False,True,False
+numero_correto_0097,numero_correto,Resposta: 780,780,True,True,True
+numero_incorreto_0097,numero_incorreto,Resposta: 781,780,False,False,False
+alternativas_0097,alternativas,Resposta: 781 ou 780,780,False,True,False
+contradicao_0097,contradicao,Resposta: 781; 780 seria incorreto.,780,False,True,False
+contaminacao_0097,contaminacao,Resposta: 781. Conferi o valor 780.,780,False,True,False
+xml_correto_0097,xml_correto,Calculei o resultado. <answer>780</answer>,780,True,True,True
+xml_incorreto_0097,xml_incorreto,Intermediario: 780. <answer>781</answer>,780,False,True,False
+xml_duplicado_0097,xml_duplicado,<answer>780</answer><answer>781</answer>,780,False,True,False
+numero_correto_0098,numero_correto,Resposta: 787,787,True,True,True
+numero_incorreto_0098,numero_incorreto,Resposta: 788,787,False,False,False
+alternativas_0098,alternativas,Resposta: 788 ou 787,787,False,True,False
+contradicao_0098,contradicao,Resposta: 788; 787 seria incorreto.,787,False,True,False
+contaminacao_0098,contaminacao,Resposta: 788. Conferi o valor 787.,787,False,True,False
+xml_correto_0098,xml_correto,Calculei o resultado. <answer>787</answer>,787,True,True,True
+xml_incorreto_0098,xml_incorreto,Intermediario: 787. <answer>788</answer>,787,False,True,False
+xml_duplicado_0098,xml_duplicado,<answer>787</answer><answer>788</answer>,787,False,True,False
+numero_correto_0099,numero_correto,Resposta: 794,794,True,True,True
+numero_incorreto_0099,numero_incorreto,Resposta: 795,794,False,False,False
+alternativas_0099,alternativas,Resposta: 795 ou 794,794,False,True,False
+contradicao_0099,contradicao,Resposta: 795; 794 seria incorreto.,794,False,True,False
+contaminacao_0099,contaminacao,Resposta: 795. Conferi o valor 794.,794,False,True,False
+xml_correto_0099,xml_correto,Calculei o resultado. <answer>794</answer>,794,True,True,True
+xml_incorreto_0099,xml_incorreto,Intermediario: 794. <answer>795</answer>,794,False,True,False
+xml_duplicado_0099,xml_duplicado,<answer>794</answer><answer>795</answer>,794,False,True,False
+numero_correto_0100,numero_correto,Resposta: 801,801,True,True,True
+numero_incorreto_0100,numero_incorreto,Resposta: 802,801,False,False,False
+alternativas_0100,alternativas,Resposta: 802 ou 801,801,False,True,False
+contradicao_0100,contradicao,Resposta: 802; 801 seria incorreto.,801,False,True,False
+contaminacao_0100,contaminacao,Resposta: 802. Conferi o valor 801.,801,False,True,False
+xml_correto_0100,xml_correto,Calculei o resultado. <answer>801</answer>,801,True,True,True
+xml_incorreto_0100,xml_incorreto,Intermediario: 801. <answer>802</answer>,801,False,True,False
+xml_duplicado_0100,xml_duplicado,<answer>801</answer><answer>802</answer>,801,False,True,False
+numero_correto_0101,numero_correto,Resposta: 808,808,True,True,True
+numero_incorreto_0101,numero_incorreto,Resposta: 809,808,False,False,False
+alternativas_0101,alternativas,Resposta: 809 ou 808,808,False,True,False
+contradicao_0101,contradicao,Resposta: 809; 808 seria incorreto.,808,False,True,False
+contaminacao_0101,contaminacao,Resposta: 809. Conferi o valor 808.,808,False,True,False
+xml_correto_0101,xml_correto,Calculei o resultado. <answer>808</answer>,808,True,True,True
+xml_incorreto_0101,xml_incorreto,Intermediario: 808. <answer>809</answer>,808,False,True,False
+xml_duplicado_0101,xml_duplicado,<answer>808</answer><answer>809</answer>,808,False,True,False
+numero_correto_0102,numero_correto,Resposta: 815,815,True,True,True
+numero_incorreto_0102,numero_incorreto,Resposta: 816,815,False,False,False
+alternativas_0102,alternativas,Resposta: 816 ou 815,815,False,True,False
+contradicao_0102,contradicao,Resposta: 816; 815 seria incorreto.,815,False,True,False
+contaminacao_0102,contaminacao,Resposta: 816. Conferi o valor 815.,815,False,True,False
+xml_correto_0102,xml_correto,Calculei o resultado. <answer>815</answer>,815,True,True,True
+xml_incorreto_0102,xml_incorreto,Intermediario: 815. <answer>816</answer>,815,False,True,False
+xml_duplicado_0102,xml_duplicado,<answer>815</answer><answer>816</answer>,815,False,True,False
+numero_correto_0103,numero_correto,Resposta: 822,822,True,True,True
+numero_incorreto_0103,numero_incorreto,Resposta: 823,822,False,False,False
+alternativas_0103,alternativas,Resposta: 823 ou 822,822,False,True,False
+contradicao_0103,contradicao,Resposta: 823; 822 seria incorreto.,822,False,True,False
+contaminacao_0103,contaminacao,Resposta: 823. Conferi o valor 822.,822,False,True,False
+xml_correto_0103,xml_correto,Calculei o resultado. <answer>822</answer>,822,True,True,True
+xml_incorreto_0103,xml_incorreto,Intermediario: 822. <answer>823</answer>,822,False,True,False
+xml_duplicado_0103,xml_duplicado,<answer>822</answer><answer>823</answer>,822,False,True,False
+numero_correto_0104,numero_correto,Resposta: 829,829,True,True,True
+numero_incorreto_0104,numero_incorreto,Resposta: 830,829,False,False,False
+alternativas_0104,alternativas,Resposta: 830 ou 829,829,False,True,False
+contradicao_0104,contradicao,Resposta: 830; 829 seria incorreto.,829,False,True,False
+contaminacao_0104,contaminacao,Resposta: 830. Conferi o valor 829.,829,False,True,False
+xml_correto_0104,xml_correto,Calculei o resultado. <answer>829</answer>,829,True,True,True
+xml_incorreto_0104,xml_incorreto,Intermediario: 829. <answer>830</answer>,829,False,True,False
+xml_duplicado_0104,xml_duplicado,<answer>829</answer><answer>830</answer>,829,False,True,False
+numero_correto_0105,numero_correto,Resposta: 836,836,True,True,True
+numero_incorreto_0105,numero_incorreto,Resposta: 837,836,False,False,False
+alternativas_0105,alternativas,Resposta: 837 ou 836,836,False,True,False
+contradicao_0105,contradicao,Resposta: 837; 836 seria incorreto.,836,False,True,False
+contaminacao_0105,contaminacao,Resposta: 837. Conferi o valor 836.,836,False,True,False
+xml_correto_0105,xml_correto,Calculei o resultado. <answer>836</answer>,836,True,True,True
+xml_incorreto_0105,xml_incorreto,Intermediario: 836. <answer>837</answer>,836,False,True,False
+xml_duplicado_0105,xml_duplicado,<answer>836</answer><answer>837</answer>,836,False,True,False
+numero_correto_0106,numero_correto,Resposta: 843,843,True,True,True
+numero_incorreto_0106,numero_incorreto,Resposta: 844,843,False,False,False
+alternativas_0106,alternativas,Resposta: 844 ou 843,843,False,True,False
+contradicao_0106,contradicao,Resposta: 844; 843 seria incorreto.,843,False,True,False
+contaminacao_0106,contaminacao,Resposta: 844. Conferi o valor 843.,843,False,True,False
+xml_correto_0106,xml_correto,Calculei o resultado. <answer>843</answer>,843,True,True,True
+xml_incorreto_0106,xml_incorreto,Intermediario: 843. <answer>844</answer>,843,False,True,False
+xml_duplicado_0106,xml_duplicado,<answer>843</answer><answer>844</answer>,843,False,True,False
+numero_correto_0107,numero_correto,Resposta: 850,850,True,True,True
+numero_incorreto_0107,numero_incorreto,Resposta: 851,850,False,False,False
+alternativas_0107,alternativas,Resposta: 851 ou 850,850,False,True,False
+contradicao_0107,contradicao,Resposta: 851; 850 seria incorreto.,850,False,True,False
+contaminacao_0107,contaminacao,Resposta: 851. Conferi o valor 850.,850,False,True,False
+xml_correto_0107,xml_correto,Calculei o resultado. <answer>850</answer>,850,True,True,True
+xml_incorreto_0107,xml_incorreto,Intermediario: 850. <answer>851</answer>,850,False,True,False
+xml_duplicado_0107,xml_duplicado,<answer>850</answer><answer>851</answer>,850,False,True,False
+numero_correto_0108,numero_correto,Resposta: 857,857,True,True,True
+numero_incorreto_0108,numero_incorreto,Resposta: 858,857,False,False,False
+alternativas_0108,alternativas,Resposta: 858 ou 857,857,False,True,False
+contradicao_0108,contradicao,Resposta: 858; 857 seria incorreto.,857,False,True,False
+contaminacao_0108,contaminacao,Resposta: 858. Conferi o valor 857.,857,False,True,False
+xml_correto_0108,xml_correto,Calculei o resultado. <answer>857</answer>,857,True,True,True
+xml_incorreto_0108,xml_incorreto,Intermediario: 857. <answer>858</answer>,857,False,True,False
+xml_duplicado_0108,xml_duplicado,<answer>857</answer><answer>858</answer>,857,False,True,False
+numero_correto_0109,numero_correto,Resposta: 864,864,True,True,True
+numero_incorreto_0109,numero_incorreto,Resposta: 865,864,False,False,False
+alternativas_0109,alternativas,Resposta: 865 ou 864,864,False,True,False
+contradicao_0109,contradicao,Resposta: 865; 864 seria incorreto.,864,False,True,False
+contaminacao_0109,contaminacao,Resposta: 865. Conferi o valor 864.,864,False,True,False
+xml_correto_0109,xml_correto,Calculei o resultado. <answer>864</answer>,864,True,True,True
+xml_incorreto_0109,xml_incorreto,Intermediario: 864. <answer>865</answer>,864,False,True,False
+xml_duplicado_0109,xml_duplicado,<answer>864</answer><answer>865</answer>,864,False,True,False
+numero_correto_0110,numero_correto,Resposta: 871,871,True,True,True
+numero_incorreto_0110,numero_incorreto,Resposta: 872,871,False,False,False
+alternativas_0110,alternativas,Resposta: 872 ou 871,871,False,True,False
+contradicao_0110,contradicao,Resposta: 872; 871 seria incorreto.,871,False,True,False
+contaminacao_0110,contaminacao,Resposta: 872. Conferi o valor 871.,871,False,True,False
+xml_correto_0110,xml_correto,Calculei o resultado. <answer>871</answer>,871,True,True,True
+xml_incorreto_0110,xml_incorreto,Intermediario: 871. <answer>872</answer>,871,False,True,False
+xml_duplicado_0110,xml_duplicado,<answer>871</answer><answer>872</answer>,871,False,True,False
+numero_correto_0111,numero_correto,Resposta: 878,878,True,True,True
+numero_incorreto_0111,numero_incorreto,Resposta: 879,878,False,False,False
+alternativas_0111,alternativas,Resposta: 879 ou 878,878,False,True,False
+contradicao_0111,contradicao,Resposta: 879; 878 seria incorreto.,878,False,True,False
+contaminacao_0111,contaminacao,Resposta: 879. Conferi o valor 878.,878,False,True,False
+xml_correto_0111,xml_correto,Calculei o resultado. <answer>878</answer>,878,True,True,True
+xml_incorreto_0111,xml_incorreto,Intermediario: 878. <answer>879</answer>,878,False,True,False
+xml_duplicado_0111,xml_duplicado,<answer>878</answer><answer>879</answer>,878,False,True,False
+numero_correto_0112,numero_correto,Resposta: 885,885,True,True,True
+numero_incorreto_0112,numero_incorreto,Resposta: 886,885,False,False,False
+alternativas_0112,alternativas,Resposta: 886 ou 885,885,False,True,False
+contradicao_0112,contradicao,Resposta: 886; 885 seria incorreto.,885,False,True,False
+contaminacao_0112,contaminacao,Resposta: 886. Conferi o valor 885.,885,False,True,False
+xml_correto_0112,xml_correto,Calculei o resultado. <answer>885</answer>,885,True,True,True
+xml_incorreto_0112,xml_incorreto,Intermediario: 885. <answer>886</answer>,885,False,True,False
+xml_duplicado_0112,xml_duplicado,<answer>885</answer><answer>886</answer>,885,False,True,False
+numero_correto_0113,numero_correto,Resposta: 892,892,True,True,True
+numero_incorreto_0113,numero_incorreto,Resposta: 893,892,False,False,False
+alternativas_0113,alternativas,Resposta: 893 ou 892,892,False,True,False
+contradicao_0113,contradicao,Resposta: 893; 892 seria incorreto.,892,False,True,False
+contaminacao_0113,contaminacao,Resposta: 893. Conferi o valor 892.,892,False,True,False
+xml_correto_0113,xml_correto,Calculei o resultado. <answer>892</answer>,892,True,True,True
+xml_incorreto_0113,xml_incorreto,Intermediario: 892. <answer>893</answer>,892,False,True,False
+xml_duplicado_0113,xml_duplicado,<answer>892</answer><answer>893</answer>,892,False,True,False
+numero_correto_0114,numero_correto,Resposta: 899,899,True,True,True
+numero_incorreto_0114,numero_incorreto,Resposta: 900,899,False,False,False
+alternativas_0114,alternativas,Resposta: 900 ou 899,899,False,True,False
+contradicao_0114,contradicao,Resposta: 900; 899 seria incorreto.,899,False,True,False
+contaminacao_0114,contaminacao,Resposta: 900. Conferi o valor 899.,899,False,True,False
+xml_correto_0114,xml_correto,Calculei o resultado. <answer>899</answer>,899,True,True,True
+xml_incorreto_0114,xml_incorreto,Intermediario: 899. <answer>900</answer>,899,False,True,False
+xml_duplicado_0114,xml_duplicado,<answer>899</answer><answer>900</answer>,899,False,True,False
+numero_correto_0115,numero_correto,Resposta: 906,906,True,True,True
+numero_incorreto_0115,numero_incorreto,Resposta: 907,906,False,False,False
+alternativas_0115,alternativas,Resposta: 907 ou 906,906,False,True,False
+contradicao_0115,contradicao,Resposta: 907; 906 seria incorreto.,906,False,True,False
+contaminacao_0115,contaminacao,Resposta: 907. Conferi o valor 906.,906,False,True,False
+xml_correto_0115,xml_correto,Calculei o resultado. <answer>906</answer>,906,True,True,True
+xml_incorreto_0115,xml_incorreto,Intermediario: 906. <answer>907</answer>,906,False,True,False
+xml_duplicado_0115,xml_duplicado,<answer>906</answer><answer>907</answer>,906,False,True,False
+numero_correto_0116,numero_correto,Resposta: 913,913,True,True,True
+numero_incorreto_0116,numero_incorreto,Resposta: 914,913,False,False,False
+alternativas_0116,alternativas,Resposta: 914 ou 913,913,False,True,False
+contradicao_0116,contradicao,Resposta: 914; 913 seria incorreto.,913,False,True,False
+contaminacao_0116,contaminacao,Resposta: 914. Conferi o valor 913.,913,False,True,False
+xml_correto_0116,xml_correto,Calculei o resultado. <answer>913</answer>,913,True,True,True
+xml_incorreto_0116,xml_incorreto,Intermediario: 913. <answer>914</answer>,913,False,True,False
+xml_duplicado_0116,xml_duplicado,<answer>913</answer><answer>914</answer>,913,False,True,False
+numero_correto_0117,numero_correto,Resposta: 920,920,True,True,True
+numero_incorreto_0117,numero_incorreto,Resposta: 921,920,False,False,False
+alternativas_0117,alternativas,Resposta: 921 ou 920,920,False,True,False
+contradicao_0117,contradicao,Resposta: 921; 920 seria incorreto.,920,False,True,False
+contaminacao_0117,contaminacao,Resposta: 921. Conferi o valor 920.,920,False,True,False
+xml_correto_0117,xml_correto,Calculei o resultado. <answer>920</answer>,920,True,True,True
+xml_incorreto_0117,xml_incorreto,Intermediario: 920. <answer>921</answer>,920,False,True,False
+xml_duplicado_0117,xml_duplicado,<answer>920</answer><answer>921</answer>,920,False,True,False
+numero_correto_0118,numero_correto,Resposta: 927,927,True,True,True
+numero_incorreto_0118,numero_incorreto,Resposta: 928,927,False,False,False
+alternativas_0118,alternativas,Resposta: 928 ou 927,927,False,True,False
+contradicao_0118,contradicao,Resposta: 928; 927 seria incorreto.,927,False,True,False
+contaminacao_0118,contaminacao,Resposta: 928. Conferi o valor 927.,927,False,True,False
+xml_correto_0118,xml_correto,Calculei o resultado. <answer>927</answer>,927,True,True,True
+xml_incorreto_0118,xml_incorreto,Intermediario: 927. <answer>928</answer>,927,False,True,False
+xml_duplicado_0118,xml_duplicado,<answer>927</answer><answer>928</answer>,927,False,True,False
+numero_correto_0119,numero_correto,Resposta: 934,934,True,True,True
+numero_incorreto_0119,numero_incorreto,Resposta: 935,934,False,False,False
+alternativas_0119,alternativas,Resposta: 935 ou 934,934,False,True,False
+contradicao_0119,contradicao,Resposta: 935; 934 seria incorreto.,934,False,True,False
+contaminacao_0119,contaminacao,Resposta: 935. Conferi o valor 934.,934,False,True,False
+xml_correto_0119,xml_correto,Calculei o resultado. <answer>934</answer>,934,True,True,True
+xml_incorreto_0119,xml_incorreto,Intermediario: 934. <answer>935</answer>,934,False,True,False
+xml_duplicado_0119,xml_duplicado,<answer>934</answer><answer>935</answer>,934,False,True,False
+numero_correto_0120,numero_correto,Resposta: 941,941,True,True,True
+numero_incorreto_0120,numero_incorreto,Resposta: 942,941,False,False,False
+alternativas_0120,alternativas,Resposta: 942 ou 941,941,False,True,False
+contradicao_0120,contradicao,Resposta: 942; 941 seria incorreto.,941,False,True,False
+contaminacao_0120,contaminacao,Resposta: 942. Conferi o valor 941.,941,False,True,False
+xml_correto_0120,xml_correto,Calculei o resultado. <answer>941</answer>,941,True,True,True
+xml_incorreto_0120,xml_incorreto,Intermediario: 941. <answer>942</answer>,941,False,True,False
+xml_duplicado_0120,xml_duplicado,<answer>941</answer><answer>942</answer>,941,False,True,False
+numero_correto_0121,numero_correto,Resposta: 948,948,True,True,True
+numero_incorreto_0121,numero_incorreto,Resposta: 949,948,False,False,False
+alternativas_0121,alternativas,Resposta: 949 ou 948,948,False,True,False
+contradicao_0121,contradicao,Resposta: 949; 948 seria incorreto.,948,False,True,False
+contaminacao_0121,contaminacao,Resposta: 949. Conferi o valor 948.,948,False,True,False
+xml_correto_0121,xml_correto,Calculei o resultado. <answer>948</answer>,948,True,True,True
+xml_incorreto_0121,xml_incorreto,Intermediario: 948. <answer>949</answer>,948,False,True,False
+xml_duplicado_0121,xml_duplicado,<answer>948</answer><answer>949</answer>,948,False,True,False
+numero_correto_0122,numero_correto,Resposta: 955,955,True,True,True
+numero_incorreto_0122,numero_incorreto,Resposta: 956,955,False,False,False
+alternativas_0122,alternativas,Resposta: 956 ou 955,955,False,True,False
+contradicao_0122,contradicao,Resposta: 956; 955 seria incorreto.,955,False,True,False
+contaminacao_0122,contaminacao,Resposta: 956. Conferi o valor 955.,955,False,True,False
+xml_correto_0122,xml_correto,Calculei o resultado. <answer>955</answer>,955,True,True,True
+xml_incorreto_0122,xml_incorreto,Intermediario: 955. <answer>956</answer>,955,False,True,False
+xml_duplicado_0122,xml_duplicado,<answer>955</answer><answer>956</answer>,955,False,True,False
+numero_correto_0123,numero_correto,Resposta: 962,962,True,True,True
+numero_incorreto_0123,numero_incorreto,Resposta: 963,962,False,False,False
+alternativas_0123,alternativas,Resposta: 963 ou 962,962,False,True,False
+contradicao_0123,contradicao,Resposta: 963; 962 seria incorreto.,962,False,True,False
+contaminacao_0123,contaminacao,Resposta: 963. Conferi o valor 962.,962,False,True,False
+xml_correto_0123,xml_correto,Calculei o resultado. <answer>962</answer>,962,True,True,True
+xml_incorreto_0123,xml_incorreto,Intermediario: 962. <answer>963</answer>,962,False,True,False
+xml_duplicado_0123,xml_duplicado,<answer>962</answer><answer>963</answer>,962,False,True,False
+numero_correto_0124,numero_correto,Resposta: 969,969,True,True,True
+numero_incorreto_0124,numero_incorreto,Resposta: 970,969,False,False,False
+alternativas_0124,alternativas,Resposta: 970 ou 969,969,False,True,False
+contradicao_0124,contradicao,Resposta: 970; 969 seria incorreto.,969,False,True,False
+contaminacao_0124,contaminacao,Resposta: 970. Conferi o valor 969.,969,False,True,False
+xml_correto_0124,xml_correto,Calculei o resultado. <answer>969</answer>,969,True,True,True
+xml_incorreto_0124,xml_incorreto,Intermediario: 969. <answer>970</answer>,969,False,True,False
+xml_duplicado_0124,xml_duplicado,<answer>969</answer><answer>970</answer>,969,False,True,False
+numero_correto_0125,numero_correto,Resposta: 976,976,True,True,True
+numero_incorreto_0125,numero_incorreto,Resposta: 977,976,False,False,False
+alternativas_0125,alternativas,Resposta: 977 ou 976,976,False,True,False
+contradicao_0125,contradicao,Resposta: 977; 976 seria incorreto.,976,False,True,False
+contaminacao_0125,contaminacao,Resposta: 977. Conferi o valor 976.,976,False,True,False
+xml_correto_0125,xml_correto,Calculei o resultado. <answer>976</answer>,976,True,True,True
+xml_incorreto_0125,xml_incorreto,Intermediario: 976. <answer>977</answer>,976,False,True,False
+xml_duplicado_0125,xml_duplicado,<answer>976</answer><answer>977</answer>,976,False,True,False
+numero_correto_0126,numero_correto,Resposta: 983,983,True,True,True
+numero_incorreto_0126,numero_incorreto,Resposta: 984,983,False,False,False
+alternativas_0126,alternativas,Resposta: 984 ou 983,983,False,True,False
+contradicao_0126,contradicao,Resposta: 984; 983 seria incorreto.,983,False,True,False
+contaminacao_0126,contaminacao,Resposta: 984. Conferi o valor 983.,983,False,True,False
+xml_correto_0126,xml_correto,Calculei o resultado. <answer>983</answer>,983,True,True,True
+xml_incorreto_0126,xml_incorreto,Intermediario: 983. <answer>984</answer>,983,False,True,False
+xml_duplicado_0126,xml_duplicado,<answer>983</answer><answer>984</answer>,983,False,True,False
+numero_correto_0127,numero_correto,Resposta: 990,990,True,True,True
+numero_incorreto_0127,numero_incorreto,Resposta: 991,990,False,False,False
+alternativas_0127,alternativas,Resposta: 991 ou 990,990,False,True,False
+contradicao_0127,contradicao,Resposta: 991; 990 seria incorreto.,990,False,True,False
+contaminacao_0127,contaminacao,Resposta: 991. Conferi o valor 990.,990,False,True,False
+xml_correto_0127,xml_correto,Calculei o resultado. <answer>990</answer>,990,True,True,True
+xml_incorreto_0127,xml_incorreto,Intermediario: 990. <answer>991</answer>,990,False,True,False
+xml_duplicado_0127,xml_duplicado,<answer>990</answer><answer>991</answer>,990,False,True,False
+numero_correto_0128,numero_correto,Resposta: 997,997,True,True,True
+numero_incorreto_0128,numero_incorreto,Resposta: 998,997,False,False,False
+alternativas_0128,alternativas,Resposta: 998 ou 997,997,False,True,False
+contradicao_0128,contradicao,Resposta: 998; 997 seria incorreto.,997,False,True,False
+contaminacao_0128,contaminacao,Resposta: 998. Conferi o valor 997.,997,False,True,False
+xml_correto_0128,xml_correto,Calculei o resultado. <answer>997</answer>,997,True,True,True
+xml_incorreto_0128,xml_incorreto,Intermediario: 997. <answer>998</answer>,997,False,True,False
+xml_duplicado_0128,xml_duplicado,<answer>997</answer><answer>998</answer>,997,False,True,False
+numero_correto_0129,numero_correto,Resposta: 1004,1004,True,True,True
+numero_incorreto_0129,numero_incorreto,Resposta: 1005,1004,False,False,False
+alternativas_0129,alternativas,Resposta: 1005 ou 1004,1004,False,True,False
+contradicao_0129,contradicao,Resposta: 1005; 1004 seria incorreto.,1004,False,True,False
+contaminacao_0129,contaminacao,Resposta: 1005. Conferi o valor 1004.,1004,False,True,False
+xml_correto_0129,xml_correto,Calculei o resultado. <answer>1004</answer>,1004,True,True,True
+xml_incorreto_0129,xml_incorreto,Intermediario: 1004. <answer>1005</answer>,1004,False,True,False
+xml_duplicado_0129,xml_duplicado,<answer>1004</answer><answer>1005</answer>,1004,False,True,False
+numero_correto_0130,numero_correto,Resposta: 1011,1011,True,True,True
+numero_incorreto_0130,numero_incorreto,Resposta: 1012,1011,False,False,False
+alternativas_0130,alternativas,Resposta: 1012 ou 1011,1011,False,True,False
+contradicao_0130,contradicao,Resposta: 1012; 1011 seria incorreto.,1011,False,True,False
+contaminacao_0130,contaminacao,Resposta: 1012. Conferi o valor 1011.,1011,False,True,False
+xml_correto_0130,xml_correto,Calculei o resultado. <answer>1011</answer>,1011,True,True,True
+xml_incorreto_0130,xml_incorreto,Intermediario: 1011. <answer>1012</answer>,1011,False,True,False
+xml_duplicado_0130,xml_duplicado,<answer>1011</answer><answer>1012</answer>,1011,False,True,False
+numero_correto_0131,numero_correto,Resposta: 1018,1018,True,True,True
+numero_incorreto_0131,numero_incorreto,Resposta: 1019,1018,False,False,False
+alternativas_0131,alternativas,Resposta: 1019 ou 1018,1018,False,True,False
+contradicao_0131,contradicao,Resposta: 1019; 1018 seria incorreto.,1018,False,True,False
+contaminacao_0131,contaminacao,Resposta: 1019. Conferi o valor 1018.,1018,False,True,False
+xml_correto_0131,xml_correto,Calculei o resultado. <answer>1018</answer>,1018,True,True,True
+xml_incorreto_0131,xml_incorreto,Intermediario: 1018. <answer>1019</answer>,1018,False,True,False
+xml_duplicado_0131,xml_duplicado,<answer>1018</answer><answer>1019</answer>,1018,False,True,False
+numero_correto_0132,numero_correto,Resposta: 1025,1025,True,True,True
+numero_incorreto_0132,numero_incorreto,Resposta: 1026,1025,False,False,False
+alternativas_0132,alternativas,Resposta: 1026 ou 1025,1025,False,True,False
+contradicao_0132,contradicao,Resposta: 1026; 1025 seria incorreto.,1025,False,True,False
+contaminacao_0132,contaminacao,Resposta: 1026. Conferi o valor 1025.,1025,False,True,False
+xml_correto_0132,xml_correto,Calculei o resultado. <answer>1025</answer>,1025,True,True,True
+xml_incorreto_0132,xml_incorreto,Intermediario: 1025. <answer>1026</answer>,1025,False,True,False
+xml_duplicado_0132,xml_duplicado,<answer>1025</answer><answer>1026</answer>,1025,False,True,False
+numero_correto_0133,numero_correto,Resposta: 1032,1032,True,True,True
+numero_incorreto_0133,numero_incorreto,Resposta: 1033,1032,False,False,False
+alternativas_0133,alternativas,Resposta: 1033 ou 1032,1032,False,True,False
+contradicao_0133,contradicao,Resposta: 1033; 1032 seria incorreto.,1032,False,True,False
+contaminacao_0133,contaminacao,Resposta: 1033. Conferi o valor 1032.,1032,False,True,False
+xml_correto_0133,xml_correto,Calculei o resultado. <answer>1032</answer>,1032,True,True,True
+xml_incorreto_0133,xml_incorreto,Intermediario: 1032. <answer>1033</answer>,1032,False,True,False
+xml_duplicado_0133,xml_duplicado,<answer>1032</answer><answer>1033</answer>,1032,False,True,False
+numero_correto_0134,numero_correto,Resposta: 1039,1039,True,True,True
+numero_incorreto_0134,numero_incorreto,Resposta: 1040,1039,False,False,False
+alternativas_0134,alternativas,Resposta: 1040 ou 1039,1039,False,True,False
+contradicao_0134,contradicao,Resposta: 1040; 1039 seria incorreto.,1039,False,True,False
+contaminacao_0134,contaminacao,Resposta: 1040. Conferi o valor 1039.,1039,False,True,False
+xml_correto_0134,xml_correto,Calculei o resultado. <answer>1039</answer>,1039,True,True,True
+xml_incorreto_0134,xml_incorreto,Intermediario: 1039. <answer>1040</answer>,1039,False,True,False
+xml_duplicado_0134,xml_duplicado,<answer>1039</answer><answer>1040</answer>,1039,False,True,False
+numero_correto_0135,numero_correto,Resposta: 1046,1046,True,True,True
+numero_incorreto_0135,numero_incorreto,Resposta: 1047,1046,False,False,False
+alternativas_0135,alternativas,Resposta: 1047 ou 1046,1046,False,True,False
+contradicao_0135,contradicao,Resposta: 1047; 1046 seria incorreto.,1046,False,True,False
+contaminacao_0135,contaminacao,Resposta: 1047. Conferi o valor 1046.,1046,False,True,False
+xml_correto_0135,xml_correto,Calculei o resultado. <answer>1046</answer>,1046,True,True,True
+xml_incorreto_0135,xml_incorreto,Intermediario: 1046. <answer>1047</answer>,1046,False,True,False
+xml_duplicado_0135,xml_duplicado,<answer>1046</answer><answer>1047</answer>,1046,False,True,False
+numero_correto_0136,numero_correto,Resposta: 1053,1053,True,True,True
+numero_incorreto_0136,numero_incorreto,Resposta: 1054,1053,False,False,False
+alternativas_0136,alternativas,Resposta: 1054 ou 1053,1053,False,True,False
+contradicao_0136,contradicao,Resposta: 1054; 1053 seria incorreto.,1053,False,True,False
+contaminacao_0136,contaminacao,Resposta: 1054. Conferi o valor 1053.,1053,False,True,False
+xml_correto_0136,xml_correto,Calculei o resultado. <answer>1053</answer>,1053,True,True,True
+xml_incorreto_0136,xml_incorreto,Intermediario: 1053. <answer>1054</answer>,1053,False,True,False
+xml_duplicado_0136,xml_duplicado,<answer>1053</answer><answer>1054</answer>,1053,False,True,False
+numero_correto_0137,numero_correto,Resposta: 1060,1060,True,True,True
+numero_incorreto_0137,numero_incorreto,Resposta: 1061,1060,False,False,False
+alternativas_0137,alternativas,Resposta: 1061 ou 1060,1060,False,True,False
+contradicao_0137,contradicao,Resposta: 1061; 1060 seria incorreto.,1060,False,True,False
+contaminacao_0137,contaminacao,Resposta: 1061. Conferi o valor 1060.,1060,False,True,False
+xml_correto_0137,xml_correto,Calculei o resultado. <answer>1060</answer>,1060,True,True,True
+xml_incorreto_0137,xml_incorreto,Intermediario: 1060. <answer>1061</answer>,1060,False,True,False
+xml_duplicado_0137,xml_duplicado,<answer>1060</answer><answer>1061</answer>,1060,False,True,False
+numero_correto_0138,numero_correto,Resposta: 1067,1067,True,True,True
+numero_incorreto_0138,numero_incorreto,Resposta: 1068,1067,False,False,False
+alternativas_0138,alternativas,Resposta: 1068 ou 1067,1067,False,True,False
+contradicao_0138,contradicao,Resposta: 1068; 1067 seria incorreto.,1067,False,True,False
+contaminacao_0138,contaminacao,Resposta: 1068. Conferi o valor 1067.,1067,False,True,False
+xml_correto_0138,xml_correto,Calculei o resultado. <answer>1067</answer>,1067,True,True,True
+xml_incorreto_0138,xml_incorreto,Intermediario: 1067. <answer>1068</answer>,1067,False,True,False
+xml_duplicado_0138,xml_duplicado,<answer>1067</answer><answer>1068</answer>,1067,False,True,False
+numero_correto_0139,numero_correto,Resposta: 1074,1074,True,True,True
+numero_incorreto_0139,numero_incorreto,Resposta: 1075,1074,False,False,False
+alternativas_0139,alternativas,Resposta: 1075 ou 1074,1074,False,True,False
+contradicao_0139,contradicao,Resposta: 1075; 1074 seria incorreto.,1074,False,True,False
+contaminacao_0139,contaminacao,Resposta: 1075. Conferi o valor 1074.,1074,False,True,False
+xml_correto_0139,xml_correto,Calculei o resultado. <answer>1074</answer>,1074,True,True,True
+xml_incorreto_0139,xml_incorreto,Intermediario: 1074. <answer>1075</answer>,1074,False,True,False
+xml_duplicado_0139,xml_duplicado,<answer>1074</answer><answer>1075</answer>,1074,False,True,False
+numero_correto_0140,numero_correto,Resposta: 1081,1081,True,True,True
+numero_incorreto_0140,numero_incorreto,Resposta: 1082,1081,False,False,False
+alternativas_0140,alternativas,Resposta: 1082 ou 1081,1081,False,True,False
+contradicao_0140,contradicao,Resposta: 1082; 1081 seria incorreto.,1081,False,True,False
+contaminacao_0140,contaminacao,Resposta: 1082. Conferi o valor 1081.,1081,False,True,False
+xml_correto_0140,xml_correto,Calculei o resultado. <answer>1081</answer>,1081,True,True,True
+xml_incorreto_0140,xml_incorreto,Intermediario: 1081. <answer>1082</answer>,1081,False,True,False
+xml_duplicado_0140,xml_duplicado,<answer>1081</answer><answer>1082</answer>,1081,False,True,False
+numero_correto_0141,numero_correto,Resposta: 1088,1088,True,True,True
+numero_incorreto_0141,numero_incorreto,Resposta: 1089,1088,False,False,False
+alternativas_0141,alternativas,Resposta: 1089 ou 1088,1088,False,True,False
+contradicao_0141,contradicao,Resposta: 1089; 1088 seria incorreto.,1088,False,True,False
+contaminacao_0141,contaminacao,Resposta: 1089. Conferi o valor 1088.,1088,False,True,False
+xml_correto_0141,xml_correto,Calculei o resultado. <answer>1088</answer>,1088,True,True,True
+xml_incorreto_0141,xml_incorreto,Intermediario: 1088. <answer>1089</answer>,1088,False,True,False
+xml_duplicado_0141,xml_duplicado,<answer>1088</answer><answer>1089</answer>,1088,False,True,False
+numero_correto_0142,numero_correto,Resposta: 1095,1095,True,True,True
+numero_incorreto_0142,numero_incorreto,Resposta: 1096,1095,False,False,False
+alternativas_0142,alternativas,Resposta: 1096 ou 1095,1095,False,True,False
+contradicao_0142,contradicao,Resposta: 1096; 1095 seria incorreto.,1095,False,True,False
+contaminacao_0142,contaminacao,Resposta: 1096. Conferi o valor 1095.,1095,False,True,False
+xml_correto_0142,xml_correto,Calculei o resultado. <answer>1095</answer>,1095,True,True,True
+xml_incorreto_0142,xml_incorreto,Intermediario: 1095. <answer>1096</answer>,1095,False,True,False
+xml_duplicado_0142,xml_duplicado,<answer>1095</answer><answer>1096</answer>,1095,False,True,False
+numero_correto_0143,numero_correto,Resposta: 1102,1102,True,True,True
+numero_incorreto_0143,numero_incorreto,Resposta: 1103,1102,False,False,False
+alternativas_0143,alternativas,Resposta: 1103 ou 1102,1102,False,True,False
+contradicao_0143,contradicao,Resposta: 1103; 1102 seria incorreto.,1102,False,True,False
+contaminacao_0143,contaminacao,Resposta: 1103. Conferi o valor 1102.,1102,False,True,False
+xml_correto_0143,xml_correto,Calculei o resultado. <answer>1102</answer>,1102,True,True,True
+xml_incorreto_0143,xml_incorreto,Intermediario: 1102. <answer>1103</answer>,1102,False,True,False
+xml_duplicado_0143,xml_duplicado,<answer>1102</answer><answer>1103</answer>,1102,False,True,False
+numero_correto_0144,numero_correto,Resposta: 1109,1109,True,True,True
+numero_incorreto_0144,numero_incorreto,Resposta: 1110,1109,False,False,False
+alternativas_0144,alternativas,Resposta: 1110 ou 1109,1109,False,True,False
+contradicao_0144,contradicao,Resposta: 1110; 1109 seria incorreto.,1109,False,True,False
+contaminacao_0144,contaminacao,Resposta: 1110. Conferi o valor 1109.,1109,False,True,False
+xml_correto_0144,xml_correto,Calculei o resultado. <answer>1109</answer>,1109,True,True,True
+xml_incorreto_0144,xml_incorreto,Intermediario: 1109. <answer>1110</answer>,1109,False,True,False
+xml_duplicado_0144,xml_duplicado,<answer>1109</answer><answer>1110</answer>,1109,False,True,False
+numero_correto_0145,numero_correto,Resposta: 1116,1116,True,True,True
+numero_incorreto_0145,numero_incorreto,Resposta: 1117,1116,False,False,False
+alternativas_0145,alternativas,Resposta: 1117 ou 1116,1116,False,True,False
+contradicao_0145,contradicao,Resposta: 1117; 1116 seria incorreto.,1116,False,True,False
+contaminacao_0145,contaminacao,Resposta: 1117. Conferi o valor 1116.,1116,False,True,False
+xml_correto_0145,xml_correto,Calculei o resultado. <answer>1116</answer>,1116,True,True,True
+xml_incorreto_0145,xml_incorreto,Intermediario: 1116. <answer>1117</answer>,1116,False,True,False
+xml_duplicado_0145,xml_duplicado,<answer>1116</answer><answer>1117</answer>,1116,False,True,False
+numero_correto_0146,numero_correto,Resposta: 1123,1123,True,True,True
+numero_incorreto_0146,numero_incorreto,Resposta: 1124,1123,False,False,False
+alternativas_0146,alternativas,Resposta: 1124 ou 1123,1123,False,True,False
+contradicao_0146,contradicao,Resposta: 1124; 1123 seria incorreto.,1123,False,True,False
+contaminacao_0146,contaminacao,Resposta: 1124. Conferi o valor 1123.,1123,False,True,False
+xml_correto_0146,xml_correto,Calculei o resultado. <answer>1123</answer>,1123,True,True,True
+xml_incorreto_0146,xml_incorreto,Intermediario: 1123. <answer>1124</answer>,1123,False,True,False
+xml_duplicado_0146,xml_duplicado,<answer>1123</answer><answer>1124</answer>,1123,False,True,False
+numero_correto_0147,numero_correto,Resposta: 1130,1130,True,True,True
+numero_incorreto_0147,numero_incorreto,Resposta: 1131,1130,False,False,False
+alternativas_0147,alternativas,Resposta: 1131 ou 1130,1130,False,True,False
+contradicao_0147,contradicao,Resposta: 1131; 1130 seria incorreto.,1130,False,True,False
+contaminacao_0147,contaminacao,Resposta: 1131. Conferi o valor 1130.,1130,False,True,False
+xml_correto_0147,xml_correto,Calculei o resultado. <answer>1130</answer>,1130,True,True,True
+xml_incorreto_0147,xml_incorreto,Intermediario: 1130. <answer>1131</answer>,1130,False,True,False
+xml_duplicado_0147,xml_duplicado,<answer>1130</answer><answer>1131</answer>,1130,False,True,False
+numero_correto_0148,numero_correto,Resposta: 1137,1137,True,True,True
+numero_incorreto_0148,numero_incorreto,Resposta: 1138,1137,False,False,False
+alternativas_0148,alternativas,Resposta: 1138 ou 1137,1137,False,True,False
+contradicao_0148,contradicao,Resposta: 1138; 1137 seria incorreto.,1137,False,True,False
+contaminacao_0148,contaminacao,Resposta: 1138. Conferi o valor 1137.,1137,False,True,False
+xml_correto_0148,xml_correto,Calculei o resultado. <answer>1137</answer>,1137,True,True,True
+xml_incorreto_0148,xml_incorreto,Intermediario: 1137. <answer>1138</answer>,1137,False,True,False
+xml_duplicado_0148,xml_duplicado,<answer>1137</answer><answer>1138</answer>,1137,False,True,False
+numero_correto_0149,numero_correto,Resposta: 1144,1144,True,True,True
+numero_incorreto_0149,numero_incorreto,Resposta: 1145,1144,False,False,False
+alternativas_0149,alternativas,Resposta: 1145 ou 1144,1144,False,True,False
+contradicao_0149,contradicao,Resposta: 1145; 1144 seria incorreto.,1144,False,True,False
+contaminacao_0149,contaminacao,Resposta: 1145. Conferi o valor 1144.,1144,False,True,False
+xml_correto_0149,xml_correto,Calculei o resultado. <answer>1144</answer>,1144,True,True,True
+xml_incorreto_0149,xml_incorreto,Intermediario: 1144. <answer>1145</answer>,1144,False,True,False
+xml_duplicado_0149,xml_duplicado,<answer>1144</answer><answer>1145</answer>,1144,False,True,False
+numero_correto_0150,numero_correto,Resposta: 1151,1151,True,True,True
+numero_incorreto_0150,numero_incorreto,Resposta: 1152,1151,False,False,False
+alternativas_0150,alternativas,Resposta: 1152 ou 1151,1151,False,True,False
+contradicao_0150,contradicao,Resposta: 1152; 1151 seria incorreto.,1151,False,True,False
+contaminacao_0150,contaminacao,Resposta: 1152. Conferi o valor 1151.,1151,False,True,False
+xml_correto_0150,xml_correto,Calculei o resultado. <answer>1151</answer>,1151,True,True,True
+xml_incorreto_0150,xml_incorreto,Intermediario: 1151. <answer>1152</answer>,1151,False,True,False
+xml_duplicado_0150,xml_duplicado,<answer>1151</answer><answer>1152</answer>,1151,False,True,False
+numero_correto_0151,numero_correto,Resposta: 1158,1158,True,True,True
+numero_incorreto_0151,numero_incorreto,Resposta: 1159,1158,False,False,False
+alternativas_0151,alternativas,Resposta: 1159 ou 1158,1158,False,True,False
+contradicao_0151,contradicao,Resposta: 1159; 1158 seria incorreto.,1158,False,True,False
+contaminacao_0151,contaminacao,Resposta: 1159. Conferi o valor 1158.,1158,False,True,False
+xml_correto_0151,xml_correto,Calculei o resultado. <answer>1158</answer>,1158,True,True,True
+xml_incorreto_0151,xml_incorreto,Intermediario: 1158. <answer>1159</answer>,1158,False,True,False
+xml_duplicado_0151,xml_duplicado,<answer>1158</answer><answer>1159</answer>,1158,False,True,False
+numero_correto_0152,numero_correto,Resposta: 1165,1165,True,True,True
+numero_incorreto_0152,numero_incorreto,Resposta: 1166,1165,False,False,False
+alternativas_0152,alternativas,Resposta: 1166 ou 1165,1165,False,True,False
+contradicao_0152,contradicao,Resposta: 1166; 1165 seria incorreto.,1165,False,True,False
+contaminacao_0152,contaminacao,Resposta: 1166. Conferi o valor 1165.,1165,False,True,False
+xml_correto_0152,xml_correto,Calculei o resultado. <answer>1165</answer>,1165,True,True,True
+xml_incorreto_0152,xml_incorreto,Intermediario: 1165. <answer>1166</answer>,1165,False,True,False
+xml_duplicado_0152,xml_duplicado,<answer>1165</answer><answer>1166</answer>,1165,False,True,False
+numero_correto_0153,numero_correto,Resposta: 1172,1172,True,True,True
+numero_incorreto_0153,numero_incorreto,Resposta: 1173,1172,False,False,False
+alternativas_0153,alternativas,Resposta: 1173 ou 1172,1172,False,True,False
+contradicao_0153,contradicao,Resposta: 1173; 1172 seria incorreto.,1172,False,True,False
+contaminacao_0153,contaminacao,Resposta: 1173. Conferi o valor 1172.,1172,False,True,False
+xml_correto_0153,xml_correto,Calculei o resultado. <answer>1172</answer>,1172,True,True,True
+xml_incorreto_0153,xml_incorreto,Intermediario: 1172. <answer>1173</answer>,1172,False,True,False
+xml_duplicado_0153,xml_duplicado,<answer>1172</answer><answer>1173</answer>,1172,False,True,False
+numero_correto_0154,numero_correto,Resposta: 1179,1179,True,True,True
+numero_incorreto_0154,numero_incorreto,Resposta: 1180,1179,False,False,False
+alternativas_0154,alternativas,Resposta: 1180 ou 1179,1179,False,True,False
+contradicao_0154,contradicao,Resposta: 1180; 1179 seria incorreto.,1179,False,True,False
+contaminacao_0154,contaminacao,Resposta: 1180. Conferi o valor 1179.,1179,False,True,False
+xml_correto_0154,xml_correto,Calculei o resultado. <answer>1179</answer>,1179,True,True,True
+xml_incorreto_0154,xml_incorreto,Intermediario: 1179. <answer>1180</answer>,1179,False,True,False
+xml_duplicado_0154,xml_duplicado,<answer>1179</answer><answer>1180</answer>,1179,False,True,False
+numero_correto_0155,numero_correto,Resposta: 1186,1186,True,True,True
+numero_incorreto_0155,numero_incorreto,Resposta: 1187,1186,False,False,False
+alternativas_0155,alternativas,Resposta: 1187 ou 1186,1186,False,True,False
+contradicao_0155,contradicao,Resposta: 1187; 1186 seria incorreto.,1186,False,True,False
+contaminacao_0155,contaminacao,Resposta: 1187. Conferi o valor 1186.,1186,False,True,False
+xml_correto_0155,xml_correto,Calculei o resultado. <answer>1186</answer>,1186,True,True,True
+xml_incorreto_0155,xml_incorreto,Intermediario: 1186. <answer>1187</answer>,1186,False,True,False
+xml_duplicado_0155,xml_duplicado,<answer>1186</answer><answer>1187</answer>,1186,False,True,False
+numero_correto_0156,numero_correto,Resposta: 1193,1193,True,True,True
+numero_incorreto_0156,numero_incorreto,Resposta: 1194,1193,False,False,False
+alternativas_0156,alternativas,Resposta: 1194 ou 1193,1193,False,True,False
+contradicao_0156,contradicao,Resposta: 1194; 1193 seria incorreto.,1193,False,True,False
+contaminacao_0156,contaminacao,Resposta: 1194. Conferi o valor 1193.,1193,False,True,False
+xml_correto_0156,xml_correto,Calculei o resultado. <answer>1193</answer>,1193,True,True,True
+xml_incorreto_0156,xml_incorreto,Intermediario: 1193. <answer>1194</answer>,1193,False,True,False
+xml_duplicado_0156,xml_duplicado,<answer>1193</answer><answer>1194</answer>,1193,False,True,False
+numero_correto_0157,numero_correto,Resposta: 1200,1200,True,True,True
+numero_incorreto_0157,numero_incorreto,Resposta: 1201,1200,False,False,False
+alternativas_0157,alternativas,Resposta: 1201 ou 1200,1200,False,True,False
+contradicao_0157,contradicao,Resposta: 1201; 1200 seria incorreto.,1200,False,True,False
+contaminacao_0157,contaminacao,Resposta: 1201. Conferi o valor 1200.,1200,False,True,False
+xml_correto_0157,xml_correto,Calculei o resultado. <answer>1200</answer>,1200,True,True,True
+xml_incorreto_0157,xml_incorreto,Intermediario: 1200. <answer>1201</answer>,1200,False,True,False
+xml_duplicado_0157,xml_duplicado,<answer>1200</answer><answer>1201</answer>,1200,False,True,False
+numero_correto_0158,numero_correto,Resposta: 1207,1207,True,True,True
+numero_incorreto_0158,numero_incorreto,Resposta: 1208,1207,False,False,False
+alternativas_0158,alternativas,Resposta: 1208 ou 1207,1207,False,True,False
+contradicao_0158,contradicao,Resposta: 1208; 1207 seria incorreto.,1207,False,True,False
+contaminacao_0158,contaminacao,Resposta: 1208. Conferi o valor 1207.,1207,False,True,False
+xml_correto_0158,xml_correto,Calculei o resultado. <answer>1207</answer>,1207,True,True,True
+xml_incorreto_0158,xml_incorreto,Intermediario: 1207. <answer>1208</answer>,1207,False,True,False
+xml_duplicado_0158,xml_duplicado,<answer>1207</answer><answer>1208</answer>,1207,False,True,False
+numero_correto_0159,numero_correto,Resposta: 1214,1214,True,True,True
+numero_incorreto_0159,numero_incorreto,Resposta: 1215,1214,False,False,False
+alternativas_0159,alternativas,Resposta: 1215 ou 1214,1214,False,True,False
+contradicao_0159,contradicao,Resposta: 1215; 1214 seria incorreto.,1214,False,True,False
+contaminacao_0159,contaminacao,Resposta: 1215. Conferi o valor 1214.,1214,False,True,False
+xml_correto_0159,xml_correto,Calculei o resultado. <answer>1214</answer>,1214,True,True,True
+xml_incorreto_0159,xml_incorreto,Intermediario: 1214. <answer>1215</answer>,1214,False,True,False
+xml_duplicado_0159,xml_duplicado,<answer>1214</answer><answer>1215</answer>,1214,False,True,False
+numero_correto_0160,numero_correto,Resposta: 1221,1221,True,True,True
+numero_incorreto_0160,numero_incorreto,Resposta: 1222,1221,False,False,False
+alternativas_0160,alternativas,Resposta: 1222 ou 1221,1221,False,True,False
+contradicao_0160,contradicao,Resposta: 1222; 1221 seria incorreto.,1221,False,True,False
+contaminacao_0160,contaminacao,Resposta: 1222. Conferi o valor 1221.,1221,False,True,False
+xml_correto_0160,xml_correto,Calculei o resultado. <answer>1221</answer>,1221,True,True,True
+xml_incorreto_0160,xml_incorreto,Intermediario: 1221. <answer>1222</answer>,1221,False,True,False
+xml_duplicado_0160,xml_duplicado,<answer>1221</answer><answer>1222</answer>,1221,False,True,False
+numero_correto_0161,numero_correto,Resposta: 1228,1228,True,True,True
+numero_incorreto_0161,numero_incorreto,Resposta: 1229,1228,False,False,False
+alternativas_0161,alternativas,Resposta: 1229 ou 1228,1228,False,True,False
+contradicao_0161,contradicao,Resposta: 1229; 1228 seria incorreto.,1228,False,True,False
+contaminacao_0161,contaminacao,Resposta: 1229. Conferi o valor 1228.,1228,False,True,False
+xml_correto_0161,xml_correto,Calculei o resultado. <answer>1228</answer>,1228,True,True,True
+xml_incorreto_0161,xml_incorreto,Intermediario: 1228. <answer>1229</answer>,1228,False,True,False
+xml_duplicado_0161,xml_duplicado,<answer>1228</answer><answer>1229</answer>,1228,False,True,False
+numero_correto_0162,numero_correto,Resposta: 1235,1235,True,True,True
+numero_incorreto_0162,numero_incorreto,Resposta: 1236,1235,False,False,False
+alternativas_0162,alternativas,Resposta: 1236 ou 1235,1235,False,True,False
+contradicao_0162,contradicao,Resposta: 1236; 1235 seria incorreto.,1235,False,True,False
+contaminacao_0162,contaminacao,Resposta: 1236. Conferi o valor 1235.,1235,False,True,False
+xml_correto_0162,xml_correto,Calculei o resultado. <answer>1235</answer>,1235,True,True,True
+xml_incorreto_0162,xml_incorreto,Intermediario: 1235. <answer>1236</answer>,1235,False,True,False
+xml_duplicado_0162,xml_duplicado,<answer>1235</answer><answer>1236</answer>,1235,False,True,False
+numero_correto_0163,numero_correto,Resposta: 1242,1242,True,True,True
+numero_incorreto_0163,numero_incorreto,Resposta: 1243,1242,False,False,False
+alternativas_0163,alternativas,Resposta: 1243 ou 1242,1242,False,True,False
+contradicao_0163,contradicao,Resposta: 1243; 1242 seria incorreto.,1242,False,True,False
+contaminacao_0163,contaminacao,Resposta: 1243. Conferi o valor 1242.,1242,False,True,False
+xml_correto_0163,xml_correto,Calculei o resultado. <answer>1242</answer>,1242,True,True,True
+xml_incorreto_0163,xml_incorreto,Intermediario: 1242. <answer>1243</answer>,1242,False,True,False
+xml_duplicado_0163,xml_duplicado,<answer>1242</answer><answer>1243</answer>,1242,False,True,False
+numero_correto_0164,numero_correto,Resposta: 1249,1249,True,True,True
+numero_incorreto_0164,numero_incorreto,Resposta: 1250,1249,False,False,False
+alternativas_0164,alternativas,Resposta: 1250 ou 1249,1249,False,True,False
+contradicao_0164,contradicao,Resposta: 1250; 1249 seria incorreto.,1249,False,True,False
+contaminacao_0164,contaminacao,Resposta: 1250. Conferi o valor 1249.,1249,False,True,False
+xml_correto_0164,xml_correto,Calculei o resultado. <answer>1249</answer>,1249,True,True,True
+xml_incorreto_0164,xml_incorreto,Intermediario: 1249. <answer>1250</answer>,1249,False,True,False
+xml_duplicado_0164,xml_duplicado,<answer>1249</answer><answer>1250</answer>,1249,False,True,False
+numero_correto_0165,numero_correto,Resposta: 1256,1256,True,True,True
+numero_incorreto_0165,numero_incorreto,Resposta: 1257,1256,False,False,False
+alternativas_0165,alternativas,Resposta: 1257 ou 1256,1256,False,True,False
+contradicao_0165,contradicao,Resposta: 1257; 1256 seria incorreto.,1256,False,True,False
+contaminacao_0165,contaminacao,Resposta: 1257. Conferi o valor 1256.,1256,False,True,False
+xml_correto_0165,xml_correto,Calculei o resultado. <answer>1256</answer>,1256,True,True,True
+xml_incorreto_0165,xml_incorreto,Intermediario: 1256. <answer>1257</answer>,1256,False,True,False
+xml_duplicado_0165,xml_duplicado,<answer>1256</answer><answer>1257</answer>,1256,False,True,False
+numero_correto_0166,numero_correto,Resposta: 1263,1263,True,True,True
+numero_incorreto_0166,numero_incorreto,Resposta: 1264,1263,False,False,False
+alternativas_0166,alternativas,Resposta: 1264 ou 1263,1263,False,True,False
+contradicao_0166,contradicao,Resposta: 1264; 1263 seria incorreto.,1263,False,True,False
+contaminacao_0166,contaminacao,Resposta: 1264. Conferi o valor 1263.,1263,False,True,False
+xml_correto_0166,xml_correto,Calculei o resultado. <answer>1263</answer>,1263,True,True,True
+xml_incorreto_0166,xml_incorreto,Intermediario: 1263. <answer>1264</answer>,1263,False,True,False
+xml_duplicado_0166,xml_duplicado,<answer>1263</answer><answer>1264</answer>,1263,False,True,False
+numero_correto_0167,numero_correto,Resposta: 1270,1270,True,True,True
+numero_incorreto_0167,numero_incorreto,Resposta: 1271,1270,False,False,False
+alternativas_0167,alternativas,Resposta: 1271 ou 1270,1270,False,True,False
+contradicao_0167,contradicao,Resposta: 1271; 1270 seria incorreto.,1270,False,True,False
+contaminacao_0167,contaminacao,Resposta: 1271. Conferi o valor 1270.,1270,False,True,False
+xml_correto_0167,xml_correto,Calculei o resultado. <answer>1270</answer>,1270,True,True,True
+xml_incorreto_0167,xml_incorreto,Intermediario: 1270. <answer>1271</answer>,1270,False,True,False
+xml_duplicado_0167,xml_duplicado,<answer>1270</answer><answer>1271</answer>,1270,False,True,False
+numero_correto_0168,numero_correto,Resposta: 1277,1277,True,True,True
+numero_incorreto_0168,numero_incorreto,Resposta: 1278,1277,False,False,False
+alternativas_0168,alternativas,Resposta: 1278 ou 1277,1277,False,True,False
+contradicao_0168,contradicao,Resposta: 1278; 1277 seria incorreto.,1277,False,True,False
+contaminacao_0168,contaminacao,Resposta: 1278. Conferi o valor 1277.,1277,False,True,False
+xml_correto_0168,xml_correto,Calculei o resultado. <answer>1277</answer>,1277,True,True,True
+xml_incorreto_0168,xml_incorreto,Intermediario: 1277. <answer>1278</answer>,1277,False,True,False
+xml_duplicado_0168,xml_duplicado,<answer>1277</answer><answer>1278</answer>,1277,False,True,False
+numero_correto_0169,numero_correto,Resposta: 1284,1284,True,True,True
+numero_incorreto_0169,numero_incorreto,Resposta: 1285,1284,False,False,False
+alternativas_0169,alternativas,Resposta: 1285 ou 1284,1284,False,True,False
+contradicao_0169,contradicao,Resposta: 1285; 1284 seria incorreto.,1284,False,True,False
+contaminacao_0169,contaminacao,Resposta: 1285. Conferi o valor 1284.,1284,False,True,False
+xml_correto_0169,xml_correto,Calculei o resultado. <answer>1284</answer>,1284,True,True,True
+xml_incorreto_0169,xml_incorreto,Intermediario: 1284. <answer>1285</answer>,1284,False,True,False
+xml_duplicado_0169,xml_duplicado,<answer>1284</answer><answer>1285</answer>,1284,False,True,False
+numero_correto_0170,numero_correto,Resposta: 1291,1291,True,True,True
+numero_incorreto_0170,numero_incorreto,Resposta: 1292,1291,False,False,False
+alternativas_0170,alternativas,Resposta: 1292 ou 1291,1291,False,True,False
+contradicao_0170,contradicao,Resposta: 1292; 1291 seria incorreto.,1291,False,True,False
+contaminacao_0170,contaminacao,Resposta: 1292. Conferi o valor 1291.,1291,False,True,False
+xml_correto_0170,xml_correto,Calculei o resultado. <answer>1291</answer>,1291,True,True,True
+xml_incorreto_0170,xml_incorreto,Intermediario: 1291. <answer>1292</answer>,1291,False,True,False
+xml_duplicado_0170,xml_duplicado,<answer>1291</answer><answer>1292</answer>,1291,False,True,False
+numero_correto_0171,numero_correto,Resposta: 1298,1298,True,True,True
+numero_incorreto_0171,numero_incorreto,Resposta: 1299,1298,False,False,False
+alternativas_0171,alternativas,Resposta: 1299 ou 1298,1298,False,True,False
+contradicao_0171,contradicao,Resposta: 1299; 1298 seria incorreto.,1298,False,True,False
+contaminacao_0171,contaminacao,Resposta: 1299. Conferi o valor 1298.,1298,False,True,False
+xml_correto_0171,xml_correto,Calculei o resultado. <answer>1298</answer>,1298,True,True,True
+xml_incorreto_0171,xml_incorreto,Intermediario: 1298. <answer>1299</answer>,1298,False,True,False
+xml_duplicado_0171,xml_duplicado,<answer>1298</answer><answer>1299</answer>,1298,False,True,False
+numero_correto_0172,numero_correto,Resposta: 1305,1305,True,True,True
+numero_incorreto_0172,numero_incorreto,Resposta: 1306,1305,False,False,False
+alternativas_0172,alternativas,Resposta: 1306 ou 1305,1305,False,True,False
+contradicao_0172,contradicao,Resposta: 1306; 1305 seria incorreto.,1305,False,True,False
+contaminacao_0172,contaminacao,Resposta: 1306. Conferi o valor 1305.,1305,False,True,False
+xml_correto_0172,xml_correto,Calculei o resultado. <answer>1305</answer>,1305,True,True,True
+xml_incorreto_0172,xml_incorreto,Intermediario: 1305. <answer>1306</answer>,1305,False,True,False
+xml_duplicado_0172,xml_duplicado,<answer>1305</answer><answer>1306</answer>,1305,False,True,False
+numero_correto_0173,numero_correto,Resposta: 1312,1312,True,True,True
+numero_incorreto_0173,numero_incorreto,Resposta: 1313,1312,False,False,False
+alternativas_0173,alternativas,Resposta: 1313 ou 1312,1312,False,True,False
+contradicao_0173,contradicao,Resposta: 1313; 1312 seria incorreto.,1312,False,True,False
+contaminacao_0173,contaminacao,Resposta: 1313. Conferi o valor 1312.,1312,False,True,False
+xml_correto_0173,xml_correto,Calculei o resultado. <answer>1312</answer>,1312,True,True,True
+xml_incorreto_0173,xml_incorreto,Intermediario: 1312. <answer>1313</answer>,1312,False,True,False
+xml_duplicado_0173,xml_duplicado,<answer>1312</answer><answer>1313</answer>,1312,False,True,False
+numero_correto_0174,numero_correto,Resposta: 1319,1319,True,True,True
+numero_incorreto_0174,numero_incorreto,Resposta: 1320,1319,False,False,False
+alternativas_0174,alternativas,Resposta: 1320 ou 1319,1319,False,True,False
+contradicao_0174,contradicao,Resposta: 1320; 1319 seria incorreto.,1319,False,True,False
+contaminacao_0174,contaminacao,Resposta: 1320. Conferi o valor 1319.,1319,False,True,False
+xml_correto_0174,xml_correto,Calculei o resultado. <answer>1319</answer>,1319,True,True,True
+xml_incorreto_0174,xml_incorreto,Intermediario: 1319. <answer>1320</answer>,1319,False,True,False
+xml_duplicado_0174,xml_duplicado,<answer>1319</answer><answer>1320</answer>,1319,False,True,False
+numero_correto_0175,numero_correto,Resposta: 1326,1326,True,True,True
+numero_incorreto_0175,numero_incorreto,Resposta: 1327,1326,False,False,False
+alternativas_0175,alternativas,Resposta: 1327 ou 1326,1326,False,True,False
+contradicao_0175,contradicao,Resposta: 1327; 1326 seria incorreto.,1326,False,True,False
+contaminacao_0175,contaminacao,Resposta: 1327. Conferi o valor 1326.,1326,False,True,False
+xml_correto_0175,xml_correto,Calculei o resultado. <answer>1326</answer>,1326,True,True,True
+xml_incorreto_0175,xml_incorreto,Intermediario: 1326. <answer>1327</answer>,1326,False,True,False
+xml_duplicado_0175,xml_duplicado,<answer>1326</answer><answer>1327</answer>,1326,False,True,False
+numero_correto_0176,numero_correto,Resposta: 1333,1333,True,True,True
+numero_incorreto_0176,numero_incorreto,Resposta: 1334,1333,False,False,False
+alternativas_0176,alternativas,Resposta: 1334 ou 1333,1333,False,True,False
+contradicao_0176,contradicao,Resposta: 1334; 1333 seria incorreto.,1333,False,True,False
+contaminacao_0176,contaminacao,Resposta: 1334. Conferi o valor 1333.,1333,False,True,False
+xml_correto_0176,xml_correto,Calculei o resultado. <answer>1333</answer>,1333,True,True,True
+xml_incorreto_0176,xml_incorreto,Intermediario: 1333. <answer>1334</answer>,1333,False,True,False
+xml_duplicado_0176,xml_duplicado,<answer>1333</answer><answer>1334</answer>,1333,False,True,False
+numero_correto_0177,numero_correto,Resposta: 1340,1340,True,True,True
+numero_incorreto_0177,numero_incorreto,Resposta: 1341,1340,False,False,False
+alternativas_0177,alternativas,Resposta: 1341 ou 1340,1340,False,True,False
+contradicao_0177,contradicao,Resposta: 1341; 1340 seria incorreto.,1340,False,True,False
+contaminacao_0177,contaminacao,Resposta: 1341. Conferi o valor 1340.,1340,False,True,False
+xml_correto_0177,xml_correto,Calculei o resultado. <answer>1340</answer>,1340,True,True,True
+xml_incorreto_0177,xml_incorreto,Intermediario: 1340. <answer>1341</answer>,1340,False,True,False
+xml_duplicado_0177,xml_duplicado,<answer>1340</answer><answer>1341</answer>,1340,False,True,False
+numero_correto_0178,numero_correto,Resposta: 1347,1347,True,True,True
+numero_incorreto_0178,numero_incorreto,Resposta: 1348,1347,False,False,False
+alternativas_0178,alternativas,Resposta: 1348 ou 1347,1347,False,True,False
+contradicao_0178,contradicao,Resposta: 1348; 1347 seria incorreto.,1347,False,True,False
+contaminacao_0178,contaminacao,Resposta: 1348. Conferi o valor 1347.,1347,False,True,False
+xml_correto_0178,xml_correto,Calculei o resultado. <answer>1347</answer>,1347,True,True,True
+xml_incorreto_0178,xml_incorreto,Intermediario: 1347. <answer>1348</answer>,1347,False,True,False
+xml_duplicado_0178,xml_duplicado,<answer>1347</answer><answer>1348</answer>,1347,False,True,False
+numero_correto_0179,numero_correto,Resposta: 1354,1354,True,True,True
+numero_incorreto_0179,numero_incorreto,Resposta: 1355,1354,False,False,False
+alternativas_0179,alternativas,Resposta: 1355 ou 1354,1354,False,True,False
+contradicao_0179,contradicao,Resposta: 1355; 1354 seria incorreto.,1354,False,True,False
+contaminacao_0179,contaminacao,Resposta: 1355. Conferi o valor 1354.,1354,False,True,False
+xml_correto_0179,xml_correto,Calculei o resultado. <answer>1354</answer>,1354,True,True,True
+xml_incorreto_0179,xml_incorreto,Intermediario: 1354. <answer>1355</answer>,1354,False,True,False
+xml_duplicado_0179,xml_duplicado,<answer>1354</answer><answer>1355</answer>,1354,False,True,False
+numero_correto_0180,numero_correto,Resposta: 1361,1361,True,True,True
+numero_incorreto_0180,numero_incorreto,Resposta: 1362,1361,False,False,False
+alternativas_0180,alternativas,Resposta: 1362 ou 1361,1361,False,True,False
+contradicao_0180,contradicao,Resposta: 1362; 1361 seria incorreto.,1361,False,True,False
+contaminacao_0180,contaminacao,Resposta: 1362. Conferi o valor 1361.,1361,False,True,False
+xml_correto_0180,xml_correto,Calculei o resultado. <answer>1361</answer>,1361,True,True,True
+xml_incorreto_0180,xml_incorreto,Intermediario: 1361. <answer>1362</answer>,1361,False,True,False
+xml_duplicado_0180,xml_duplicado,<answer>1361</answer><answer>1362</answer>,1361,False,True,False
+numero_correto_0181,numero_correto,Resposta: 1368,1368,True,True,True
+numero_incorreto_0181,numero_incorreto,Resposta: 1369,1368,False,False,False
+alternativas_0181,alternativas,Resposta: 1369 ou 1368,1368,False,True,False
+contradicao_0181,contradicao,Resposta: 1369; 1368 seria incorreto.,1368,False,True,False
+contaminacao_0181,contaminacao,Resposta: 1369. Conferi o valor 1368.,1368,False,True,False
+xml_correto_0181,xml_correto,Calculei o resultado. <answer>1368</answer>,1368,True,True,True
+xml_incorreto_0181,xml_incorreto,Intermediario: 1368. <answer>1369</answer>,1368,False,True,False
+xml_duplicado_0181,xml_duplicado,<answer>1368</answer><answer>1369</answer>,1368,False,True,False
+numero_correto_0182,numero_correto,Resposta: 1375,1375,True,True,True
+numero_incorreto_0182,numero_incorreto,Resposta: 1376,1375,False,False,False
+alternativas_0182,alternativas,Resposta: 1376 ou 1375,1375,False,True,False
+contradicao_0182,contradicao,Resposta: 1376; 1375 seria incorreto.,1375,False,True,False
+contaminacao_0182,contaminacao,Resposta: 1376. Conferi o valor 1375.,1375,False,True,False
+xml_correto_0182,xml_correto,Calculei o resultado. <answer>1375</answer>,1375,True,True,True
+xml_incorreto_0182,xml_incorreto,Intermediario: 1375. <answer>1376</answer>,1375,False,True,False
+xml_duplicado_0182,xml_duplicado,<answer>1375</answer><answer>1376</answer>,1375,False,True,False
+numero_correto_0183,numero_correto,Resposta: 1382,1382,True,True,True
+numero_incorreto_0183,numero_incorreto,Resposta: 1383,1382,False,False,False
+alternativas_0183,alternativas,Resposta: 1383 ou 1382,1382,False,True,False
+contradicao_0183,contradicao,Resposta: 1383; 1382 seria incorreto.,1382,False,True,False
+contaminacao_0183,contaminacao,Resposta: 1383. Conferi o valor 1382.,1382,False,True,False
+xml_correto_0183,xml_correto,Calculei o resultado. <answer>1382</answer>,1382,True,True,True
+xml_incorreto_0183,xml_incorreto,Intermediario: 1382. <answer>1383</answer>,1382,False,True,False
+xml_duplicado_0183,xml_duplicado,<answer>1382</answer><answer>1383</answer>,1382,False,True,False
+numero_correto_0184,numero_correto,Resposta: 1389,1389,True,True,True
+numero_incorreto_0184,numero_incorreto,Resposta: 1390,1389,False,False,False
+alternativas_0184,alternativas,Resposta: 1390 ou 1389,1389,False,True,False
+contradicao_0184,contradicao,Resposta: 1390; 1389 seria incorreto.,1389,False,True,False
+contaminacao_0184,contaminacao,Resposta: 1390. Conferi o valor 1389.,1389,False,True,False
+xml_correto_0184,xml_correto,Calculei o resultado. <answer>1389</answer>,1389,True,True,True
+xml_incorreto_0184,xml_incorreto,Intermediario: 1389. <answer>1390</answer>,1389,False,True,False
+xml_duplicado_0184,xml_duplicado,<answer>1389</answer><answer>1390</answer>,1389,False,True,False
+numero_correto_0185,numero_correto,Resposta: 1396,1396,True,True,True
+numero_incorreto_0185,numero_incorreto,Resposta: 1397,1396,False,False,False
+alternativas_0185,alternativas,Resposta: 1397 ou 1396,1396,False,True,False
+contradicao_0185,contradicao,Resposta: 1397; 1396 seria incorreto.,1396,False,True,False
+contaminacao_0185,contaminacao,Resposta: 1397. Conferi o valor 1396.,1396,False,True,False
+xml_correto_0185,xml_correto,Calculei o resultado. <answer>1396</answer>,1396,True,True,True
+xml_incorreto_0185,xml_incorreto,Intermediario: 1396. <answer>1397</answer>,1396,False,True,False
+xml_duplicado_0185,xml_duplicado,<answer>1396</answer><answer>1397</answer>,1396,False,True,False
+numero_correto_0186,numero_correto,Resposta: 1403,1403,True,True,True
+numero_incorreto_0186,numero_incorreto,Resposta: 1404,1403,False,False,False
+alternativas_0186,alternativas,Resposta: 1404 ou 1403,1403,False,True,False
+contradicao_0186,contradicao,Resposta: 1404; 1403 seria incorreto.,1403,False,True,False
+contaminacao_0186,contaminacao,Resposta: 1404. Conferi o valor 1403.,1403,False,True,False
+xml_correto_0186,xml_correto,Calculei o resultado. <answer>1403</answer>,1403,True,True,True
+xml_incorreto_0186,xml_incorreto,Intermediario: 1403. <answer>1404</answer>,1403,False,True,False
+xml_duplicado_0186,xml_duplicado,<answer>1403</answer><answer>1404</answer>,1403,False,True,False
+numero_correto_0187,numero_correto,Resposta: 1410,1410,True,True,True
+numero_incorreto_0187,numero_incorreto,Resposta: 1411,1410,False,False,False
+alternativas_0187,alternativas,Resposta: 1411 ou 1410,1410,False,True,False
+contradicao_0187,contradicao,Resposta: 1411; 1410 seria incorreto.,1410,False,True,False
+contaminacao_0187,contaminacao,Resposta: 1411. Conferi o valor 1410.,1410,False,True,False
+xml_correto_0187,xml_correto,Calculei o resultado. <answer>1410</answer>,1410,True,True,True
+xml_incorreto_0187,xml_incorreto,Intermediario: 1410. <answer>1411</answer>,1410,False,True,False
+xml_duplicado_0187,xml_duplicado,<answer>1410</answer><answer>1411</answer>,1410,False,True,False
+numero_correto_0188,numero_correto,Resposta: 1417,1417,True,True,True
+numero_incorreto_0188,numero_incorreto,Resposta: 1418,1417,False,False,False
+alternativas_0188,alternativas,Resposta: 1418 ou 1417,1417,False,True,False
+contradicao_0188,contradicao,Resposta: 1418; 1417 seria incorreto.,1417,False,True,False
+contaminacao_0188,contaminacao,Resposta: 1418. Conferi o valor 1417.,1417,False,True,False
+xml_correto_0188,xml_correto,Calculei o resultado. <answer>1417</answer>,1417,True,True,True
+xml_incorreto_0188,xml_incorreto,Intermediario: 1417. <answer>1418</answer>,1417,False,True,False
+xml_duplicado_0188,xml_duplicado,<answer>1417</answer><answer>1418</answer>,1417,False,True,False
+numero_correto_0189,numero_correto,Resposta: 1424,1424,True,True,True
+numero_incorreto_0189,numero_incorreto,Resposta: 1425,1424,False,False,False
+alternativas_0189,alternativas,Resposta: 1425 ou 1424,1424,False,True,False
+contradicao_0189,contradicao,Resposta: 1425; 1424 seria incorreto.,1424,False,True,False
+contaminacao_0189,contaminacao,Resposta: 1425. Conferi o valor 1424.,1424,False,True,False
+xml_correto_0189,xml_correto,Calculei o resultado. <answer>1424</answer>,1424,True,True,True
+xml_incorreto_0189,xml_incorreto,Intermediario: 1424. <answer>1425</answer>,1424,False,True,False
+xml_duplicado_0189,xml_duplicado,<answer>1424</answer><answer>1425</answer>,1424,False,True,False
+numero_correto_0190,numero_correto,Resposta: 1431,1431,True,True,True
+numero_incorreto_0190,numero_incorreto,Resposta: 1432,1431,False,False,False
+alternativas_0190,alternativas,Resposta: 1432 ou 1431,1431,False,True,False
+contradicao_0190,contradicao,Resposta: 1432; 1431 seria incorreto.,1431,False,True,False
+contaminacao_0190,contaminacao,Resposta: 1432. Conferi o valor 1431.,1431,False,True,False
+xml_correto_0190,xml_correto,Calculei o resultado. <answer>1431</answer>,1431,True,True,True
+xml_incorreto_0190,xml_incorreto,Intermediario: 1431. <answer>1432</answer>,1431,False,True,False
+xml_duplicado_0190,xml_duplicado,<answer>1431</answer><answer>1432</answer>,1431,False,True,False
+numero_correto_0191,numero_correto,Resposta: 1438,1438,True,True,True
+numero_incorreto_0191,numero_incorreto,Resposta: 1439,1438,False,False,False
+alternativas_0191,alternativas,Resposta: 1439 ou 1438,1438,False,True,False
+contradicao_0191,contradicao,Resposta: 1439; 1438 seria incorreto.,1438,False,True,False
+contaminacao_0191,contaminacao,Resposta: 1439. Conferi o valor 1438.,1438,False,True,False
+xml_correto_0191,xml_correto,Calculei o resultado. <answer>1438</answer>,1438,True,True,True
+xml_incorreto_0191,xml_incorreto,Intermediario: 1438. <answer>1439</answer>,1438,False,True,False
+xml_duplicado_0191,xml_duplicado,<answer>1438</answer><answer>1439</answer>,1438,False,True,False
+numero_correto_0192,numero_correto,Resposta: 1445,1445,True,True,True
+numero_incorreto_0192,numero_incorreto,Resposta: 1446,1445,False,False,False
+alternativas_0192,alternativas,Resposta: 1446 ou 1445,1445,False,True,False
+contradicao_0192,contradicao,Resposta: 1446; 1445 seria incorreto.,1445,False,True,False
+contaminacao_0192,contaminacao,Resposta: 1446. Conferi o valor 1445.,1445,False,True,False
+xml_correto_0192,xml_correto,Calculei o resultado. <answer>1445</answer>,1445,True,True,True
+xml_incorreto_0192,xml_incorreto,Intermediario: 1445. <answer>1446</answer>,1445,False,True,False
+xml_duplicado_0192,xml_duplicado,<answer>1445</answer><answer>1446</answer>,1445,False,True,False
+numero_correto_0193,numero_correto,Resposta: 1452,1452,True,True,True
+numero_incorreto_0193,numero_incorreto,Resposta: 1453,1452,False,False,False
+alternativas_0193,alternativas,Resposta: 1453 ou 1452,1452,False,True,False
+contradicao_0193,contradicao,Resposta: 1453; 1452 seria incorreto.,1452,False,True,False
+contaminacao_0193,contaminacao,Resposta: 1453. Conferi o valor 1452.,1452,False,True,False
+xml_correto_0193,xml_correto,Calculei o resultado. <answer>1452</answer>,1452,True,True,True
+xml_incorreto_0193,xml_incorreto,Intermediario: 1452. <answer>1453</answer>,1452,False,True,False
+xml_duplicado_0193,xml_duplicado,<answer>1452</answer><answer>1453</answer>,1452,False,True,False
+numero_correto_0194,numero_correto,Resposta: 1459,1459,True,True,True
+numero_incorreto_0194,numero_incorreto,Resposta: 1460,1459,False,False,False
+alternativas_0194,alternativas,Resposta: 1460 ou 1459,1459,False,True,False
+contradicao_0194,contradicao,Resposta: 1460; 1459 seria incorreto.,1459,False,True,False
+contaminacao_0194,contaminacao,Resposta: 1460. Conferi o valor 1459.,1459,False,True,False
+xml_correto_0194,xml_correto,Calculei o resultado. <answer>1459</answer>,1459,True,True,True
+xml_incorreto_0194,xml_incorreto,Intermediario: 1459. <answer>1460</answer>,1459,False,True,False
+xml_duplicado_0194,xml_duplicado,<answer>1459</answer><answer>1460</answer>,1459,False,True,False
+numero_correto_0195,numero_correto,Resposta: 1466,1466,True,True,True
+numero_incorreto_0195,numero_incorreto,Resposta: 1467,1466,False,False,False
+alternativas_0195,alternativas,Resposta: 1467 ou 1466,1466,False,True,False
+contradicao_0195,contradicao,Resposta: 1467; 1466 seria incorreto.,1466,False,True,False
+contaminacao_0195,contaminacao,Resposta: 1467. Conferi o valor 1466.,1466,False,True,False
+xml_correto_0195,xml_correto,Calculei o resultado. <answer>1466</answer>,1466,True,True,True
+xml_incorreto_0195,xml_incorreto,Intermediario: 1466. <answer>1467</answer>,1466,False,True,False
+xml_duplicado_0195,xml_duplicado,<answer>1466</answer><answer>1467</answer>,1466,False,True,False
+numero_correto_0196,numero_correto,Resposta: 1473,1473,True,True,True
+numero_incorreto_0196,numero_incorreto,Resposta: 1474,1473,False,False,False
+alternativas_0196,alternativas,Resposta: 1474 ou 1473,1473,False,True,False
+contradicao_0196,contradicao,Resposta: 1474; 1473 seria incorreto.,1473,False,True,False
+contaminacao_0196,contaminacao,Resposta: 1474. Conferi o valor 1473.,1473,False,True,False
+xml_correto_0196,xml_correto,Calculei o resultado. <answer>1473</answer>,1473,True,True,True
+xml_incorreto_0196,xml_incorreto,Intermediario: 1473. <answer>1474</answer>,1473,False,True,False
+xml_duplicado_0196,xml_duplicado,<answer>1473</answer><answer>1474</answer>,1473,False,True,False
+numero_correto_0197,numero_correto,Resposta: 1480,1480,True,True,True
+numero_incorreto_0197,numero_incorreto,Resposta: 1481,1480,False,False,False
+alternativas_0197,alternativas,Resposta: 1481 ou 1480,1480,False,True,False
+contradicao_0197,contradicao,Resposta: 1481; 1480 seria incorreto.,1480,False,True,False
+contaminacao_0197,contaminacao,Resposta: 1481. Conferi o valor 1480.,1480,False,True,False
+xml_correto_0197,xml_correto,Calculei o resultado. <answer>1480</answer>,1480,True,True,True
+xml_incorreto_0197,xml_incorreto,Intermediario: 1480. <answer>1481</answer>,1480,False,True,False
+xml_duplicado_0197,xml_duplicado,<answer>1480</answer><answer>1481</answer>,1480,False,True,False
+numero_correto_0198,numero_correto,Resposta: 1487,1487,True,True,True
+numero_incorreto_0198,numero_incorreto,Resposta: 1488,1487,False,False,False
+alternativas_0198,alternativas,Resposta: 1488 ou 1487,1487,False,True,False
+contradicao_0198,contradicao,Resposta: 1488; 1487 seria incorreto.,1487,False,True,False
+contaminacao_0198,contaminacao,Resposta: 1488. Conferi o valor 1487.,1487,False,True,False
+xml_correto_0198,xml_correto,Calculei o resultado. <answer>1487</answer>,1487,True,True,True
+xml_incorreto_0198,xml_incorreto,Intermediario: 1487. <answer>1488</answer>,1487,False,True,False
+xml_duplicado_0198,xml_duplicado,<answer>1487</answer><answer>1488</answer>,1487,False,True,False
+numero_correto_0199,numero_correto,Resposta: 1494,1494,True,True,True
+numero_incorreto_0199,numero_incorreto,Resposta: 1495,1494,False,False,False
+alternativas_0199,alternativas,Resposta: 1495 ou 1494,1494,False,True,False
+contradicao_0199,contradicao,Resposta: 1495; 1494 seria incorreto.,1494,False,True,False
+contaminacao_0199,contaminacao,Resposta: 1495. Conferi o valor 1494.,1494,False,True,False
+xml_correto_0199,xml_correto,Calculei o resultado. <answer>1494</answer>,1494,True,True,True
+xml_incorreto_0199,xml_incorreto,Intermediario: 1494. <answer>1495</answer>,1494,False,True,False
+xml_duplicado_0199,xml_duplicado,<answer>1494</answer><answer>1495</answer>,1494,False,True,False
+numero_correto_0200,numero_correto,Resposta: 1501,1501,True,True,True
+numero_incorreto_0200,numero_incorreto,Resposta: 1502,1501,False,False,False
+alternativas_0200,alternativas,Resposta: 1502 ou 1501,1501,False,True,False
+contradicao_0200,contradicao,Resposta: 1502; 1501 seria incorreto.,1501,False,True,False
+contaminacao_0200,contaminacao,Resposta: 1502. Conferi o valor 1501.,1501,False,True,False
+xml_correto_0200,xml_correto,Calculei o resultado. <answer>1501</answer>,1501,True,True,True
+xml_incorreto_0200,xml_incorreto,Intermediario: 1501. <answer>1502</answer>,1501,False,True,False
+xml_duplicado_0200,xml_duplicado,<answer>1501</answer><answer>1502</answer>,1501,False,True,False
+numero_correto_0201,numero_correto,Resposta: 1508,1508,True,True,True
+numero_incorreto_0201,numero_incorreto,Resposta: 1509,1508,False,False,False
+alternativas_0201,alternativas,Resposta: 1509 ou 1508,1508,False,True,False
+contradicao_0201,contradicao,Resposta: 1509; 1508 seria incorreto.,1508,False,True,False
+contaminacao_0201,contaminacao,Resposta: 1509. Conferi o valor 1508.,1508,False,True,False
+xml_correto_0201,xml_correto,Calculei o resultado. <answer>1508</answer>,1508,True,True,True
+xml_incorreto_0201,xml_incorreto,Intermediario: 1508. <answer>1509</answer>,1508,False,True,False
+xml_duplicado_0201,xml_duplicado,<answer>1508</answer><answer>1509</answer>,1508,False,True,False
+numero_correto_0202,numero_correto,Resposta: 1515,1515,True,True,True
+numero_incorreto_0202,numero_incorreto,Resposta: 1516,1515,False,False,False
+alternativas_0202,alternativas,Resposta: 1516 ou 1515,1515,False,True,False
+contradicao_0202,contradicao,Resposta: 1516; 1515 seria incorreto.,1515,False,True,False
+contaminacao_0202,contaminacao,Resposta: 1516. Conferi o valor 1515.,1515,False,True,False
+xml_correto_0202,xml_correto,Calculei o resultado. <answer>1515</answer>,1515,True,True,True
+xml_incorreto_0202,xml_incorreto,Intermediario: 1515. <answer>1516</answer>,1515,False,True,False
+xml_duplicado_0202,xml_duplicado,<answer>1515</answer><answer>1516</answer>,1515,False,True,False
+numero_correto_0203,numero_correto,Resposta: 1522,1522,True,True,True
+numero_incorreto_0203,numero_incorreto,Resposta: 1523,1522,False,False,False
+alternativas_0203,alternativas,Resposta: 1523 ou 1522,1522,False,True,False
+contradicao_0203,contradicao,Resposta: 1523; 1522 seria incorreto.,1522,False,True,False
+contaminacao_0203,contaminacao,Resposta: 1523. Conferi o valor 1522.,1522,False,True,False
+xml_correto_0203,xml_correto,Calculei o resultado. <answer>1522</answer>,1522,True,True,True
+xml_incorreto_0203,xml_incorreto,Intermediario: 1522. <answer>1523</answer>,1522,False,True,False
+xml_duplicado_0203,xml_duplicado,<answer>1522</answer><answer>1523</answer>,1522,False,True,False
+numero_correto_0204,numero_correto,Resposta: 1529,1529,True,True,True
+numero_incorreto_0204,numero_incorreto,Resposta: 1530,1529,False,False,False
+alternativas_0204,alternativas,Resposta: 1530 ou 1529,1529,False,True,False
+contradicao_0204,contradicao,Resposta: 1530; 1529 seria incorreto.,1529,False,True,False
+contaminacao_0204,contaminacao,Resposta: 1530. Conferi o valor 1529.,1529,False,True,False
+xml_correto_0204,xml_correto,Calculei o resultado. <answer>1529</answer>,1529,True,True,True
+xml_incorreto_0204,xml_incorreto,Intermediario: 1529. <answer>1530</answer>,1529,False,True,False
+xml_duplicado_0204,xml_duplicado,<answer>1529</answer><answer>1530</answer>,1529,False,True,False
+numero_correto_0205,numero_correto,Resposta: 1536,1536,True,True,True
+numero_incorreto_0205,numero_incorreto,Resposta: 1537,1536,False,False,False
+alternativas_0205,alternativas,Resposta: 1537 ou 1536,1536,False,True,False
+contradicao_0205,contradicao,Resposta: 1537; 1536 seria incorreto.,1536,False,True,False
+contaminacao_0205,contaminacao,Resposta: 1537. Conferi o valor 1536.,1536,False,True,False
+xml_correto_0205,xml_correto,Calculei o resultado. <answer>1536</answer>,1536,True,True,True
+xml_incorreto_0205,xml_incorreto,Intermediario: 1536. <answer>1537</answer>,1536,False,True,False
+xml_duplicado_0205,xml_duplicado,<answer>1536</answer><answer>1537</answer>,1536,False,True,False
+numero_correto_0206,numero_correto,Resposta: 1543,1543,True,True,True
+numero_incorreto_0206,numero_incorreto,Resposta: 1544,1543,False,False,False
+alternativas_0206,alternativas,Resposta: 1544 ou 1543,1543,False,True,False
+contradicao_0206,contradicao,Resposta: 1544; 1543 seria incorreto.,1543,False,True,False
+contaminacao_0206,contaminacao,Resposta: 1544. Conferi o valor 1543.,1543,False,True,False
+xml_correto_0206,xml_correto,Calculei o resultado. <answer>1543</answer>,1543,True,True,True
+xml_incorreto_0206,xml_incorreto,Intermediario: 1543. <answer>1544</answer>,1543,False,True,False
+xml_duplicado_0206,xml_duplicado,<answer>1543</answer><answer>1544</answer>,1543,False,True,False
+numero_correto_0207,numero_correto,Resposta: 1550,1550,True,True,True
+numero_incorreto_0207,numero_incorreto,Resposta: 1551,1550,False,False,False
+alternativas_0207,alternativas,Resposta: 1551 ou 1550,1550,False,True,False
+contradicao_0207,contradicao,Resposta: 1551; 1550 seria incorreto.,1550,False,True,False
+contaminacao_0207,contaminacao,Resposta: 1551. Conferi o valor 1550.,1550,False,True,False
+xml_correto_0207,xml_correto,Calculei o resultado. <answer>1550</answer>,1550,True,True,True
+xml_incorreto_0207,xml_incorreto,Intermediario: 1550. <answer>1551</answer>,1550,False,True,False
+xml_duplicado_0207,xml_duplicado,<answer>1550</answer><answer>1551</answer>,1550,False,True,False
+numero_correto_0208,numero_correto,Resposta: 1557,1557,True,True,True
+numero_incorreto_0208,numero_incorreto,Resposta: 1558,1557,False,False,False
+alternativas_0208,alternativas,Resposta: 1558 ou 1557,1557,False,True,False
+contradicao_0208,contradicao,Resposta: 1558; 1557 seria incorreto.,1557,False,True,False
+contaminacao_0208,contaminacao,Resposta: 1558. Conferi o valor 1557.,1557,False,True,False
+xml_correto_0208,xml_correto,Calculei o resultado. <answer>1557</answer>,1557,True,True,True
+xml_incorreto_0208,xml_incorreto,Intermediario: 1557. <answer>1558</answer>,1557,False,True,False
+xml_duplicado_0208,xml_duplicado,<answer>1557</answer><answer>1558</answer>,1557,False,True,False
+numero_correto_0209,numero_correto,Resposta: 1564,1564,True,True,True
+numero_incorreto_0209,numero_incorreto,Resposta: 1565,1564,False,False,False
+alternativas_0209,alternativas,Resposta: 1565 ou 1564,1564,False,True,False
+contradicao_0209,contradicao,Resposta: 1565; 1564 seria incorreto.,1564,False,True,False
+contaminacao_0209,contaminacao,Resposta: 1565. Conferi o valor 1564.,1564,False,True,False
+xml_correto_0209,xml_correto,Calculei o resultado. <answer>1564</answer>,1564,True,True,True
+xml_incorreto_0209,xml_incorreto,Intermediario: 1564. <answer>1565</answer>,1564,False,True,False
+xml_duplicado_0209,xml_duplicado,<answer>1564</answer><answer>1565</answer>,1564,False,True,False
+numero_correto_0210,numero_correto,Resposta: 1571,1571,True,True,True
+numero_incorreto_0210,numero_incorreto,Resposta: 1572,1571,False,False,False
+alternativas_0210,alternativas,Resposta: 1572 ou 1571,1571,False,True,False
+contradicao_0210,contradicao,Resposta: 1572; 1571 seria incorreto.,1571,False,True,False
+contaminacao_0210,contaminacao,Resposta: 1572. Conferi o valor 1571.,1571,False,True,False
+xml_correto_0210,xml_correto,Calculei o resultado. <answer>1571</answer>,1571,True,True,True
+xml_incorreto_0210,xml_incorreto,Intermediario: 1571. <answer>1572</answer>,1571,False,True,False
+xml_duplicado_0210,xml_duplicado,<answer>1571</answer><answer>1572</answer>,1571,False,True,False
+numero_correto_0211,numero_correto,Resposta: 1578,1578,True,True,True
+numero_incorreto_0211,numero_incorreto,Resposta: 1579,1578,False,False,False
+alternativas_0211,alternativas,Resposta: 1579 ou 1578,1578,False,True,False
+contradicao_0211,contradicao,Resposta: 1579; 1578 seria incorreto.,1578,False,True,False
+contaminacao_0211,contaminacao,Resposta: 1579. Conferi o valor 1578.,1578,False,True,False
+xml_correto_0211,xml_correto,Calculei o resultado. <answer>1578</answer>,1578,True,True,True
+xml_incorreto_0211,xml_incorreto,Intermediario: 1578. <answer>1579</answer>,1578,False,True,False
+xml_duplicado_0211,xml_duplicado,<answer>1578</answer><answer>1579</answer>,1578,False,True,False
+numero_correto_0212,numero_correto,Resposta: 1585,1585,True,True,True
+numero_incorreto_0212,numero_incorreto,Resposta: 1586,1585,False,False,False
+alternativas_0212,alternativas,Resposta: 1586 ou 1585,1585,False,True,False
+contradicao_0212,contradicao,Resposta: 1586; 1585 seria incorreto.,1585,False,True,False
+contaminacao_0212,contaminacao,Resposta: 1586. Conferi o valor 1585.,1585,False,True,False
+xml_correto_0212,xml_correto,Calculei o resultado. <answer>1585</answer>,1585,True,True,True
+xml_incorreto_0212,xml_incorreto,Intermediario: 1585. <answer>1586</answer>,1585,False,True,False
+xml_duplicado_0212,xml_duplicado,<answer>1585</answer><answer>1586</answer>,1585,False,True,False
+numero_correto_0213,numero_correto,Resposta: 1592,1592,True,True,True
+numero_incorreto_0213,numero_incorreto,Resposta: 1593,1592,False,False,False
+alternativas_0213,alternativas,Resposta: 1593 ou 1592,1592,False,True,False
+contradicao_0213,contradicao,Resposta: 1593; 1592 seria incorreto.,1592,False,True,False
+contaminacao_0213,contaminacao,Resposta: 1593. Conferi o valor 1592.,1592,False,True,False
+xml_correto_0213,xml_correto,Calculei o resultado. <answer>1592</answer>,1592,True,True,True
+xml_incorreto_0213,xml_incorreto,Intermediario: 1592. <answer>1593</answer>,1592,False,True,False
+xml_duplicado_0213,xml_duplicado,<answer>1592</answer><answer>1593</answer>,1592,False,True,False
+numero_correto_0214,numero_correto,Resposta: 1599,1599,True,True,True
+numero_incorreto_0214,numero_incorreto,Resposta: 1600,1599,False,False,False
+alternativas_0214,alternativas,Resposta: 1600 ou 1599,1599,False,True,False
+contradicao_0214,contradicao,Resposta: 1600; 1599 seria incorreto.,1599,False,True,False
+contaminacao_0214,contaminacao,Resposta: 1600. Conferi o valor 1599.,1599,False,True,False
+xml_correto_0214,xml_correto,Calculei o resultado. <answer>1599</answer>,1599,True,True,True
+xml_incorreto_0214,xml_incorreto,Intermediario: 1599. <answer>1600</answer>,1599,False,True,False
+xml_duplicado_0214,xml_duplicado,<answer>1599</answer><answer>1600</answer>,1599,False,True,False
+numero_correto_0215,numero_correto,Resposta: 1606,1606,True,True,True
+numero_incorreto_0215,numero_incorreto,Resposta: 1607,1606,False,False,False
+alternativas_0215,alternativas,Resposta: 1607 ou 1606,1606,False,True,False
+contradicao_0215,contradicao,Resposta: 1607; 1606 seria incorreto.,1606,False,True,False
+contaminacao_0215,contaminacao,Resposta: 1607. Conferi o valor 1606.,1606,False,True,False
+xml_correto_0215,xml_correto,Calculei o resultado. <answer>1606</answer>,1606,True,True,True
+xml_incorreto_0215,xml_incorreto,Intermediario: 1606. <answer>1607</answer>,1606,False,True,False
+xml_duplicado_0215,xml_duplicado,<answer>1606</answer><answer>1607</answer>,1606,False,True,False
+numero_correto_0216,numero_correto,Resposta: 1613,1613,True,True,True
+numero_incorreto_0216,numero_incorreto,Resposta: 1614,1613,False,False,False
+alternativas_0216,alternativas,Resposta: 1614 ou 1613,1613,False,True,False
+contradicao_0216,contradicao,Resposta: 1614; 1613 seria incorreto.,1613,False,True,False
+contaminacao_0216,contaminacao,Resposta: 1614. Conferi o valor 1613.,1613,False,True,False
+xml_correto_0216,xml_correto,Calculei o resultado. <answer>1613</answer>,1613,True,True,True
+xml_incorreto_0216,xml_incorreto,Intermediario: 1613. <answer>1614</answer>,1613,False,True,False
+xml_duplicado_0216,xml_duplicado,<answer>1613</answer><answer>1614</answer>,1613,False,True,False
+numero_correto_0217,numero_correto,Resposta: 1620,1620,True,True,True
+numero_incorreto_0217,numero_incorreto,Resposta: 1621,1620,False,False,False
+alternativas_0217,alternativas,Resposta: 1621 ou 1620,1620,False,True,False
+contradicao_0217,contradicao,Resposta: 1621; 1620 seria incorreto.,1620,False,True,False
+contaminacao_0217,contaminacao,Resposta: 1621. Conferi o valor 1620.,1620,False,True,False
+xml_correto_0217,xml_correto,Calculei o resultado. <answer>1620</answer>,1620,True,True,True
+xml_incorreto_0217,xml_incorreto,Intermediario: 1620. <answer>1621</answer>,1620,False,True,False
+xml_duplicado_0217,xml_duplicado,<answer>1620</answer><answer>1621</answer>,1620,False,True,False
+numero_correto_0218,numero_correto,Resposta: 1627,1627,True,True,True
+numero_incorreto_0218,numero_incorreto,Resposta: 1628,1627,False,False,False
+alternativas_0218,alternativas,Resposta: 1628 ou 1627,1627,False,True,False
+contradicao_0218,contradicao,Resposta: 1628; 1627 seria incorreto.,1627,False,True,False
+contaminacao_0218,contaminacao,Resposta: 1628. Conferi o valor 1627.,1627,False,True,False
+xml_correto_0218,xml_correto,Calculei o resultado. <answer>1627</answer>,1627,True,True,True
+xml_incorreto_0218,xml_incorreto,Intermediario: 1627. <answer>1628</answer>,1627,False,True,False
+xml_duplicado_0218,xml_duplicado,<answer>1627</answer><answer>1628</answer>,1627,False,True,False
+numero_correto_0219,numero_correto,Resposta: 1634,1634,True,True,True
+numero_incorreto_0219,numero_incorreto,Resposta: 1635,1634,False,False,False
+alternativas_0219,alternativas,Resposta: 1635 ou 1634,1634,False,True,False
+contradicao_0219,contradicao,Resposta: 1635; 1634 seria incorreto.,1634,False,True,False
+contaminacao_0219,contaminacao,Resposta: 1635. Conferi o valor 1634.,1634,False,True,False
+xml_correto_0219,xml_correto,Calculei o resultado. <answer>1634</answer>,1634,True,True,True
+xml_incorreto_0219,xml_incorreto,Intermediario: 1634. <answer>1635</answer>,1634,False,True,False
+xml_duplicado_0219,xml_duplicado,<answer>1634</answer><answer>1635</answer>,1634,False,True,False
+numero_correto_0220,numero_correto,Resposta: 1641,1641,True,True,True
+numero_incorreto_0220,numero_incorreto,Resposta: 1642,1641,False,False,False
+alternativas_0220,alternativas,Resposta: 1642 ou 1641,1641,False,True,False
+contradicao_0220,contradicao,Resposta: 1642; 1641 seria incorreto.,1641,False,True,False
+contaminacao_0220,contaminacao,Resposta: 1642. Conferi o valor 1641.,1641,False,True,False
+xml_correto_0220,xml_correto,Calculei o resultado. <answer>1641</answer>,1641,True,True,True
+xml_incorreto_0220,xml_incorreto,Intermediario: 1641. <answer>1642</answer>,1641,False,True,False
+xml_duplicado_0220,xml_duplicado,<answer>1641</answer><answer>1642</answer>,1641,False,True,False
+numero_correto_0221,numero_correto,Resposta: 1648,1648,True,True,True
+numero_incorreto_0221,numero_incorreto,Resposta: 1649,1648,False,False,False
+alternativas_0221,alternativas,Resposta: 1649 ou 1648,1648,False,True,False
+contradicao_0221,contradicao,Resposta: 1649; 1648 seria incorreto.,1648,False,True,False
+contaminacao_0221,contaminacao,Resposta: 1649. Conferi o valor 1648.,1648,False,True,False
+xml_correto_0221,xml_correto,Calculei o resultado. <answer>1648</answer>,1648,True,True,True
+xml_incorreto_0221,xml_incorreto,Intermediario: 1648. <answer>1649</answer>,1648,False,True,False
+xml_duplicado_0221,xml_duplicado,<answer>1648</answer><answer>1649</answer>,1648,False,True,False
+numero_correto_0222,numero_correto,Resposta: 1655,1655,True,True,True
+numero_incorreto_0222,numero_incorreto,Resposta: 1656,1655,False,False,False
+alternativas_0222,alternativas,Resposta: 1656 ou 1655,1655,False,True,False
+contradicao_0222,contradicao,Resposta: 1656; 1655 seria incorreto.,1655,False,True,False
+contaminacao_0222,contaminacao,Resposta: 1656. Conferi o valor 1655.,1655,False,True,False
+xml_correto_0222,xml_correto,Calculei o resultado. <answer>1655</answer>,1655,True,True,True
+xml_incorreto_0222,xml_incorreto,Intermediario: 1655. <answer>1656</answer>,1655,False,True,False
+xml_duplicado_0222,xml_duplicado,<answer>1655</answer><answer>1656</answer>,1655,False,True,False
+numero_correto_0223,numero_correto,Resposta: 1662,1662,True,True,True
+numero_incorreto_0223,numero_incorreto,Resposta: 1663,1662,False,False,False
+alternativas_0223,alternativas,Resposta: 1663 ou 1662,1662,False,True,False
+contradicao_0223,contradicao,Resposta: 1663; 1662 seria incorreto.,1662,False,True,False
+contaminacao_0223,contaminacao,Resposta: 1663. Conferi o valor 1662.,1662,False,True,False
+xml_correto_0223,xml_correto,Calculei o resultado. <answer>1662</answer>,1662,True,True,True
+xml_incorreto_0223,xml_incorreto,Intermediario: 1662. <answer>1663</answer>,1662,False,True,False
+xml_duplicado_0223,xml_duplicado,<answer>1662</answer><answer>1663</answer>,1662,False,True,False
+numero_correto_0224,numero_correto,Resposta: 1669,1669,True,True,True
+numero_incorreto_0224,numero_incorreto,Resposta: 1670,1669,False,False,False
+alternativas_0224,alternativas,Resposta: 1670 ou 1669,1669,False,True,False
+contradicao_0224,contradicao,Resposta: 1670; 1669 seria incorreto.,1669,False,True,False
+contaminacao_0224,contaminacao,Resposta: 1670. Conferi o valor 1669.,1669,False,True,False
+xml_correto_0224,xml_correto,Calculei o resultado. <answer>1669</answer>,1669,True,True,True
+xml_incorreto_0224,xml_incorreto,Intermediario: 1669. <answer>1670</answer>,1669,False,True,False
+xml_duplicado_0224,xml_duplicado,<answer>1669</answer><answer>1670</answer>,1669,False,True,False
+numero_correto_0225,numero_correto,Resposta: 1676,1676,True,True,True
+numero_incorreto_0225,numero_incorreto,Resposta: 1677,1676,False,False,False
+alternativas_0225,alternativas,Resposta: 1677 ou 1676,1676,False,True,False
+contradicao_0225,contradicao,Resposta: 1677; 1676 seria incorreto.,1676,False,True,False
+contaminacao_0225,contaminacao,Resposta: 1677. Conferi o valor 1676.,1676,False,True,False
+xml_correto_0225,xml_correto,Calculei o resultado. <answer>1676</answer>,1676,True,True,True
+xml_incorreto_0225,xml_incorreto,Intermediario: 1676. <answer>1677</answer>,1676,False,True,False
+xml_duplicado_0225,xml_duplicado,<answer>1676</answer><answer>1677</answer>,1676,False,True,False
+numero_correto_0226,numero_correto,Resposta: 1683,1683,True,True,True
+numero_incorreto_0226,numero_incorreto,Resposta: 1684,1683,False,False,False
+alternativas_0226,alternativas,Resposta: 1684 ou 1683,1683,False,True,False
+contradicao_0226,contradicao,Resposta: 1684; 1683 seria incorreto.,1683,False,True,False
+contaminacao_0226,contaminacao,Resposta: 1684. Conferi o valor 1683.,1683,False,True,False
+xml_correto_0226,xml_correto,Calculei o resultado. <answer>1683</answer>,1683,True,True,True
+xml_incorreto_0226,xml_incorreto,Intermediario: 1683. <answer>1684</answer>,1683,False,True,False
+xml_duplicado_0226,xml_duplicado,<answer>1683</answer><answer>1684</answer>,1683,False,True,False
+numero_correto_0227,numero_correto,Resposta: 1690,1690,True,True,True
+numero_incorreto_0227,numero_incorreto,Resposta: 1691,1690,False,False,False
+alternativas_0227,alternativas,Resposta: 1691 ou 1690,1690,False,True,False
+contradicao_0227,contradicao,Resposta: 1691; 1690 seria incorreto.,1690,False,True,False
+contaminacao_0227,contaminacao,Resposta: 1691. Conferi o valor 1690.,1690,False,True,False
+xml_correto_0227,xml_correto,Calculei o resultado. <answer>1690</answer>,1690,True,True,True
+xml_incorreto_0227,xml_incorreto,Intermediario: 1690. <answer>1691</answer>,1690,False,True,False
+xml_duplicado_0227,xml_duplicado,<answer>1690</answer><answer>1691</answer>,1690,False,True,False
+numero_correto_0228,numero_correto,Resposta: 1697,1697,True,True,True
+numero_incorreto_0228,numero_incorreto,Resposta: 1698,1697,False,False,False
+alternativas_0228,alternativas,Resposta: 1698 ou 1697,1697,False,True,False
+contradicao_0228,contradicao,Resposta: 1698; 1697 seria incorreto.,1697,False,True,False
+contaminacao_0228,contaminacao,Resposta: 1698. Conferi o valor 1697.,1697,False,True,False
+xml_correto_0228,xml_correto,Calculei o resultado. <answer>1697</answer>,1697,True,True,True
+xml_incorreto_0228,xml_incorreto,Intermediario: 1697. <answer>1698</answer>,1697,False,True,False
+xml_duplicado_0228,xml_duplicado,<answer>1697</answer><answer>1698</answer>,1697,False,True,False
+numero_correto_0229,numero_correto,Resposta: 1704,1704,True,True,True
+numero_incorreto_0229,numero_incorreto,Resposta: 1705,1704,False,False,False
+alternativas_0229,alternativas,Resposta: 1705 ou 1704,1704,False,True,False
+contradicao_0229,contradicao,Resposta: 1705; 1704 seria incorreto.,1704,False,True,False
+contaminacao_0229,contaminacao,Resposta: 1705. Conferi o valor 1704.,1704,False,True,False
+xml_correto_0229,xml_correto,Calculei o resultado. <answer>1704</answer>,1704,True,True,True
+xml_incorreto_0229,xml_incorreto,Intermediario: 1704. <answer>1705</answer>,1704,False,True,False
+xml_duplicado_0229,xml_duplicado,<answer>1704</answer><answer>1705</answer>,1704,False,True,False
+numero_correto_0230,numero_correto,Resposta: 1711,1711,True,True,True
+numero_incorreto_0230,numero_incorreto,Resposta: 1712,1711,False,False,False
+alternativas_0230,alternativas,Resposta: 1712 ou 1711,1711,False,True,False
+contradicao_0230,contradicao,Resposta: 1712; 1711 seria incorreto.,1711,False,True,False
+contaminacao_0230,contaminacao,Resposta: 1712. Conferi o valor 1711.,1711,False,True,False
+xml_correto_0230,xml_correto,Calculei o resultado. <answer>1711</answer>,1711,True,True,True
+xml_incorreto_0230,xml_incorreto,Intermediario: 1711. <answer>1712</answer>,1711,False,True,False
+xml_duplicado_0230,xml_duplicado,<answer>1711</answer><answer>1712</answer>,1711,False,True,False
+numero_correto_0231,numero_correto,Resposta: 1718,1718,True,True,True
+numero_incorreto_0231,numero_incorreto,Resposta: 1719,1718,False,False,False
+alternativas_0231,alternativas,Resposta: 1719 ou 1718,1718,False,True,False
+contradicao_0231,contradicao,Resposta: 1719; 1718 seria incorreto.,1718,False,True,False
+contaminacao_0231,contaminacao,Resposta: 1719. Conferi o valor 1718.,1718,False,True,False
+xml_correto_0231,xml_correto,Calculei o resultado. <answer>1718</answer>,1718,True,True,True
+xml_incorreto_0231,xml_incorreto,Intermediario: 1718. <answer>1719</answer>,1718,False,True,False
+xml_duplicado_0231,xml_duplicado,<answer>1718</answer><answer>1719</answer>,1718,False,True,False
+numero_correto_0232,numero_correto,Resposta: 1725,1725,True,True,True
+numero_incorreto_0232,numero_incorreto,Resposta: 1726,1725,False,False,False
+alternativas_0232,alternativas,Resposta: 1726 ou 1725,1725,False,True,False
+contradicao_0232,contradicao,Resposta: 1726; 1725 seria incorreto.,1725,False,True,False
+contaminacao_0232,contaminacao,Resposta: 1726. Conferi o valor 1725.,1725,False,True,False
+xml_correto_0232,xml_correto,Calculei o resultado. <answer>1725</answer>,1725,True,True,True
+xml_incorreto_0232,xml_incorreto,Intermediario: 1725. <answer>1726</answer>,1725,False,True,False
+xml_duplicado_0232,xml_duplicado,<answer>1725</answer><answer>1726</answer>,1725,False,True,False
+numero_correto_0233,numero_correto,Resposta: 1732,1732,True,True,True
+numero_incorreto_0233,numero_incorreto,Resposta: 1733,1732,False,False,False
+alternativas_0233,alternativas,Resposta: 1733 ou 1732,1732,False,True,False
+contradicao_0233,contradicao,Resposta: 1733; 1732 seria incorreto.,1732,False,True,False
+contaminacao_0233,contaminacao,Resposta: 1733. Conferi o valor 1732.,1732,False,True,False
+xml_correto_0233,xml_correto,Calculei o resultado. <answer>1732</answer>,1732,True,True,True
+xml_incorreto_0233,xml_incorreto,Intermediario: 1732. <answer>1733</answer>,1732,False,True,False
+xml_duplicado_0233,xml_duplicado,<answer>1732</answer><answer>1733</answer>,1732,False,True,False
+numero_correto_0234,numero_correto,Resposta: 1739,1739,True,True,True
+numero_incorreto_0234,numero_incorreto,Resposta: 1740,1739,False,False,False
+alternativas_0234,alternativas,Resposta: 1740 ou 1739,1739,False,True,False
+contradicao_0234,contradicao,Resposta: 1740; 1739 seria incorreto.,1739,False,True,False
+contaminacao_0234,contaminacao,Resposta: 1740. Conferi o valor 1739.,1739,False,True,False
+xml_correto_0234,xml_correto,Calculei o resultado. <answer>1739</answer>,1739,True,True,True
+xml_incorreto_0234,xml_incorreto,Intermediario: 1739. <answer>1740</answer>,1739,False,True,False
+xml_duplicado_0234,xml_duplicado,<answer>1739</answer><answer>1740</answer>,1739,False,True,False
+numero_correto_0235,numero_correto,Resposta: 1746,1746,True,True,True
+numero_incorreto_0235,numero_incorreto,Resposta: 1747,1746,False,False,False
+alternativas_0235,alternativas,Resposta: 1747 ou 1746,1746,False,True,False
+contradicao_0235,contradicao,Resposta: 1747; 1746 seria incorreto.,1746,False,True,False
+contaminacao_0235,contaminacao,Resposta: 1747. Conferi o valor 1746.,1746,False,True,False
+xml_correto_0235,xml_correto,Calculei o resultado. <answer>1746</answer>,1746,True,True,True
+xml_incorreto_0235,xml_incorreto,Intermediario: 1746. <answer>1747</answer>,1746,False,True,False
+xml_duplicado_0235,xml_duplicado,<answer>1746</answer><answer>1747</answer>,1746,False,True,False
+numero_correto_0236,numero_correto,Resposta: 1753,1753,True,True,True
+numero_incorreto_0236,numero_incorreto,Resposta: 1754,1753,False,False,False
+alternativas_0236,alternativas,Resposta: 1754 ou 1753,1753,False,True,False
+contradicao_0236,contradicao,Resposta: 1754; 1753 seria incorreto.,1753,False,True,False
+contaminacao_0236,contaminacao,Resposta: 1754. Conferi o valor 1753.,1753,False,True,False
+xml_correto_0236,xml_correto,Calculei o resultado. <answer>1753</answer>,1753,True,True,True
+xml_incorreto_0236,xml_incorreto,Intermediario: 1753. <answer>1754</answer>,1753,False,True,False
+xml_duplicado_0236,xml_duplicado,<answer>1753</answer><answer>1754</answer>,1753,False,True,False
+numero_correto_0237,numero_correto,Resposta: 1760,1760,True,True,True
+numero_incorreto_0237,numero_incorreto,Resposta: 1761,1760,False,False,False
+alternativas_0237,alternativas,Resposta: 1761 ou 1760,1760,False,True,False
+contradicao_0237,contradicao,Resposta: 1761; 1760 seria incorreto.,1760,False,True,False
+contaminacao_0237,contaminacao,Resposta: 1761. Conferi o valor 1760.,1760,False,True,False
+xml_correto_0237,xml_correto,Calculei o resultado. <answer>1760</answer>,1760,True,True,True
+xml_incorreto_0237,xml_incorreto,Intermediario: 1760. <answer>1761</answer>,1760,False,True,False
+xml_duplicado_0237,xml_duplicado,<answer>1760</answer><answer>1761</answer>,1760,False,True,False
+numero_correto_0238,numero_correto,Resposta: 1767,1767,True,True,True
+numero_incorreto_0238,numero_incorreto,Resposta: 1768,1767,False,False,False
+alternativas_0238,alternativas,Resposta: 1768 ou 1767,1767,False,True,False
+contradicao_0238,contradicao,Resposta: 1768; 1767 seria incorreto.,1767,False,True,False
+contaminacao_0238,contaminacao,Resposta: 1768. Conferi o valor 1767.,1767,False,True,False
+xml_correto_0238,xml_correto,Calculei o resultado. <answer>1767</answer>,1767,True,True,True
+xml_incorreto_0238,xml_incorreto,Intermediario: 1767. <answer>1768</answer>,1767,False,True,False
+xml_duplicado_0238,xml_duplicado,<answer>1767</answer><answer>1768</answer>,1767,False,True,False
+numero_correto_0239,numero_correto,Resposta: 1774,1774,True,True,True
+numero_incorreto_0239,numero_incorreto,Resposta: 1775,1774,False,False,False
+alternativas_0239,alternativas,Resposta: 1775 ou 1774,1774,False,True,False
+contradicao_0239,contradicao,Resposta: 1775; 1774 seria incorreto.,1774,False,True,False
+contaminacao_0239,contaminacao,Resposta: 1775. Conferi o valor 1774.,1774,False,True,False
+xml_correto_0239,xml_correto,Calculei o resultado. <answer>1774</answer>,1774,True,True,True
+xml_incorreto_0239,xml_incorreto,Intermediario: 1774. <answer>1775</answer>,1774,False,True,False
+xml_duplicado_0239,xml_duplicado,<answer>1774</answer><answer>1775</answer>,1774,False,True,False
+numero_correto_0240,numero_correto,Resposta: 1781,1781,True,True,True
+numero_incorreto_0240,numero_incorreto,Resposta: 1782,1781,False,False,False
+alternativas_0240,alternativas,Resposta: 1782 ou 1781,1781,False,True,False
+contradicao_0240,contradicao,Resposta: 1782; 1781 seria incorreto.,1781,False,True,False
+contaminacao_0240,contaminacao,Resposta: 1782. Conferi o valor 1781.,1781,False,True,False
+xml_correto_0240,xml_correto,Calculei o resultado. <answer>1781</answer>,1781,True,True,True
+xml_incorreto_0240,xml_incorreto,Intermediario: 1781. <answer>1782</answer>,1781,False,True,False
+xml_duplicado_0240,xml_duplicado,<answer>1781</answer><answer>1782</answer>,1781,False,True,False
+numero_correto_0241,numero_correto,Resposta: 1788,1788,True,True,True
+numero_incorreto_0241,numero_incorreto,Resposta: 1789,1788,False,False,False
+alternativas_0241,alternativas,Resposta: 1789 ou 1788,1788,False,True,False
+contradicao_0241,contradicao,Resposta: 1789; 1788 seria incorreto.,1788,False,True,False
+contaminacao_0241,contaminacao,Resposta: 1789. Conferi o valor 1788.,1788,False,True,False
+xml_correto_0241,xml_correto,Calculei o resultado. <answer>1788</answer>,1788,True,True,True
+xml_incorreto_0241,xml_incorreto,Intermediario: 1788. <answer>1789</answer>,1788,False,True,False
+xml_duplicado_0241,xml_duplicado,<answer>1788</answer><answer>1789</answer>,1788,False,True,False
+numero_correto_0242,numero_correto,Resposta: 1795,1795,True,True,True
+numero_incorreto_0242,numero_incorreto,Resposta: 1796,1795,False,False,False
+alternativas_0242,alternativas,Resposta: 1796 ou 1795,1795,False,True,False
+contradicao_0242,contradicao,Resposta: 1796; 1795 seria incorreto.,1795,False,True,False
+contaminacao_0242,contaminacao,Resposta: 1796. Conferi o valor 1795.,1795,False,True,False
+xml_correto_0242,xml_correto,Calculei o resultado. <answer>1795</answer>,1795,True,True,True
+xml_incorreto_0242,xml_incorreto,Intermediario: 1795. <answer>1796</answer>,1795,False,True,False
+xml_duplicado_0242,xml_duplicado,<answer>1795</answer><answer>1796</answer>,1795,False,True,False
+numero_correto_0243,numero_correto,Resposta: 1802,1802,True,True,True
+numero_incorreto_0243,numero_incorreto,Resposta: 1803,1802,False,False,False
+alternativas_0243,alternativas,Resposta: 1803 ou 1802,1802,False,True,False
+contradicao_0243,contradicao,Resposta: 1803; 1802 seria incorreto.,1802,False,True,False
+contaminacao_0243,contaminacao,Resposta: 1803. Conferi o valor 1802.,1802,False,True,False
+xml_correto_0243,xml_correto,Calculei o resultado. <answer>1802</answer>,1802,True,True,True
+xml_incorreto_0243,xml_incorreto,Intermediario: 1802. <answer>1803</answer>,1802,False,True,False
+xml_duplicado_0243,xml_duplicado,<answer>1802</answer><answer>1803</answer>,1802,False,True,False
+numero_correto_0244,numero_correto,Resposta: 1809,1809,True,True,True
+numero_incorreto_0244,numero_incorreto,Resposta: 1810,1809,False,False,False
+alternativas_0244,alternativas,Resposta: 1810 ou 1809,1809,False,True,False
+contradicao_0244,contradicao,Resposta: 1810; 1809 seria incorreto.,1809,False,True,False
+contaminacao_0244,contaminacao,Resposta: 1810. Conferi o valor 1809.,1809,False,True,False
+xml_correto_0244,xml_correto,Calculei o resultado. <answer>1809</answer>,1809,True,True,True
+xml_incorreto_0244,xml_incorreto,Intermediario: 1809. <answer>1810</answer>,1809,False,True,False
+xml_duplicado_0244,xml_duplicado,<answer>1809</answer><answer>1810</answer>,1809,False,True,False
+numero_correto_0245,numero_correto,Resposta: 1816,1816,True,True,True
+numero_incorreto_0245,numero_incorreto,Resposta: 1817,1816,False,False,False
+alternativas_0245,alternativas,Resposta: 1817 ou 1816,1816,False,True,False
+contradicao_0245,contradicao,Resposta: 1817; 1816 seria incorreto.,1816,False,True,False
+contaminacao_0245,contaminacao,Resposta: 1817. Conferi o valor 1816.,1816,False,True,False
+xml_correto_0245,xml_correto,Calculei o resultado. <answer>1816</answer>,1816,True,True,True
+xml_incorreto_0245,xml_incorreto,Intermediario: 1816. <answer>1817</answer>,1816,False,True,False
+xml_duplicado_0245,xml_duplicado,<answer>1816</answer><answer>1817</answer>,1816,False,True,False
+numero_correto_0246,numero_correto,Resposta: 1823,1823,True,True,True
+numero_incorreto_0246,numero_incorreto,Resposta: 1824,1823,False,False,False
+alternativas_0246,alternativas,Resposta: 1824 ou 1823,1823,False,True,False
+contradicao_0246,contradicao,Resposta: 1824; 1823 seria incorreto.,1823,False,True,False
+contaminacao_0246,contaminacao,Resposta: 1824. Conferi o valor 1823.,1823,False,True,False
+xml_correto_0246,xml_correto,Calculei o resultado. <answer>1823</answer>,1823,True,True,True
+xml_incorreto_0246,xml_incorreto,Intermediario: 1823. <answer>1824</answer>,1823,False,True,False
+xml_duplicado_0246,xml_duplicado,<answer>1823</answer><answer>1824</answer>,1823,False,True,False
+numero_correto_0247,numero_correto,Resposta: 1830,1830,True,True,True
+numero_incorreto_0247,numero_incorreto,Resposta: 1831,1830,False,False,False
+alternativas_0247,alternativas,Resposta: 1831 ou 1830,1830,False,True,False
+contradicao_0247,contradicao,Resposta: 1831; 1830 seria incorreto.,1830,False,True,False
+contaminacao_0247,contaminacao,Resposta: 1831. Conferi o valor 1830.,1830,False,True,False
+xml_correto_0247,xml_correto,Calculei o resultado. <answer>1830</answer>,1830,True,True,True
+xml_incorreto_0247,xml_incorreto,Intermediario: 1830. <answer>1831</answer>,1830,False,True,False
+xml_duplicado_0247,xml_duplicado,<answer>1830</answer><answer>1831</answer>,1830,False,True,False
+numero_correto_0248,numero_correto,Resposta: 1837,1837,True,True,True
+numero_incorreto_0248,numero_incorreto,Resposta: 1838,1837,False,False,False
+alternativas_0248,alternativas,Resposta: 1838 ou 1837,1837,False,True,False
+contradicao_0248,contradicao,Resposta: 1838; 1837 seria incorreto.,1837,False,True,False
+contaminacao_0248,contaminacao,Resposta: 1838. Conferi o valor 1837.,1837,False,True,False
+xml_correto_0248,xml_correto,Calculei o resultado. <answer>1837</answer>,1837,True,True,True
+xml_incorreto_0248,xml_incorreto,Intermediario: 1837. <answer>1838</answer>,1837,False,True,False
+xml_duplicado_0248,xml_duplicado,<answer>1837</answer><answer>1838</answer>,1837,False,True,False
+numero_correto_0249,numero_correto,Resposta: 1844,1844,True,True,True
+numero_incorreto_0249,numero_incorreto,Resposta: 1845,1844,False,False,False
+alternativas_0249,alternativas,Resposta: 1845 ou 1844,1844,False,True,False
+contradicao_0249,contradicao,Resposta: 1845; 1844 seria incorreto.,1844,False,True,False
+contaminacao_0249,contaminacao,Resposta: 1845. Conferi o valor 1844.,1844,False,True,False
+xml_correto_0249,xml_correto,Calculei o resultado. <answer>1844</answer>,1844,True,True,True
+xml_incorreto_0249,xml_incorreto,Intermediario: 1844. <answer>1845</answer>,1844,False,True,False
+xml_duplicado_0249,xml_duplicado,<answer>1844</answer><answer>1845</answer>,1844,False,True,False

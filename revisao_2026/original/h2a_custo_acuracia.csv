@@ -1,0 +1,6 @@
+level,condition,acc_control,acc_penalized,accuracy_cost
+A,cot_pressure,0.933,1.0,-0.067
+A,output_supervision,0.933,0.967,-0.033
+C,cot_pressure,0.678,0.156,0.522
+C,output_supervision,0.678,0.056,0.622
+

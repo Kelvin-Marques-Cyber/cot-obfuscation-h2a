@@ -1,0 +1,18 @@
+{
+  "revision_date": "2026-10-15",
+  "source_pdf_name": "doc_3549703_27-06-2026_23h59.pdf",
+  "source_pdf_sha256": "ef47df9337e521e4985c0cee009466e38b83f3e991a9b637c0aa11abd3bc28f2",
+  "repository": "https://github.com/Kelvin-Marques-Cyber/cot-obfuscation-h2a",
+  "commit": "e21cef8ad92369c56f3fcbbb6891fa49bda8c74b",
+  "original_sha256": {
+    "LICENSE": "09fc3a51dccbd80a2b7822e4ec73dc196e11009bc2e06d873df59ab49c5f1866",
+    "README.md": "1cd0dad003a4ac66122a5791fae335fed5e90dfea0fb1779ce9b45b06beba322",
+    "cot_obfuscation_experiment.ipynb": "c9fe19f116524aa1415ee9d351f518c20f8f7d63beb7f34122bf04ac2fd08fed",
+    "h2a_custo_acuracia.csv": "d38907d4c1ac7b631b4233848f5f269037f99bc6df55bfa769294d9eba6a743f",
+    "h2a_necessidade_causal.csv": "9fe81087a8457f078e8e558792f59124d1c18f0b12811d6b5d17b6c85ad43b0b",
+    "h2a_por_celula.csv": "a2cd641ed9895c817550887309bb093650f3365f329445a531fb2f1533d27230",
+    "h2a_resultados_brutos.csv": "96cd6c336620acbe8c5080d3011082562e0b8a12ac65308027d07174a79f720e",
+    "requirements.txt": "58d4faf362753fdc2055dc5c40f719c1295017d1f5a004bf7ecdfbfd5e724039"
+  },
+  "experimental_status": "Retrospective metrics reanalysis and constructed instrument tests; no new LLM training or inference."
+}

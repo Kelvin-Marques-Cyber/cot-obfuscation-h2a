@@ -1,0 +1,216 @@
+test_duplicate_rater_rejected (test_gpu_lab.AnnotationTests.test_duplicate_rater_rejected) ... ok
+test_missing_pairs (test_gpu_lab.AnnotationTests.test_missing_pairs) ... ok
+test_negative_alpha_possible (test_gpu_lab.AnnotationTests.test_negative_alpha_possible) ... ok
+test_perfect_agreement (test_gpu_lab.AnnotationTests.test_perfect_agreement) ... ok
+test_cross_split_prompt_rejected (test_gpu_lab.BenchmarkTests.test_cross_split_prompt_rejected) ... ok
+test_dataset_validates (test_gpu_lab.BenchmarkTests.test_dataset_validates) ... ok
+test_domain_holdout (test_gpu_lab.BenchmarkTests.test_domain_holdout) ... ok
+test_duplicate_ids_rejected (test_gpu_lab.BenchmarkTests.test_duplicate_ids_rejected) ... ok
+test_empty_dataset_rejected (test_gpu_lab.BenchmarkTests.test_empty_dataset_rejected) ... ok
+test_equal_gold_cheat_rejected (test_gpu_lab.BenchmarkTests.test_equal_gold_cheat_rejected) ... ok
+test_format_variants_preserve_case (test_gpu_lab.BenchmarkTests.test_format_variants_preserve_case) ... ok
+test_gold_and_exploit_are_distinct (test_gpu_lab.BenchmarkTests.test_gold_and_exploit_are_distinct) ... ok
+test_hint_computation_matches_exploit (test_gpu_lab.BenchmarkTests.test_hint_computation_matches_exploit) ... ok
+test_no_cross_split_collision (test_gpu_lab.BenchmarkTests.test_no_cross_split_collision) ... ok
+test_program_has_real_newlines (test_gpu_lab.BenchmarkTests.test_program_has_real_newlines) ... ok
+test_protocol_accepts_one_answer (test_gpu_lab.BenchmarkTests.test_protocol_accepts_one_answer) ... ok
+test_protocol_rejects_extra_answers (test_gpu_lab.BenchmarkTests.test_protocol_rejects_extra_answers) ... ok
+test_protocol_rejects_nested_tags (test_gpu_lab.BenchmarkTests.test_protocol_rejects_nested_tags) ... ok
+test_structural_holdout (test_gpu_lab.BenchmarkTests.test_structural_holdout) ... ok
+test_confirmatory_requires_public_registration (test_gpu_lab.ConfigTests.test_confirmatory_requires_public_registration) ... ok
+test_exploratory_config (test_gpu_lab.ConfigTests.test_exploratory_config) ... ok
+test_group_batch_validation (test_gpu_lab.ConfigTests.test_group_batch_validation) ... ok
+test_cot_penalty_reads_only_trace (test_gpu_lab.RewardTests.test_cot_penalty_reads_only_trace) ... ok
+test_invalid_format_not_silently_rewarded (test_gpu_lab.RewardTests.test_invalid_format_not_silently_rewarded) ... ok
+test_missing_monitor_fails (test_gpu_lab.RewardTests.test_missing_monitor_fails) ... ok
+test_no_monitor_in_control (test_gpu_lab.RewardTests.test_no_monitor_in_control) ... ok
+test_output_penalty_cannot_read_trace (test_gpu_lab.RewardTests.test_output_penalty_cannot_read_trace) ... ok
+test_reward_callback_conversational (test_gpu_lab.RewardTests.test_reward_callback_conversational) ... ok
+test_c_is_not_declared_causally_necessary (test_instruments.DatasetTests.test_c_is_not_declared_causally_necessary) ... ok
+test_no_overlap (test_instruments.DatasetTests.test_no_overlap) ... ok
+test_original_seed_overlap (test_instruments.DatasetTests.test_original_seed_overlap) ... ok
+test_reproducible (test_instruments.DatasetTests.test_reproducible) ... ok
+test_split_balance (test_instruments.DatasetTests.test_split_balance) ... ok
+test_ambiguous_list_rejected (test_instruments.GradingTests.test_ambiguous_list_rejected) ... ok
+test_bad_gold (test_instruments.GradingTests.test_bad_gold) ... ok
+test_empty_rejected (test_instruments.GradingTests.test_empty_rejected) ... ok
+test_final_line (test_instruments.GradingTests.test_final_line) ... ok
+test_multiple_answers_rejected (test_instruments.GradingTests.test_multiple_answers_rejected) ... ok
+test_multiple_response_markers_rejected (test_instruments.GradingTests.test_multiple_response_markers_rejected) ... ok
+test_no_text_after_tag (test_instruments.GradingTests.test_no_text_after_tag) ... ok
+test_nonfinite_rejected (test_instruments.GradingTests.test_nonfinite_rejected) ... ok
+test_original_bug_demonstrated (test_instruments.GradingTests.test_original_bug_demonstrated) ... ok
+test_plain_decimal (test_instruments.GradingTests.test_plain_decimal) ... ok
+test_stress_contract (test_instruments.GradingTests.test_stress_contract) ... ok
+test_unclosed_tag_rejected (test_instruments.GradingTests.test_unclosed_tag_rejected) ... ok
+test_unicode_number_handling (test_instruments.GradingTests.test_unicode_number_handling) ... ok
+test_unique_answer_tag (test_instruments.GradingTests.test_unique_answer_tag) ... ok
+test_wrong_final_with_gold_intermediate (test_instruments.GradingTests.test_wrong_final_with_gold_intermediate) ... ok
+test_arithmetic_no_intention_label (test_instruments.TraceTests.test_arithmetic_no_intention_label) ... ok
+test_empty_is_separate_status (test_instruments.TraceTests.test_empty_is_separate_status) ... ok
+test_generic_control (test_instruments.TraceTests.test_generic_control) ... ok
+test_repetition (test_instruments.TraceTests.test_repetition) ... ok
+test_short_not_collapsed (test_instruments.TraceTests.test_short_not_collapsed) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 0.026s
+
+OK
+{
+  "n_rows": 540,
+  "n_cells": 18,
+  "all_aggregates_match": true,
+  "raw_columns": [
+    "level",
+    "condition",
+    "seed",
+    "type",
+    "accuracy",
+    "obfuscated",
+    "obf_score",
+    "cheat",
+    "ttr",
+    "rep_ratio",
+    "entropy",
+    "gen_len"
+  ],
+  "historical_anova": {
+    "F": 527.1666666666667,
+    "df_interaction": 2,
+    "df_residual": 12,
+    "p": 2.031091852772146e-12
+  },
+  "historical_welch": {
+    "t": 20.93772742567985,
+    "p": 3.0927385972274864e-07
+  },
+  "necessity_reconstructed": {
+    "A": {
+      "cot_only": 0,
+      "direct_only": 1,
+      "both": 9,
+      "neither": 0,
+      "net_gain": -0.1,
+      "p_exact_mcnemar": 1.0
+    },
+    "C": {
+      "cot_only": 5,
+      "direct_only": 2,
+      "both": 0,
+      "neither": 3,
+      "net_gain": 0.3,
+      "p_exact_mcnemar": 0.453125
+    }
+  },
+  "correlations": {
+    "score_repetition": 0.9963700053379193,
+    "score_ttr": -0.9880384449616465
+  },
+  "original_grader_accuracy_on_constructed_cases": 0.375,
+  "strict_grader_accuracy_on_constructed_cases": 1.0,
+  "negative_cases": 1500,
+  "original_false_accepts": 1250,
+  "strict_false_accepts": 0,
+  "constructed_stress_cases": 2000,
+  "reconstructed_train_eval_overlap": [
+    {
+      "level": "A",
+      "seed": 42,
+      "train_count": 150,
+      "eval_count": 30,
+      "intersection": 1,
+      "prompts": [
+        "Calcule 11 - 99"
+      ]
+    },
+    {
+      "level": "A",
+      "seed": 43,
+      "train_count": 150,
+      "eval_count": 30,
+      "intersection": 1,
+      "prompts": [
+        "Calcule 11 - 99"
+      ]
+    },
+    {
+      "level": "A",
+      "seed": 44,
+      "train_count": 150,
+      "eval_count": 30,
+      "intersection": 1,
+      "prompts": [
+        "Calcule 11 - 99"
+      ]
+    },
+    {
+      "level": "A",
+      "seed": "union",
+      "train_union": 152,
+      "eval_union": 32,
+      "intersection": 1,
+      "prompts": [
+        "Calcule 11 - 99"
+      ]
+    },
+    {
+      "level": "C",
+      "seed": 42,
+      "train_count": 150,
+      "eval_count": 30,
+      "intersection": 0,
+      "prompts": []
+    },
+    {
+      "level": "C",
+      "seed": 43,
+      "train_count": 150,
+      "eval_count": 30,
+      "intersection": 0,
+      "prompts": []
+    },
+    {
+      "level": "C",
+      "seed": 44,
+      "train_count": 150,
+      "eval_count": 30,
+      "intersection": 0,
+      "prompts": []
+    },
+    {
+      "level": "C",
+      "seed": "union",
+      "train_union": 152,
+      "eval_union": 32,
+      "intersection": 0,
+      "prompts": []
+    }
+  ],
+  "disjoint_generated_items": 4500,
+  "cheat_positive_rows": 0,
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "packages": {
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "matplotlib": "3.10.8",
+      "reportlab": "4.4.9",
+      "pypdf": "6.10.0"
+    }
+  },
+  "executed": [
+    "reanalysis_of_published_metrics",
+    "source_code_audit",
+    "constructed_grader_stress_test",
+    "disjoint_generator_checks"
+  ],
+  "not_executed": [
+    "new_LLM_training",
+    "GRPO",
+    "new_LLM_inference",
+    "human_annotation",
+    "full_3x3x3_factorial"
+  ]
+}

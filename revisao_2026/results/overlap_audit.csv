@@ -1,0 +1,13 @@
+level,split,seed_1,seed_2,intersection,denominator,union_three
+A,train,42,43,149,150,152
+A,train,42,44,148,150,152
+A,train,43,44,149,150,152
+A,eval,42,43,29,30,32
+A,eval,42,44,28,30,32
+A,eval,43,44,29,30,32
+C,train,42,43,149,150,152
+C,train,42,44,148,150,152
+C,train,43,44,149,150,152
+C,eval,42,43,29,30,32
+C,eval,42,44,28,30,32
+C,eval,43,44,29,30,32
