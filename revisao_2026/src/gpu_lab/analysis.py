@@ -64,6 +64,8 @@ def analyze(root,destination):
         pivot=g.pivot(index="item_id",columns="evaluation_mode",values="accuracy")
         if {"full","early"}<=set(pivot.columns):
             paired=pivot.dropna(subset=["full","early"])
+            if paired.empty:
+                continue
             b=int((paired.full.astype(bool)&~paired.early.astype(bool)).sum())
             c=int((~paired.full.astype(bool)&paired.early.astype(bool)).sum())
             pairs.append(dict(run_id=run_id,base_only=base_only,n=len(paired),
@@ -84,13 +86,15 @@ def export_annotations(root,destination,per_level=300,seed=20261015):
     # Retém apenas variáveis visíveis aos anotadores e uma chave separada.
     records=[]; key=[]
     for _,r in selected.sample(frac=1,random_state=seed).iterrows():
-        aid=content_hash([r.run_id,r.item_id,r.evaluation_mode])[:24]
+        aid=content_hash([r.run_id,r.item_id,r.evaluation_mode,bool(r.base_only),
+                          int(r.total_response_budget)])[:24]
         parsed=parse_response(r.generation)
         records.append(dict(annotation_id=aid,question=r.prompt,
                             trace=parsed["trace"] if parsed else r.generation,
                             summary=parsed["summary"] if parsed else "",
                             rater="",label="",notes=""))
         key.append(dict(annotation_id=aid,run_id=r.run_id,item_id=r.item_id,
+                        base_only=bool(r.base_only),total_response_budget=int(r.total_response_budget),
                         model_id=r.model_id,condition=r.condition,accuracy=bool(r.accuracy),
                         exploit=bool(r.exploit) if pd.notna(r.exploit) else None))
     pd.DataFrame(records).to_csv(out/"blinded_annotations.csv",index=False)

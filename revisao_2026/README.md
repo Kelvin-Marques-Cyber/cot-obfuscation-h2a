@@ -13,8 +13,9 @@ a APIs e sem custos de inferência.
 - Geração de 4.500 itens aritméticos com partições sem repetição de enunciados.
 - Suíte automatizada dos contratos de análise.
 
-Não foram executados novos treinos, novas inferências de LLM, GRPO ou anotação
-humana. Os números do piloto são métricas históricas, não saídas reavaliadas: o
+Não foram coletados novos resultados experimentais de LLM ou anotações humanas.
+Os testes de integração das APIs usam uma miniatura aleatória em CPU e não são
+resultados científicos. Os números do piloto são métricas históricas, não saídas reavaliadas: o
 CSV original não contém o texto das gerações nem IDs dos itens.
 
 ## Reproduzir
@@ -39,10 +40,14 @@ docker run --rm -v "$PWD/results:/work/results" cot-reanalysis.
 
 ### Colab e diagnóstico de falhas
 
-O notebook 01 usa **CPU**. Mantenha `INSTALL_DEPS = True` na primeira execução.
-Os cálculos rodam em subprocessos novos, com as dependências recém-instaladas.
-A visualização das tabelas usa a biblioteca padrão para evitar conflitos com
-pacotes já carregados no kernel antes da instalação.
+Abra o notebook e use **Executar tudo**. O 01 usa CPU; os 02 a 04 pedem GPU.
+Instalação, armazenamento no Drive, treino, avaliação e ZIP estão preparados.
+Não há flags para ativar. O perfil padrão `quick` é curto e usa monitores locais,
+sem API. O guia em docs/GUIA_GPU.md descreve os perfis maiores.
+
+As dependências são instaladas em ambiente separado, e os cálculos rodam em
+processos novos. As tabelas usam a biblioteca padrão no kernel para evitar
+conflitos com pacotes previamente carregados.
 
 As etapas exibem stdout e stderr e salvam a saída completa em `logs/`.
 Se houver falha, a exceção inclui as últimas 40 linhas do processo e o caminho
@@ -52,8 +57,9 @@ do log. `CalledProcessError` sozinho informa apenas que o processo falhou.
 estiverem instaladas, suas versões aparecem como `null` em `report.json`.
 Para gerar o PDF, instale o arquivo lock completo.
 
-Uma cópia antiga do notebook ou do repositório no Drive não é atualizada ao
-abrir um link do GitHub. Use a versão atual do notebook e do código-fonte.
+O notebook atual baixa o código-fonte pelo commit fixado nele, em uma pasta de
+cache separada do Drive. Cópias antigas do notebook não recebem as novas células;
+abra os links atuais do README.
 
 ## Arquivos e procedência
 

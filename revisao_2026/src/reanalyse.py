@@ -289,4 +289,12 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-root", type=Path)
+    args = parser.parse_args()
+    if args.output_root:
+        args.output_root.mkdir(parents=True, exist_ok=True)
+        OUT = args.output_root / "results"
+        FIG = args.output_root / "figures"
     main()

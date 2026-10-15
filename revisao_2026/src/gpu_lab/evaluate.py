@@ -15,6 +15,7 @@ def generate(model,tokenizer,prompt,budget,prefix=""):
     if remaining_budget<1:
         raise ValueError("Prefixo excede o orçamento comum de resposta.")
     encoded=tokenizer(prompt+prefix,return_tensors="pt").to(model.device)
+    encoded.pop("token_type_ids",None)  # Qwen/Llama não usam segmentos BERT.
     if encoded["input_ids"].shape[1]+budget>getattr(model.config,"max_position_embeddings",10**9):
         raise ValueError("Contexto solicitado excede a janela do modelo; não será truncado.")
     start=time.perf_counter()
@@ -33,8 +34,6 @@ def generate(model,tokenizer,prompt,budget,prefix=""):
 
 
 def run(run_dir,data_path,split="test",budget=384,modes=("full","unformatted","no_hint","early","wrong_step"),base_only=False):
-    from peft import PeftModel
-    from .train import load_actor,chat
     run_dir=Path(run_dir)
     manifest=json.loads((run_dir/"manifest.json").read_text())
     cfg=manifest["resolved_config"]
@@ -43,11 +42,6 @@ def run(run_dir,data_path,split="test",budget=384,modes=("full","unformatted","n
         raise ValueError("Hash dos dados diverge do manifesto.")
     if not base_only and json.loads((run_dir/"status.json").read_text()).get("status")!="trained":
         raise ValueError("Avalie somente uma execução com treino concluído.")
-    model,tokenizer,revision,_=load_actor(cfg)
-    if not base_only:
-        model=PeftModel.from_pretrained(model,run_dir/"adapter")
-    model.eval()
-    model.config.use_cache=True
     rows=[r for r in read_dataset(data_path) if r["split"]==split]
     if cfg["mode"]=="sft":
         rows=[r for r in rows if r["level"]==cfg["level"]]
@@ -74,6 +68,19 @@ def run(run_dir,data_path,split="test",budget=384,modes=("full","unformatted","n
             kept.append(line)
             done.add((row["item_id"],row["evaluation_mode"]))
         destination.write_text("".join(l+"\n" for l in kept))
+    expected={(r["item_id"],mode) for r in rows for mode in modes}
+    if not expected:
+        raise ValueError("Nenhum item corresponde à avaliação solicitada.")
+    if expected<=done:
+        print("Avaliação já concluída:",destination)
+        return str(destination)
+    from .train import load_actor,chat
+    from peft import PeftModel
+    model,tokenizer,revision,_=load_actor(cfg)
+    if not base_only:
+        model=PeftModel.from_pretrained(model,run_dir/"adapter")
+    model.eval()
+    model.config.use_cache=True
     with destination.open("a") as f:
         for item in rows:
             for mode in modes:

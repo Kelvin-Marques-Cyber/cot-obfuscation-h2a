@@ -1,0 +1,163 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+The 8-bit optimizer is not available on your device, only available on CUDA for now.
+
+Adding EOS to train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 2/2 [00:00<00:00, 1049.36 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Tokenizing train dataset: 100%|██████████| 2/2 [00:00<00:00, 408.90 examples/s]
+
+Truncating train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 2/2 [00:00<00:00, 968.44 examples/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 3.6435, 'grad_norm': 0.0851292684674263, 'learning_rate': 0.0, 'entropy': 3.6303744316101074, 'num_tokens': 82.0, 'mean_token_accuracy': 0.0, 'epoch': 1.0}
+
+100%|██████████| 1/1 [00:00<00:00, 56.98it/s]
+                                             
+{'train_runtime': 0.0429, 'train_samples_per_second': 46.605, 'train_steps_per_second': 23.303, 'train_loss': 3.6435163021087646, 'epoch': 1.0}
+
+100%|██████████| 1/1 [00:00<00:00, 23.68it/s]
+100%|██████████| 1/1 [00:00<00:00, 23.55it/s]
+
+Adding EOS to train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 2/2 [00:00<00:00, 1395.54 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Tokenizing train dataset: 100%|██████████| 2/2 [00:00<00:00, 892.69 examples/s]
+
+Truncating train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 2/2 [00:00<00:00, 1405.13 examples/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 3.6151, 'grad_norm': 0.11185283213853836, 'learning_rate': 0.0, 'entropy': 3.630370855331421, 'num_tokens': 70.0, 'mean_token_accuracy': 0.0, 'epoch': 1.0}
+
+100%|██████████| 1/1 [00:00<00:00, 72.12it/s]
+                                             
+{'train_runtime': 0.0332, 'train_samples_per_second': 60.326, 'train_steps_per_second': 30.163, 'train_loss': 3.6150832176208496, 'epoch': 1.0}
+
+100%|██████████| 1/1 [00:00<00:00, 30.41it/s]
+100%|██████████| 1/1 [00:00<00:00, 30.24it/s]
+
+Adding EOS to train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 2/2 [00:00<00:00, 1316.48 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Tokenizing train dataset: 100%|██████████| 2/2 [00:00<00:00, 937.48 examples/s]
+
+Truncating train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 2/2 [00:00<00:00, 1366.45 examples/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 3.5955, 'grad_norm': 0.17757141590118408, 'learning_rate': 0.0, 'entropy': 3.630192995071411, 'num_tokens': 96.0, 'mean_token_accuracy': 0.0, 'epoch': 1.0}
+
+100%|██████████| 1/1 [00:00<00:00, 76.36it/s]
+                                             
+{'train_runtime': 0.033, 'train_samples_per_second': 60.568, 'train_steps_per_second': 30.284, 'train_loss': 3.5954716205596924, 'epoch': 1.0}
+
+100%|██████████| 1/1 [00:00<00:00, 30.48it/s]
+100%|██████████| 1/1 [00:00<00:00, 30.34it/s]
+Avaliação já concluída: /tmp/tmpwif8auo8/sft/5aee7842bb901b6e6add/evaluation_7f1d164de899e4b6.jsonl
+
+Adding EOS to train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 2/2 [00:00<00:00, 1302.78 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Tokenizing train dataset: 100%|██████████| 2/2 [00:00<00:00, 939.90 examples/s]
+
+Truncating train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 2/2 [00:00<00:00, 1386.78 examples/s]
+
+  0%|          | 0/2 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 3.6435, 'grad_norm': 0.19694744050502777, 'learning_rate': 0.0, 'entropy': 3.6303744316101074, 'num_tokens': 82.0, 'mean_token_accuracy': 0.0, 'epoch': 1.0}
+
+ 50%|█████     | 1/2 [00:00<00:00, 80.46it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                             
+{'loss': 3.6435, 'grad_norm': 0.19694744050502777, 'learning_rate': 5e-05, 'entropy': 3.6303744316101074, 'num_tokens': 164.0, 'mean_token_accuracy': 0.0, 'epoch': 2.0}
+
+100%|██████████| 2/2 [00:00<00:00, 45.18it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/transformers/trainer.py:4360: UserWarning: mtime may not be reliable on this filesystem, falling back to numerical ordering
+  warnings.warn("mtime may not be reliable on this filesystem, falling back to numerical ordering")
+
+                                             
+{'train_runtime': 0.0642, 'train_samples_per_second': 62.343, 'train_steps_per_second': 31.171, 'train_loss': 3.6435163021087646, 'epoch': 2.0}
+
+100%|██████████| 2/2 [00:00<00:00, 31.29it/s]
+100%|██████████| 2/2 [00:00<00:00, 31.17it/s]
+
+Adding EOS to train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 2/2 [00:00<00:00, 968.33 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Tokenizing train dataset: 100%|██████████| 2/2 [00:00<00:00, 833.03 examples/s]
+
+Truncating train dataset:   0%|          | 0/2 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 2/2 [00:00<00:00, 1377.67 examples/s]
+
+  0%|          | 0/2 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 3.6435, 'grad_norm': 0.19694744050502777, 'learning_rate': 5e-05, 'entropy': 3.6303744316101074, 'num_tokens': 82.0, 'mean_token_accuracy': 0.0, 'epoch': 2.0}
+
+100%|██████████| 2/2 [00:00<00:00, 132.99it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/transformers/trainer.py:4360: UserWarning: mtime may not be reliable on this filesystem, falling back to numerical ordering
+  warnings.warn("mtime may not be reliable on this filesystem, falling back to numerical ordering")
+
+                                              
+{'train_runtime': 0.0356, 'train_samples_per_second': 112.461, 'train_steps_per_second': 56.231, 'train_loss': 1.8217581510543823, 'epoch': 2.0}
+
+100%|██████████| 2/2 [00:00<00:00, 56.51it/s]
+100%|██████████| 2/2 [00:00<00:00, 56.07it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 0.0, 'num_tokens': 214.0, 'completions/mean_length': 16.0, 'completions/min_length': 16.0, 'completions/max_length': 16.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/behavior_and_monitor_reward/mean': -1.0, 'rewards/behavior_and_monitor_reward/std': 0.0, 'reward': -1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.0, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.33}
+
+100%|██████████| 1/1 [00:00<00:00, 21.77it/s]
+                                             
+{'train_runtime': 0.067, 'train_samples_per_second': 29.865, 'train_steps_per_second': 14.932, 'train_loss': 0.0, 'epoch': 0.33}
+
+100%|██████████| 1/1 [00:00<00:00, 15.00it/s]
+100%|██████████| 1/1 [00:00<00:00, 14.97it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 0.0, 'num_tokens': 214.0, 'completions/mean_length': 16.0, 'completions/min_length': 16.0, 'completions/max_length': 16.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/behavior_and_monitor_reward/mean': -1.0, 'rewards/behavior_and_monitor_reward/std': 0.0, 'reward': -1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.0, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.33}
+
+100%|██████████| 1/1 [00:00<00:00, 21.34it/s]
+                                             
+{'train_runtime': 0.0681, 'train_samples_per_second': 29.368, 'train_steps_per_second': 14.684, 'train_loss': 0.0, 'epoch': 0.33}
+
+100%|██████████| 1/1 [00:00<00:00, 14.79it/s]
+100%|██████████| 1/1 [00:00<00:00, 14.75it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]/workspace/scratch/3d34215470b6/venv-trainers/lib/python3.13/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+
+                                     
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 0.0, 'num_tokens': 214.0, 'completions/mean_length': 16.0, 'completions/min_length': 16.0, 'completions/max_length': 16.0, 'completions/clipped_ratio': 1.0, 'completions/mean_terminated_length': 0.0, 'completions/min_terminated_length': 0.0, 'completions/max_terminated_length': 0.0, 'rewards/behavior_and_monitor_reward/mean': -1.0, 'rewards/behavior_and_monitor_reward/std': 0.0, 'reward': -1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.0, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.33}
+
+100%|██████████| 1/1 [00:00<00:00, 22.27it/s]
+                                             
+{'train_runtime': 0.0681, 'train_samples_per_second': 29.35, 'train_steps_per_second': 14.675, 'train_loss': 0.0, 'epoch': 0.33}
+
+100%|██████████| 1/1 [00:00<00:00, 14.74it/s]
+100%|██████████| 1/1 [00:00<00:00, 14.70it/s]
+{"status": "passed", "device": "cpu", "random_tiny_model": true, "steps": ["sft_explicit", "sft_direct", "sft_generic", "grpo_none", "grpo_cot_monitor", "grpo_summary_monitor"], "evaluation_resume": true, "checkpoint_resume": true, "local_monitor_inference": true, "independent_monitor": true, "analysis_and_annotations": true}

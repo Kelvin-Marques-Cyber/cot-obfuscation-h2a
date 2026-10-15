@@ -14,6 +14,8 @@ import traceback
 from pathlib import Path
 
 from .benchmark import SYSTEM,content_hash,read_dataset,render_prompt,select
+from .preflight import text_only_compat
+text_only_compat()
 
 
 def atomic_json(path,value):
@@ -32,6 +34,8 @@ def validate_config(c):
     if c["mode"]=="sft" and c.get("condition") not in ("explicit","direct","generic"):
         raise ValueError("Alvo SFT inválido")
     if c["mode"]=="grpo":
+        if c.get("monitor_backend", "remote") not in ("local", "remote"):
+            raise ValueError("monitor_backend deve ser local ou remote")
         if c.get("condition") not in ("none","cot_monitor","summary_monitor"):
             raise ValueError("Condição GRPO inválida")
         groups=c.get("num_generations",4)
@@ -51,18 +55,31 @@ def validate_config(c):
 def load_actor(c):
     import torch
     from transformers import AutoModelForCausalLM,AutoTokenizer,BitsAndBytesConfig,set_seed
-    from huggingface_hub import model_info
-    if not torch.cuda.is_available():
+    from .revisions import resolve_revision
+    cpu = c.get("device", "cuda") == "cpu"
+    if c.get("device", "cuda") not in ("cpu", "cuda"):
+        raise ValueError("device deve ser cpu ou cuda")
+    if not cpu and not torch.cuda.is_available():
         raise RuntimeError("CUDA não disponível. Execute a reanálise CPU ou use GPU.")
+    if cpu and c.get("load_in_4bit", True):
+        raise ValueError("A execução CPU deve usar load_in_4bit=False.")
     set_seed(c["train_seed"])
-    resolved=model_info(c["model_id"],revision=c["revision"]).sha
-    tokenizer=AutoTokenizer.from_pretrained(c["model_id"],revision=resolved,trust_remote_code=False)
+    resolved=resolve_revision(c["model_id"],c["revision"])
+    revision = None if resolved.startswith("local-") else resolved
+    tokenizer=AutoTokenizer.from_pretrained(c["model_id"],revision=revision,trust_remote_code=False)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token=tokenizer.eos_token
     tokenizer.padding_side="left"
-    dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
-    kwargs=dict(revision=resolved,torch_dtype=dtype,trust_remote_code=False,
-                device_map={"":0},attn_implementation="sdpa")
+    tokenizer.model_input_names=["input_ids","attention_mask"]
+    precision=c.get("precision","auto")
+    if precision not in ("auto","fp16","bf16"):
+        raise ValueError("precision deve ser auto, fp16 ou bf16")
+    if not cpu and precision=="bf16" and not torch.cuda.is_bf16_supported():
+        raise RuntimeError("A GPU não suporta a precisão bf16 fixada no plano.")
+    dtype=(torch.float32 if cpu else torch.float16 if precision=="fp16" else
+           torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16)
+    kwargs=dict(revision=revision,torch_dtype=dtype,trust_remote_code=False,
+                device_map={"":"cpu" if cpu else 0},attn_implementation="sdpa")
     if c.get("load_in_4bit",True):
         kwargs["quantization_config"]=BitsAndBytesConfig(load_in_4bit=True,
             bnb_4bit_quant_type="nf4",bnb_4bit_use_double_quant=True,
@@ -128,7 +145,8 @@ def run(config,data_path):
         raise ValueError("Configuração diverge do manifesto da execução.")
     manifest=dict(run_id=run_id,resolved_config=resolved_config,
         environment=dict(python=platform.python_version(),torch=torch.__version__,
-          gpu=torch.cuda.get_device_name(0),
+          gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() and config.get("device")!="cpu" else "CPU",
+          compute_dtype=str(dtype),
           packages={p:metadata.version(p) for p in ["transformers","trl","peft","accelerate","datasets"]}))
     atomic_json(previous,manifest)
     status_path=run_dir/"status.json"
@@ -164,8 +182,13 @@ def run(config,data_path):
             from .monitor import RemoteMonitor
             from .rewards import reward_function
             if config["condition"]!="none":
-                monitor=RemoteMonitor(config["monitor_model"],config["monitor_revision"],
-                                       run_dir/"monitor_cache.sqlite")
+                if config.get("monitor_backend", "remote") == "local":
+                    from .local_monitor import LocalMonitor
+                    monitor=LocalMonitor(config["monitor_model"],config["monitor_revision"],
+                                         run_dir/"monitor_cache.sqlite")
+                else:
+                    monitor=RemoteMonitor(config["monitor_model"],config["monitor_revision"],
+                                           run_dir/"monitor_cache.sqlite")
             selected=select(rows,"train",config["level"],config.get("heldout_domain","inventory"),True)
             examples=[dict(prompt=chat(tokenizer,[{"role":"system","content":SYSTEM},
                 {"role":"user","content":render_prompt(r)}]),

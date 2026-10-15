@@ -7,17 +7,23 @@ treinamento, desempenho e monitorabilidade. Revisão de 15 de outubro de 2026.
 
 ## Notebooks
 
-| Etapa | Notebook | Execução |
+| Etapa | Abrir no Colab | Ambiente |
 |---|---|---|
-| 1. Reproduzir resultados e auditoria | [Reanálise reproduzível](revisao_2026/notebooks/01_reanalise_reprodutivel.ipynb) | CPU |
-| 2. Testar alvos supervisionados corrigidos | [Piloto SFT corrigido](revisao_2026/notebooks/02_piloto_sft_corrigido.ipynb) | GPU |
-| 3. Treinar contra monitores | [GRPO multiescala](revisao_2026/notebooks/03_grpo_multiescala.ipynb) | GPU e monitor configurado |
-| 4. Avaliar saídas e concordância | [Avaliação, monitores e anotação](revisao_2026/notebooks/04_avaliacao_monitores_anotacao.ipynb) | GPU para inferência; CPU para análise |
+| 1. Reproduzir resultados e auditoria | [Reanálise](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/01_reanalise_reprodutivel.ipynb) | CPU |
+| 2. Testar alvos supervisionados corrigidos | [Piloto SFT](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/02_piloto_sft_corrigido.ipynb) | GPU T4 |
+| 3. Treinar contra monitores | [GRPO](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/03_grpo_multiescala.ipynb) | GPU T4 |
+| 4. Avaliar saídas e concordância | [Avaliação independente](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/04_avaliacao_monitores_anotacao.ipynb) | GPU T4 |
 
-Os notebooks GPU começam com configuração pequena e não iniciam treinamentos
-longos sem ativar a célula de execução. Modelo, revisão, sementes, dataset,
-checkpoints e saídas integrais são registrados. Reexecutar a mesma configuração
-retoma o último checkpoint.
+Abra e use **Ambiente de execução → Executar tudo**. Autorize o Drive quando
+solicitado. Instalação, dados, treinos, avaliação e ZIP final já estão ativados.
+O padrão `quick` usa modelos públicos pequenos e três condições em SFT/GRPO,
+sem chave de API: os monitores são locais. `pilot` e `full` estão no formulário
+da primeira célula para ampliar depois. O teste curto não é o estudo completo.
+
+Modelo, revisão, sementes, dataset, checkpoints e saídas integrais são registrados.
+Reexecutar retoma o trabalho pendente. Os quatro notebooks compartilham
+`Meu Drive/CoT_Obfuscation_Lab/colab_v3/`; não é preciso copiar arquivos.
+O código é baixado de um commit fixo, separado de clones antigos no Drive.
 
 **[Guia para Colab, Vast.ai e Jupyter](revisao_2026/docs/GUIA_GPU.md)**
 
@@ -28,7 +34,9 @@ retoma o último checkpoint.
 - Auditoria das sobreposições dos geradores.
 - Teste dos corretores em 2.000 respostas construídas.
 - Geração e conferência de 4.500 itens aritméticos disjuntos.
-- 57 testes locais de software aprovados, incluindo regressões de execução em notebook.
+- 64 testes locais de software aprovados, incluindo fluxos automáticos do Colab.
+- Integração real das APIs SFT/GRPO em CPU com miniatura aleatória, retomada de
+  checkpoint, avaliação, análise e monitores locais; sem resultados experimentais novos.
 
 No corpus mecânico, o corretor histórico aceita 1.250 de 1.500 respostas que
 deveriam ser rejeitadas. O corretor estrito rejeita esses casos segundo o contrato.
@@ -58,8 +66,9 @@ No Windows, ative o ambiente virtual e execute:
 ## Extensão em GPU
 
 Os notebooks 02 a 04 e o módulo gpu_lab foram preparados para novas execuções.
-Seu código foi compilado e suas funções independentes de hardware foram
-testadas; treino e inferência CUDA não foram realizados nesta revisão.
+Código, contratos e integração das APIs foram verificados, incluindo treinos
+mínimos em CPU com pesos aleatórios. Treino quantizado e inferência CUDA com
+os modelos públicos não foram realizados no ambiente desta revisão.
 
 O benchmark GRPO fornecido é sintético e separa a resposta objetiva da alternativa
 explorável. Há domínio reservado, família estrutural reservada, variante sem

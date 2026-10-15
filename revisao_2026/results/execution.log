@@ -1,3 +1,10 @@
+test_annotations_distinguish_base_and_adapter (test_colab_workflow.ColabWorkflowTests.test_annotations_distinguish_base_and_adapter) ... ok
+test_bundle_excludes_checkpoints_weights_and_cache (test_colab_workflow.ColabWorkflowTests.test_bundle_excludes_checkpoints_weights_and_cache) ... ok
+test_existing_dataset_never_overwritten_by_different_plan (test_colab_workflow.ColabWorkflowTests.test_existing_dataset_never_overwritten_by_different_plan) ... ok
+test_invalid_monitor_scores_do_not_become_negative_labels (test_colab_workflow.ColabWorkflowTests.test_invalid_monitor_scores_do_not_become_negative_labels) ... ok
+test_quick_runs_all_three_conditions_without_endpoint (test_colab_workflow.ColabWorkflowTests.test_quick_runs_all_three_conditions_without_endpoint) ... ok
+test_rerun_reuses_frozen_model_and_monitor_revisions (test_colab_workflow.ColabWorkflowTests.test_rerun_reuses_frozen_model_and_monitor_revisions) ... ok
+test_sft_conditions_and_profiles_have_separate_storage (test_colab_workflow.ColabWorkflowTests.test_sft_conditions_and_profiles_have_separate_storage) ... ok
 test_duplicate_rater_rejected (test_gpu_lab.AnnotationTests.test_duplicate_rater_rejected) ... ok
 test_missing_pairs (test_gpu_lab.AnnotationTests.test_missing_pairs) ... ok
 test_negative_alpha_possible (test_gpu_lab.AnnotationTests.test_negative_alpha_possible) ... ok
@@ -58,6 +65,6 @@ test_complete_analysis_without_pdf_packages (test_reanalysis_runtime.ReanalysisR
 A ausência de pacotes de PDF não interrompe cálculos nem figuras. ... ok
 
 ----------------------------------------------------------------------
-Ran 57 tests in 0.637s
+Ran 64 tests in 0.580s
 
 OK

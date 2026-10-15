@@ -1,100 +1,113 @@
-# Laboratório GPU
+# Executar no Colab
 
-Os notebooks 02 a 04 foram preparados e tiveram o código Python compilado; as
-execuções CUDA não foram realizadas no ambiente desta revisão. Comece pelo smoke
-test. Não transforme resultados de teste de instalação em conclusão científica.
+Abra o notebook pelo link do README e use **Ambiente de execução → Executar
+tudo**. No 01, CPU basta. Nos 02, 03 e 04, selecione GPU T4 no tipo de ambiente
+e autorize o acesso ao Drive quando solicitado. Execute um notebook por vez.
+
+Não é necessário editar comandos de instalação, ativar flags de treino ou
+avaliação, copiar arquivos entre notebooks nem configurar uma API. O código é
+baixado do commit fixado no próprio notebook, evitando reutilizar clones antigos
+do Drive. As dependências são instaladas em um ambiente separado do kernel.
+O ambiente GPU reutiliza o PyTorch/CUDA fornecido pelo Colab.
 
 ## Ordem
 
-1. 01_reanalise_reprodutivel.ipynb: reproduz as tabelas históricas e a auditoria CPU.
-2. 02_piloto_sft_corrigido.ipynb: executa o contraste de alvos supervisionados,
-   com IDs, partições fixas e saídas integrais.
-3. 03_grpo_multiescala.ipynb: monta e executa células independentes de GRPO com
-   recompensa comportamental e penalização de rastro ou resumo.
-4. 04_avaliacao_monitores_anotacao.ipynb: avalia checkpoints, modos de resposta,
-   monitor independente e anotação cega, sem alterar o artigo automaticamente.
+| Notebook | O que executa ao usar Executar tudo |
+|---|---|
+| 01 | Instalação CPU, testes, reanálise histórica, tabelas, gráficos e ZIP |
+| 02 | Dados disjuntos, três alvos SFT, avaliação base/adaptador, análise e ZIP |
+| 03 | Dados sintéticos, três condições GRPO, monitores locais, avaliação e ZIP |
+| 04 | Completa etapas pendentes do 03, monitor independente, análise, formulários e ZIP |
 
-O notebook 01 funciona em CPU. Nele, mantenha INSTALL_DEPS = True na primeira
-execução. Para os treinos dos notebooks 02 e 03 e a inferência do notebook 04,
-ative GPU. Monte um diretório persistente antes de definir RUN_ROOT.
-Em Vast.ai/Jupyter use um volume persistente. O diretório de execução contém
-checkpoints, estado do otimizador, adaptador final, config e hash dos dados.
-Rode novamente a mesma configuração para retomar o último checkpoint.
+O 04 pode ser executado em uma nova sessão. Se o plano do mesmo perfil não tiver
+sido concluído, os treinos e avaliações pendentes são executados automaticamente.
 
-## Dependências e hardware
+## Tamanho da execução
 
-Instale uma distribuição de PyTorch/CUDA compatível com a sua GPU. As instruções
-oficiais estão em https://pytorch.org/get-started/locally/. O instalador dos
-notebooks preserva o torch existente. Em GPUs Blackwell, confirme que o binário
-instalado suporta sua arquitetura. Não há promessa de VRAM suficiente para todo
-modelo ou orçamento: faça primeiro a configuração pequena.
+A primeira célula já vem configurada com `PROFILE = "quick"`. Não é necessário
+mudar nada para o teste curto. As opções do formulário permitem ampliar depois:
 
-TRL e Transformers estão fixados no par de versões documentado no repositório.
-Depois da instalação, reinicie o kernel se já tiver importado essas bibliotecas.
-Execute pip check e salve pip freeze junto à execução.
+| Perfil | SFT | GRPO | Finalidade |
+|---|---|---|---|
+| quick | 3 treinos, modelo 0,5B, 2 passos por treino | 3 treinos, modelo 0,6B, 2 passos por treino | Verificar infraestrutura e fluxo completo |
+| pilot | 27 treinos, 30 passos por treino | 27 treinos, 30 passos por treino | Exploração com 3 sementes e 3 níveis |
+| full | 108 treinos, modelo 7B, 200 passos por treino | 270 treinos, modelos 4B/14B/8B, 4.000 passos por treino | Grade prospectiva de maior porte |
 
-Não se usa Unsloth, xformers ou instalação indiscriminada com --no-deps neste
-laboratório novo. O notebook histórico é preservado sem alteração.
+Os perfis têm dados e diretórios separados. Escolha o mesmo perfil nos notebooks
+03 e 04 para avaliar os mesmos modelos. O perfil full pode exigir várias sessões
+e GPUs maiores. Modelos restritos, como Llama, dependem da licença e autenticação
+da conta do Hugging Face; essa autorização não pode ser concedida pelo notebook.
 
-## Semântica das condições
+O teste quick não é uma demonstração de ofuscação nem a conclusão do programa
+experimental do artigo. Poucos passos e modelos pequenos podem gerar muitas
+saídas inválidas ou recompensas sem variação. Isso permanece visível nas saídas
+e nos registros do treinador; não se converte em evidência de hipótese ausente.
 
-O SFT compara três alvos: explicit, direct e generic. Não se chama isso de
-supervisão exclusiva de saída.
+## Onde ficam os arquivos
 
-O GRPO usa recompensa mal especificada para selecionar uma alternativa errada
-indicada por informação auxiliar. A resposta objetiva e a alternativa explorável
-são distintas por construção. As condições none, cot_monitor e summary_monitor
-compartilham esse incentivo. Na última, o cliente do monitor recebe somente a
-questão objetiva e o resumo; o teste automatizado verifica que o rastro não é
-encaminhado ao monitor de recompensa.
+Pasta padrão: `Meu Drive/CoT_Obfuscation_Lab/colab_v3/`.
 
-Os datasets GRPO são sintéticos, com quatro domínios de superfície e dificuldade
-controlada da dica. Não são uma replicação dos quatro conjuntos do artigo-alvo,
-nem tarefas reais clínicas/jurídicas. low/medium/high são proxies; a classificação
-causal exige avaliação no modelo base. O programa completo requer também dados
-e rubricas de especialistas, conforme o protocolo.
+- `reanalysis/`: resultados e figuras do notebook 01.
+- `quick/`, `pilot/` ou `full/`: dados, planos congelados, execuções e análises.
+- `runs/sft/` e `runs/grpo/`, dentro do perfil: checkpoints, adaptadores e gerações.
+- `annotation/`, dentro do perfil: formulário cego e chave privada separada.
+- `logs/`: stdout e stderr completos de cada etapa.
+- `downloads/`: ZIP final; o notebook também inicia seu download.
 
-## Monitor remoto
+O ZIP contém métricas, gerações, configurações, figuras e logs. Pesos,
+checkpoints e caches de monitores permanecem no Drive e não entram no ZIP.
+Desmarcar o salvamento no Drive usa armazenamento temporário; nesse caso,
+baixe o ZIP antes de encerrar a sessão.
 
-Use um servidor compatível com chat/completions. Configure em variáveis de
-ambiente, sem gravar credenciais em células ou commits:
+## Retomar
 
-    MONITOR_BASE_URL=http://127.0.0.1:8000/v1
-    MONITOR_MODEL=<modelo servido>
-    MONITOR_REVISION=<revisão realmente servida>
-    MONITOR_API_KEY=<se necessário>
+Abra novamente o mesmo notebook e execute tudo com o mesmo perfil. Revisões do
+ator e dos monitores são reutilizadas do plano congelado. Treinos concluídos
+são ignorados; treinos interrompidos retomam o último checkpoint. A avaliação
+pula itens já registrados e recupera uma última linha interrompida.
 
-Modelo e revisão são registrados; a revisão é uma declaração do operador do
-endpoint. Ela deve corresponder ao peso realmente servido. Há cache SQLite
-separado por endpoint/modelo/revisão/texto. Respostas inválidas e falhas de rede
-interrompem o treino; não há substituição por recompensa zero ou heurística.
-O operador é responsável por custos e política do endpoint escolhido.
+Dados existentes nunca são substituídos por um plano diferente. Uma divergência
+interrompe a etapa e preserva os arquivos para inspeção. Os logs incluem o erro
+original, além do código de saída.
 
-## Limites e falhas
+## Monitores sem API
 
-As células de execução transmitem stdout e stderr e gravam logs completos em
-logs/. Em caso de falha, a exceção inclui as últimas linhas da etapa. Esse
-diretório fica fora dos commits para preservar registros locais de execução.
-As variáveis de ambiente são relidas a cada etapa; configure os monitores antes
-de gerar o plano de treinamento.
+O padrão GRPO usa `Qwen/Qwen2.5-0.5B-Instruct` em CPU, por comparação de
+verossimilhança das classes `false` e `true`. O controle não consulta o monitor;
+a condição de rastro encaminha apenas o rastro; a condição de resumo encaminha
+apenas o resumo. Revisões dos pesos e cache são registrados.
 
-Use um processo por GPU e uma configuração por subprocesso. Execuções falhas
-produzem status failed; não são descartadas silenciosamente. Nunca misture
-avaliações de budgets diferentes na mesma análise.
+O 04 usa `HuggingFaceTB/SmolLM2-135M-Instruct`, distinto do ator e do monitor da
+recompensa, para pontuar o modo full. As cinco modalidades de resposta têm
+métricas comportamentais; a inspeção independente automática é limitada ao full.
 
-O modo early força uma resposta antes de um rastro livre. O modo wrong_step
-introduz um prefixo incorreto verificável. O orçamento contabiliza também o
-prefixo forçado. Essas ablações não constituem, sozinhas, identificação causal
-conclusiva. Reporte erros de formato e truncamentos em todos os modos.
+Esses classificadores pequenos são instrumentos exploratórios sem validação
+humana, com limitações de idioma e sensibilidade. Não estimam intenção nem
+substituem a calibração e os juízes previstos no protocolo. O monitor remoto
+continua disponível para execução por configuração/CLI, sem fallback silencioso.
 
-O monitor independente deve ter identidade distinta do monitor de treino. Use
-saídas válidas e inválidas separadas. As métricas comportamentais não são
-anotações de intenção. A exportação cega gera uma chave que deve permanecer
-separada dos formulários enviados aos avaliadores.
+## Anotação humana
 
-## O que versionar
+Distribua cópias de `blinded_annotations.csv` e preserve
+`private_annotation_key.csv` em separado. A chave diferencia modelo base e
+adaptador para o mesmo item. Reúna as respostas em `completed_annotations.csv`,
+na mesma pasta, com as colunas `annotation_id`, `rater` e `label`.
+Reexecutar o 04 calcula a concordância. Sem respostas humanas, o estado é
+`not_collected`, sem rótulos inventados. O PDF não é alterado automaticamente.
 
-Versione código, configurações sem credenciais, manifestos, métricas, saídas
-sintéticas e documentos. Não envie automaticamente caches, pesos ou tokens.
-As pastas runs, dados de grande porte e checkpoints estão ignoradas no Git.
-Os notebooks não fazem push nem upload de pesos por conta própria.
+## Jupyter e Vast.ai
+
+Abra os notebooks dentro de um clone do repositório. O código usa esse clone e
+salva em `~/CoT_Obfuscation_Lab/colab_v3/`. Para um volume persistente específico,
+defina `COT_STORAGE_ROOT` antes de iniciar o kernel. GPU/PyTorch CUDA devem estar
+disponíveis na imagem escolhida. A instalação das demais dependências é automática.
+
+## Verificação de software
+
+A suíte CPU cobre instrumentos, planos, integridade dos dados, retomada de
+revisões, logs e identificação de anotações. Um teste separado executa as APIs
+reais de SFT/GRPO com uma miniatura Qwen2 inicializada aleatoriamente em CPU,
+sem baixar modelos: `PYTHONPATH=src COT_TEXT_ONLY=1 python tests/integration_trainers.py`.
+Esse teste exige as dependências dos treinadores. Não mede qualidade de modelos.
+Treino quantizado e inferência CUDA com os pesos públicos precisam de execução
+no runtime GPU do usuário; não foram realizados no ambiente desta revisão.

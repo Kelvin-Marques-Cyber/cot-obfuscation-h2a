@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "device": "cpu",
+  "random_tiny_model": true,
+  "steps": [
+    "sft_explicit",
+    "sft_direct",
+    "sft_generic",
+    "grpo_none",
+    "grpo_cot_monitor",
+    "grpo_summary_monitor"
+  ],
+  "evaluation_resume": true,
+  "checkpoint_resume": true,
+  "local_monitor_inference": true,
+  "independent_monitor": true,
+  "analysis_and_annotations": true,
+  "python": "3.13.16",
+  "torch": "2.8.0+cpu",
+  "transformers": "4.56.2",
+  "trl": "0.22.2",
+  "peft": "0.17.1",
+  "scientific_model_results": false,
+  "cuda_quantization_executed": false
+}
