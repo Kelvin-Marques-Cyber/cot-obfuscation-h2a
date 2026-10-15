@@ -19,3 +19,13 @@ hf_cache/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Execuções GPU, caches e credenciais locais
+.env
+.env.*
+!.env.example
+*.sqlite
+revisao_2026/runs/
+revisao_2026/data/
+revisao_2026/annotation/
+.venv/

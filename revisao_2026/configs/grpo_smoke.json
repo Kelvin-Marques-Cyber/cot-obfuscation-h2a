@@ -1,0 +1,21 @@
+{
+  "mode":"grpo",
+  "model_id":"Qwen/Qwen3-4B",
+  "revision":"main",
+  "train_seed":42,
+  "data_seed":20261015,
+  "condition":"none",
+  "level":"low",
+  "output_root":"runs/grpo_smoke",
+  "max_steps":4,
+  "save_steps":2,
+  "batch_size":1,
+  "grad_accum":4,
+  "num_generations":4,
+  "max_prompt_length":768,
+  "max_completion_length":256,
+  "min_trace_words":0,
+  "heldout_domain":"inventory",
+  "load_in_4bit":true,
+  "confirmatory":false
+}

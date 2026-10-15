@@ -1,0 +1,19 @@
+# Instale PyTorch CUDA conforme o hardware antes deste arquivo.
+# torch é preservado para compatibilidade com a GPU (inclusive Blackwell).
+transformers==4.56.2
+trl==0.22.2
+peft==0.17.1
+accelerate==1.10.1
+datasets==4.3.0
+bitsandbytes>=0.47.0
+huggingface_hub>=0.34.0,<1.0
+sentencepiece>=0.2
+protobuf>=5
+ipykernel>=6
+nbformat>=5
+nbclient>=0.10
+numpy>=2.0
+pandas>=2.2
+scipy>=1.15
+matplotlib>=3.10
+scikit-learn>=1.7

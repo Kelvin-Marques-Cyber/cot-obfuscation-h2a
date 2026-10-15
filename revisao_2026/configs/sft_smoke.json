@@ -1,0 +1,17 @@
+{
+  "mode":"sft",
+  "model_id":"Qwen/Qwen2.5-7B-Instruct",
+  "revision":"main",
+  "train_seed":42,
+  "data_seed":20261015,
+  "condition":"explicit",
+  "level":"A",
+  "output_root":"runs/sft_smoke",
+  "max_steps":4,
+  "save_steps":2,
+  "batch_size":1,
+  "grad_accum":4,
+  "max_length":1024,
+  "load_in_4bit":true,
+  "confirmatory":false
+}

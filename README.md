@@ -1,86 +1,89 @@
-# Custo de acurácia da ofuscação de CoT sob supervisão de saída (estudo-piloto, H2.a)
+# Ofuscação de cadeia de pensamento: reanálise e laboratório experimental
 
-Código, dados e figuras que reproduzem o **estudo-piloto** de uma reavaliação experimental de
-**Mitrani Hadida et al. (2026)** sobre ofuscação da cadeia de pensamento (*chain-of-thought*, CoT)
-sob supervisão de saída.
+Artigo, dados auditados e notebooks para investigar a relação entre formato de
+treinamento, desempenho e monitorabilidade. Revisão de 15 de outubro de 2026.
 
-O piloto testa o **corolário H2.a (custo de acurácia)**: *quando a ofuscação é forçada, ela
-coincide com queda de acurácia maior em tarefas cujo raciocínio é causalmente necessário
-(load-bearing) do que em tarefas decorativas* — previsão de Emmons et al. (2025).
+**[Baixar o artigo final em PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf)**
 
-## Resultado principal
+## Notebooks
 
-| Nível | Controle | CoT-pressure | Output-supervision |
-|:--|:--:|:--:|:--:|
-| **A** (CoT decorativa) | 0,933 | 1,000 | 0,967 |
-| **C** (load-bearing) | 0,678 | 0,156 | 0,056 |
+| Etapa | Notebook | Execução |
+|---|---|---|
+| 1. Reproduzir resultados e auditoria | [Reanálise reproduzível](revisao_2026/notebooks/01_reanalise_reprodutivel.ipynb) | CPU |
+| 2. Testar alvos supervisionados corrigidos | [Piloto SFT corrigido](revisao_2026/notebooks/02_piloto_sft_corrigido.ipynb) | GPU |
+| 3. Treinar contra monitores | [GRPO multiescala](revisao_2026/notebooks/03_grpo_multiescala.ipynb) | GPU e monitor configurado |
+| 4. Avaliar saídas e concordância | [Avaliação, monitores e anotação](revisao_2026/notebooks/04_avaliacao_monitores_anotacao.ipynb) | GPU para inferência; CPU para análise |
 
-- **Nível A:** ofuscar **não custa** acurácia (a ofuscação é "gratuita").
-- **Nível C:** a mesma ofuscação **colapsa** a acurácia (−77% e −92%) = degradação passiva.
-- **Interação nível × penalização:** F(2, 12) = 527,17; p ≈ 2,03 × 10⁻¹².
-- **Custo em C** (Controle vs. penalizado): t = 20,94; p ≈ 3,09 × 10⁻⁷.
-- **Validação (intervenção de Lanham):** necessidade causal A = 0,00; C = 0,50.
+Os notebooks GPU começam com configuração pequena e não iniciam treinamentos
+longos sem ativar a célula de execução. Modelo, revisão, sementes, dataset,
+checkpoints e saídas integrais são registrados. Reexecutar a mesma configuração
+retoma o último checkpoint.
 
-Veredito: dentro dos limites de uma prova de conceito, os dados **corroboram a hipótese de
-refutação** — o efeito de ofuscação é moderado pela necessidade causal do raciocínio.
+**[Guia para Colab, Vast.ai e Jupyter](revisao_2026/docs/GUIA_GPU.md)**
 
-## Escopo e limites (importante)
+## Resultados executados
 
-Esta é uma **prova de conceito**, não o estudo completo. Diferenças em relação ao delineamento
-pleno descrito no artigo:
+- Reanálise das 540 linhas históricas, em 18 células.
+- Reprodução das médias e da ANOVA histórica.
+- Auditoria das sobreposições dos geradores.
+- Teste dos corretores em 2.000 respostas construídas.
+- Geração e conferência de 4.500 itens aritméticos disjuntos.
+- 53 testes locais de software aprovados.
 
-- **Ajuste supervisionado (SFT), não GRPO.** A ofuscação é *imposta* pelo alvo de treino, e não
-  *emerge* de otimização por reforço contra um monitor. Logo, o piloto mede o **custo** da
-  ofuscação (H2.a), não sua **emergência** (H1).
-- **Tarefas aritméticas controladas** (1 passo vs. múltiplos passos), escolhidas pela correção
-  numérica exata — e não as tarefas realistas (clínicas, jurídicas, programação) do plano pleno.
-- **Um único modelo** (Qwen2.5-7B-Instruct) e **3 sementes**, com ajuste curto.
+No corpus mecânico, o corretor histórico aceita 1.250 de 1.500 respostas que
+deveriam ser rejeitadas. O corretor estrito rejeita esses casos segundo o contrato.
+Esse teste não mede a prevalência do problema nas 540 avaliações, porque o CSV
+histórico não contém os textos gerados.
 
-## Desenho do experimento
+O contraste de desempenho publicado é reproduzível, mas não constitui uma
+refutação de ofuscação estratégica. O piloto altera alvos SFT; não executa
+supervisão exclusiva de saída por reforço. Sementes adjacentes compartilham
+29 dos 30 itens de avaliação.
 
-- **Fator 1 — necessidade causal:** Nível A (aritmética de 1 passo) × Nível C (problema de
-  múltiplos passos).
-- **Fator 2 — penalização (via alvo de treino):** Controle (CoT fiel) · CoT-pressure (sem CoT) ·
-  Output-supervision (CoT vácuo).
-- **3 sementes** (42, 43, 44) → **18 modelos**; 30 itens de avaliação por célula (540 avaliações).
-- Métricas **desacopladas**: acurácia genuína medida em separado da ofuscação; ofuscação medida
-  só pela qualidade do CoT (densidade causal, TTR, repetição, entropia).
+**[Resultados e limites](revisao_2026/docs/RESULTADOS_E_LIMITES.md)**
 
-## Arquivos
+## Reproduzir em CPU
 
-- `cot_obfuscation_experiment.ipynb` — notebook completo (instala dependências, treina, avalia,
-  faz a análise e exporta os resultados).
-- `h2a_resultados_brutos.csv` — uma linha por avaliação (540 linhas).
-- `h2a_por_celula.csv` — agregado por nível × condição × semente.
-- `h2a_custo_acuracia.csv` — custo de acurácia por nível.
-- `h2a_necessidade_causal.csv` — teste de intervenção (necessidade causal por nível).
-- `figuras/` — figuras 1–4 (300 dpi) usadas no artigo.
+    cd revisao_2026
+    python3 -m venv .venv
+    . .venv/bin/activate
+    pip install -r requirements.lock.txt
+    bash run.sh
 
-## Como reproduzir
+No Windows, ative o ambiente virtual e execute:
 
-Requer **GPU**. Testado em uma NVIDIA RTX 5090 (vast.ai) e compatível com Google Colab.
+    python -m unittest discover -s tests -v
+    python src/reanalyse.py
 
-1. Abra o notebook em um ambiente com GPU (Jupyter no vast.ai ou Colab).
-2. Rode todas as células (a célula 2 instala as dependências; detecta Colab vs. não-Colab).
-3. Em terminal, opcionalmente, com [papermill](https://papermill.readthedocs.io):
+## Extensão em GPU
 
-```bash
-pip install papermill
-papermill cot_obfuscation_experiment.ipynb saida_executada.ipynb --log-output
-```
+Os notebooks 02 a 04 e o módulo gpu_lab foram preparados para novas execuções.
+Seu código foi compilado e suas funções independentes de hardware foram
+testadas; treino e inferência CUDA não foram realizados nesta revisão.
 
-**Versões fixadas e testadas:** `transformers==4.56.2`, `trl==0.22.2`, Unsloth (instalação
-`--no-deps` quando há torch pré-instalado), PyTorch ≥ 2.4. Sementes: 42, 43, 44.
+O benchmark GRPO fornecido é sintético e separa a resposta objetiva da alternativa
+explorável. Há domínio reservado, família estrutural reservada, variante sem
+marcação, resposta antecipada, prefixo incorreto, monitor independente e sonda
+textual com separação por item. A dificuldade da dica é uma proxy que exige
+calibração no modelo base.
 
-Para um teste rápido (~5 min), na célula de configuração use `seeds=(42,)`, `n_eval=8`,
-`num_epochs=1`.
+Não se declara que esse benchmark replique os datasets do artigo-alvo ou
+substitua validação humana em domínios especializados. O plano multiescala prevê
+270 execuções; começar pelo smoke test é necessário para conferir o hardware e a
+configuração do monitor.
 
-## Citação
+## Organização
 
-Repositório de apoio ao artigo *"Validade externa da ofuscação de cadeia de pensamento sob
-supervisão de saída: um teste empírico em tarefas com raciocínio causalmente necessário"*
-(Centro Universitário Ateneu, 2026).
+- [Fonte editável do artigo](revisao_2026/artigo.md)
+- [Código e instrumentos](revisao_2026/src)
+- [Testes](revisao_2026/tests)
+- [Dados e resultados da reanálise](revisao_2026/results)
+- [Procedência](revisao_2026/provenance.json)
+- [Protocolo prospectivo](revisao_2026/protocol_extension.json)
 
-## Licença
+Os arquivos originais da raiz e o notebook histórico foram preservados para
+rastreabilidade. As conclusões científicas vigentes e suas limitações estão na
+versão revisada do artigo.
 
-Código sob licença MIT (ver `LICENSE`). Dados e figuras sob CC-BY 4.0.
+Código sob licença MIT. Fontes e dados originais mantêm os avisos de licença
+declarados em sua origem.
