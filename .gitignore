@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Saídas de execução do notebook
+saida_executada.ipynb
+out_*/
+results_level_*/
+*.bak
+*.v1bak
+
+# Pesos de modelo / caches (baixam do Hugging Face)
+*.safetensors
+*.bin
+hf_cache/
+.cache/
+
+# Sistema
+.DS_Store
+Thumbs.db
