@@ -34,6 +34,15 @@ ROOT = ROOT.resolve()
 sys.path.insert(0, str(ROOT / "src"))
 os.chdir(ROOT)
 ENV = dict(os.environ, PYTHONPATH=str(ROOT / "src") + os.pathsep + os.environ.get("PYTHONPATH", ""))
+from notebook_runtime import run_logged
+
+def run_step(command, log_name):
+    # Atualiza credenciais/variáveis configuradas depois da célula inicial.
+    current_env = dict(os.environ)
+    current_env["PYTHONPATH"] = str(ROOT / "src") + os.pathsep + os.environ.get("PYTHONPATH", "")
+    current_env["PYTHONUNBUFFERED"] = "1"
+    return run_logged(command, ROOT / "logs" / log_name, cwd=ROOT, env=current_env)
+
 print("Raiz:", ROOT)
 """
 
@@ -43,8 +52,8 @@ if INSTALL_DEPS:
     import importlib.util
     if importlib.util.find_spec("torch") is None:
         raise RuntimeError("Instale primeiro PyTorch/CUDA para sua GPU: https://pytorch.org/get-started/locally/")
-    subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements-gpu.txt"], check=True)
-    subprocess.run([sys.executable, "-m", "pip", "check"], check=True)
+    run_step([sys.executable, "-m", "pip", "install", "-r", "requirements-gpu.txt"], "gpu_install.log")
+    run_step([sys.executable, "-m", "pip", "check"], "gpu_pip_check.log")
 
 import torch
 assert torch.cuda.is_available(), "Selecione runtime GPU. Para CPU, use o notebook 01."
@@ -80,8 +89,8 @@ if EXECUTAR_TREINO:
         config_path = RUN_ROOT / f"config_{i:04d}.json"
         config_path.write_text(json.dumps(cfg, indent=2))
         print("Executando:", i+1, "/", len(plan), cfg["model_id"], cfg["condition"], cfg["train_seed"], flush=True)
-        subprocess.run([sys.executable, "-m", "gpu_lab.train", "--config", str(config_path),
-                        "--data", str(DATA_PATH)], env=ENV, check=True)
+        run_step([sys.executable, "-m", "gpu_lab.train", "--config", str(config_path),
+                  "--data", str(DATA_PATH)], f"train_{i:04d}.log")
 else:
     print("Plano preparado. Nenhum treino executado nesta célula.")
 """
@@ -102,20 +111,26 @@ def write(name,cells):
 def main():
     (ROOT/"notebooks").mkdir(exist_ok=True)
     write("01_reanalise_reprodutivel.ipynb",[
-        md("# 01 - Reanálise reproduzível\nExecuta a auditoria CPU, os testes e os gráficos. Não treina um LLM."),
+        md("# 01 - Reanálise reproduzível\nExecuta a auditoria CPU, os testes e os gráficos. Não treina um LLM. Na primeira execução, mantenha INSTALL_DEPS = True. A instalação e os cálculos usam processos separados; não é necessário reiniciar para executar esta reanálise. Logs completos ficam em logs/."),
         code(BOOTSTRAP),
         code("""
-        INSTALL_DEPS = False
+        INSTALL_DEPS = True  # Instala as versões fixadas; não exige GPU.
         if INSTALL_DEPS:
-            subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.lock.txt"], check=True)
-        subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"], env=ENV, check=True)
-        subprocess.run([sys.executable, "src/reanalyse.py"], env=ENV, check=True)
+            run_step([sys.executable, "-m", "pip", "install", "-r", "requirements.lock.txt"], "01_install.log")
+        run_step([sys.executable, "-u", "-m", "unittest", "discover", "-s", "tests", "-v"], "01_tests.log")
+        run_step([sys.executable, "-u", "src/reanalyse.py"], "01_reanalysis.log")
         """),
         code("""
-        import pandas as pd
-        display(pd.read_csv(ROOT / "results/summary.csv"))
-        display(pd.read_csv(ROOT / "results/contrasts.csv"))
-        display(pd.read_csv(ROOT / "results/grading_stress_summary.csv"))
+        # Biblioteca padrão: evita importar no kernel pacotes já carregados
+        # antes da instalação. Os cálculos usam o ambiente recém-instalado.
+        import csv, html
+        from IPython.display import display, HTML
+        for filename in ["summary.csv", "contrasts.csv", "grading_stress_summary.csv"]:
+            with (ROOT / "results" / filename).open(encoding="utf-8", newline="") as f:
+                rows = list(csv.reader(f))
+            header = "".join("<th>" + html.escape(v) + "</th>" for v in rows[0])
+            body = "".join("<tr>" + "".join("<td>" + html.escape(v) + "</td>" for v in row) + "</tr>" for row in rows[1:])
+            display(HTML("<h3>" + filename + "</h3><table><thead><tr>" + header + "</tr></thead><tbody>" + body + "</tbody></table>"))
         """),
         md("Os resultados são reprocessamento de métricas depositadas e testes mecânicos. As 540 saídas integrais não estão no CSV original.")
     ])
@@ -150,9 +165,9 @@ def main():
         if EXECUTAR_AVALIACAO:
             for status in sorted(RUN_ROOT.glob("*/status.json")):
                 if json.loads(status.read_text()).get("status") == "trained":
-                    subprocess.run([sys.executable, "-m", "gpu_lab.evaluate",
+                    run_step([sys.executable, "-m", "gpu_lab.evaluate",
                         "--run-dir", str(status.parent), "--data", str(DATA_PATH),
-                        "--budget", "384"], env=ENV, check=True)
+                        "--budget", "384"], f"sft_eval_{status.parent.name}.log")
         """)
     ])
     write("03_grpo_multiescala.ipynb",[
@@ -222,7 +237,7 @@ def main():
                             "--data", str(DATA_PATH), "--budget", "384"]
                     if base_only:
                         args.append("--base-only")
-                    subprocess.run(args, env=ENV, check=True)
+                    run_step(args, f"grpo_eval_{run_dir.name}_base{base_only}.log")
         """),
         code("""
         from gpu_lab.analysis import analyze, export_annotations, independent_probe

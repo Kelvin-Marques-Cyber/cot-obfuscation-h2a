@@ -28,7 +28,7 @@ retoma o último checkpoint.
 - Auditoria das sobreposições dos geradores.
 - Teste dos corretores em 2.000 respostas construídas.
 - Geração e conferência de 4.500 itens aritméticos disjuntos.
-- 53 testes locais de software aprovados.
+- 57 testes locais de software aprovados, incluindo regressões de execução em notebook.
 
 No corpus mecânico, o corretor histórico aceita 1.250 de 1.500 respostas que
 deveriam ser rejeitadas. O corretor estrito rejeita esses casos segundo o contrato.

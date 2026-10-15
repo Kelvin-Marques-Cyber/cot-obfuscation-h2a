@@ -14,7 +14,9 @@ test. Não transforme resultados de teste de instalação em conclusão científ
 4. 04_avaliacao_monitores_anotacao.ipynb: avalia checkpoints, modos de resposta,
    monitor independente e anotação cega, sem alterar o artigo automaticamente.
 
-Em Colab, ative GPU e monte um diretório persistente antes de definir RUN_ROOT.
+O notebook 01 funciona em CPU. Nele, mantenha INSTALL_DEPS = True na primeira
+execução. Para os treinos dos notebooks 02 e 03 e a inferência do notebook 04,
+ative GPU. Monte um diretório persistente antes de definir RUN_ROOT.
 Em Vast.ai/Jupyter use um volume persistente. O diretório de execução contém
 checkpoints, estado do otimizador, adaptador final, config e hash dos dados.
 Rode novamente a mesma configuração para retomar o último checkpoint.
@@ -69,6 +71,12 @@ interrompem o treino; não há substituição por recompensa zero ou heurística
 O operador é responsável por custos e política do endpoint escolhido.
 
 ## Limites e falhas
+
+As células de execução transmitem stdout e stderr e gravam logs completos em
+logs/. Em caso de falha, a exceção inclui as últimas linhas da etapa. Esse
+diretório fica fora dos commits para preservar registros locais de execução.
+As variáveis de ambiente são relidas a cada etapa; configure os monitores antes
+de gerar o plano de treinamento.
 
 Use um processo por GPU e uma configuração por subprocesso. Execuções falhas
 produzem status failed; não são descartadas silenciosamente. Nunca misture

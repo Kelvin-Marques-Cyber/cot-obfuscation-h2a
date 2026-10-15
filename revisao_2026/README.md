@@ -19,7 +19,8 @@ CSV original não contém o texto das gerações nem IDs dos itens.
 
 ## Reproduzir
 
-Requer Python 3.12. Em um ambiente virtual:
+Ambiente original: Python 3.12. A reanálise também é verificada em Python 3.13.
+Em um ambiente virtual:
 
     python3 -m venv .venv
     . .venv/bin/activate
@@ -35,6 +36,24 @@ O ambiente local usado na revisão já continha as versões do arquivo lock.
 O Dockerfile é uma opção de empacotamento; não foi construído nesta revisão.
 Pode ser construído com docker build -t cot-reanalysis . e executado com
 docker run --rm -v "$PWD/results:/work/results" cot-reanalysis.
+
+### Colab e diagnóstico de falhas
+
+O notebook 01 usa **CPU**. Mantenha `INSTALL_DEPS = True` na primeira execução.
+Os cálculos rodam em subprocessos novos, com as dependências recém-instaladas.
+A visualização das tabelas usa a biblioteca padrão para evitar conflitos com
+pacotes já carregados no kernel antes da instalação.
+
+As etapas exibem stdout e stderr e salvam a saída completa em `logs/`.
+Se houver falha, a exceção inclui as últimas 40 linhas do processo e o caminho
+do log. `CalledProcessError` sozinho informa apenas que o processo falhou.
+
+`reportlab` e `pypdf` são ferramentas de PDF, dispensáveis nos cálculos. Se não
+estiverem instaladas, suas versões aparecem como `null` em `report.json`.
+Para gerar o PDF, instale o arquivo lock completo.
+
+Uma cópia antiga do notebook ou do repositório no Drive não é atualizada ao
+abrir um link do GitHub. Use a versão atual do notebook e do código-fonte.
 
 ## Arquivos e procedência
 

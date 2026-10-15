@@ -25,6 +25,17 @@ CONDITIONS = ["control", "cot_pressure", "output_supervision"]
 LABELS = ["CoT explícita", "Resposta direta", "Preâmbulo genérico"]
 
 
+def environment_info():
+    """Registra pacotes ausentes sem exigir ferramentas de PDF na reanálise."""
+    packages = {}
+    for name in ("numpy", "pandas", "scipy", "matplotlib", "reportlab", "pypdf"):
+        try:
+            packages[name] = metadata.version(name)
+        except metadata.PackageNotFoundError:
+            packages[name] = None
+    return dict(python=sys.version, platform=platform.platform(), packages=packages)
+
+
 def two_way_interaction(df):
     y = df.accuracy.to_numpy()
     grand = y.mean()
@@ -219,9 +230,7 @@ def main():
         reconstructed_train_eval_overlap=train_eval_overlap,
         disjoint_generated_items=len(fresh),
         cheat_positive_rows=int(raw.cheat.sum()),
-        environment=dict(python=sys.version, platform=platform.platform(),
-                         packages={p:metadata.version(p) for p in
-                                   ["numpy","pandas","scipy","matplotlib","reportlab","pypdf"]}),
+        environment=environment_info(),
         executed=["reanalysis_of_published_metrics", "source_code_audit",
                   "constructed_grader_stress_test", "disjoint_generator_checks"],
         not_executed=["new_LLM_training", "GRPO", "new_LLM_inference",
