@@ -32,7 +32,8 @@ class ColabSession:
                    PYTHONUNBUFFERED="1", PIP_DISABLE_PIP_VERSION_CHECK="1",
                    TOKENIZERS_PARALLELISM="false", USE_TF="0", USE_FLAX="0",
                    OMP_NUM_THREADS="2", MKL_NUM_THREADS="2",
-                   COT_TEXT_ONLY="1", HF_HUB_DISABLE_TELEMETRY="1")
+                   COT_TEXT_ONLY="1", HF_HUB_DISABLE_TELEMETRY="1",
+                   MPLBACKEND="Agg")
         return env
 
     def ensure_environment(self):

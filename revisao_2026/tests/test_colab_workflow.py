@@ -2,7 +2,9 @@ import contextlib
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -21,6 +23,20 @@ def fake_revision(model,revision="main"):
 
 
 class ColabWorkflowTests(unittest.TestCase):
+    def test_invalid_colab_backend_is_replaced_only_for_child_processes(self):
+        """O kernel mantém o backend inline, mas subprocessos usam Agg."""
+        inherited = "module://matplotlib_inline.backend_inline"
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {"MPLBACKEND": inherited}):
+            session = ColabSession(Path(__file__).resolve().parents[1], Path(tmp))
+            child_env = session.environment()
+            self.assertEqual(child_env["MPLBACKEND"], "Agg")
+            self.assertEqual(os.environ["MPLBACKEND"], inherited)
+            probe = subprocess.run(
+                [sys.executable, "-c", "import matplotlib; print(matplotlib.get_backend())"],
+                env=child_env, capture_output=True, text=True, check=True,
+            )
+            self.assertEqual(probe.stdout.strip().lower(), "agg")
+
     def test_quick_runs_all_three_conditions_without_endpoint(self):
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
             plan,p=prepare(tmp,"quick","grpo",resolver=fake_revision)

@@ -47,7 +47,10 @@ sem API. O guia em docs/GUIA_GPU.md descreve os perfis maiores.
 
 As dependências são instaladas em ambiente separado, e os cálculos rodam em
 processos novos. As tabelas usam a biblioteca padrão no kernel para evitar
-conflitos com pacotes previamente carregados.
+conflitos com pacotes previamente carregados. Os subprocessos forçam
+`MPLBACKEND=Agg`, pois o backend inline do kernel Colab pode não existir
+no ambiente virtual isolado. A reanálise e o preflight CPU também definem
+um backend não interativo antes de importar o Matplotlib.
 
 As etapas exibem stdout e stderr e salvam a saída completa em `logs/`.
 Se houver falha, a exceção inclui as últimas 40 linhas do processo e o caminho

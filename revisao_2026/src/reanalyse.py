@@ -8,7 +8,10 @@ import platform
 import sys
 import importlib.metadata as metadata
 from pathlib import Path
+import os
 
+# O processo roda sem interface gráfica, inclusive sob o backend inline do Colab.
+os.environ["MPLBACKEND"] = "Agg"
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
