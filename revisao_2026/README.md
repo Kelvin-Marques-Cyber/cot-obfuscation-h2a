@@ -46,7 +46,9 @@ Não há flags para ativar. O perfil padrão `quick` é curto e usa monitores lo
 sem API. O guia em docs/GUIA_GPU.md descreve os perfis maiores.
 
 As dependências são instaladas em ambiente separado, e os cálculos rodam em
-processos novos. As tabelas usam a biblioteca padrão no kernel para evitar
+processos novos. O perfil rápido GPU usa LoRA fp16 (sem bitsandbytes 4-bit);
+os perfis pilot/full continuam utilizando QLoRA. Falhas no setup e pipeline
+geram automaticamente um ZIP diagnóstico com logs, sem ocultar o traceback. As tabelas usam a biblioteca padrão no kernel para evitar
 conflitos com pacotes previamente carregados. Os subprocessos forçam
 `MPLBACKEND=Agg`, pois o backend inline do kernel Colab pode não existir
 no ambiente virtual isolado. A reanálise e o preflight CPU também definem

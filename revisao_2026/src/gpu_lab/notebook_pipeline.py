@@ -69,6 +69,7 @@ def prepare(storage, profile, mode, resolver=resolve_revision):
                         condition=condition,output_root=str(p["runs"]),
                         max_steps=spec["steps_"+mode],save_steps=2 if profile=="quick" else 20,precision="fp16",
                         lora_r=8 if profile=="quick" else 16,
+                        load_in_4bit=profile!="quick" and template.get("load_in_4bit",True),
                         max_length=512 if profile=="quick" else 1024)
                     if mode=="grpo":
                         cfg.update(monitor_backend="local",monitor_model="Qwen/Qwen2.5-0.5B-Instruct",
@@ -82,8 +83,25 @@ def prepare(storage, profile, mode, resolver=resolve_revision):
         strip=lambda entries:[{k:v for k,v in c.items() if k not in ("revision","monitor_revision")}
                                for c in entries]
         if strip(saved)!=strip(plan):
-            raise ValueError("Plano mudou; checkpoints antigos foram preservados. Use outro perfil/diretório.")
-        plan=saved
+            # Migração segura de QLoRA 4-bit para LoRA fp16 no perfil quick.
+            legacy=[dict(cfg,load_in_4bit=False) for cfg in saved] if profile=="quick" else []
+            compatible=(len(saved)==len(plan) and strip(legacy)==strip(plan))
+            completed=any(json.loads(s.read_text()).get("status")=="trained"
+                          for s in p["runs"].glob("*/status.json"))
+            if not compatible or completed:
+                raise ValueError("Plano mudou; treinos concluídos/checkpoints antigos "
+                                 "foram preservados. Use outro perfil/diretório.")
+            backup=frozen.with_name("frozen_plan_4bit_backup.json")
+            if not backup.exists():
+                atomic_json(backup,saved)
+            for current,previous in zip(plan,saved):
+                current["revision"]=previous["revision"]
+                if "monitor_revision" in previous:
+                    current["monitor_revision"]=previous["monitor_revision"]
+            atomic_json(frozen,plan)
+            print("Plano quick legado migrado para fp16. Versões imutáveis e backup preservados.",flush=True)
+        else:
+            plan=saved
     else:
         revisions={}
         for cfg in plan:

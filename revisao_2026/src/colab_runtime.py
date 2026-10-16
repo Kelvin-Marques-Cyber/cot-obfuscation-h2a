@@ -33,7 +33,7 @@ class ColabSession:
                    TOKENIZERS_PARALLELISM="false", USE_TF="0", USE_FLAX="0",
                    OMP_NUM_THREADS="2", MKL_NUM_THREADS="2",
                    COT_TEXT_ONLY="1", HF_HUB_DISABLE_TELEMETRY="1",
-                   MPLBACKEND="Agg")
+                   MPLBACKEND="Agg", COT_PROFILE=self.profile)
         return env
 
     def ensure_environment(self):
@@ -55,7 +55,9 @@ class ColabSession:
             torch_version = info["version"]
             torch_site = info["site"]
             print("GPU:", info["name"], "| PyTorch:", torch_version, flush=True)
-        requirements = self.root / ("requirements-gpu.txt" if self.gpu else "requirements.lock.txt")
+        requirements_file = ("requirements-gpu-quick.txt" if self.gpu and self.profile=="quick"
+                             else "requirements-gpu.txt" if self.gpu else "requirements.lock.txt")
+        requirements = self.root / requirements_file
         signature = hashlib.sha256((requirements.read_text()+sys.version+torch_version).encode()).hexdigest()[:16]
         target = self.cache / ("gpu-" if self.gpu else "cpu-")
         target = target.with_name(target.name+signature)
@@ -83,8 +85,12 @@ class ColabSession:
             (own/"cot_host_torch.pth").write_text(torch_site+"\n")
         ready = target / "cot-ready.json"
         if not ready.is_file():
-            self.command(["-m","pip","install","-r",str(requirements)], "dependencies.log")
-            self.command(["-m","gpu_lab.preflight" if self.gpu else "cpu_preflight"], "environment_check.log")
+            try:
+                self.command(["-m","pip","install","-r",str(requirements)], "dependencies.log")
+                self.command(["-m","gpu_lab.preflight" if self.gpu else "cpu_preflight"], "environment_check.log")
+            except Exception:
+                self.failure_bundle("gpu_setup" if self.gpu else "reanalysis")
+                raise
             ready.write_text(json.dumps({"requirements_sha256":signature,"python":sys.version,
                                          "torch":torch_version}, indent=2))
         print("Ambiente pronto. Resultados:", self.storage, flush=True)
@@ -97,8 +103,22 @@ class ColabSession:
                           cwd=self.root, env=self.environment())
 
     def pipeline(self, stage, mode="grpo"):
-        return self.command(["-m","gpu_lab.notebook_pipeline",stage,"--mode",mode,
-            "--storage",str(self.storage),"--profile",self.profile],f"{mode}_{stage}.log")
+        try:
+            return self.command(["-m","gpu_lab.notebook_pipeline",stage,"--mode",mode,
+                "--storage",str(self.storage),"--profile",self.profile],f"{mode}_{stage}.log")
+        except Exception:
+            self.failure_bundle(mode)
+            raise
+
+    def failure_bundle(self, mode):
+        """Exporta o diagnóstico sem esconder a falha original."""
+        try:
+            print("Etapa interrompida. Preparando logs e manifestos para diagnóstico.", flush=True)
+            return self.bundle(mode)
+        except Exception as export_error:
+            print(f"Não foi possível baixar o diagnóstico: {export_error}. "
+                  f"Consulte os logs em {self.logs}", flush=True)
+            return None
 
     def show_csv(self, path):
         from IPython.display import HTML, display

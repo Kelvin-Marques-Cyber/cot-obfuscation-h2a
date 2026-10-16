@@ -18,7 +18,8 @@ def text_only_compat():
 def main():
     text_only_compat()
     import torch
-    import bitsandbytes
+    if os.environ.get("COT_PROFILE") != "quick":
+        import bitsandbytes
     from transformers import AutoModelForCausalLM
     from peft import LoraConfig
     from trl import SFTTrainer, GRPOTrainer
@@ -26,7 +27,9 @@ def main():
     assert torch.cuda.is_available(), "GPU CUDA ausente"
     for package, expected in {"transformers":"4.56.2","trl":"0.22.2","peft":"0.17.1"}.items():
         assert metadata.version(package)==expected, f"Versão divergente: {package}"
-    print("Importações GPU verificadas:",torch.cuda.get_device_name(0))
+    print("Importações GPU verificadas:",torch.cuda.get_device_name(0),
+          "| Perfil:",os.environ.get("COT_PROFILE","custom"),
+          "| VRAM total:",round(torch.cuda.get_device_properties(0).total_memory/1024**3,1),"GiB")
 
 
 if __name__ == "__main__":

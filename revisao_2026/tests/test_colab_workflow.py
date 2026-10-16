@@ -37,6 +37,46 @@ class ColabWorkflowTests(unittest.TestCase):
             )
             self.assertEqual(probe.stdout.strip().lower(), "agg")
 
+
+    def test_quick_plan_does_not_require_4bit_quantization(self):
+        with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
+            for mode in ("sft","grpo"):
+                plan,_=prepare(tmp,"quick",mode,resolver=fake_revision)
+                self.assertTrue(plan)
+                self.assertTrue(all(cfg["load_in_4bit"] is False for cfg in plan))
+
+    def test_legacy_quick_migration_preserves_model_revisions(self):
+        with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
+            plan,p=prepare(tmp,"quick","sft",resolver=fake_revision)
+            frozen=p["runs"]/"frozen_plan.json"
+            old=[dict(cfg,load_in_4bit=True) for cfg in plan]
+            frozen.write_text(json.dumps(old))
+            with patch("gpu_lab.notebook_pipeline.resolve_revision",
+                       side_effect=AssertionError("Nao deve consultar rede")):
+                migrated,_=prepare(tmp,"quick","sft",resolver=lambda *_:self.fail("sem rede"))
+            self.assertEqual([c["revision"] for c in migrated],[c["revision"] for c in old])
+            self.assertTrue(all(c["load_in_4bit"] is False for c in migrated))
+            self.assertEqual(json.loads((p["runs"]/"frozen_plan_4bit_backup.json").read_text()),old)
+
+    def test_legacy_quick_rejects_migration_after_training(self):
+        with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
+            plan,p=prepare(tmp,"quick","sft",resolver=fake_revision)
+            frozen=p["runs"]/"frozen_plan.json"
+            old=[dict(cfg,load_in_4bit=True) for cfg in plan]
+            frozen.write_text(json.dumps(old))
+            trained=p["runs"]/"previous-run"
+            trained.mkdir()
+            (trained/"status.json").write_text(json.dumps({"status":"trained"}))
+            with self.assertRaisesRegex(ValueError,"Plano mudou"):
+                prepare(tmp,"quick","sft",resolver=fake_revision)
+            self.assertEqual(json.loads(frozen.read_text()),old)
+
+    def test_profile_is_forwarded_to_gpu_child_environment(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            session=ColabSession(Path(__file__).resolve().parents[1],Path(tmp),
+                                 profile="quick",gpu=True)
+            self.assertEqual(session.environment()["COT_PROFILE"],"quick")
+
     def test_quick_runs_all_three_conditions_without_endpoint(self):
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
             plan,p=prepare(tmp,"quick","grpo",resolver=fake_revision)

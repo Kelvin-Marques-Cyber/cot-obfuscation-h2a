@@ -9,6 +9,12 @@ avaliação, copiar arquivos entre notebooks nem configurar uma API. O código �
 baixado do commit fixado no próprio notebook, evitando reutilizar clones antigos
 do Drive. As dependências são instaladas em um ambiente separado do kernel.
 O ambiente GPU reutiliza o PyTorch/CUDA fornecido pelo Colab.
+O perfil `quick` usa LoRA fp16 nos modelos pequenos sem `bitsandbytes`;
+`pilot`/`full` mantêm QLoRA 4-bit. Planos `quick` antigos sem treinos
+concluídos são migrados com backup e revisões imutáveis. Treinos já
+concluídos são preservados e exigem outro diretório para mudar o método.
+Se instalação, treino ou avaliação falhar, o notebook salva automaticamente
+um ZIP com logs e manifestos para diagnóstico.
 
 ## Ordem
 
