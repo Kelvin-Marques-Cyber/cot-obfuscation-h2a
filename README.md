@@ -26,7 +26,7 @@ Reexecutar retoma o trabalho pendente. Os quatro notebooks compartilham
 O código é baixado de um commit fixo, separado de clones antigos no Drive.
 **Se já abriu um notebook antigo, reabra-o pelo link acima**: as cópias do Colab
 mantêm o SHA antigo e não recebem correções automaticamente. Os notebooks
-atuais fixam o código validado em `d3abb149ced4`.
+atuais fixam o código validado em `d6a5f141d17c`.
 
 **[Guia para Colab, Vast.ai e Jupyter](revisao_2026/docs/GUIA_GPU.md)**
 
