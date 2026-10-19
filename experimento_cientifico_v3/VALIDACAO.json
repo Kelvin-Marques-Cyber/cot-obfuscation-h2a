@@ -55,5 +55,6 @@
     "existing_drive_files_preserved": true,
     "live_colab_drive_authentication_tested": false,
     "scientific_source_commit_preserved": "fde856f895c841274b93b34f4675642508af102f"
-  }
+  },
+  "notebook_setup_commit": "4a2a133aff6638c910661b01821eeb43b72b4db4"
 }

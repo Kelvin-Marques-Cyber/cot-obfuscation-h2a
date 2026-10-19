@@ -1,18 +1,22 @@
 {
   "schema": "scientific-prospective-v3.2",
   "source_commit": "fde856f895c841274b93b34f4675642508af102f",
+  "setup_commit": "4a2a133aff6638c910661b01821eeb43b72b4db4",
   "files": {
-    "00_protocolo_e_datasets.ipynb": "d5d52df2a16af1f36de6223634ad9f77f82e653e8e910e66c96ee14de7fd2b9b",
-    "01_treinamento_sft_replicado.ipynb": "9b21545637125a859b8d795d2a0c712a17e2e36f47ec004140e04bdde745b741",
-    "02_treinamento_grpo_replicado.ipynb": "ac02ca6e8ee49c6a807ba9c6802f960215358946fa7de441b958784a9ff49da0",
-    "03_competencia_e_teste_cego.ipynb": "6d105a8626e1a7a0cef2167119fd6e7b820cc9b4f8a56f67d1b7a9e6d8a0d2f6",
-    "04_monitor_independente_e_inferencia.ipynb": "f8db43a6d43e84c3920e9874f59b5c1c274f8363871311e97ee8c399d652e508",
+    "00_protocolo_e_datasets.ipynb": "6c9e47bb6aad5a52bea72398c25794a022d8345951cc0c126d81438c94599663",
+    "01_treinamento_sft_replicado.ipynb": "cda9aae006196e4adc25e3c9ff0e0552a361666ba3c972a9372ffce0dacea411",
+    "02_treinamento_grpo_replicado.ipynb": "2b51fff7b44861ece65d76eefb073eabf7b6f4a2dbd21f681599ed52190d74b0",
+    "03_competencia_e_teste_cego.ipynb": "74be7e919b14bf6e76ac57084e72a90d89d9cf39dc95b7805ff4a29af0767167",
+    "04_monitor_independente_e_inferencia.ipynb": "330e66037d2027cf4f347aee1e83c8b23ed056d9b6007b81ebd4a3361fb7e703",
     "PROTOCOLO_PRE_REGISTRO_v3.md": "564abcfe73c884df80de97e868d0e1d69fae8d0e0b9c502023c587648bab0586",
-    "README.md": "a4a8d4e9e67c18c053efd168171a4d11083e5c0c7606c7873d7e6e1780e66b20",
-    "VALIDACAO.json": "683014e0ba2446aabee246461101fa3e0889787faf71bd33f1c0a4e1e6490a3a",
-    "build_notebooks.py": "1d3331506428c8ecfcaf90291cd9519fbab6b7217ac521c4b59b1b90e79ea11c",
-    "colab_support.py": "cfc4b7627f79586d273495423a339e1982048952f5c5c243f0f09e4c751e735c",
+    "README.md": "955e89cf158f4ca9e2ba21a33d57db896b29c4878ae77eb20802245a7e9bde9d",
+    "VALIDACAO.json": "e374656cc79fd392ce477d896ba147a91ab36cfa3a4ae50b61933060ab0f8c8d",
+    "build_notebooks.py": "c8c881ea8a66284767945803705c48dd1d4b07b9d4e924fb2c7d0c2c20c6f33a",
+    "colab_storage.py": "c50370489c4a4c1d1ae8e61770ab5005982e119fdb88f711b26ee2db5fab284d",
+    "colab_support.py": "dacc3ff81a28439a39b0ac7616a18282fe9fc67fa0fa4df95dad0029f1317953",
+    "integration_colab_storage.py": "5bb4c40add83989342888a6f641b2ddd9c8f09edcc6b20d150615de8b68125e4",
     "scientific_runtime.py": "0ccc8cd66c429c116fe8a3ddeaee373d9dd72ec2e176d9dc10bc032da6c60f8b",
+    "test_colab_storage.py": "923130d2e5ccd34996d3e5f607e72ddc7b37bb048677d937b2181d3555614939",
     "test_scientific_runtime.py": "c8888679b117dbf53dcf7310203acc6e90e9836dd84b18601bb903536086077c"
   }
 }
