@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-19",
+  "based_on_commit": "47d935f2bbfeb2638c0a734f4be91ac940df9c10",
+  "software_tests_passed": 71,
+  "same_kernel_source_reload_test": true,
+  "broken_environment_repaired_without_losing_checkpoints": true,
+  "completed_4bit_plan_preserved_separately_from_fp16": true,
+  "optional_backend_regression": {
+    "status": "passed",
+    "device": "cpu",
+    "broken_inherited_bitsandbytes_ignored": true
+  },
+  "public_tokenizers_verified": {
+    "Qwen/Qwen2.5-0.5B-Instruct": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "Qwen/Qwen3-0.6B": "c1899de289a04d12100db370d81485cdf75e47ca"
+  },
+  "trainer_integration": "trainers_api_validation.json",
+  "cuda_execution_performed": false
+}

@@ -24,7 +24,7 @@ PROFILE = "quick" # @param ["quick", "pilot", "full"]
 SALVAR_NO_DRIVE = True # @param {type:"boolean"}
 
 from pathlib import Path
-import json, os, subprocess, sys, tempfile, shutil
+import importlib, json, os, subprocess, sys, tempfile, shutil
 SOURCE_REF = "__SOURCE_REF__"
 NEEDS_GPU = __NEEDS_GPU__
 try:
@@ -69,6 +69,7 @@ else:
         raise RuntimeError("Fora do Colab, abra o notebook dentro do clone do repositório.")
 
 assert (ROOT / "src/colab_runtime.py").is_file(), "Código do laboratório não encontrado."
+ROOT = ROOT.resolve()
 if os.environ.get("COT_STORAGE_ROOT"):
     STORAGE = Path(os.environ["COT_STORAGE_ROOT"])
 elif ON_COLAB and SALVAR_NO_DRIVE:
@@ -80,7 +81,17 @@ else:
         print("Resultados nesta sessão: baixe o ZIP final antes de encerrar o Colab.")
 STORAGE.mkdir(parents=True, exist_ok=True)
 os.environ["COT_SOURCE_REF"] = SOURCE_REF
-sys.path.insert(0, str(ROOT / "src"))
+# Uma nova célula não esvazia sys.modules. Atualize os dois módulos do runner
+# quando o mesmo kernel já executou um notebook de outro commit.
+source_path = str((ROOT / "src").resolve())
+sys.path[:] = [p for p in sys.path if p != source_path]
+sys.path.insert(0, source_path)
+for module_name in ("colab_runtime", "notebook_runtime"):
+    sys.modules.pop(module_name, None)
+importlib.invalidate_caches()
+import colab_runtime, notebook_runtime
+assert Path(colab_runtime.__file__).resolve() == ROOT / "src/colab_runtime.py"
+assert Path(notebook_runtime.__file__).resolve() == ROOT / "src/notebook_runtime.py"
 from colab_runtime import ColabSession
 SESSION = ColabSession(ROOT, STORAGE, PROFILE, gpu=NEEDS_GPU)
 (STORAGE / ("session_"+PROFILE+".json")).write_text(json.dumps({"source_ref":SOURCE_REF,

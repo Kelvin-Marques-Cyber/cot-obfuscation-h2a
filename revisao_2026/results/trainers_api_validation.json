@@ -15,11 +15,13 @@
   "local_monitor_inference": true,
   "independent_monitor": true,
   "analysis_and_annotations": true,
+  "date": "2026-10-19",
   "python": "3.13.16",
   "torch": "2.8.0+cpu",
   "transformers": "4.56.2",
   "trl": "0.22.2",
   "peft": "0.17.1",
   "scientific_model_results": false,
-  "cuda_quantization_executed": false
+  "cuda_quantization_executed": false,
+  "quick_dependencies_without_bitsandbytes": true
 }

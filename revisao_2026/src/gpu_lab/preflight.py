@@ -13,6 +13,12 @@ def text_only_compat():
         from transformers.utils import import_utils
         import_utils._torchvision_available = False
         import_utils._librosa_available = False
+        if os.environ.get("COT_PROFILE")=="quick":
+            # PEFT 0.17.1 consulta seu próprio detector, independente do
+            # Transformers. O LoRA fp16 não deve importar um bnb herdado.
+            from peft.tuners.lora import model as lora_model
+            lora_model.is_bnb_available = lambda: False
+            lora_model.is_bnb_4bit_available = lambda: False
 
 
 def main():

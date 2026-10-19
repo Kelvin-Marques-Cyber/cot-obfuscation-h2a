@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
 from colab_runtime import ColabSession
-from gpu_lab.notebook_pipeline import prepare,preserve_dataset
+from gpu_lab.notebook_pipeline import prepare,preserve_dataset,paths
 from gpu_lab.local_monitor import choose_flag
 from gpu_lab.analysis import export_annotations
 from instruments import make_disjoint_data
@@ -58,7 +58,7 @@ class ColabWorkflowTests(unittest.TestCase):
             self.assertTrue(all(c["load_in_4bit"] is False for c in migrated))
             self.assertEqual(json.loads((p["runs"]/"frozen_plan_4bit_backup.json").read_text()),old)
 
-    def test_legacy_quick_rejects_migration_after_training(self):
+    def test_completed_legacy_plan_is_preserved_and_fp16_runs_separately(self):
         with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
             plan,p=prepare(tmp,"quick","sft",resolver=fake_revision)
             frozen=p["runs"]/"frozen_plan.json"
@@ -67,9 +67,16 @@ class ColabWorkflowTests(unittest.TestCase):
             trained=p["runs"]/"previous-run"
             trained.mkdir()
             (trained/"status.json").write_text(json.dumps({"status":"trained"}))
-            with self.assertRaisesRegex(ValueError,"Plano mudou"):
-                prepare(tmp,"quick","sft",resolver=fake_revision)
+            migrated,new_paths=prepare(tmp,"quick","sft",resolver=lambda *_:self.fail("sem rede"))
             self.assertEqual(json.loads(frozen.read_text()),old)
+            self.assertTrue((trained/"status.json").is_file())
+            self.assertNotEqual(p["runs"],new_paths["runs"])
+            self.assertTrue(all(cfg["load_in_4bit"] is False for cfg in migrated))
+            self.assertEqual([cfg["revision"] for cfg in old],[cfg["revision"] for cfg in migrated])
+            self.assertEqual(paths(tmp,"quick","sft")["runs"],new_paths["runs"])
+            again,again_paths=prepare(tmp,"quick","sft",resolver=lambda *_:self.fail("sem rede"))
+            self.assertEqual(again,migrated)
+            self.assertEqual(again_paths,new_paths)
 
     def test_profile_is_forwarded_to_gpu_child_environment(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -10,9 +10,11 @@ baixado do commit fixado no próprio notebook, evitando reutilizar clones antigo
 do Drive. As dependências são instaladas em um ambiente separado do kernel.
 O ambiente GPU reutiliza o PyTorch/CUDA fornecido pelo Colab.
 O perfil `quick` usa LoRA fp16 nos modelos pequenos sem `bitsandbytes`;
+o dispatcher LoRA do PEFT também ignora cópias de bitsandbytes herdadas do
+ambiente do Colab. Isso evita carregar extensões 4-bit em uma execução fp16.
 `pilot`/`full` mantêm QLoRA 4-bit. Planos `quick` antigos sem treinos
 concluídos são migrados com backup e revisões imutáveis. Treinos já
-concluídos são preservados e exigem outro diretório para mudar o método.
+concluídos ficam preservados; o plano fp16 recebe automaticamente uma pasta própria.
 Se instalação, treino ou avaliação falhar, o notebook salva automaticamente
 um ZIP com logs e manifestos para diagnóstico.
 
@@ -67,6 +69,16 @@ baixe o ZIP antes de encerrar a sessão.
 
 ## Retomar
 
+Os módulos de execução são recarregados do commit do notebook, mesmo se o kernel
+já tiver aberto uma versão anterior. O ambiente salvo é verificado a cada
+abertura; se estiver danificado, apenas o ambiente de dependências é recriado.
+Dados, checkpoints e resultados ficam preservados no Drive.
+
+Se um plano quick antigo já contiver treinos 4-bit concluídos, a execução fp16
+ganha uma pasta `plan-...` própria. `active_plan.json` identifica essa pasta para
+os notebooks 02 a 04. O plano anterior e seus arquivos permanecem no lugar e não
+entram nas análises da execução fp16. Não é necessário renomear ou apagar pastas.
+
 Abra novamente o mesmo notebook e execute tudo com o mesmo perfil. Revisões do
 ator e dos monitores são reutilizadas do plano congelado. Treinos concluídos
 são ignorados; treinos interrompidos retomam o último checkpoint. A avaliação
@@ -115,5 +127,7 @@ revisões, logs e identificação de anotações. Um teste separado executa as A
 reais de SFT/GRPO com uma miniatura Qwen2 inicializada aleatoriamente em CPU,
 sem baixar modelos: `PYTHONPATH=src COT_TEXT_ONLY=1 python tests/integration_trainers.py`.
 Esse teste exige as dependências dos treinadores. Não mede qualidade de modelos.
+`tests/integration_optional_backends.py` reproduz um bitsandbytes herdado
+incompatível e verifica que o LoRA quick continua funcionando sem importá-lo.
 Treino quantizado e inferência CUDA com os pesos públicos precisam de execução
 no runtime GPU do usuário; não foram realizados no ambiente desta revisão.

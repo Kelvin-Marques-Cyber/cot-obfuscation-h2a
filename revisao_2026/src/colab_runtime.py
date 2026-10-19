@@ -13,6 +13,7 @@ from notebook_runtime import run_logged
 
 
 class ColabSession:
+    ENVIRONMENT_SCHEMA = 2
     def __init__(self, root, storage, profile="quick", gpu=False, cache=None):
         if profile not in ("quick", "pilot", "full"):
             raise ValueError("Perfil inválido")
@@ -58,11 +59,14 @@ class ColabSession:
         requirements_file = ("requirements-gpu-quick.txt" if self.gpu and self.profile=="quick"
                              else "requirements-gpu.txt" if self.gpu else "requirements.lock.txt")
         requirements = self.root / requirements_file
-        signature = hashlib.sha256((requirements.read_text()+sys.version+torch_version).encode()).hexdigest()[:16]
+        signature = hashlib.sha256(json.dumps(dict(schema=self.ENVIRONMENT_SCHEMA,
+            requirements=requirements.read_text(),python=sys.version,torch=torch_version,
+            torch_site=torch_site,profile=self.profile if self.gpu else "cpu"),
+            sort_keys=True).encode()).hexdigest()[:16]
         target = self.cache / ("gpu-" if self.gpu else "cpu-")
         target = target.with_name(target.name+signature)
         python = target / ("Scripts/python.exe" if os.name=="nt" else "bin/python")
-        if not python.is_file():
+        def create_environment():
             target.parent.mkdir(parents=True, exist_ok=True)
             result = subprocess.run([sys.executable, "-m", "venv", *(["--system-site-packages"]
                 if self.gpu else []), str(target)], capture_output=True, text=True)
@@ -77,17 +81,28 @@ class ColabSession:
                 env["PYTHONPATH"] = str(bootstrap)+os.pathsep+env["PYTHONPATH"]
                 run_logged([sys.executable,"-m","virtualenv", *(["--system-site-packages"]
                     if self.gpu else []),str(target)], self.logs/"virtualenv_create.log",env=env)
+            if torch_site:
+                site_paths=json.loads(subprocess.check_output([str(python),"-c",
+                    "import json,site; print(json.dumps(site.getsitepackages()))"],text=True))
+                own=next(Path(p) for p in site_paths if Path(p).is_relative_to(target))
+                (own/"cot_host_torch.pth").write_text(torch_site+"\n")
+        if not python.is_file():
+            create_environment()
         self.python = python
-        if torch_site:
-            site_paths=json.loads(subprocess.check_output([str(python),"-c",
-                "import json,site; print(json.dumps(site.getsitepackages()))"],text=True))
-            own=next(Path(p) for p in site_paths if Path(p).is_relative_to(target))
-            (own/"cot_host_torch.pth").write_text(torch_site+"\n")
         ready = target / "cot-ready.json"
+        check=["-m","gpu_lab.preflight" if self.gpu else "cpu_preflight"]
+        if ready.is_file():
+            try:
+                self.command(check,"environment_check.log")
+            except RuntimeError:
+                print("O ambiente salvo falhou na verificação. Recriando somente as dependências; "
+                      "dados e checkpoints permanecem no Drive.",flush=True)
+                shutil.rmtree(target)
+                create_environment()
         if not ready.is_file():
             try:
                 self.command(["-m","pip","install","-r",str(requirements)], "dependencies.log")
-                self.command(["-m","gpu_lab.preflight" if self.gpu else "cpu_preflight"], "environment_check.log")
+                self.command(check, "environment_check.log")
             except Exception:
                 self.failure_bundle("gpu_setup" if self.gpu else "reanalysis")
                 raise

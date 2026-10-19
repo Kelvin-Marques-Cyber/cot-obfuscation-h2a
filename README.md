@@ -37,7 +37,7 @@ atuais fixam o código validado em `d6a5f141d17c`.
 - Auditoria das sobreposições dos geradores.
 - Teste dos corretores em 2.000 respostas construídas.
 - Geração e conferência de 4.500 itens aritméticos disjuntos.
-- 64 testes locais de software aprovados, incluindo fluxos automáticos do Colab.
+- 71 testes locais de software aprovados, incluindo recuperação de ambientes e troca de versão na mesma sessão do Colab.
 - Integração real das APIs SFT/GRPO em CPU com miniatura aleatória, retomada de
   checkpoint, avaliação, análise e monitores locais; sem resultados experimentais novos.
 

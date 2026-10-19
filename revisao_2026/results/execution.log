@@ -1,7 +1,15 @@
+test_bootstrap_loads_both_modules_from_new_source_in_same_kernel (test_colab_sessions.ColabSessionRecoveryTests.test_bootstrap_loads_both_modules_from_new_source_in_same_kernel) ... ok
+test_cached_environment_is_checked_and_repaired_without_touching_results (test_colab_sessions.ColabSessionRecoveryTests.test_cached_environment_is_checked_and_repaired_without_touching_results) ... ok
 test_annotations_distinguish_base_and_adapter (test_colab_workflow.ColabWorkflowTests.test_annotations_distinguish_base_and_adapter) ... ok
 test_bundle_excludes_checkpoints_weights_and_cache (test_colab_workflow.ColabWorkflowTests.test_bundle_excludes_checkpoints_weights_and_cache) ... ok
+test_completed_legacy_plan_is_preserved_and_fp16_runs_separately (test_colab_workflow.ColabWorkflowTests.test_completed_legacy_plan_is_preserved_and_fp16_runs_separately) ... ok
 test_existing_dataset_never_overwritten_by_different_plan (test_colab_workflow.ColabWorkflowTests.test_existing_dataset_never_overwritten_by_different_plan) ... ok
+test_invalid_colab_backend_is_replaced_only_for_child_processes (test_colab_workflow.ColabWorkflowTests.test_invalid_colab_backend_is_replaced_only_for_child_processes)
+O kernel mantém o backend inline, mas subprocessos usam Agg. ... ok
 test_invalid_monitor_scores_do_not_become_negative_labels (test_colab_workflow.ColabWorkflowTests.test_invalid_monitor_scores_do_not_become_negative_labels) ... ok
+test_legacy_quick_migration_preserves_model_revisions (test_colab_workflow.ColabWorkflowTests.test_legacy_quick_migration_preserves_model_revisions) ... ok
+test_profile_is_forwarded_to_gpu_child_environment (test_colab_workflow.ColabWorkflowTests.test_profile_is_forwarded_to_gpu_child_environment) ... ok
+test_quick_plan_does_not_require_4bit_quantization (test_colab_workflow.ColabWorkflowTests.test_quick_plan_does_not_require_4bit_quantization) ... ok
 test_quick_runs_all_three_conditions_without_endpoint (test_colab_workflow.ColabWorkflowTests.test_quick_runs_all_three_conditions_without_endpoint) ... ok
 test_rerun_reuses_frozen_model_and_monitor_revisions (test_colab_workflow.ColabWorkflowTests.test_rerun_reuses_frozen_model_and_monitor_revisions) ... ok
 test_sft_conditions_and_profiles_have_separate_storage (test_colab_workflow.ColabWorkflowTests.test_sft_conditions_and_profiles_have_separate_storage) ... ok
@@ -65,6 +73,6 @@ test_complete_analysis_without_pdf_packages (test_reanalysis_runtime.ReanalysisR
 A ausência de pacotes de PDF não interrompe cálculos nem figuras. ... ok
 
 ----------------------------------------------------------------------
-Ran 64 tests in 0.580s
+Ran 71 tests in 5.591s
 
 OK

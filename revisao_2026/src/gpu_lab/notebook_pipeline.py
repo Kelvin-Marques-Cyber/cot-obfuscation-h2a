@@ -4,10 +4,11 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
-from .benchmark import create_dataset, write_dataset
+from .benchmark import content_hash, create_dataset, write_dataset
 from .revisions import resolve_revision
 from .train import atomic_json, validate_config
 
@@ -21,7 +22,14 @@ PROFILES = {
 
 def paths(storage, profile, mode):
     base = Path(storage).resolve()/profile
-    return dict(base=base, runs=base/"runs"/mode, data=base/"data"/f"{mode}.jsonl",
+    runs=base/"runs"/mode
+    pointer=runs/"active_plan.json"
+    if pointer.is_file():
+        name=json.loads(pointer.read_text())["directory"]
+        if not isinstance(name,str) or not re.fullmatch(r"plan-[0-9a-f]{16}",name):
+            raise ValueError("Diretório do plano ativo inválido")
+        runs=runs/name
+    return dict(base=base, runs=runs, data=base/"data"/f"{mode}.jsonl",
                 analysis=base/"analysis"/mode, annotation=base/"annotation"/mode)
 
 
@@ -88,9 +96,30 @@ def prepare(storage, profile, mode, resolver=resolve_revision):
             compatible=(len(saved)==len(plan) and strip(legacy)==strip(plan))
             completed=any(json.loads(s.read_text()).get("status")=="trained"
                           for s in p["runs"].glob("*/status.json"))
-            if not compatible or completed:
+            if not compatible:
                 raise ValueError("Plano mudou; treinos concluídos/checkpoints antigos "
                                  "foram preservados. Use outro perfil/diretório.")
+            if completed:
+                # Resultados 4-bit continuam no lugar. O plano fp16 ganha uma
+                # pasta própria, usada pelas quatro etapas e sem misturar saídas.
+                specification=[{k:v for k,v in cfg.items() if k not in
+                    ("revision","monitor_revision","output_root")} for cfg in plan]
+                directory="plan-"+content_hash(specification)[:16]
+                destination=p["base"]/"runs"/mode/directory
+                destination.mkdir(parents=True,exist_ok=True)
+                for current,previous in zip(plan,saved):
+                    current["output_root"]=str(destination)
+                    current["revision"]=previous["revision"]
+                    if "monitor_revision" in previous:
+                        current["monitor_revision"]=previous["monitor_revision"]
+                new_frozen=destination/"frozen_plan.json"
+                if new_frozen.exists() and json.loads(new_frozen.read_text())!=plan:
+                    raise ValueError("O plano fp16 existente diverge; os arquivos foram preservados.")
+                atomic_json(new_frozen,plan)
+                atomic_json(p["base"]/"runs"/mode/"active_plan.json",dict(directory=directory,
+                    reason="legacy_4bit_completed",previous_plan=str(frozen)))
+                print("Plano fp16 separado criado; treinos 4-bit anteriores preservados:",destination,flush=True)
+                return prepare(storage,profile,mode,resolver=resolver)
             backup=frozen.with_name("frozen_plan_4bit_backup.json")
             if not backup.exists():
                 atomic_json(backup,saved)
