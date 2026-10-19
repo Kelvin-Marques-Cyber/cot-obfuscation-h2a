@@ -97,7 +97,14 @@ print("Arquivos:",STORAGE,"| Persistência verificada:",state.persistent)
         cells=[cell('markdown','# '+title+'\n\n'+description),cell('code',start)]
         cells.extend(cell(kind,body) for kind,body in pre_gpu)
         if gpu:
-            cells.append(cell('code','GPU_SESSION=STUDY.gpu()\nif GPU_SESSION is not None:\n    print("Ambiente GPU preparado para o estudo de 240 treinos.")'))
+            cells.append(cell('code',"""GPU_SESSION = None
+if globals().get("DEV_BLOQUEADO",False):
+    print("DEV já reprovado: sem carregar GPU novamente.")
+else:
+    GPU_SESSION=STUDY.gpu()
+    if GPU_SESSION is not None:
+        print("Ambiente GPU preparado.")
+"""))
         cells.extend(cell(kind,body) for kind,body in steps)
         cells.append(cell('markdown',"""Com o Drive conectado, a reexecução retoma o mesmo estudo.
 Se a montagem falhar, o 00 prepara uma cópia temporária para download;
