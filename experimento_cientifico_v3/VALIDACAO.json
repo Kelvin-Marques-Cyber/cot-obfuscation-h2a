@@ -41,5 +41,6 @@
   "limits": [
     "CUDA training with the public models was not executed.",
     "Human annotation and external preregistration are still required."
-  ]
+  ],
+  "notebook_source_commit": "fde856f895c841274b93b34f4675642508af102f"
 }
