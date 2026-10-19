@@ -44,6 +44,30 @@ trocar o ID inicia outro estudo. A v3.2 não altera diretórios v3.1 existentes.
 Abra os links atualizados: cópias antigas salvas no Colab continuam usando
 sua revisão anterior.
 
+## Se a montagem do Drive falhar
+
+Os cinco notebooks tratam `ValueError: mount failed`: fazem no máximo duas
+tentativas, verificam o ponto de montagem e testam gravação antes de declarar
+persistência. Um diretório `MyDrive` antigo não basta. A recuperação não apaga
+arquivos, não força desmontagem e não altera estudos existentes.
+
+Se o Drive permanecer indisponível, **00 termina a preparação localmente**
+e oferece o ZIP. `STORAGE_MODE="local"` permite pular a conexão para essa
+preparação. Os arquivos em `/content` são temporários: gere o pacote final
+com o Drive conectado antes de registrar o estudo. Os notebooks 01–04
+mostram a pendência e aguardam armazenamento persistente para executar
+inferência e treinamento; não iniciam uma coleta temporária silenciosamente.
+
+Para tentar a conexão de novo, mantenha `STORAGE_MODE="auto"` e reexecute
+a primeira célula. Depois execute novamente o 00. Caso o download automático
+não abra, o ZIP continua disponível no caminho impresso: use o painel
+**Arquivos** do Colab para baixá-lo.
+
+`SOURCE_COMMIT` mantém a implementação científica em `fde856f895c841274b93b34f4675642508af102f`.
+`SETUP_COMMIT` fixa separadamente o suporte operacional atualizado. Assim,
+esta correção de conexão não muda o contrato, os dados, o ID do estudo ou
+os hashes dos modelos já congelados. Os checkouts e hashes são verificados.
+
 A instalação é automática e preserva o PyTorch/CUDA do Colab. O estudo usa
 LoRA fp16 sem quantização de 4 bits. O instalador compartilhado chama essa
 pilha de dependências de `quick`; isso não diminui o número de treinos nem
@@ -65,8 +89,8 @@ estes continuam no Drive. O notebook 00 pode ser executado sem iniciar treinos.
 
 ```bash
 cd experimento_cientifico_v3
-python -m unittest -v test_scientific_runtime.py
-python build_notebooks.py --source-ref SHA_COMPLETO_DO_CODIGO
+python -m unittest discover -v
+python build_notebooks.py --source-ref SHA_CIENTIFICO --setup-ref SHA_DO_SUPORTE
 ```
 
 Os cinco notebooks foram validados quanto ao formato e à sintaxe. O 00 foi
@@ -74,6 +98,14 @@ executado em CPU com dados reais dos geradores e consulta às revisões pública
 O caso SFT/full possui teste de integração com uma miniatura de pesos
 aleatórios em CPU. A execução completa em CUDA e os resultados científicos
 ainda dependem da coleta. Veja [VALIDACAO.json](VALIDACAO.json).
+
+Os testes de armazenamento reproduzem falha permanente de montagem,
+recuperação na segunda tentativa, Drive já conectado, pasta antiga sem
+montagem, falta de gravação e falha do download no navegador. A integração
+`python integration_colab_storage.py` executa todas as células dos cinco
+notebooks com dez falhas de montagem e duas de download simuladas, mantendo
+os treinamentos pausados e produzindo os ZIPs. A autenticação real do Drive
+depende da conta e da sessão do Colab; não foi exercitada por essa simulação.
 
 O pacote original v3.1, fornecido em ZIP em 16/10/2026, é a origem deste
 conjunto. As correções v3.2 integram o ambiente atualizado, fixam a seleção de

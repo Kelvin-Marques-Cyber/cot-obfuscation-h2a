@@ -26,6 +26,11 @@ Os cinco compartilham o mesmo `STUDY_ID` e retomam os resultados do Drive.
 O padrão v3.2 usa `confirmatory_v3/estudo-principal-2026-v3-2/`, preservando
 estudos anteriores. **[Instruções e protocolo](experimento_cientifico_v3/README.md)**.
 
+Falhas de montagem do Drive têm duas tentativas de recuperação e verificação
+de gravação. Se a conexão falhar, o 00 prepara um ZIP local; os treinos
+aguardam armazenamento persistente. O modo local é temporário. Consulte as
+instruções acima para reconectar ou baixar o ZIP pelo painel Arquivos.
+
 ## Laboratório de reanálise e testes curtos
 
 | Etapa | Abrir no Colab | Ambiente |

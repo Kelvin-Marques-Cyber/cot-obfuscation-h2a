@@ -10,7 +10,8 @@ import zipfile
 
 
 class ScientificSession:
-    def __init__(self, repo, storage, source_commit, script_sha256, on_colab=False):
+    def __init__(self, repo, storage, source_commit, script_sha256, on_colab=False,
+                 storage_persistent=True, storage_backend='local'):
         self.repo=Path(repo).resolve()
         self.source=self.repo/'revisao_2026'
         self.package=self.repo/'experimento_cientifico_v3'
@@ -20,6 +21,8 @@ class ScientificSession:
         self.storage=Path(storage).resolve()
         self.storage.mkdir(parents=True,exist_ok=True)
         self.on_colab=on_colab
+        self.storage_persistent=storage_persistent
+        self.storage_backend=storage_backend
         os.environ.update(COT_SOURCE_COMMIT=source_commit,COT_SOURCE_DIR=str(self.source),
                           COT_TEXT_ONLY='1',MPLBACKEND='Agg',USE_TF='0',USE_FLAX='0')
         sys.path.insert(0,str(self.source/'src'))
@@ -33,6 +36,9 @@ class ScientificSession:
         self.gpu_session=None
 
     def gpu(self):
+        if self.on_colab and not self.storage_persistent:
+            print('Treinos pausados: conecte o Drive e reexecute desde a primeira célula.',flush=True)
+            return None
         if self.gpu_session is None:
             # "quick" selects the tested fp16 dependency stack, not the study size.
             self.gpu_session=self.session_type(self.source,self.storage,profile='quick',gpu=True)
@@ -40,11 +46,18 @@ class ScientificSession:
                 self.gpu_session.ensure_environment()
             except Exception:
                 self.gpu_session=None
-                self.export(download=False)
+                self.failure_export()
                 raise
         return self.gpu_session
 
     def execute(self, stage, mode='sft', max_jobs=2, gpu=False):
+        if self.on_colab and not self.storage_persistent:
+            if stage in ('dev','train','evaluate','monitor','controls'):
+                print('Etapa aguardando armazenamento persistente:',stage,
+                      '| conecte o Drive e execute novamente.',flush=True)
+                return dict(status='waiting_for_persistent_storage',stage=stage,
+                            completed=0,total=120,executed=[])
+            gpu=False
         operation=self.storage/'operations'/f'{stage}_{mode}.json'
         operation.parent.mkdir(parents=True,exist_ok=True)
         operation.unlink(missing_ok=True)
@@ -66,7 +79,7 @@ class ScientificSession:
                 run_logged([sys.executable,'-u',*args],
                            self.storage/'logs'/f'scientific_{stage}_{mode}.log',env=env)
         except Exception:
-            self.export(download=False)
+            self.failure_export()
             raise
         return json.loads(operation.read_text(encoding='utf-8'))
 
@@ -84,11 +97,26 @@ class ScientificSession:
             archive.write(self.package/'PROTOCOLO_PRE_REGISTRO_v3.md','PROTOCOLO_PRE_REGISTRO_v3.md')
         print('ZIP salvo:',target,flush=True)
         if download and self.on_colab:
-            from google.colab import files
-            files.download(str(target))
+            try:
+                from google.colab import files
+                files.download(str(target))
+            except Exception as error:
+                print('O download automático não abriu. O ZIP está pronto; baixe pelo painel Arquivos:',
+                      target,'|',type(error).__name__,flush=True)
         return target
 
+    def failure_export(self):
+        try:
+            return self.export(download=False)
+        except Exception as error:
+            print('Os logs permanecem em',self.storage/'logs',
+                  '| a exportação não concluiu:',type(error).__name__,flush=True)
+            return None
+
     def registration(self, public_url=''):
+        if getattr(self,'on_colab',False) and not self.storage_persistent:
+            print('Pré-registro ainda não declarado: conecte o Drive e gere o pacote final antes de registrar.',flush=True)
+            return
         folder=self.storage/'protocol'
         path=folder/'external_registration.json'
         if path.exists():

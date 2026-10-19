@@ -17,20 +17,25 @@ def cell(kind, body):
     return out
 
 
-def build(source_ref):
-    if len(source_ref)!=40 or any(c not in '0123456789abcdef' for c in source_ref):
-        raise ValueError('Use um SHA completo do código publicado.')
+def build(source_ref,setup_ref):
+    for ref in (source_ref,setup_ref):
+        if len(ref)!=40 or any(c not in '0123456789abcdef' for c in ref):
+            raise ValueError('Use SHAs completos para o código científico e o suporte Colab.')
     script_sha=hashlib.sha256((ROOT/'scientific_runtime.py').read_bytes()).hexdigest()
     support_sha=hashlib.sha256((ROOT/'colab_support.py').read_bytes()).hexdigest()
+    storage_sha=hashlib.sha256((ROOT/'colab_storage.py').read_bytes()).hexdigest()
     start=f'''
 # Configuração operacional. Os tamanhos, sementes e critérios científicos são fixos.
 from pathlib import Path
 import hashlib, importlib.util, json, os, re, subprocess, sys
 SOURCE_COMMIT = "{source_ref}"
+SETUP_COMMIT = "{setup_ref}"
 SCRIPT_SHA256 = "{script_sha}"
 SUPPORT_SHA256 = "{support_sha}"
+STORAGE_SHA256 = "{storage_sha}"
 STUDY_ID = "estudo-principal-2026-v3-2" # @param {{type:"string"}}
 PUBLIC_REGISTRATION_URL = "" # @param {{type:"string"}}
+STORAGE_MODE = "auto" # @param ["auto", "local"]
 if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{{0,79}}", STUDY_ID):
     raise ValueError("STUDY_ID deve conter somente letras, números, _ e -.")
 ON_COLAB = False
@@ -40,47 +45,62 @@ except ImportError:
     pass
 else:
     ON_COLAB = True
-    drive.mount("/content/drive")
 LOCAL = Path(os.environ.get("COT_LOCAL_ROOT",
     "/content/cot-prospective-v3" if ON_COLAB else str(Path.cwd()/"cot-prospective-v3")))
 LOCAL.mkdir(parents=True, exist_ok=True)
-override = os.environ.get("COT_REPO_DIR")
-REPO = Path(override).resolve() if override else LOCAL/"source"/SOURCE_COMMIT
-if not override:
-    REPO.mkdir(parents=True, exist_ok=True)
-    if not (REPO/".git").is_dir():
-        subprocess.run(["git","init","--quiet",str(REPO)],check=True)
-        subprocess.run(["git","-C",str(REPO),"remote","add","origin",
-            "https://github.com/Kelvin-Marques-Cyber/cot-obfuscation-h2a.git"],check=True)
-    found=subprocess.run(["git","-C",str(REPO),"cat-file","-e",SOURCE_COMMIT+"^{{commit}}"],
-                         capture_output=True)
-    if found.returncode:
-        subprocess.run(["git","-C",str(REPO),"fetch","--quiet","--depth","1","origin",SOURCE_COMMIT],check=True)
-    subprocess.run(["git","-C",str(REPO),"checkout","--quiet","--detach",SOURCE_COMMIT],check=True)
-actual=subprocess.check_output(["git","-C",str(REPO),"rev-parse","HEAD"],text=True).strip()
-if actual!=SOURCE_COMMIT:
-    raise RuntimeError("O código aberto não corresponde ao SHA do notebook.")
+def frozen_checkout(ref,folder,override_name):
+    override=os.environ.get(override_name)
+    repo=Path(override).resolve() if override else LOCAL/folder/ref
+    if not override:
+        repo.mkdir(parents=True,exist_ok=True)
+        if not (repo/".git").is_dir():
+            subprocess.run(["git","init","--quiet",str(repo)],check=True)
+            subprocess.run(["git","-C",str(repo),"remote","add","origin",
+                "https://github.com/Kelvin-Marques-Cyber/cot-obfuscation-h2a.git"],check=True)
+        found=subprocess.run(["git","-C",str(repo),"cat-file","-e",ref+"^{{commit}}"],capture_output=True)
+        if found.returncode:
+            subprocess.run(["git","-C",str(repo),"fetch","--quiet","--depth","1","origin",ref],check=True)
+        subprocess.run(["git","-C",str(repo),"checkout","--quiet","--detach",ref],check=True)
+    actual=subprocess.check_output(["git","-C",str(repo),"rev-parse","HEAD"],text=True).strip()
+    if actual!=ref:
+        raise RuntimeError("O código aberto não corresponde ao SHA do notebook.")
+    return repo
+REPO=frozen_checkout(SOURCE_COMMIT,"source","COT_REPO_DIR")
+SETUP_REPO=frozen_checkout(SETUP_COMMIT,"setup","COT_SETUP_REPO_DIR")
 PACKAGE=REPO/"experimento_cientifico_v3"
-support=PACKAGE/"colab_support.py"
+SETUP_PACKAGE=SETUP_REPO/"experimento_cientifico_v3"
+support=SETUP_PACKAGE/"colab_support.py"
 if hashlib.sha256(support.read_bytes()).hexdigest()!=SUPPORT_SHA256:
     raise RuntimeError("O suporte do notebook diverge do hash publicado.")
-spec=importlib.util.spec_from_file_location("cot_scientific_support_"+SOURCE_COMMIT,support)
+storage_support=SETUP_PACKAGE/"colab_storage.py"
+if hashlib.sha256(storage_support.read_bytes()).hexdigest()!=STORAGE_SHA256:
+    raise RuntimeError("O suporte de armazenamento diverge do hash publicado.")
+storage_spec=importlib.util.spec_from_file_location("cot_storage_"+SETUP_COMMIT,storage_support)
+storage_module=importlib.util.module_from_spec(storage_spec)
+storage_spec.loader.exec_module(storage_module)
+state=storage_module.prepare_storage(LOCAL,STUDY_ID,on_colab=ON_COLAB,mode=STORAGE_MODE,
+    storage_override=os.environ.get("COT_STORAGE_ROOT"),
+    drive_module=drive if ON_COLAB else None,
+    mountpoint=os.environ.get("COT_DRIVE_MOUNTPOINT","/content/drive"))
+spec=importlib.util.spec_from_file_location("cot_scientific_support_"+SETUP_COMMIT,support)
 module=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
-parent=Path(os.environ.get("COT_STORAGE_ROOT",
-    "/content/drive/MyDrive/CoT_Obfuscation_Lab/confirmatory_v3" if ON_COLAB else str(LOCAL/"studies")))
-STORAGE=parent/STUDY_ID
-STUDY=module.ScientificSession(REPO,STORAGE,SOURCE_COMMIT,SCRIPT_SHA256,ON_COLAB)
+STORAGE=state.path
+STUDY=module.ScientificSession(REPO,STORAGE,SOURCE_COMMIT,SCRIPT_SHA256,ON_COLAB,
+    storage_persistent=state.persistent,storage_backend=state.backend)
 execute=STUDY.execute
 print("Código:",SOURCE_COMMIT,"| Estudo:",STUDY_ID)
-print("Arquivos persistentes:",STORAGE)
+print("Suporte Colab:",SETUP_COMMIT)
+print("Arquivos:",STORAGE,"| Persistência verificada:",state.persistent)
 '''
     def make(name,title,description,steps,gpu=False):
         cells=[cell('markdown','# '+title+'\n\n'+description),cell('code',start)]
         if gpu:
-            cells.append(cell('code','STUDY.gpu()\nprint("Ambiente GPU preparado para o estudo de 240 treinos.")'))
+            cells.append(cell('code','GPU_SESSION=STUDY.gpu()\nif GPU_SESSION is not None:\n    print("Ambiente GPU preparado para o estudo de 240 treinos.")'))
         cells.extend(cell(kind,body) for kind,body in steps)
-        cells.append(cell('markdown',"""A reexecução retoma o mesmo estudo no Drive.
+        cells.append(cell('markdown',"""Com o Drive conectado, a reexecução retoma o mesmo estudo.
+Se a montagem falhar, o 00 prepara uma cópia temporária para download;
+os treinos aguardam armazenamento persistente. O modo local não salva no Drive.
 Não altere o STUDY_ID depois de iniciar. A versão v3.2 usa um ID novo para
 preservar estudos antigos. A execução confirmatória depende de pré-registro
 público anterior aos treinos e de avaliação humana; essas etapas não são
@@ -98,7 +118,10 @@ substituídas por resultados de software."""))
         (ROOT/name).write_text(json.dumps(notebook,indent=1,ensure_ascii=False)+'\n',encoding='utf-8')
 
     make('00_protocolo_e_datasets.ipynb','00 · Protocolo e datasets congelados',
-         """**CPU · primeira etapa obrigatória.** Use **Ambiente de execução → Executar tudo** e autorize o Drive.
+         """**CPU · primeira etapa obrigatória.** Use **Ambiente de execução → Executar tudo**.
+O Drive tenta conectar duas vezes. Se falhar, a preparação continua localmente
+e o ZIP pode ser baixado. Para pular a conexão, selecione STORAGE_MODE="local".
+Gere o pacote final com o Drive conectado antes de registrar e treinar.
 
 Prepara os dados disjuntos e congela código, critérios, 20 sementes, quatro
 revisões de modelos e hashes. O desenho contém 120 treinos SFT e 120 GRPO.
@@ -208,6 +231,7 @@ STUDY.export()
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('--source-ref',required=True)
+    parser.add_argument('--setup-ref',required=True)
     args=parser.parse_args()
-    build(args.source_ref)
+    build(args.source_ref,args.setup_ref)
 

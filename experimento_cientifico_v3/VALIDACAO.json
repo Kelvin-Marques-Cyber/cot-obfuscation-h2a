@@ -9,7 +9,9 @@
   "unit_tests": {
     "scientific": 17,
     "existing_lab": 71,
-    "status": "passed"
+    "status": "passed",
+    "storage_recovery": 12,
+    "total": 100
   },
   "notebook_validation": {
     "count": 5,
@@ -42,5 +44,16 @@
     "CUDA training with the public models was not executed.",
     "Human annotation and external preregistration are still required."
   ],
-  "notebook_source_commit": "fde856f895c841274b93b34f4675642508af102f"
+  "notebook_source_commit": "fde856f895c841274b93b34f4675642508af102f",
+  "storage_recovery": {
+    "mount_failure_regressions": "passed",
+    "all_code_cells_of_all_five_notebooks_with_mount_failed": "passed",
+    "mount_errors_injected": 10,
+    "browser_download_errors_injected": 2,
+    "zip_files_valid_after_download_failure": true,
+    "gpu_work_blocked_on_temporary_storage": true,
+    "existing_drive_files_preserved": true,
+    "live_colab_drive_authentication_tested": false,
+    "scientific_source_commit_preserved": "fde856f895c841274b93b34f4675642508af102f"
+  }
 }
