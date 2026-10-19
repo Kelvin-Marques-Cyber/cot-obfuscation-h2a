@@ -93,8 +93,9 @@ print("Código:",SOURCE_COMMIT,"| Estudo:",STUDY_ID)
 print("Suporte Colab:",SETUP_COMMIT)
 print("Arquivos:",STORAGE,"| Persistência verificada:",state.persistent)
 '''
-    def make(name,title,description,steps,gpu=False):
+    def make(name,title,description,steps,gpu=False,pre_gpu=()):
         cells=[cell('markdown','# '+title+'\n\n'+description),cell('code',start)]
+        cells.extend(cell(kind,body) for kind,body in pre_gpu)
         if gpu:
             cells.append(cell('code','GPU_SESSION=STUDY.gpu()\nif GPU_SESSION is not None:\n    print("Ambiente GPU preparado para o estudo de 240 treinos.")'))
         cells.extend(cell(kind,body) for kind,body in steps)
@@ -116,6 +117,8 @@ substituídas por resultados de software."""))
             if c['cell_type']=='code':
                 compile(c['source'],name,'exec')
         (ROOT/name).write_text(json.dumps(notebook,indent=1,ensure_ascii=False)+'\n',encoding='utf-8')
+
+    dev_audit = "# Auditoria de DEV reaproveitando os arquivos existentes (somente leitura).\nimport json, hashlib, importlib.util\nfrom pathlib import Path\n\ndef verificar_dev_salvo():\n    completo = True\n    valores = {}\n    for modo, niveis in ((\"sft\", (\"A\", \"C\")), (\"grpo\", (\"low\", \"high\"))):\n        resumo = STORAGE / \"analysis\" / modo / \"dev_base_accuracy.json\"\n        if not resumo.exists():\n            print(\"DEV ainda não produzido:\", modo)\n            completo = False\n            continue\n        dados = json.loads(resumo.read_text(encoding=\"utf-8\"))\n        for nivel in niveis:\n            dado = dados.get(nivel)\n            if dado is None:\n                completo = False\n                continue\n            arquivo = Path(dado[\"file\"]).resolve()\n            if not arquivo.is_relative_to(STORAGE.resolve()) or not arquivo.is_file():\n                raise RuntimeError(\"Arquivo DEV ausente ou fora do estudo: \" + str(arquivo))\n            conteudo = arquivo.read_bytes()\n            if hashlib.sha256(conteudo).hexdigest() != dado[\"sha256\"]:\n                raise RuntimeError(\"SHA256 divergente no DEV; não sobrescreva o arquivo: \" + str(arquivo))\n            amostras = [json.loads(l) for l in conteudo.decode(\"utf-8\").splitlines() if l.strip()]\n            acertos = sum(bool(item[\"accuracy\"]) for item in amostras)\n            if (len(amostras) != dado[\"n\"] or\n                    abs(acertos / len(amostras) - dado[\"accuracy\"]) > 1e-12):\n                raise RuntimeError(\"Resumo DEV não corresponde aos registros: \" + str(arquivo))\n            valores[modo + \"/\" + nivel] = dado[\"accuracy\"]\n            print(f\"DEV {modo.upper()} {nivel}: {acertos}/{len(amostras)} \"\n                  f\"({dado['accuracy']:.1%}); exigido 65%\")\n            erros = [x for x in amostras if not x[\"accuracy\"]]\n            for item in erros[:2]:\n                print(\"  Exemplo incorreto:\", repr(item[\"generation\"][:240]),\n                      \"| gabarito:\", item[\"gold\"])\n    if not completo or len(valores) != 4:\n        return False, False\n    spec = importlib.util.spec_from_file_location(\"cot_dev_gate_readonly\",\n                                                   PACKAGE / \"scientific_runtime.py\")\n    modulo = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(modulo)\n    gate = modulo.baseline_gate(STORAGE)\n    if not gate[\"passed\"]:\n        print(\"\\nTRIAGEM DEV REPROVADA:\", \", \".join(gate[\"reasons\"]))\n        print(\"Não há treinos confirmatórios autorizados neste estudo congelado.\")\n    return True, gate[\"passed\"]\n\nDEV_COMPLETO, DEV_APROVADO = verificar_dev_salvo()\nDEV_BLOQUEADO = DEV_COMPLETO and not DEV_APROVADO\n"
 
     make('00_protocolo_e_datasets.ipynb','00 · Protocolo e datasets congelados',
          """**CPU · primeira etapa obrigatória.** Use **Ambiente de execução → Executar tudo**.
@@ -145,33 +148,21 @@ print('Próxima etapa: 01, depois de publicar o pré-registro.')
 Treina três condições (explicit/direct/generic), duas dificuldades (A/C) e
 20 sementes: 120 treinos de 120 passos. O limite abaixo controla apenas
 quantos jobs cabem na sessão. Dados e critérios permanecem congelados.
-A triagem DEV exige 65% por nível nos dois modelos-base; falhar bloqueia o estudo.""",[
-        ('code',"""MAX_JOBS_PER_SESSION = 2 # @param {type:"integer"}
-execute('prepare')
-execute('models',gpu=True)
-"""),
-        ('code',"""execute('dev',mode='sft',gpu=True)
-execute('dev',mode='grpo',gpu=True)
-progress=execute('train',mode='sft',max_jobs=MAX_JOBS_PER_SESSION,gpu=True)
-print(progress['completed'],'/',progress['total'],'treinos SFT concluídos.')
-STUDY.export(download=False)
-""")
-    ],gpu=True)
+A triagem DEV exige 65% por nível nos dois modelos-base; falhar bloqueia o estudo.
+**Diagnóstico DEV sem nova inferência:** se a triagem já falhou, o notebook mostra
+os dados salvos e não inicializa a GPU. O limite de 65% não é alterado.""",[
+        ('code',"MAX_JOBS_PER_SESSION = 2 # @param {type:\"integer\"}\nif GPU_SESSION is not None:\n    execute('prepare')\n    execute('models',gpu=True)\nelse:\n    print(\"Preparação GPU ignorada: DEV reprovado ou armazenamento indisponível.\")\n"),
+        ('code',"if DEV_BLOQUEADO:\n    print(\"Treinos SFT não iniciados: competência DEV inferior ao mínimo do pré-registro.\")\nelif GPU_SESSION is not None:\n    for modo in (\"sft\", \"grpo\"):\n        if not (STORAGE/\"analysis\"/modo/\"dev_base_accuracy.json\").exists():\n            execute('dev',mode=modo,gpu=True)\n    DEV_COMPLETO, DEV_APROVADO = verificar_dev_salvo()\n    if DEV_COMPLETO and DEV_APROVADO:\n        progress = execute('train',mode='sft',max_jobs=MAX_JOBS_PER_SESSION,gpu=True)\n        print(progress['completed'],'/',progress['total'],'treinos SFT concluídos.')\n    else:\n        print(\"Treinos SFT pausados: triagem DEV não aprovada. Consulte as amostras acima.\")\nelse:\n    print(\"Treinos não iniciados: Drive/GPU indisponível.\")\nSTUDY.export(download=False)\n")
+    ],gpu=True,pre_gpu=[('code',dev_audit)])
     make('02_treinamento_grpo_replicado.ipynb','02 · Treinamento GRPO replicado',
          """**GPU T4 ou superior.** Use o mesmo STUDY_ID dos notebooks anteriores.
 Treina none/cot_monitor/summary_monitor em low/high, com 20 sementes:
 120 treinos de 120 passos. O monitor de recompensa é distinto do monitor
-independente. Reexecutar retoma checkpoints e mantém jobs concluídos.""",[
-        ('code',"""MAX_JOBS_PER_SESSION = 1 # @param {type:"integer"}
-execute('prepare')
-execute('models',gpu=True)
-execute('dev',mode='sft',gpu=True)
-execute('dev',mode='grpo',gpu=True)
-progress=execute('train',mode='grpo',max_jobs=MAX_JOBS_PER_SESSION,gpu=True)
-print(progress['completed'],'/',progress['total'],'treinos GRPO concluídos.')
-STUDY.export(download=False)
-""")
-    ],gpu=True)
+independente. Reexecutar retoma checkpoints e mantém jobs concluídos.
+**Diagnóstico DEV sem nova inferência:** se a triagem já falhou, o notebook mostra
+os dados salvos e não inicializa a GPU. O limite de 65% não é alterado.""",[
+        ('code',"MAX_JOBS_PER_SESSION = 1 # @param {type:\"integer\"}\nif DEV_BLOQUEADO:\n    print(\"Treinos GRPO não iniciados: competência DEV inferior ao mínimo do pré-registro.\")\nelif GPU_SESSION is not None:\n    execute('prepare')\n    execute('models',gpu=True)\n    for modo in (\"sft\", \"grpo\"):\n        if not (STORAGE/\"analysis\"/modo/\"dev_base_accuracy.json\").exists():\n            execute('dev',mode=modo,gpu=True)\n    DEV_COMPLETO, DEV_APROVADO = verificar_dev_salvo()\n    if DEV_COMPLETO and DEV_APROVADO:\n        progress = execute('train',mode='grpo',max_jobs=MAX_JOBS_PER_SESSION,gpu=True)\n        print(progress['completed'],'/',progress['total'],'treinos GRPO concluídos.')\n    else:\n        print(\"Treinos GRPO pausados: triagem DEV não aprovada. Consulte as amostras acima.\")\nelse:\n    print(\"Treinos não iniciados: Drive/GPU indisponível.\")\nSTUDY.export(download=False)\n")
+    ],gpu=True,pre_gpu=[('code',dev_audit)])
     make('03_competencia_e_teste_cego.ipynb','03 · Competência e teste final pareado',
          """**GPU · após os 240 treinamentos.** Avalia somente TEST/full de cada
 adaptador, com orçamento comum de 256 tokens. São 26.400 gerações SFT e
