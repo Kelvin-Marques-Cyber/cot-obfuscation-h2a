@@ -33,7 +33,7 @@ def generate(model,tokenizer,prompt,budget,prefix=""):
                 seconds=time.perf_counter()-start)
 
 
-def run(run_dir,data_path,split="test",budget=384,modes=("full","unformatted","no_hint","early","wrong_step"),base_only=False):
+def run(run_dir,data_path,split="test",budget=384,modes=None,base_only=False):
     run_dir=Path(run_dir)
     manifest=json.loads((run_dir/"manifest.json").read_text())
     cfg=manifest["resolved_config"]
@@ -45,9 +45,12 @@ def run(run_dir,data_path,split="test",budget=384,modes=("full","unformatted","n
     rows=[r for r in read_dataset(data_path) if r["split"]==split]
     if cfg["mode"]=="sft":
         rows=[r for r in rows if r["level"]==cfg["level"]]
-        modes=("full","early")
+        if modes is None:
+            modes=("full","early")
     else:
         rows=[r for r in rows if r["level"]==cfg["level"]]
+        if modes is None:
+            modes=("full","unformatted","no_hint","early","wrong_step")
     valid={"full","unformatted","no_hint","early","wrong_step"}
     if not set(modes)<=valid:
         raise ValueError("Modo de avaliação inválido")

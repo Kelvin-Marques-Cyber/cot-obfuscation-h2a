@@ -5,7 +5,28 @@ treinamento, desempenho e monitorabilidade. Revisão de 15 de outubro de 2026.
 
 **[Baixar o artigo final em PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf)**
 
-## Notebooks
+## Experimento científico v3: sequência completa
+
+| Etapa | Abrir no Colab | Ambiente |
+|---|---|---|
+| 00. Protocolo e datasets | [Protocolo](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/00_protocolo_e_datasets.ipynb) | CPU |
+| 01. SFT replicado | [Treinamento SFT](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/01_treinamento_sft_replicado.ipynb) | GPU |
+| 02. GRPO replicado | [Treinamento GRPO](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/02_treinamento_grpo_replicado.ipynb) | GPU |
+| 03. Competência e teste cego | [Avaliação final](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/03_competencia_e_teste_cego.ipynb) | GPU |
+| 04. Monitor e inferência | [Monitor independente e relatório](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/04_monitor_independente_e_inferencia.ipynb) | GPU |
+
+Comece pelo **00** e use **Ambiente de execução → Executar tudo**. O pacote
+mantém o desenho de **240 treinos e 55.200 gerações TEST**, com 20 sementes,
+três condições e dois níveis por método. O notebook 00 exporta os hashes e o
+protocolo para registro público anterior aos treinos. Informe a URL real no
+campo `PUBLIC_REGISTRATION_URL` antes de iniciar 01/02. A etapa 04 depende
+das anotações humanas descritas no próprio notebook.
+
+Os cinco compartilham o mesmo `STUDY_ID` e retomam os resultados do Drive.
+O padrão v3.2 usa `confirmatory_v3/estudo-principal-2026-v3-2/`, preservando
+estudos anteriores. **[Instruções e protocolo](experimento_cientifico_v3/README.md)**.
+
+## Laboratório de reanálise e testes curtos
 
 | Etapa | Abrir no Colab | Ambiente |
 |---|---|---|
@@ -26,7 +47,7 @@ Reexecutar retoma o trabalho pendente. Os quatro notebooks compartilham
 O código é baixado de um commit fixo, separado de clones antigos no Drive.
 **Se já abriu um notebook antigo, reabra-o pelo link acima**: as cópias do Colab
 mantêm o SHA antigo e não recebem correções automaticamente. Os notebooks
-atuais fixam o código validado em `d6a5f141d17c`.
+fixam uma revisão imutável do código, exibida na primeira célula.
 
 **[Guia para Colab, Vast.ai e Jupyter](revisao_2026/docs/GUIA_GPU.md)**
 

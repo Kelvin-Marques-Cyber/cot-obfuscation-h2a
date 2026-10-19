@@ -55,6 +55,12 @@ def main():
         from gpu_lab.analysis import analyze,export_annotations
         analyze(root/"sft",root/"analysis")
         assert export_annotations(root/"sft",root/"annotation")==2
+        # The prospective protocol requests full only; no secondary rows may leak in.
+        primary=evaluate(run_dir,sft_data,budget=16,modes=("full",))
+        primary_rows=[json.loads(line) for line in Path(primary).read_text().splitlines()]
+        assert len(primary_rows)==2
+        assert {row["evaluation_mode"] for row in primary_rows}=={"full"}
+        assert evaluate(run_dir,sft_data,budget=16,modes=("full",))==primary
         # Simula interrupção após checkpoint 1, preservando a configuração.
         resume_cfg=dict(config,condition="explicit",train_seed=43,max_steps=2)
         resumed=Path(run(resume_cfg,sft_data))

@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-19",
+  "schema": "scientific-prospective-v3.2",
+  "original_archive": {
+    "name": "CoT_Experimento_Cientifico_v3.zip",
+    "sha256": "b6d99919cd8d723d690faeafb107ab0a16006a64b307a45680a8cab64846bee6"
+  },
+  "scientific_runtime_sha256": "0ccc8cd66c429c116fe8a3ddeaee373d9dd72ec2e176d9dc10bc032da6c60f8b",
+  "unit_tests": {
+    "scientific": 17,
+    "existing_lab": 71,
+    "status": "passed"
+  },
+  "notebook_validation": {
+    "count": 5,
+    "nbformat": "passed",
+    "python_cells": "compiled",
+    "protocol_00_all_code_cells_cpu": "passed"
+  },
+  "dataset_test_counts": {
+    "sft_per_level": 220,
+    "grpo_per_level": 240
+  },
+  "model_revisions_resolved_from_public_hub": true,
+  "integration": {
+    "python": "3.13.16",
+    "torch": "2.8.0+cpu",
+    "transformers": "4.56.2",
+    "trl": "0.22.2",
+    "peft": "0.17.1",
+    "random_tiny_model": true,
+    "sft_three_conditions": "passed",
+    "grpo_three_conditions": "passed",
+    "sft_explicit_full_only_and_resume": "passed",
+    "sft_default_modes_unchanged": "passed",
+    "checkpoint_resume": "passed",
+    "independent_monitor_api_cpu": "passed"
+  },
+  "scientific_results_generated": false,
+  "full_cuda_execution_validated": false,
+  "limits": [
+    "CUDA training with the public models was not executed.",
+    "Human annotation and external preregistration are still required."
+  ]
+}
