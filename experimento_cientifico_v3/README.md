@@ -35,6 +35,30 @@ e 120 passos por treino: **120 treinos SFT + 120 GRPO** e **55.200 gerações TE
    Dois avaliadores preenchem os arquivos descritos no protocolo. Salve-os
    em `human/` no diretório do estudo e reexecute o 04 para o relatório.
 
+### Quando a triagem DEV falhar (65%)
+
+Os notebooks 01 e 02 fazem um diagnóstico **em CPU** antes de inicializar a GPU.
+Se as quatro avaliações DEV já foram concluídas e alguma ficou abaixo de
+65%, os notebooks reutilizam os JSONL existentes, conferem os SHA256 e a
+contagem de acertos, mostram exemplos incorretos e **não iniciam a GPU nem
+os treinos confirmatórios**. A interrupção será explicativa, em vez de um
+`RuntimeError` longo. Os arquivos originais não são alterados.
+
+Quando ainda falta um nível DEV, o notebook gera **somente os resultados
+faltantes** e faz nova conferência. Se o critério científico não for atingido,
+os 240 treinos permanecem bloqueados conforme o protocolo v3.2 e o OSF.
+Não é permitido reduzir o limiar, retreinar para escolher uma triagem favorável
+ou apagar avaliações DEV. Se o problema for incompetência real do modelo-base,
+é necessário **outro estudo prospectivo** com mudanças previamente registradas.
+
+**Exemplo já observado na triagem**: SFT-A 57,5%; SFT-C 0%; GRPO-low
+43,33%; GRPO-high 15%. Nenhum nível atingiu 65%. As advertências sobre
+`torch_dtype` e parâmetros de amostragem não são a causa desse bloqueio.
+
+**Importante:** reabra [Notebook 01](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/01_treinamento_sft_replicado.ipynb)
+pelo link do GitHub. Cópias antigas do Colab **não** recebem atualizações.
+Mantenha o `STUDY_ID` original para preservar os arquivos já gerados.
+
 Os arquivos ficam em:
 
 `Meu Drive/CoT_Obfuscation_Lab/confirmatory_v3/estudo-principal-2026-v3-2/`
