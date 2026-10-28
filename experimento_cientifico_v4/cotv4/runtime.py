@@ -779,6 +779,7 @@ def main():
     parser.add_argument('--device', choices=('cuda', 'cpu'), default='cuda')
     parser.add_argument('--url', default='')
     parser.add_argument('--result-json')
+    parser.add_argument('--quiet', action='store_true', help='não repete o JSON completo na saída')
     args = parser.parse_args()
     if not 1 <= args.max_jobs <= 12:
         parser.error('--max-jobs deve estar entre 1 e 12')
@@ -800,7 +801,10 @@ def main():
     result = stage()
     if args.result_json:
         atomic(args.result_json, result)
-    print(json.dumps(result, indent=2, ensure_ascii=False, default=str), flush=True)
+    if args.quiet and args.result_json:
+        print(f'Etapa "{args.stage}" concluída; resultado completo em {args.result_json}.', flush=True)
+    else:
+        print(json.dumps(result, indent=2, ensure_ascii=False, default=str), flush=True)
 
 
 if __name__ == '__main__':

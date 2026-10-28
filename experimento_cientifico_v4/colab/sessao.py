@@ -30,6 +30,31 @@ class StageBlocked(RuntimeError):
     """Etapa impedida por um critério do protocolo ou por falta de recurso."""
 
 
+REASONS = {
+    'gate_not_run': 'a triagem DEV ainda não foi importada; execute o notebook 00 com o mesmo STUDY_ID',
+    'not_prepared': 'o protocolo ainda não foi preparado; execute o notebook 00 com o mesmo STUDY_ID',
+    'external_registration_missing': 'informe PUBLIC_REGISTRATION_URL no notebook 00 depois de publicar o registro',
+    'registration_invalid_or_hash_mismatch': 'o registro declarado não corresponde aos hashes do protocolo',
+}
+
+
+def explain(reasons):
+    """Traduz os códigos de bloqueio para instruções objetivas."""
+    out = []
+    for code in reasons:
+        parts = code.split('_')
+        if '_below_' in code:
+            limit = parts[-1].replace('.', ',')
+            out.append(f'{parts[0].upper()} {parts[1]} abaixo de {limit} na triagem DEV (critério do protocolo)')
+        elif code.endswith('_missing_or_altered'):
+            out.append(f'arquivo da triagem {parts[0].upper()} {parts[1]} ausente ou alterado')
+        elif code.endswith('_incomplete'):
+            out.append(f'triagem {parts[0].upper()} {parts[1]} incompleta')
+        else:
+            out.append(REASONS.get(code, code))
+    return '; '.join(out)
+
+
 def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -179,7 +204,8 @@ class Session:
         if operation.exists():
             operation.unlink()
         args = [python, '-u', '-m', 'cotv4.runtime', stage, '--storage', str(self.storage), '--mode', mode,
-                '--max-jobs', str(max_jobs), '--device', 'cuda' if gpu else 'cpu', '--result-json', str(operation)]
+                '--max-jobs', str(max_jobs), '--device', 'cuda' if gpu else 'cpu', '--result-json', str(operation),
+                '--quiet']
         if url:
             args += ['--url', url]
         try:

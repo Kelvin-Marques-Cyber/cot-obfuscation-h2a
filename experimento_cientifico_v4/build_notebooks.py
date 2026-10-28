@@ -159,9 +159,13 @@ except (Blocked, RuntimeError) as error:
     print("REVISÕES NÃO VERIFICADAS (rede indisponível ou divergência):", str(error).splitlines()[0])
     print("Os SHA fixados no protocolo continuam valendo; verifique antes de registrar.")
 gate = STUDY.execute("gate")
-print("Triagem DEV:", gate.get("status"), gate.get("results", {}))
+for level, result in gate.get("results", {}).items():
+    print(f"Triagem DEV {level}: {result['correct']}/{result['n']} ({result['accuracy']:.1%}); critério 65%")
 if gate.get("status") == "failed":
-    print("TRIAGEM DEV REPROVADA: o protocolo v4 não autoriza treinos neste estudo.")
+    print("TRIAGEM DEV REPROVADA:", sessao.explain(gate["reasons"]))
+    print("O protocolo v4 não autoriza treinos neste estudo; os arquivos são preservados.")
+elif gate.get("status") != "passed":
+    print("TRIAGEM DEV NÃO DISPONÍVEL:", sessao.explain(gate.get("reasons", ["gate_not_run"])))
 ''', '''
 if PUBLIC_REGISTRATION_URL.strip():
     try:
@@ -180,7 +184,7 @@ registered = status["registration"]["passed"] or TECHNICAL_TEST
 if not status["prepared"]:
     print("ETAPA BLOQUEADA: execute primeiro o notebook 00 com o mesmo STUDY_ID.")
 elif not gate_ok:
-    print("ETAPA BLOQUEADA: triagem DEV", status["gate"]["status"], status["gate"].get("reasons"))
+    print("ETAPA BLOQUEADA:", sessao.explain(status["gate"].get("reasons", [])))
 elif not registered:
     print("ETAPA BLOQUEADA: declare o registro público no notebook 00 antes de treinar.")
 else:
@@ -199,7 +203,7 @@ registered = status["registration"]["passed"] or TECHNICAL_TEST
 if not status["prepared"]:
     print("ETAPA BLOQUEADA: execute primeiro o notebook 00 com o mesmo STUDY_ID.")
 elif not gate_ok:
-    print("ETAPA BLOQUEADA: triagem DEV", status["gate"]["status"], status["gate"].get("reasons"))
+    print("ETAPA BLOQUEADA:", sessao.explain(status["gate"].get("reasons", [])))
 elif not registered:
     print("ETAPA BLOQUEADA: declare o registro público no notebook 00 antes de treinar.")
 else:
