@@ -30,3 +30,8 @@ revisao_2026/data/
 revisao_2026/annotation/
 .venv/
 revisao_2026/logs/
+
+# Estudo v4: pastas locais dos notebooks, caches de monitor e compilação do artigo
+cot-v4/
+experimento_cientifico_v4/calibracao/resultados/cache/
+revisao_2026/build/
