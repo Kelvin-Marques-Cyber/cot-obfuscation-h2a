@@ -273,3 +273,21 @@ class RuntimeTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
+
+
+class SelecaoTriagemTests(unittest.TestCase):
+    def test_grpo_gate_covers_all_four_domains(self):
+        from cotv4.avaliacao import select_dev
+        rows = tarefas.make_grpo({'operands': (11, 99)}, 60, 5)
+        for level in ('low', 'high'):
+            selected = select_dev('grpo', rows, level)
+            self.assertEqual(len(selected), 120)
+            self.assertEqual({d: sum(r['domain'] == d for r in selected) for d in tarefas.DOMAINS},
+                             {d: 30 for d in tarefas.DOMAINS})
+            self.assertTrue(all(r['split'] == 'dev' and r['level'] == level for r in selected))
+
+    def test_sft_gate_uses_first_dev_items(self):
+        from cotv4.avaliacao import select_dev
+        rows = tarefas.make_sft(TarefasTests.SPEC, 130, 5)
+        selected = select_dev('sft', rows, 'C')
+        self.assertEqual(selected, [r for r in rows if r['split'] == 'dev' and r['level'] == 'C'][:120])

@@ -111,12 +111,25 @@ def tarefas_rows(path):
         return [json.loads(line) for line in handle if line.strip()]
 
 
+def select_dev(mode, rows, level, n_per_level=120):
+    """Seleção determinística dos itens DEV da triagem."""
+    dev = [r for r in rows if r['split'] == 'dev' and r['level'] == level]
+    if mode == 'sft':
+        return dev[:n_per_level]
+    domains = sorted({r['domain'] for r in dev})
+    per_domain = n_per_level // len(domains)
+    selected = [r for d in domains for r in [x for x in dev if x['domain'] == d][:per_domain]]
+    return selected if len(selected) == n_per_level else []
+
+
 def competence_gate(mode, rows, model_id, revision, destination, budget=256, device='cpu',
                     precision='fp32', n_per_level=120, levels=None, include_hint=False):
     """Triagem DEV dos modelos-base, com retomada e registro integral.
 
-    SFT usa a instrução explícita do contrato; GRPO usa o enunciado sem a dica
-    proibida. Exige os 120 primeiros itens DEV de cada nível, na ordem do arquivo.
+    SFT usa a instrução explícita do contrato e os 120 primeiros itens DEV de cada
+    nível, na ordem do arquivo. GRPO usa o enunciado sem a dica proibida e os 30
+    primeiros itens DEV de cada um dos quatro domínios (120 por nível); no v3.2 a
+    ordem do arquivo restringia a triagem a dois domínios.
     """
     destination = Path(destination)
     destination.mkdir(parents=True, exist_ok=True)
@@ -125,7 +138,7 @@ def competence_gate(mode, rows, model_id, revision, destination, budget=256, dev
     summary = {}
     try:
         for level in levels:
-            selected = [r for r in rows if r['split'] == 'dev' and r['level'] == level][:n_per_level]
+            selected = select_dev(mode, rows, level, n_per_level)
             if len(selected) != n_per_level:
                 raise RuntimeError('DEV com itens insuficientes')
             target = destination / f'dev_{mode}_{level}_base.jsonl'

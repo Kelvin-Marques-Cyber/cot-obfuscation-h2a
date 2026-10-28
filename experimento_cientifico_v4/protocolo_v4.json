@@ -124,7 +124,9 @@
     "precision": "fp16",
     "batch_size": 1,
     "executions_allowed": 1,
-    "gpu": "Tesla T4"
+    "gpu": "Tesla T4",
+    "grpo_selection": "30 primeiros itens DEV de cada domínio por nível (120)",
+    "sft_selection": "120 primeiros itens DEV por nível"
   },
   "training": {
     "precision": "fp16",
