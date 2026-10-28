@@ -120,10 +120,11 @@
     "budget": 256,
     "sft_instruction": "SFT_GATE_SYSTEM",
     "grpo_include_hint": false,
-    "device": "cpu",
-    "precision": "fp32",
+    "device": "cuda",
+    "precision": "fp16",
     "batch_size": 1,
-    "executions_allowed": 1
+    "executions_allowed": 1,
+    "gpu": "Tesla T4"
   },
   "training": {
     "precision": "fp16",

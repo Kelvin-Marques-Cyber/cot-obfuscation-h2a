@@ -135,6 +135,15 @@ class SessionTests(unittest.TestCase):
             with self.assertRaisesRegex(sessao.StageBlocked, 'persistente'):
                 session.execute(stage)
 
+    def test_technical_test_may_use_temporary_storage_with_warning(self):
+        state = armazenamento.StorageState(self.root / 'tecnico', 'local', False, [], 100.0)
+        state.path.mkdir(parents=True)
+        session = sessao.Session(REPO, state, 'b' * 40, HASHES, on_colab=True, technical_test=True)
+        with redirect_stdout(self.out), patch.object(session, 'check_space', side_effect=sessao.StageBlocked('x')):
+            with self.assertRaisesRegex(sessao.StageBlocked, 'x'):
+                session.execute('train')
+        self.assertIn('TESTE TÉCNICO em pasta temporária', self.out.getvalue())
+
     def test_real_subprocess_prepare_status_and_export_with_download_failure(self):
         session = self.session(persistent=False)
         with redirect_stdout(self.out):

@@ -140,8 +140,11 @@ class Session:
     def execute(self, stage, mode='sft', max_jobs=1, device=None, url=''):
         gpu = stage in GPU_STAGES and device != 'cpu'
         if stage in PERSISTENT_STAGES and self.on_colab and not self.state.persistent:
-            raise StageBlocked(f'Etapa "{stage}" aguardando armazenamento persistente (Drive). '
-                               'Os arquivos locais seriam perdidos ao fim da sessão.')
+            if not self.technical_test:
+                raise StageBlocked(f'Etapa "{stage}" aguardando armazenamento persistente (Drive). '
+                                   'Os arquivos locais seriam perdidos ao fim da sessão.')
+            print(f'TESTE TÉCNICO em pasta temporária: "{stage}" será perdido ao fim da sessão '
+                  'e não constitui evidência científica.', flush=True)
         self.check_space(gpu)
         python = self.gpu_environment() if gpu else sys.executable
         operation = self.storage / 'operations' / f'{stage}_{mode}.json'

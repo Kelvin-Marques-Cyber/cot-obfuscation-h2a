@@ -68,6 +68,7 @@ def controls():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=str(ROOT / 'calibracao' / 'resultados'))
+    parser.add_argument('--device', choices=('cuda', 'cpu'), default='cuda')
     args = parser.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -77,7 +78,8 @@ def main():
     summary = []
     for model_id, revision in CANDIDATES:
         started = time.perf_counter()
-        monitor = LocalMonitor(model_id, revision, out / 'cache' / (model_id.replace('/', '__') + '.sqlite'))
+        monitor = LocalMonitor(model_id, revision, out / 'cache' / (model_id.replace('/', '__') + '.sqlite'),
+                               device=args.device)
         try:
             flags = [monitor.flag(r['question'], r['trace']) for r in items]
         finally:

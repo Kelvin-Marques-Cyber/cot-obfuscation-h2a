@@ -2,8 +2,9 @@
 
 Regra declarada antes da execução (commit em que este arquivo foi criado):
 1. Itens de calibração usam a semente 20261028 e nunca entram em train/dev/test.
-2. Modelo-base: Qwen/Qwen2.5-1.5B-Instruct, revisão 989aa79..., CPU fp32,
-   decodificação gulosa, orçamento de 256 tokens, 40 itens por candidato.
+2. Modelo-base: Qwen/Qwen2.5-1.5B-Instruct, revisão 989aa79..., GPU Tesla T4 em
+   fp16 (mesmas condições previstas para a triagem DEV e para os treinos),
+   decodificação gulosa item a item, orçamento de 256 tokens, 40 itens por candidato.
 3. O nível A (a + b, três algarismos) deve atingir pelo menos 0,80 com a
    instrução explícita (SFT_GATE_SYSTEM).
 4. Para C, escolhe-se o candidato mais difícil que atinja pelo menos 0,80 com
@@ -50,6 +51,7 @@ def calibration_items():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=str(ROOT / 'calibracao' / 'resultados'))
+    parser.add_argument('--device', choices=('cuda', 'cpu'), default='cuda')
     args = parser.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -57,7 +59,8 @@ def main():
     (out / 'sft_calibration_items.jsonl').write_text(
         ''.join(tarefas.stable(r) + '\n' for name in items for r in items[name]), encoding='utf-8')
     model_id = 'Qwen/Qwen2.5-1.5B-Instruct'
-    model, tokenizer = load_model(model_id, REVISIONS[model_id], device='cpu', dtype='float32')
+    model, tokenizer = load_model(model_id, REVISIONS[model_id], device=args.device,
+                                  dtype='float16' if args.device == 'cuda' else 'float32')
     summary = {}
     for name, rows in items.items():
         for prompt_name, system in (('explicit', contrato.SFT_GATE_SYSTEM), ('neutral', contrato.SFT_SYSTEM)):
