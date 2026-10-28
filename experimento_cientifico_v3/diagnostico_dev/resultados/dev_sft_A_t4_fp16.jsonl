@@ -1,0 +1,120 @@
+{"accuracy":true,"generation":"10621","gold":"10621","item_id":"0af711debb0af73e0d4c99e3d586dcb5a05cb4a2fae27e89a24c1ff0424325ee"}
+{"accuracy":false,"generation":"5240","gold":"3240","item_id":"299dfebda708ba5103b0f4ad51af14dc578ffb44139622b331f8e97c9c1dc156"}
+{"accuracy":true,"generation":"15470","gold":"15470","item_id":"cf738e687f3f10c3035d25be36b9513d0483570f281e6b2444062d7ef6c5e069"}
+{"accuracy":true,"generation":"6883","gold":"6883","item_id":"a1aa9583ca4287c93ebf7c3d8a15d443eb440cac0fa537ad8a85798b87eb8b41"}
+{"accuracy":false,"generation":"1075 + 8302 = 9377","gold":"9377","item_id":"5d36fd1cebf88a6552abf1b2050ca0653902f5a257a8e5eb3c11cb7886d266a2"}
+{"accuracy":true,"generation":"15580","gold":"15580","item_id":"4ecdf59f2b3a60624539fddf96d2c4691c01573fce049f57fbaf40b6c3c96d1f"}
+{"accuracy":true,"generation":"15708","gold":"15708","item_id":"a02e296b3b2ae6e4c87650420bf6da19754a320d0027a7d291c51e5c8fd1dfe4"}
+{"accuracy":true,"generation":"2695","gold":"2695","item_id":"3e66910350094ee2ee3e2dce40cad9da8c7b79d70f2fa1d6ece6508a26ade21d"}
+{"accuracy":false,"generation":"12998","gold":"8898","item_id":"8fb56352ae6486017fb8de2ee384f73f24a3dcc37bb2773b510102bccc0373b4"}
+{"accuracy":true,"generation":"7393","gold":"7393","item_id":"8dc285badad1b52f3cca1409c96b8552233bea5b43496b9abadf7133a01f9b31"}
+{"accuracy":false,"generation":"5019","gold":"6019","item_id":"e0f828d63c84d838d17c1a24f9764ee9e4e757350d2d1cf84dd2787c6ee5f1eb"}
+{"accuracy":false,"generation":"11033","gold":"7043","item_id":"ba81e3e0ff150569330547c794c49d856fd0012317c65df03ce0d857174cf29d"}
+{"accuracy":true,"generation":"5713","gold":"5713","item_id":"464350bc9c55adccf577d822efeccd05854f521beb39e621a7362cd8db28a543"}
+{"accuracy":false,"generation":"O resultado de 4098 mais 4404 é 8502.","gold":"8502","item_id":"2a953a0c5cd4b61f8658b8f6dfc72acc44dbecddfc6fa6992e03e2a16b1fd501"}
+{"accuracy":false,"generation":"8672","gold":"7672","item_id":"6fb624ff178a7384fdc657d09e85da5459d0c10c7bfb43bd5d04c68ba50bb244"}
+{"accuracy":true,"generation":"5864","gold":"5864","item_id":"e9ad51dbe25a702098b851ed20f4863b9cd3a4b62045d6be688a1db38a3d2b7b"}
+{"accuracy":true,"generation":"10407","gold":"10407","item_id":"0b2d7a75db2f66b527a64916e1852c2d53939b5b26fa5d63e93c182fca23b7a7"}
+{"accuracy":false,"generation":"La resposta é: 10060","gold":"10060","item_id":"f9434054d62490366800c992314efadc8d97705ea077e2be27a3f89b52473fcd"}
+{"accuracy":true,"generation":"13497","gold":"13497","item_id":"4a6f894b028384be0da9989cd102e400aa0a2de2c3a0ace7da969418aa8f5731"}
+{"accuracy":true,"generation":"6201","gold":"6201","item_id":"aad332f7daedb8aa0d5cc7f7750555a8366b02a0c5f94235a6c9c4c6fa8e672d"}
+{"accuracy":true,"generation":"11706","gold":"11706","item_id":"ceddfd8150884c2dc0cd3f1e563b78edaba13032a32dc103c588555e0694c66b"}
+{"accuracy":false,"generation":"10893","gold":"9893","item_id":"bd2474dc7738daa9f23a6c5543bfcf33329d8d3c3fe7ac9589256fbcb2421e22"}
+{"accuracy":false,"generation":"16490","gold":"6280","item_id":"a001c890512768611fd85d0d7a6c37031d7d2ade0a2654f48dcb9bce3dc9915f"}
+{"accuracy":true,"generation":"11697","gold":"11697","item_id":"e95041bf6071e984b74b2364e573e945cb375057c846bcc43524e632a60fe6c8"}
+{"accuracy":false,"generation":"O resultado de 1334 + 6284 é 7618.","gold":"7618","item_id":"405b9902d4fc858909d73023182e178954ee5ab3825c4681d18561378398e0cb"}
+{"accuracy":true,"generation":"16508","gold":"16508","item_id":"4f1f953b74e58950f32190a5fd9fec67adc39bd9903af47a55f216c2bb0c478a"}
+{"accuracy":true,"generation":"17681","gold":"17681","item_id":"bde139e6a23a7ce798d5c9c063b62c466e32716b52c886194836600674f12aff"}
+{"accuracy":true,"generation":"16086","gold":"16086","item_id":"d8ebf487ba4621af1b04bf753a4417907176d21e0c63c8a8c0bebeaabdd49ff4"}
+{"accuracy":false,"generation":"9488","gold":"5468","item_id":"979a81520c183feba9ead9479e260302769d2dc32caf87e5b0db16d132a0faef"}
+{"accuracy":false,"generation":"19404","gold":"9414","item_id":"25ea73eecc479e1971c34dcfd1ec1d03e7312ab9b6c3237388649cc00da84967"}
+{"accuracy":false,"generation":"A resposta é 14985.","gold":"14985","item_id":"7a666be82d1b01ef4cb07fc0d1e6a5b154b94cedc22177108e60acf6e6728a80"}
+{"accuracy":false,"generation":"10876","gold":"9876","item_id":"13b9677823a4cd7a69a45392cc6761b7e51a348a9c5eae2ecfb42b7284378e32"}
+{"accuracy":false,"generation":"La resposta é: 9523","gold":"9523","item_id":"73bf44602b0d0afabbe70a8519986560d39685307fcc4dc99e4ab978a0d581ad"}
+{"accuracy":true,"generation":"6471","gold":"6471","item_id":"66aba15ea6abf624de18ccf27ad2fa6fe88eea18aa31e322f0baa94438e2ed18"}
+{"accuracy":false,"generation":"10560","gold":"9560","item_id":"54b27c644157a56173399274e828aeb5f10dcd97b8251d6cf2598e3bc333ea2e"}
+{"accuracy":false,"generation":"A resposta é 14983.","gold":"14983","item_id":"cf0989134c5ee7727da791f1d4d1aa62666b7f24e828793df6c3f4588f5b9a8b"}
+{"accuracy":true,"generation":"3770","gold":"3770","item_id":"118e9ec1c6cf460e9e72c94431cce09774080f79eb9dc536cf5bbe457c9fda09"}
+{"accuracy":true,"generation":"2752","gold":"2752","item_id":"8ee52fec92d58a4092f40e613524d3f7d5143cfec94040f71792ddd136efba04"}
+{"accuracy":false,"generation":"2971","gold":"4971","item_id":"f7dfe89d26f060778ea77f3bacdd64ecb48dd9faaa2df9950edba122ffdbe390"}
+{"accuracy":true,"generation":"16652","gold":"16652","item_id":"ddc719cede1918a1b44525f58ecfca15c75394d86d86c734bb062007ca5f7517"}
+{"accuracy":true,"generation":"10412","gold":"10412","item_id":"381f5d3cc77414233d854d252b8181e2bb7e51a66451be2f98f759ffec9d13a8"}
+{"accuracy":false,"generation":"18256","gold":"7906","item_id":"36929cdfe9c1e19ba3575dbbe569f2144ad301d8015e3d8b1007784c9edda379"}
+{"accuracy":false,"generation":"La resposta é: 848","gold":"848","item_id":"aff93b5e3718c0f37767f58aee7d8d1ff74dfcb25b48f0e58c3cfb64790b8e21"}
+{"accuracy":true,"generation":"10824","gold":"10824","item_id":"f373a83a0a1d09a44391912a87b01633232159f1479e0c95b6ac78521cb8b1ed"}
+{"accuracy":true,"generation":"8815","gold":"8815","item_id":"9bc82babf5007a6308e29e9e5bd7dfc0e89470e96db4ede63f201815247b6c67"}
+{"accuracy":true,"generation":"6714","gold":"6714","item_id":"3aca7203de3a71eec7c36ddb85aeb551da0529921b18ef371693fc3c7faf153b"}
+{"accuracy":true,"generation":"10448","gold":"10448","item_id":"98a2f97806221ad101f1798a4f165ce847c693e95db5a1e546e25354e17d4a85"}
+{"accuracy":true,"generation":"9693","gold":"9693","item_id":"f18867d09c93e81e7c49c0a9865caa6ca2047b00a8b238c78334de044b7f0010"}
+{"accuracy":true,"generation":"11291","gold":"11291","item_id":"bf7e7453eb20d10dfdd8ee91854107b5da2837dbae3ffbbebfe37b95a30a1dfe"}
+{"accuracy":true,"generation":"8734","gold":"8734","item_id":"a81b44a1d7e412072bcbacaf5e75ac6c86ff6e2032c2e39a20d01d315cac3669"}
+{"accuracy":false,"generation":"5235","gold":"5855","item_id":"d531eda86219f47215f880f8c0aba997c5f8121ed126e3bbb5e8a7040f6842db"}
+{"accuracy":true,"generation":"10346","gold":"10346","item_id":"26047af57fe0a25520506d57de3b01f29f10368edaa37cdefb98c1bd84c638f7"}
+{"accuracy":false,"generation":"A resposta é: 6299","gold":"6299","item_id":"c81f48ffb4ee82035f1d7cc821082db2bd45a0fbf3672aab8db3ec9c74480935"}
+{"accuracy":true,"generation":"6940","gold":"6940","item_id":"31089cd24ba3407643fc6fe3eead31b3ab33875e35abb800b871b9c9c30080cb"}
+{"accuracy":true,"generation":"10274","gold":"10274","item_id":"ac5de7d3aa6982bb58e843593a1955efb0b54d280d84a6a93343cf1f538110c4"}
+{"accuracy":true,"generation":"12123","gold":"12123","item_id":"6880fc0f6a21acf469223c9f9dc534030304907cc801fa0a9d0488edf271d887"}
+{"accuracy":true,"generation":"9109","gold":"9109","item_id":"aa8b1e4f463c1216b2b982c66293a4fe5f4bfc96e2a3a5e1af845218fe838522"}
+{"accuracy":false,"generation":"3685","gold":"2685","item_id":"64a5721c8e80ca62bb51594e8ed1204d38e4e314a57e61cc629dbec1c857cc18"}
+{"accuracy":false,"generation":"5092","gold":"4092","item_id":"04c2686de17f0dc66f4142491cf5877d757fe822b44db96a1e5302d8d1ba0cd5"}
+{"accuracy":true,"generation":"12254","gold":"12254","item_id":"6802d85262d07090b2db21592f9295833b46bb48a90abf1588953d71b9ca4b95"}
+{"accuracy":true,"generation":"12777","gold":"12777","item_id":"775a1c0a7e965f55132dfe38bee50349b6b7a031ac86d0287207c1b29bd79ea8"}
+{"accuracy":true,"generation":"7477","gold":"7477","item_id":"c3d44246786590e813b180c36ac0f453f669f9e485bf22e68aa8c3872fefdfa7"}
+{"accuracy":true,"generation":"7928","gold":"7928","item_id":"ba030f67234bacd7075a02bfad4216a0fe205f6874fca03ac9bbca76eb94a6c5"}
+{"accuracy":false,"generation":"La resposta é: 9350","gold":"9350","item_id":"deb0047ad2aae2382615bcc70c43c0c985933a6e9767d6f800f5d88eeb853afd"}
+{"accuracy":false,"generation":"5252","gold":"11252","item_id":"5dafe4e2fb71c4da0e92461b4f111173746b75e4d74fde3e3c246621f7d5bad1"}
+{"accuracy":true,"generation":"13244","gold":"13244","item_id":"db379a58f0fe026e266713f6d000afbb0548dc047257870f2c52192644dfde5d"}
+{"accuracy":true,"generation":"11078","gold":"11078","item_id":"24b156675c473a4d6fece4367a396b673b7faac0f7b935f6ba2309cb988f30b6"}
+{"accuracy":true,"generation":"11935","gold":"11935","item_id":"6ea393c4c670c9e5be75972ccc20d0ff68ddceb20ae684cfd06ded3536f759c8"}
+{"accuracy":true,"generation":"10207","gold":"10207","item_id":"54da3117d5faf7b1c997936ec1d02c59c94ecae07cc22b0380b021a549aa3481"}
+{"accuracy":true,"generation":"17543","gold":"17543","item_id":"4b4477e2c8306a24dba2f6c4de5aab0c56812743b488f7d2f45a3d213458ef65"}
+{"accuracy":true,"generation":"14543","gold":"14543","item_id":"67c5a8a4c33a547aa63d68f8f4b15ea62a77f972e698c2a4b9ec285fd71e0791"}
+{"accuracy":true,"generation":"11639","gold":"11639","item_id":"99d8f676f6ed58f9d40f98cd7e4428d969f68784d7374e2686b199bedbcc076c"}
+{"accuracy":false,"generation":"1991","gold":"1891","item_id":"685b7f343ede1638573cb22dc7f6da12aa1be2e3f873c8f4d952bfb7a679b8ce"}
+{"accuracy":true,"generation":"5558","gold":"5558","item_id":"a3068f682685005695a3026b38a7db881ad9ee776ca01190f6b06bf26a7be92f"}
+{"accuracy":true,"generation":"11752","gold":"11752","item_id":"109f23ef829f0add0e1a07b60c7e3d6a65a39b48af01dab50ba6b4c45402bac6"}
+{"accuracy":true,"generation":"6933","gold":"6933","item_id":"72b28c8f6a579428a9dbbe869a881ccedf02138cb71a30c355cb78cd22358fab"}
+{"accuracy":false,"generation":"11,863","gold":"11863","item_id":"9182206d11caee3171d9cb7c3a06b273f83de6091dde789e7e7a591c3cd695cb"}
+{"accuracy":true,"generation":"14061","gold":"14061","item_id":"c424bfdbd7ec1f677e8e6da01de9e91efba373d2f2fb845f6d36e543ba41fdac"}
+{"accuracy":false,"generation":"A resposta é: 9700","gold":"9700","item_id":"d6b3195d8cfdb2f6508fad36b236073d58898c61f1eebb6f927006a714c07d45"}
+{"accuracy":false,"generation":"8058","gold":"9058","item_id":"b4919c6d2089185e394ae5c2877789ece2ba67e031113baace8728f3c38fd415"}
+{"accuracy":true,"generation":"3634","gold":"3634","item_id":"6ae5d3837005ede5c9f1d160e2105698ca6ab877689a878094da1c47a6d44aa4"}
+{"accuracy":true,"generation":"17248","gold":"17248","item_id":"0dd17968ece83f7695c8a81bf994de5c658e7caaa3f981032bd510e17d43df80"}
+{"accuracy":false,"generation":"10,974","gold":"9974","item_id":"b61463f4018ba61a7989579d47528665fab8bc3cc9612df280d6049f8d794c94"}
+{"accuracy":true,"generation":"13298","gold":"13298","item_id":"c3533d745794b6c1f32b7d1b8713083f3c7b7d70072edad388b8d63aff9805e0"}
+{"accuracy":false,"generation":"5222","gold":"4222","item_id":"410e066955765861241af2cd0c36e62101559df8ad118f4a17adedee31705ba5"}
+{"accuracy":true,"generation":"8351","gold":"8351","item_id":"eb3aed40dcd16d30c8bb36111fc52979da7b9c46f79c9beffe3d585602493624"}
+{"accuracy":false,"generation":"2940","gold":"3840","item_id":"d2bae9c47c9079bc6fb7f716cd41622effbbd2812fffd0712e435b082132c099"}
+{"accuracy":false,"generation":"12154","gold":"4444","item_id":"794b7f44c21ba380354c2af9e75f0d93fb7f9f2bf78f84547d44e3f35636d131"}
+{"accuracy":false,"generation":"5430","gold":"4430","item_id":"4ff7bc89fac4867bac8b16f444b22175645d28fb3de50f7644d79c2fbd504593"}
+{"accuracy":true,"generation":"17731","gold":"17731","item_id":"c6e7bc7b5593014ecf1f6a64d4a7449811d744cf353de8660d9896f64f554d8a"}
+{"accuracy":true,"generation":"16047","gold":"16047","item_id":"f39c2680d06b8a802761b0c0043d2420a2a70820ab7b9b3370e85bb70c38c67f"}
+{"accuracy":false,"generation":"3926","gold":"2926","item_id":"c3b298a7b704d79fee98ec1a70bef84bb26b50ed0440a7c4937a9c9ae4881078"}
+{"accuracy":false,"generation":"A resposta é: 8708","gold":"8708","item_id":"b4765ab2ae095e7155ec271460d4a74e49f2f282feffc174608c94373a6ccd4d"}
+{"accuracy":false,"generation":"1601","gold":"6201","item_id":"821a54dde251a3d091777421924a1c91a8cb1ec81d94f8bba4c13027a1cdfacc"}
+{"accuracy":false,"generation":"1037 + 6035 = 7072","gold":"7072","item_id":"13c69e7af2e4d30985c9c135e9f37b3465b58efa0c997ce2739904e0afb88341"}
+{"accuracy":true,"generation":"444","gold":"444","item_id":"868141504423f5c5589ab62b15daa6a823c45fec83f1803d678b660cf8ae3c65"}
+{"accuracy":false,"generation":"20630","gold":"10640","item_id":"6c33e5a619b0b3b4f38b9a4798195c29d1bc6da44b6377d476ee292d862bb0c6"}
+{"accuracy":false,"generation":"2136","gold":"6936","item_id":"31b15e40eb5f41afe466d6a4c2e32a74291eb59d438b4784ec4ebc3a23f798fc"}
+{"accuracy":true,"generation":"7786","gold":"7786","item_id":"30f0ecb7215f9ce97e8402134ca2156b3ad4b6162ca5cae43af8435d9dcdea72"}
+{"accuracy":true,"generation":"13735","gold":"13735","item_id":"2dbaaa0d264c566334576d0cc081c9039780431f8bff67cae1c4a64396a9332f"}
+{"accuracy":true,"generation":"13335","gold":"13335","item_id":"99420f4a54f065d68f2d3f9dfc67376eadcb510b7bbdf3c1790e44002f1868fd"}
+{"accuracy":false,"generation":"3403","gold":"8403","item_id":"0004a1fa03cbf206f80f35d148a31bd405066ff4fe99ae2d5cc0683cdcf5412b"}
+{"accuracy":true,"generation":"11506","gold":"11506","item_id":"e414471c43a757d74a528bc4744a3014fc4ac28870efe72f5d5723d2aa5586fd"}
+{"accuracy":true,"generation":"8591","gold":"8591","item_id":"39b3d76b83906968e0a32dcd9b09bd1a2f7f2b5800ba6f95de90dba9d665491f"}
+{"accuracy":true,"generation":"5526","gold":"5526","item_id":"ca36cd6fb4e12edebf4805e85f391053d5b043e65a40f3e5dfb57deaff103785"}
+{"accuracy":true,"generation":"12746","gold":"12746","item_id":"a5d4439252101b346c54072e126c3956361d611babb5871143d297c91c7d7bae"}
+{"accuracy":true,"generation":"12851","gold":"12851","item_id":"d8c6ab80c0cb2597e17359860d5f689c57984fe87815fcf165c116778743994a"}
+{"accuracy":true,"generation":"14161","gold":"14161","item_id":"685e709f827d4e1a1bb0bbb788eec94664064c0280b01f7bce42aae0de9358ac"}
+{"accuracy":false,"generation":"14255","gold":"8625","item_id":"afc440a2236a91852743d25e9b1456139d68d2a2c4ef8b076d6225d781e7f190"}
+{"accuracy":false,"generation":"A resposta é 4637.","gold":"4637","item_id":"3a5a9dd0a945fe29e919979e7d65045ac7b5427ff3223278369bbad25fdadab1"}
+{"accuracy":false,"generation":"La resposta é: 7444","gold":"7444","item_id":"eba9d140f59d7e9890e3a0d54b0abb64b09980bc07b77a96e364b9a9cff5c2dd"}
+{"accuracy":true,"generation":"2165","gold":"2165","item_id":"55a2e2dc5709d2c7180984236dc43160e894a790fe0ffd7595abb6d4f49a0979"}
+{"accuracy":false,"generation":"2582","gold":"6492","item_id":"6139a40f18a5ef67382a584fa224e01a502e798df529cad27e8db7f544fdff96"}
+{"accuracy":false,"generation":"La resposta é: 9397","gold":"9397","item_id":"a7a84d0751493aa5fcb473061d8ecafbd993ed0be4d0d26ffc1b079842e0bec8"}
+{"accuracy":true,"generation":"5746","gold":"5746","item_id":"69b1d7a29d366fbc30199a16113b4602e8e13f918cefc09c86217d37f33cc816"}
+{"accuracy":false,"generation":"10014","gold":"11014","item_id":"08110cd7f3116418fcb5e67e985d84ee64d21cc08b0195a2f23f56d11e270f3e"}
+{"accuracy":true,"generation":"10043","gold":"10043","item_id":"61dc5c72610963ab503c8a862314564e2cc81c508fa60eea95014bae45d0327e"}
+{"accuracy":true,"generation":"12924","gold":"12924","item_id":"0a26549a43771714343b3819878b560d2c596a01d734eaee7a133bcffc9779a9"}
+{"accuracy":false,"generation":"10,559","gold":"10549","item_id":"776b47ff6731f69787f0c21d036ff4ec429b8d3941ff2a4f731636fa20f7a72e"}
+{"accuracy":false,"generation":"21357","gold":"11357","item_id":"74a23eb0b789ba7ae008f95d48ece05c8129f6ac5ac5e953c7abde2556cf7e46"}

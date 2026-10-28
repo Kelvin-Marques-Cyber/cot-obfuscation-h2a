@@ -1,0 +1,14 @@
+{
+  "python": "3.12.3",
+  "torch": "2.8.0+cu128",
+  "cpu": "x86_64",
+  "threads": 4,
+  "dtype": "float32",
+  "device": "cpu",
+  "model_id": "Qwen/Qwen3-1.7B",
+  "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "data_sha256": "372ba9539425bb7dd463086c7dc274730abdd3c9c4f57f45f059948f36492616",
+  "budget": 256,
+  "frozen_source": "/tmp/claude-0/-home-user-cot-obfuscation-h2a/e8ba4f0c-e443-550d-b049-4103eb53187b/scratchpad/frozen_fde856f",
+  "transformers": "4.56.2"
+}

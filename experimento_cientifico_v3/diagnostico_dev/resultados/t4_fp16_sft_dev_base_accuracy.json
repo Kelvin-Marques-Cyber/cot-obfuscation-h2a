@@ -1,0 +1,14 @@
+{
+  "A": {
+    "n": 120,
+    "accuracy": 0.575,
+    "file": "/content/diag-v3/studies/diagnostico-triagem-v3-2/analysis/sft/dev_A_base_generations.jsonl",
+    "sha256": "84b6798d9bc0462a265578bcbd7cea96384782cbcaa78f2a142fcaf18af4acda"
+  },
+  "C": {
+    "n": 120,
+    "accuracy": 0,
+    "file": "/content/diag-v3/studies/diagnostico-triagem-v3-2/analysis/sft/dev_C_base_generations.jsonl",
+    "sha256": "9b44e794b0b392979aa149a4d80ebed10f17d82e605c69a85ded8a19734a6845"
+  }
+}
