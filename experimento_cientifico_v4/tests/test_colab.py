@@ -108,8 +108,14 @@ class StorageTests(unittest.TestCase):
         self.assertTrue(state.persistent)
 
 
+def _has_pip():
+    import subprocess
+    return subprocess.run([sys.executable, '-m', 'pip', '--version'], capture_output=True).returncode == 0
+
+
+@unittest.skipUnless(_has_pip(), 'o interpretador atual não tem pip (o Python do Colab tem)')
 class VirtualenvFallbackTests(unittest.TestCase):
-    """Cria de fato um ambiente pelo caminho alternativo (requer acesso ao PyPI)."""
+    """Cria de fato um ambiente pelo caminho alternativo (requer pip e acesso ao PyPI)."""
     def test_fallback_without_ensurepip_creates_isolated_env_with_system_packages(self):
         import subprocess
         with tempfile.TemporaryDirectory() as temp, redirect_stdout(io.StringIO()):

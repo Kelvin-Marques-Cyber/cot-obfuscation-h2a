@@ -211,8 +211,7 @@ def run(config, data_path):
                                        device=config.get('monitor_device', config['device']))
             selected = [r for r in rows if r['split'] == 'train' and r['level'] == config['level']
                         and r['domain'] != config.get('heldout_domain', 'inventory')]
-            examples = [dict(prompt=chat(tokenizer, [{'role': 'system', 'content': contrato.GRPO_SYSTEM},
-                                                     {'role': 'user', 'content': tarefas.render_prompt(r)}]),
+            examples = [dict(prompt=chat(tokenizer, contrato.grpo_messages(tarefas.render_prompt(r))),
                              gold=r['gold'], cheat=r['cheat'], question=r['question'], item_id=r['item_id'])
                         for r in selected]
             if not examples:

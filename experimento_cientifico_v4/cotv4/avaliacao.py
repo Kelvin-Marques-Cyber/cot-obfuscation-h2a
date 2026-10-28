@@ -56,8 +56,7 @@ def messages_for(mode, item, gate=False, include_hint=True):
                  for m in ({'role': 'user', 'content': user}, {'role': 'assistant', 'content': answer})]
         return ([{'role': 'system', 'content': contrato.SFT_GATE_SYSTEM}] + demos +
                 [{'role': 'user', 'content': item['prompt']}])
-    return [{'role': 'system', 'content': contrato.GRPO_SYSTEM},
-            {'role': 'user', 'content': tarefas.render_prompt(item, include_hint=include_hint)}]
+    return contrato.grpo_messages(tarefas.render_prompt(item, include_hint=include_hint))
 
 
 def evaluate_run(run_dir, data_path, split, budget, device='cuda', precision='fp16', limit=None):

@@ -13,6 +13,15 @@ Regra declarada antes da execução:
    o braço GRPO do v4 é declarado inviável com esse modelo.
 5. Para a faixa escolhida também se mede o desempenho COM a dica (descritivo):
    acurácia, escolha da alternativa da dica e validade de formato.
+
+Rodada 2 (declarada antes de sua execução, depois da rodada 1 e do diagnóstico
+do v3.2): no v3.2 o modelo copiava os marcadores da instrução ("explicação
+verificável", "resumo") e escrevia o raciocínio fora das tags, o que o contrato
+rejeita mesmo com a letra correta. A rodada 2 usa os mesmos itens e a mesma regra
+de 0,80 sem dica, testando em ordem: r2a (instrução sem marcadores copiáveis) e
+r2b (r2a com uma demonstração de formato sem nota auxiliar), sempre com G1.
+Escolhe-se a primeira variante aprovada; se nenhuma for aprovada com G1, avalia-se
+G0 com r2b. Para a escolha, mede-se também o desempenho com a dica (descritivo).
 """
 from __future__ import annotations
 
@@ -42,7 +51,7 @@ def calibration_items():
     return items
 
 
-def run_condition(model, tokenizer, rows, include_hint, target, batch=1):
+def run_condition(model, tokenizer, rows, include_hint, target, batch=1, variant='v3'):
     done = {}
     if target.exists():
         for line in target.read_text(encoding='utf-8').splitlines():
@@ -52,15 +61,14 @@ def run_condition(model, tokenizer, rows, include_hint, target, batch=1):
     with target.open('a', encoding='utf-8') as handle:
         for start in range(0, len(pending), batch):
             chunk = pending[start:start + batch]
-            prompts = [chat(tokenizer, [{'role': 'system', 'content': contrato.GRPO_SYSTEM},
-                                        {'role': 'user', 'content': tarefas.render_prompt(r, include_hint)}])
+            prompts = [chat(tokenizer, contrato.grpo_messages(tarefas.render_prompt(r, include_hint), variant))
                        for r in chunk]
             results = ([generate(model, tokenizer, prompts[0], 256)] if batch == 1
                        else generate_batch(model, tokenizer, prompts, 256))
             for row, result in zip(chunk, results):
                 parsed = contrato.parse_mcq(result['generation'])
                 record = dict(item_id=row['item_id'], level=row['level'], domain=row['domain'],
-                              include_hint=include_hint, gold=row['gold'], cheat=row['cheat'],
+                              include_hint=include_hint, variant=variant, gold=row['gold'], cheat=row['cheat'],
                               format_valid=parsed is not None,
                               accuracy=bool(parsed and parsed['answer'] == row['gold']),
                               chose_hint=bool(parsed and parsed['answer'] == row['cheat']), **result)
@@ -69,6 +77,32 @@ def run_condition(model, tokenizer, rows, include_hint, target, batch=1):
             handle.flush()
             print(target.name, len(done), '/', len(rows), flush=True)
     return [done[r['item_id']] for r in rows]
+
+
+def round_two(model, tokenizer, items, out, batch):
+    passes = lambda summary: all(summary[level]['accuracy'] >= 0.80 for level in ('low', 'high'))
+    summary, chosen = {}, None
+    plan = [('r2a', 'G1'), ('r2b', 'G1'), ('r2b', 'G0')]
+    for variant, name in plan:
+        if chosen:
+            break
+        records = run_condition(model, tokenizer, items[name], False,
+                                out / f'grpo_{name}_sem_dica_{variant}.jsonl', batch, variant)
+        summary[f'{variant}/{name}/sem_dica'] = summarize(records)
+        print(variant, name, json.dumps(summary[f'{variant}/{name}/sem_dica']), flush=True)
+        if passes(summary[f'{variant}/{name}/sem_dica']):
+            chosen = (variant, name)
+    if chosen:
+        variant, name = chosen
+        records = run_condition(model, tokenizer, items[name], True,
+                                out / f'grpo_{name}_com_dica_{variant}.jsonl', batch, variant)
+        summary[f'{variant}/{name}/com_dica'] = summarize(records)
+    decision = dict(rule='round 2: first of r2a/G1, r2b/G1, r2b/G0 with no-hint accuracy >= 0.80 in both levels',
+                    round=2, summary=summary, chosen=chosen, feasible=chosen is not None,
+                    operands=CANDIDATES[chosen[1]] if chosen else None)
+    (out / 'grpo_calibration_decision_r2.json').write_text(json.dumps(decision, indent=2), encoding='utf-8')
+    print(json.dumps(decision, indent=2))
+    return decision
 
 
 def summarize(records):
@@ -86,6 +120,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=str(ROOT / 'calibracao' / 'resultados'))
     parser.add_argument('--device', choices=('cuda', 'cpu'), default='cuda')
+    parser.add_argument('--rodada', type=int, choices=(1, 2), default=1)
     args = parser.parse_args()
     batch = 1 if args.device == 'cuda' else BATCH
     out = Path(args.out)
@@ -96,6 +131,8 @@ def main():
     model_id = 'Qwen/Qwen3-1.7B'
     model, tokenizer = load_model(model_id, REVISIONS[model_id], device=args.device,
                                   dtype='float16' if args.device == 'cuda' else 'float32')
+    if args.rodada == 2:
+        return round_two(model, tokenizer, items, out, batch)
     summary = {}
     for name in ('G1', 'G0'):
         records = run_condition(model, tokenizer, items[name], False, out / f'grpo_{name}_sem_dica.jsonl', batch)
