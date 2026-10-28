@@ -15,6 +15,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -97,26 +98,56 @@ def values():
         for key, entry in diag['levels'].items():
             mode, level = key.split('/')
             base = f'v3.{mode}.{level}'
+            t4 = entry['t4_fp16']
             out[base + '.doc'] = pct(entry['documented_accuracy'], 2 if mode == 'grpo' else 1)
             out[base + '.doc_k'] = frac(entry['documented_correct'], 120)
-            out[base + '.cpu'] = pct(entry['reproduced_accuracy'])
-            out[base + '.cpu_k'] = frac(entry['reproduced_correct'], 120)
+            out[base + '.t4'] = pct(t4['accuracy'])
+            out[base + '.t4_k'] = frac(t4['correct'], 120)
             out[base + '.perm'] = pct(entry['permissive_upper_bound'])
-            out[base + '.trunc'] = str(entry['truncated'])
-            out[base + '.tokens'] = num(entry['mean_output_tokens'], 1)
             for name, count in entry['categories'].items():
                 out[f'{base}.cat.{name}'] = str(count)
-            if 't4_fp16' in entry:
-                t4 = entry['t4_fp16']
-                out[base + '.t4'] = pct(t4['accuracy'])
-                out[base + '.t4_k'] = frac(t4['correct'], 120)
-                out[base + '.t4_igual_cpu'] = str(t4.get('same_correctness_as_cpu', ''))
-                out[base + '.t4_ident'] = str(t4.get('identical_generation_as_cpu', ''))
+            cpu = entry.get('cpu_fp32')
+            if cpu:
+                out[base + '.cpu_k'] = frac(cpu['correct'], cpu['n'])
+                out[base + '.cpu_n'] = str(cpu['n'])
+                out[base + '.cpu_ident'] = str(cpu['identical_generation'])
+                out[base + '.cpu_igual'] = str(cpu['same_correctness'])
+                out[base + '.trunc'] = str(cpu['truncated'])
+                out[base + '.tokens'] = num(cpu['mean_output_tokens'], 1)
             if mode == 'grpo':
                 out[base + '.formato'] = str(entry['format_valid'])
-                out[base + '.dica'] = str(entry['chose_hint_letter'])
+                out[base + '.dica'] = str(entry['chose_hint_letter_valid_format'])
+                out[base + '.marcador'] = str(entry['copied_instruction_placeholder'])
+                out[base + '.letra'] = str(entry['answer_letra_literal'])
                 for domain, d in entry['by_domain'].items():
                     out[f'{base}.dom.{domain}'] = frac(d['correct'], d['n'])
+    cal = V4 / 'calibracao' / 'resultados'
+    for name, prefix in (('sft_calibration_decision.json', 'cal.sft.r1'), ('sft_calibration_decision_r2.json', 'cal.sft.r2')):
+        if (cal / name).exists():
+            for key, entry in read_json(cal / name)['summary'].items():
+                tag = key.replace('/', '.')
+                out[f'{prefix}.{tag}'] = pct(entry['accuracy'])
+                out[f'{prefix}.{tag}.k'] = frac(round(entry['accuracy'] * entry['n']), entry['n'])
+    for name, prefix in (('grpo_calibration_decision.json', 'cal.grpo.r1'), ('grpo_calibration_decision_r2.json', 'cal.grpo.r2')):
+        if (cal / name).exists():
+            for key, levels in read_json(cal / name)['summary'].items():
+                for level, entry in levels.items():
+                    tag = key.replace('/', '.') + '.' + level
+                    out[f'{prefix}.{tag}'] = pct(entry['accuracy'])
+                    out[f'{prefix}.{tag}.k'] = frac(round(entry['accuracy'] * entry['n']), entry['n'])
+                    out[f'{prefix}.{tag}.dica'] = pct(entry['chose_hint'])
+                    out[f'{prefix}.{tag}.formato'] = pct(entry['format_valid'])
+    short = {'HuggingFaceTB/SmolLM2-135M-Instruct': '135m', 'HuggingFaceTB/SmolLM2-360M-Instruct': '360m',
+             'HuggingFaceTB/SmolLM2-1.7B-Instruct': 'smol17b', 'Qwen/Qwen2.5-0.5B-Instruct': 'reward',
+             'Qwen/Qwen2.5-1.5B-Instruct': 'qwen15b', 'allenai/OLMo-2-0425-1B-Instruct': 'olmo1b',
+             'ibm-granite/granite-3.3-2b-instruct': 'granite2b', 'HuggingFaceTB/SmolLM3-3B': 'smol3',
+             'microsoft/Phi-3.5-mini-instruct': 'phi35'}
+    for name in ('monitor_feasibility_decision.json', 'monitor_feasibility_decision_r2.json'):
+        if (cal / name).exists():
+            for entry in read_json(cal / name)['summary']:
+                key = short[entry['model_id']]
+                out[f'mon.{key}.tpr'] = pct(entry['tpr'])
+                out[f'mon.{key}.fpr'] = pct(entry['fpr'])
     if (V4 / 'triagem_dev' / 'manifest.json').exists():
         gate = read_json(V4 / 'triagem_dev' / 'manifest.json')
         for mode, levels in gate['summary'].items():
@@ -131,8 +162,12 @@ def values():
 
 # ------------------------------------------------------------------ tabelas
 def table_md(header, rows, align):
-    sep = {'l': ':---', 'r': '---:', 'c': ':---:'}
-    lines = ['| ' + ' | '.join(header) + ' |', '|' + '|'.join(sep[a] for a in align) + '|']
+    """Tabela pipe com larguras relativas proporcionais ao conteúdo de cada coluna."""
+    lengths = [max(len(str(r[i])) for r in [header] + rows) for i in range(len(header))]
+    total = sum(lengths)
+    dashes = [max(3, round(100 * n / total)) for n in lengths]
+    sep = {'l': lambda n: ':' + '-' * n, 'r': lambda n: '-' * n + ':', 'c': lambda n: ':' + '-' * n + ':'}
+    lines = ['| ' + ' | '.join(header) + ' |', '|' + '|'.join(sep[a](n) for a, n in zip(align, dashes)) + '|']
     for row in rows:
         lines.append('| ' + ' | '.join(str(c).replace('|', '\\|') for c in row) + ' |')
     return '\n'.join(lines)
@@ -148,7 +183,7 @@ FIGURAS = {
                'Reanálise dos 540 registros publicados. Barras: média das três sementes; círculos: sementes.'),
     'triagem': ('fig2_triagem_v3.png', 'Triagem DEV do estudo v3.2: valores documentados e reproduções',
                 'README do v3 (commit 273d131) e reproduções desta revisão. Linha tracejada: critério de 0,65.'),
-    'falhas': ('fig3_falhas_v3.png', 'Composição das respostas da reprodução em CPU da triagem DEV v3.2',
+    'falhas': ('fig3_falhas_v3.png', 'Composição das respostas da reprodução T4 da triagem DEV v3.2',
                'Classificação descritiva das 480 respostas; o desfecho registrado usa apenas o corretor congelado.'),
     'v4': ('fig4_triagem_v4.png', 'Triagem DEV do protocolo v4 antes do registro',
            'Arquivos de experimento_cientifico_v4/triagem_dev. Linha tracejada: critério de 0,65.'),
@@ -170,9 +205,13 @@ def expand(text, data, tables):
         return ('Tabela ' if kind == 'tab' else 'Figura ') + str(number[kind, key])
     text = re.sub(r'@(tab|fig):([\w-]+)', ref, text)
 
+    draft = os.environ.get('COT_RASCUNHO') == '1'
+
     def value(match):
         key = match.group(1)
         if key not in data:
+            if draft:
+                return '[' + key + ']'
             raise KeyError('Valor sem fonte de dados: ' + key)
         return data[key]
     text = re.sub(r'\{\{v:([\w.\-]+)\}\}', value, text)
@@ -180,6 +219,8 @@ def expand(text, data, tables):
     def block(match):
         kind, key = match.group(1), match.group(2)
         if kind == 'tabela':
+            if key not in tables and draft:
+                return f'**[tabela {key} pendente]**\n'
             title, header, rows, align, source = tables[key]
             return ('::: {custom-style="Legenda"}\nTabela %d – %s\n:::\n\n%s\n\n'
                     '::: {custom-style="Fonte"}\nFonte: %s\n:::\n' % (number['tab', key], title,
@@ -187,14 +228,16 @@ def expand(text, data, tables):
         image, title, source = FIGURAS[key]
         path = ROOT / 'figures' / image
         if not path.exists():
+            if draft:
+                return f'**[figura {key} pendente]**\n'
             raise FileNotFoundError(path)
         return ('::: {custom-style="Legenda"}\nFigura %d – %s\n:::\n\n'
                 '::: {custom-style="Figura"}\n![](%s){width=15cm}\n:::\n\n'
                 '::: {custom-style="Fonte"}\nFonte: %s\n:::\n' % (number['fig', key], title, path, source))
     text = re.sub(r'^\{\{(tabela|figura):([\w-]+)\}\}\s*$', block, text, flags=re.M)
     text = text.replace('{{quebra}}', '```{=openxml}\n<w:p><w:r><w:br w:type="page"/></w:r></w:p>\n```')
-    leftover = re.findall(r'\{\{[^}]*\}\}', text)
-    if leftover:
+    leftover = re.findall(r'\{\{[^}]*\}\}|<<[A-Z_]+>>', text)
+    if leftover and not draft:
         raise ValueError('Marcadores não resolvidos: ' + ', '.join(leftover[:5]))
     return text, number
 
@@ -263,17 +306,22 @@ TITLE = ''
 # --------------------------------------------------------------- verificação
 def words(text):
     text = text.replace('­', '').replace('ﬁ', 'fi').replace('ﬂ', 'fl')
-    text = re.sub(r'-\n(\w)', r'\1', text)
+    text = text.replace('-\n', '-')
     return re.findall(r'[0-9A-Za-zÀ-ÿ]+', text.lower())
 
 
 def docx_text(path):
-    from docx import Document
-    doc = Document(str(path))
-    parts = [p.text for p in doc.paragraphs]
-    for table in doc.tables:
-        for row in table.rows:
-            parts.extend(cell.text for cell in row.cells)
+    """Texto de parágrafos, tabelas e equações (OMML), na ordem do documento."""
+    import zipfile
+    from xml.etree import ElementTree as ET
+    xml = zipfile.ZipFile(path).read('word/document.xml')
+    root = ET.fromstring(xml)
+    w = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+    m = '{http://schemas.openxmlformats.org/officeDocument/2006/math}'
+    parts = []
+    for paragraph in root.iter(w + 'p'):
+        parts.append(''.join((node.text or '') if node.tag == w + 't' else ' ' + (node.text or '') + ' '
+                             for node in paragraph.iter() if node.tag in (w + 't', m + 't')))
     return '\n'.join(parts)
 
 

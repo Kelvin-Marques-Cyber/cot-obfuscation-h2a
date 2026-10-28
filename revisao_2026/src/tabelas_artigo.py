@@ -102,14 +102,15 @@ def build(root, repo, num, pct, frac):
         rows = []
         for key, label in LEVEL.items():
             e = diag['levels'][key]
-            t4 = e.get('t4_fp16')
+            t4, cpu = e['t4_fp16'], e.get('cpu_fp32')
             rows.append([label, f"{frac(e['documented_correct'], 120)} ({pct(e['documented_accuracy'])})",
-                         f"{frac(t4['correct'], 120)} ({pct(t4['accuracy'])})" if t4 else 'não executada',
-                         f"{frac(e['reproduced_correct'], 120)} ({pct(e['reproduced_accuracy'])})",
+                         f"{frac(t4['correct'], 120)} ({pct(t4['accuracy'])})",
+                         f"{frac(cpu['correct'], cpu['n'])} ({pct(cpu['correct'] / cpu['n'])})" if cpu else 'não executada',
                          pct(e['permissive_upper_bound'])])
         tables['triagem_v3'] = (
             'Triagem DEV do v3.2: valores documentados e reproduções com o código congelado',
-            ['Nível', 'Documentado (T4, 19/10)', 'Reprodução T4 fp16', 'Reprodução CPU fp32', 'Limite permissivo'],
+            ['Nível', 'Documentado (T4, 19/10)', 'Reprodução T4 fp16 (28/10)', 'Reprodução CPU fp32',
+             'Limite permissivo (T4)'],
             rows, ['l', 'r', 'r', 'r', 'r'],
             'README do v3 (commit 273d131) e experimento_cientifico_v3/diagnostico_dev/resultados/.')
         names = {'correto_estrito': 'Correta no contrato',
@@ -122,7 +123,8 @@ def build(root, repo, num, pct, frac):
                  'dica_fora_do_contrato': 'Alternativa da dica, fora do contrato',
                  'formato_invalido_valor_incorreto': 'Fora do contrato, valor incorreto',
                  'outra_alternativa_fora_do_contrato': 'Fora do contrato, valor incorreto',
-                 'sem_tag_answer': 'Sem resposta extraível', 'sem_numero_final': 'Sem resposta extraível',
+                 'sem_tag_answer': 'Sem letra extraível (p. ex., "LETRA" copiado)',
+                 'sem_numero_final': 'Sem resposta extraível',
                  'truncado_no_orcamento': 'Truncada no orçamento'}
         groups = []
         for label in names.values():
@@ -135,7 +137,7 @@ def build(root, repo, num, pct, frac):
                 counts[g].append(sum(v for k, v in categories.items() if names.get(k) == g))
         rows = [[g] + [str(v) for v in counts[g]] for g in groups if any(counts[g])]
         tables['falhas_v3'] = (
-            'Classificação das respostas da reprodução em CPU (fp32) da triagem DEV v3.2',
+            'Classificação das respostas da reprodução T4 (fp16) da triagem DEV v3.2',
             ['Categoria', 'SFT · A', 'SFT · C', 'GRPO · low', 'GRPO · high'], rows,
             ['l', 'r', 'r', 'r', 'r'], 'experimento_cientifico_v3/diagnostico_dev/resultados/diagnostico_triagem_dev.json.')
     hyp = repo / 'experimento_cientifico_v3' / 'diagnostico_dev' / 'resultados' / 'hipoteses_tecnicas.json'

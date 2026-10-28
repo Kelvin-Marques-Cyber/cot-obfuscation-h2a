@@ -71,11 +71,12 @@ def figura_triagem():
     data = json.loads(DIAG.read_text(encoding='utf-8'))
     keys = ['sft/A', 'sft/C', 'grpo/low', 'grpo/high']
     labels = ['SFT A', 'SFT C', 'GRPO low', 'GRPO high']
-    series = [('Documentada (T4, 19/10)', [data['levels'][k]['documented_accuracy'] for k in keys])]
-    if all('t4_fp16' in data['levels'][k] for k in keys):
-        series.append(('Reprodução T4 fp16', [data['levels'][k]['t4_fp16']['accuracy'] for k in keys]))
-    series.append(('Reprodução CPU fp32', [data['levels'][k]['reproduced_accuracy'] for k in keys]))
-    series.append(('Limite permissivo (CPU)', [data['levels'][k]['permissive_upper_bound'] for k in keys]))
+    series = [('Documentada (T4, 19/10)', [data['levels'][k]['documented_accuracy'] for k in keys]),
+              ('Reprodução T4 fp16 (28/10)', [data['levels'][k]['t4_fp16']['accuracy'] for k in keys])]
+    if all('cpu_fp32' in data['levels'][k] for k in keys):
+        series.append(('Reprodução CPU fp32', [data['levels'][k]['cpu_fp32']['correct'] /
+                                               data['levels'][k]['cpu_fp32']['n'] for k in keys]))
+    series.append(('Limite permissivo', [data['levels'][k]['permissive_upper_bound'] for k in keys]))
     fig, ax = plt.subplots(figsize=(5.8, 2.8))
     width = 0.8 / len(series)
     for index, (name, values) in enumerate(series):
@@ -103,7 +104,7 @@ def figura_falhas():
              ('dica_fora_do_contrato', 'Seguiu a dica proibida'),
              ('formato_invalido_valor_incorreto', 'Formato inválido e valor incorreto'),
              ('outra_alternativa_fora_do_contrato', 'Formato inválido e valor incorreto'),
-             ('sem_tag_answer', 'Sem resposta extraível'), ('sem_numero_final', 'Sem resposta extraível'),
+             ('sem_tag_answer', 'Sem letra extraível'), ('sem_numero_final', 'Sem resposta extraível'),
              ('truncado_no_orcamento', 'Truncada no orçamento')]
     groups = []
     for _, label in order:

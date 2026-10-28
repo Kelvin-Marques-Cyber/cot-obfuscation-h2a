@@ -1,0 +1,126 @@
+"""Compila o relatório de validação de 28/10/2026 a partir dos registros de execução.
+
+Entradas: results/execucoes_locais.json (executar_validacao.py), diagnóstico do
+v3.2, calibração e triagem do v4 e relatório do teste técnico CUDA. Saídas:
+results/validacao_2026_10_28.json (usado pelo artigo) e docs/RELATORIO_VALIDACAO.md.
+"""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+REPO = ROOT.parent
+V3 = REPO / 'experimento_cientifico_v3' / 'diagnostico_dev' / 'resultados'
+V4 = REPO / 'experimento_cientifico_v4'
+
+
+def read(path):
+    path = Path(path)
+    return json.loads(path.read_text(encoding='utf-8')) if path.exists() else None
+
+
+def pct(x):
+    return f'{100 * x:.1f}%'.replace('.', ',')
+
+
+def main():
+    local = read(ROOT / 'results' / 'execucoes_locais.json')
+    diag = read(V3 / 'diagnostico_triagem_dev.json')
+    gate = read(V4 / 'triagem_dev' / 'manifest.json')
+    cuda = read(V4 / 'validacao' / 'relatorio_tecnico_cuda.json')
+    protocol = read(V4 / 'protocolo_v4.json')
+    table, numbers = [], {}
+    if local:
+        env = local['environment']
+        where = f"CPU ({env.get('cpu', 'x86_64')}, {env.get('cpu_count')} núcleos), Python {env['python']}"
+        for entry in local['entries']:
+            summary = ' '.join(entry['summary']) or ('código 0' if entry['exit_code'] == 0 else 'falhou')
+            table.append(dict(verificacao=entry['name'], ambiente=where,
+                              resultado=f"{'aprovado' if entry['exit_code'] == 0 else 'reprovado'} "
+                                        f"({summary}; {entry['seconds']} s)"))
+            for line in entry['summary']:
+                if line.startswith('Ran '):
+                    numbers[f"testes.{len(numbers)}"] = line.split()[1]
+    if diag:
+        same = all(e['t4_fp16']['matches_documented'] for e in diag['levels'].values())
+        table.append(dict(verificacao='Reprodução da triagem DEV v3.2 pelo caminho original (commits fde856f/4a2a133)',
+                          ambiente='Colab, Tesla T4, Python 3.13.16, PyTorch 2.11.0+cu130, fp16',
+                          resultado='quatro valores documentados reproduzidos exatamente' if same
+                          else 'valores diferentes dos documentados'))
+        table.append(dict(verificacao='Reprodução da triagem DEV v3.2 com as mesmas funções em CPU',
+                          ambiente='CPU x86_64, Python 3.12.3, PyTorch 2.8.0, fp32',
+                          resultado='; '.join(f"{k}: {e['cpu_fp32']['correct']}/{e['cpu_fp32']['n']}"
+                                              for k, e in diag['levels'].items() if 'cpu_fp32' in e)))
+    if gate and protocol:
+        threshold = protocol['gate']['threshold']
+        passed = all(e['accuracy'] >= threshold for levels in gate['summary'].values() for e in levels.values())
+        table.append(dict(verificacao='Triagem DEV do v4 (execução única, antes do registro)',
+                          ambiente='Colab, Tesla T4, fp16, decodificação gulosa',
+                          resultado=('aprovada: ' if passed else 'reprovada: ') + '; '.join(
+                              f"{m.upper()} {lv} {e['correct']}/{e['n']}" for m, levels in gate['summary'].items()
+                              for lv, e in levels.items())))
+    if cuda:
+        notebooks = cuda.get('notebooks', {})
+        ok = sum(1 for n in notebooks.values() if not n.get('error'))
+        table.append(dict(verificacao='Teste técnico CUDA: cinco notebooks v4 com modelos reais (TECHNICAL_TEST)',
+                          ambiente='Colab, ' + cuda.get('gpu', 'Tesla T4'),
+                          resultado=f'{ok} de {len(notebooks)} notebooks executados sem erro'))
+        t = cuda.get('interrupcao_treino', {})
+        if t:
+            final = t.get('status_final', {})
+            table.append(dict(verificacao='Interrupção forçada de treino SFT na GPU e retomada',
+                              ambiente='Colab, Tesla T4, fp16',
+                              resultado=f"retomado de {final.get('resumed_from')} até o passo "
+                                        f"{final.get('global_step')} ({final.get('status')})"))
+        e = cuda.get('interrupcao_avaliacao', {})
+        if e:
+            table.append(dict(verificacao='Interrupção forçada de avaliação na GPU e retomada com linha parcial',
+                              ambiente='Colab, Tesla T4, fp16',
+                              resultado=f"{e.get('final_lines')} linhas, {e.get('unique_items')} itens únicos; "
+                                        f"primeira linha idêntica: {e.get('first_line_identical')}"))
+    evidencias = [
+        dict(conclusao='Médias e interação do piloto reproduzidas', categoria='resultado histórico',
+             base='540 linhas publicadas reprocessadas'),
+        dict(conclusao='Corretor histórico aceita respostas ambíguas', categoria='verificação de software',
+             base='2.000 textos construídos'),
+        dict(conclusao='Sementes do piloto compartilham quase todos os itens', categoria='verificação de software',
+             base='reexecução do gerador original'),
+        dict(conclusao='Triagem do v3.2 reprovada nos quatro níveis', categoria='triagem de competência',
+             base='valores documentados; reproduzidos exatamente na T4'),
+        dict(conclusao='Causas da reprovação (incapacidade em C; instrução e contrato)', categoria='experimento exploratório',
+             base='classificação das gerações reproduzidas'),
+        dict(conclusao='Monitores SmolLM2 não discriminam controles construídos', categoria='experimento exploratório',
+             base='320 controles rotulados por regra, não por pessoas'),
+        dict(conclusao='Escolhas de tarefa, instrução e monitor do v4', categoria='experimento exploratório',
+             base='calibração em itens próprios, regras gravadas antes'),
+        dict(conclusao='Resultado da triagem do v4', categoria='triagem de competência',
+             base='120 itens DEV por nível, execução única'),
+        dict(conclusao='Software de treino, avaliação e retomada funciona em CPU e GPU', categoria='verificação de software',
+             base='testes unitários, integração e modo técnico'),
+        dict(conclusao='Efeitos de H1 e H2', categoria='resultado confirmatório',
+             base='não produzido: nenhum treino confirmatório executado'),
+    ]
+    out = dict(date='2026-10-28', tabela=table, evidencias=evidencias, numeros=numbers,
+               scientific_confirmatory_results=False)
+    (ROOT / 'results' / 'validacao_2026_10_28.json').write_text(json.dumps(out, indent=2, ensure_ascii=False) + '\n',
+                                                                encoding='utf-8')
+    lines = ['# Relatório de validação e execuções — 28/10/2026', '',
+             'Este relatório lista o que foi executado nesta revisão, em que ambiente e com que resultado. '
+             'Verificações de software não constituem evidência científica sobre as hipóteses.', '',
+             '| Verificação | Ambiente | Resultado |', '|---|---|---|']
+    lines += [f"| {r['verificacao']} | {r['ambiente']} | {r['resultado']} |" for r in table]
+    lines += ['', '## Natureza da evidência', '', '| Conclusão | Categoria | Base |', '|---|---|---|']
+    lines += [f"| {r['conclusao']} | {r['categoria']} | {r['base']} |" for r in evidencias]
+    if local:
+        lines += ['', '## Comandos locais', '']
+        for entry in local['entries']:
+            lines.append(f"- `{entry['command']}` em `{entry['cwd']}`: código {entry['exit_code']}, {entry['seconds']} s")
+        lines += ['', f"Ambiente: `{json.dumps(local['environment'], ensure_ascii=False)}`", '',
+                  f"Commit avaliado: `{local['git_head']}`"]
+    (ROOT / 'docs' / 'RELATORIO_VALIDACAO.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    print(json.dumps(table, indent=1, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    main()
