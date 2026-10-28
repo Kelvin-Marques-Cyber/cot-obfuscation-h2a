@@ -108,6 +108,21 @@ class StorageTests(unittest.TestCase):
         self.assertTrue(state.persistent)
 
 
+class VirtualenvFallbackTests(unittest.TestCase):
+    """Cria de fato um ambiente pelo caminho alternativo (requer acesso ao PyPI)."""
+    def test_fallback_without_ensurepip_creates_isolated_env_with_system_packages(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as temp, redirect_stdout(io.StringIO()):
+            root = Path(temp)
+            kind = sessao.create_virtualenv(root / 'env', root, root / 'logs', force_fallback=True)
+            python = root / 'env' / 'bin' / 'python'
+            self.assertEqual(kind, 'virtualenv')
+            probe = subprocess.run([str(python), '-c', 'import sys; print(sys.prefix != sys.base_prefix)'],
+                                   capture_output=True, text=True)
+            self.assertEqual(probe.stdout.strip(), 'True')
+            self.assertTrue((root / 'env' / 'pyvenv.cfg').read_text().count('include-system-site-packages = true'))
+
+
 class SessionTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()

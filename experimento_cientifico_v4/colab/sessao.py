@@ -57,6 +57,33 @@ def run_logged(command, log_path, env=None, cwd=None):
     return code
 
 
+def create_virtualenv(target, root, logs, force_fallback=False):
+    """Cria o ambiente com --system-site-packages.
+
+    O Python do Colab não inclui ensurepip; nesse caso `python -m venv` falha e o
+    virtualenv é instalado em uma pasta própria (--target), sem tocar no Python
+    do sistema, e usado para criar o ambiente.
+    """
+    target, root, logs = Path(target), Path(root), Path(logs)
+    logs.mkdir(parents=True, exist_ok=True)
+    if not force_fallback:
+        result = subprocess.run([sys.executable, '-m', 'venv', '--system-site-packages', str(target)],
+                                capture_output=True, text=True)
+        (logs / 'venv.log').write_text(result.stdout + result.stderr, encoding='utf-8')
+        if result.returncode == 0 and (target / 'bin' / 'pip').exists():
+            return 'venv'
+        shutil.rmtree(target, ignore_errors=True)
+        print('venv indisponível neste Python (sem ensurepip); usando virtualenv isolado.', flush=True)
+    bootstrap = root / 'virtualenv-bootstrap'
+    if not (bootstrap / 'virtualenv').is_dir():
+        run_logged([sys.executable, '-m', 'pip', 'install', '--quiet', '--disable-pip-version-check',
+                    '--target', bootstrap, 'virtualenv==20.35.3'], logs / 'virtualenv_install.log')
+    env = dict(os.environ, PYTHONPATH=str(bootstrap))
+    run_logged([sys.executable, '-m', 'virtualenv', '--system-site-packages', target],
+               logs / 'virtualenv_create.log', env=env)
+    return 'virtualenv'
+
+
 class Session:
     def __init__(self, repo, storage_state, code_commit, code_hashes, on_colab=False, technical_test=False):
         self.repo = Path(repo).resolve()
@@ -123,7 +150,7 @@ class Session:
             if target.exists():
                 shutil.rmtree(target)
             print('Preparando ambiente isolado (uma vez por sessão). O PyTorch do Colab é preservado.', flush=True)
-            run_logged([sys.executable, '-m', 'venv', '--system-site-packages', target], logs / 'venv.log')
+            create_virtualenv(target, root, logs)
             run_logged([python, '-m', 'pip', 'install', '--quiet', '--disable-pip-version-check',
                         '-r', requirements], logs / 'pip_install.log')
             run_logged([python, self.package / 'colab' / 'verificar_gpu.py', str(MIN_VRAM_GIB)],

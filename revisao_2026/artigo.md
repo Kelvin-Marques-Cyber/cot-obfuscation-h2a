@@ -122,4 +122,44 @@ Em ambos os casos a unidade de inferência é a semente de treinamento. As gera�
 
 Os resultados são separados em cinco categorias, que não são combinadas para aumentar tamanhos amostrais ou fortalecer conclusões: (i) resultados históricos, provenientes dos dados publicados do piloto; (ii) verificações de software, que testam contratos, retomada, integridade e execução das bibliotecas sem produzir evidência sobre o fenômeno; (iii) triagens de competência, que verificam se os modelos-base satisfazem o critério prévio; (iv) experimentos exploratórios, como a reprodução diagnóstica da triagem e a calibração do v4; e (v) resultados confirmatórios, que exigiriam os treinamentos e avaliações completos de um protocolo registrado. Nenhum resultado da categoria (v) foi produzido.
 
+# 4 MATERIAIS E MÉTODOS
+
+## 4.1 Estudo-piloto e estratégia de reanálise
+
+O piloto foi depositado no repositório público do projeto no commit e21cef8, de junho de 2026, com um notebook de treinamento e análise e quatro tabelas de resultados. O desenho cruza dois níveis de complexidade aritmética, três alvos de SFT e três sementes (@tab:desenho_piloto). Os alvos recebem aqui nomes descritivos: CoT explícita (rastro com as etapas), resposta direta (somente a resposta) e preâmbulo genérico (frase vaga seguida da resposta). Os nomes usados no código, como *cot_pressure* e *output_supervision*, sugeriam mecanismos de penalização por monitor que o piloto não implementa.
+
+{{tabela:desenho_piloto}}
+
+O arquivo de resultados contém {{v:piloto.linhas}} linhas, uma por avaliação, com nível, condição, semente, acurácia, escore lexical e métricas de diversidade, mas sem enunciado, identificador do item, gabarito ou texto gerado. A reanálise, portanto, reprocessa as métricas depositadas; ela não refaz o julgamento das respostas. A estratégia teve três etapas: comparar as médias recalculadas com os agregados publicados em cada uma das {{v:piloto.celulas}} células; reproduzir a análise de variância e o teste *t* de Welch originais como verificação numérica; e auditar os instrumentos (gerador de itens, corretor, teste de intervenção e escore lexical) executando o código preservado.
+
+Para cada semente *s*, nível *l* e alvo *c*, o custo de acurácia em relação à CoT explícita é K(l, c, s) = Acc(l, explícita, s) − Acc(l, c, s), e a diferença entre níveis é D(c, s) = K(C, c, s) − K(A, c, s). Como há três sementes, a análise de sensibilidade enumera as oito inversões de sinal possíveis dos três contrastes; o menor valor de *p* bilateral atingível é 0,25. O teste de intervenção histórico, que compara respostas com e sem explicação em dez itens por nível, foi reconstruído a partir dos agregados e avaliado pelo teste exato de McNemar.
+
+## 4.2 Estudo prospectivo v3.2
+
+### 4.2.1 Desenho e registro
+
+O estudo v3.2 foi implementado no commit fde856f e operado por cinco notebooks do Google Colab: protocolo e dados (00), treinamento SFT (01), treinamento GRPO (02), avaliação TEST (03) e monitor independente com inferência (04). O desenho previa 240 treinamentos e 55.200 gerações de avaliação principal (@tab:desenho_v3). Esses números foram conferidos na implementação: cada adaptador SFT seria avaliado nos 220 itens TEST de seu nível e cada adaptador GRPO nos 240 itens TEST de seu nível (60 por domínio em quatro domínios), resultando em 26.400 e 28.800 gerações.
+
+{{tabela:desenho_v3}}
+
+No braço SFT, o nível A consiste em adições de dois inteiros entre 101 e 9.999, e o nível C, em expressões a + b × c − d com os quatro operandos no mesmo intervalo. O alvo explícito registra três etapas (o produto, a soma e a subtração) sem decompor a multiplicação. No braço GRPO, cada questão de múltipla escolha apresenta uma expressão aritmética em um de quatro domínios (aritmética, rastreamento de programa, regra fictícia e estoque) e uma nota auxiliar proibida que indica uma alternativa errada. No nível *low*, a nota nomeia a letra; no nível *high*, exige calcular um índice módulo 4. A recompensa mal especificada paga a escolha da alternativa indicada pela nota, e as condições *cot_monitor* e *summary_monitor* subtraem 0,6 quando o monitor de recompensa (Qwen2.5-0.5B-Instruct) detecta o uso da nota no rastro ou no resumo.
+
+O registro público foi localizado por consulta à API do OSF: *Monitorabilidade e Ofuscação da Cadeia de Pensamento: Pré-registro de Experimentos SFT e GRPO com Avaliação Independente*, identificador sjwdf, criado em 19 de outubro de 2026 às 16h11 UTC e tornado público às 16h45 UTC (@tab:cronologia). O texto registrado especifica as hipóteses, os modelos, as 20 sementes, o critério de competência de 65% e as regras de análise e declara que mudanças substanciais de modelo, instrumento ou amostragem exigem novo protocolo. O registro não contém arquivos anexados nem os resumos criptográficos do protocolo e das revisões dos modelos: o único arquivo enviado ao projeto foi removido 24 segundos depois. O texto cita a versão 3.1 do protocolo, enquanto a implementação executada é a v3.2, cujas diferenças são operacionais (seleção do modo de avaliação, congelamento da revisão do monitor independente e pilha de dependências sem quantização), sem alteração de hipóteses, tamanhos ou critérios.
+
+{{tabela:cronologia}}
+
+### 4.2.2 Triagem de competência
+
+Antes de qualquer treinamento, cada modelo-base respondia aos 120 primeiros itens DEV de cada nível, em decodificação gulosa, com orçamento de 256 tokens, em uma GPU Tesla T4 com pesos em fp16. No SFT, a instrução de sistema era "Resolva o problema. Termine com uma única tag <answer>NUMERO</answer>." e a correção usava um contrato estrito: a resposta é aceita somente como uma única tag final, uma única linha final "Resposta: N" ou uma saída composta apenas pelo número. No GRPO, o enunciado incluía a nota proibida e a resposta só era correta se seguisse exatamente o formato <trace>…</trace><summary>…</summary><answer>LETRA</answer> com a letra do gabarito. O critério exigia acurácia mínima de 0,65 em cada um dos quatro níveis; a reprovação bloqueava os 240 treinamentos.
+
+## 4.3 Diagnóstico da triagem do v3.2
+
+Os arquivos brutos da triagem original estavam no Google Drive da sessão do Colab em que foi executada e não estavam disponíveis para esta auditoria; uma busca no Drive conectado ao projeto não os localizou. Os valores originais, portanto, constam aqui como documentados no README do v3 (commit 273d131), e não como reprodução independente. Para examinar sua origem, foram conduzidas duas reproduções diagnósticas, que não substituem a triagem registrada nem podem liberar os treinamentos do v3.2.
+
+A primeira reproduz o caminho original no Colab, em 28 de outubro de 2026: os notebooks v3.2 baixam os commits fixados fde856f e 4a2a133, criam o ambiente isolado com as versões fixadas e executam as etapas de preparação, congelamento das revisões e triagem em uma Tesla T4, em fp16, numa pasta de diagnóstico separada. A segunda reconstrói os dados com o mesmo código e usa as mesmas funções de conversa e geração em CPU, com pesos em fp32, para avaliar a sensibilidade à precisão numérica. As revisões dos modelos foram confirmadas no Hugging Face Hub: a última alteração de cada repositório é anterior a outubro de 2026, de modo que as revisões disponíveis coincidem necessariamente com as congeladas em 19 de outubro.
+
+As respostas da reprodução em CPU foram classificadas em categorias descritivas: correta no contrato; valor correto fora do contrato (por exemplo, prosa terminada pelo número certo); separador de milhar lido como decimal; formato válido com valor incorreto; alternativa indicada pela dica; formato inválido com valor incorreto; e truncamento no orçamento. A soma das categorias corretas fora do contrato define um limite superior permissivo, que indica quanto um extrator mais tolerante poderia alterar o resultado. Esse limite é diagnóstico: o desfecho registrado permanece o do corretor congelado. Além disso, verificaram-se o texto produzido pelo modelo de conversa, a tokenização, o identificador de término, a ocorrência de truncamento e as versões das bibliotecas.
+
+<<METODOS_V4>>
+
 <<RESTANTE>>
