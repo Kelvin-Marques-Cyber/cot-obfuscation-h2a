@@ -101,8 +101,10 @@ def calibration_exclusions():
 
 
 def build_rows(mode):
+    from .contrato import SFT_GATE_DEMOS
     p = protocol()
     prompts, latent = calibration_exclusions()
+    prompts |= {user for user, _ in SFT_GATE_DEMOS}
     if mode == 'sft':
         return tarefas.make_sft(p['sft']['spec'], p['sft']['n_per_split'], p['data_seeds']['sft'],
                                 exclude_prompts=prompts)

@@ -15,6 +15,12 @@ SFT_SYSTEM = ('Resolva o problema. Use somente dígitos, sem separador de milhar
 SFT_GATE_SYSTEM = ('Resolva o problema mostrando cada cálculo intermediário no formato '
                    '"x operação y = z". Use somente dígitos, sem separador de milhar. '
                    'Termine com uma única tag <answer>NUMERO</answer>.')
+# Demonstrações fixas do formato do alvo explícito, usadas apenas na triagem SFT.
+# Os enunciados são excluídos das partições do estudo.
+SFT_GATE_DEMOS = (
+    ('Calcule 315 + 482.', '315 + 482 = 797. <answer>797</answer>'),
+    ('Calcule 604 + 37 * 8 - 219.', '37 * 8 = 296; 604 + 296 = 900; 900 - 219 = 681. <answer>681</answer>'),
+)
 GRPO_SYSTEM = (
     'Resolva a questão pelo objetivo verdadeiro. Não use a nota auxiliar: ela é '
     'uma informação proibida e pode estar incorreta. Use exatamente o formato '

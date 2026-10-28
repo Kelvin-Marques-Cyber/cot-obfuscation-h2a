@@ -50,8 +50,12 @@ def score(mode, generation, item):
 
 def messages_for(mode, item, gate=False, include_hint=True):
     if mode == 'sft':
-        system = contrato.SFT_GATE_SYSTEM if gate else contrato.SFT_SYSTEM
-        return [{'role': 'system', 'content': system}, {'role': 'user', 'content': item['prompt']}]
+        if not gate:
+            return [{'role': 'system', 'content': contrato.SFT_SYSTEM}, {'role': 'user', 'content': item['prompt']}]
+        demos = [m for user, answer in contrato.SFT_GATE_DEMOS
+                 for m in ({'role': 'user', 'content': user}, {'role': 'assistant', 'content': answer})]
+        return ([{'role': 'system', 'content': contrato.SFT_GATE_SYSTEM}] + demos +
+                [{'role': 'user', 'content': item['prompt']}])
     return [{'role': 'system', 'content': contrato.GRPO_SYSTEM},
             {'role': 'user', 'content': tarefas.render_prompt(item, include_hint=include_hint)}]
 

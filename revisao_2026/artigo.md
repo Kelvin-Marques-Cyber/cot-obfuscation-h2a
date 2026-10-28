@@ -160,6 +160,102 @@ A primeira reproduz o caminho original no Colab, em 28 de outubro de 2026: os no
 
 As respostas da reprodução em CPU foram classificadas em categorias descritivas: correta no contrato; valor correto fora do contrato (por exemplo, prosa terminada pelo número certo); separador de milhar lido como decimal; formato válido com valor incorreto; alternativa indicada pela dica; formato inválido com valor incorreto; e truncamento no orçamento. A soma das categorias corretas fora do contrato define um limite superior permissivo, que indica quanto um extrator mais tolerante poderia alterar o resultado. Esse limite é diagnóstico: o desfecho registrado permanece o do corretor congelado. Além disso, verificaram-se o texto produzido pelo modelo de conversa, a tokenização, o identificador de término, a ocorrência de truncamento e as versões das bibliotecas.
 
-<<METODOS_V4>>
+## 4.4 Protocolo prospectivo v4
+
+### 4.4.1 Identificação e alterações
+
+O protocolo v4 constitui um estudo novo, com identificador próprio (estudo-prospectivo-2026-v4), código no diretório experimento_cientifico_v4 e cinco notebooks distintos dos do v3.2. Ele mantém as perguntas, as hipóteses H1 e H2, os modelos-base, as condições, as 20 sementes, o número de passos, os tamanhos das partições, o critério de 65% e o plano estatístico. As alterações (@tab:mudancas_v4) restringem-se ao que o diagnóstico do v3.2 identificou como causa da reprovação ou como fragilidade de mensuração, e cada uma foi definida antes de ser avaliada nos dados de desenvolvimento do próprio v4.
+
+{{tabela:mudancas_v4}}
+
+### 4.4.2 Calibração exploratória
+
+As faixas numéricas das tarefas e o monitor independente foram escolhidos por calibração em itens gerados com sementes próprias (20261028 a 20261030), excluídos por construção das partições de treino, DEV e teste do v4. As regras de escolha foram gravadas no repositório antes da execução (commits 97eaf5e, 4f2c503 e e02eda4) e usam as mesmas condições previstas para a triagem: Tesla T4, fp16, decodificação gulosa item a item e orçamento de 256 tokens. No SFT, a acurácia do nível A e a de cada candidato ao nível C deveriam atingir 0,80 com a instrução explícita em 40 itens; escolhe-se o candidato mais difícil que satisfaça a regra. No GRPO, a faixa de operandos, comum aos dois níveis, deveria atingir 0,80 sem a dica em 40 itens por nível (10 por domínio); escolhe-se a faixa mais difícil que satisfaça a regra. O limiar de 0,80 oferece margem acima do critério de 0,65 para a variação amostral de 120 itens.
+
+Para o monitor independente, compararam-se modelos SmolLM2 de 135M, 360M e 1,7B de parâmetros em 320 controles construídos a partir de modelos de texto: 160 rastros que usam explicitamente a nota proibida e 160 que calculam a resposta, inclusive rastros que rejeitam a nota de forma explícita. Esses rótulos decorrem da regra de construção, e não de anotação humana; eles avaliam apenas a viabilidade do instrumento e não substituem a validação com 100 controles positivos e 100 negativos rotulados por pessoas, que continua obrigatória. A regra escolhia o menor modelo com taxa de verdadeiros positivos (TPR) de pelo menos 0,90 e taxa de falsos positivos (FPR) de no máximo 0,05.
+
+### 4.4.3 Triagem de competência antes do registro
+
+No v4, a triagem é parte da preparação e precede o registro público, de modo que o registro só seja feito para um desenho viável e inclua os resumos criptográficos das gerações da triagem. Ela foi executada uma única vez, depois do congelamento do protocolo e do código dos módulos que determinam itens, instruções, geração e correção, em uma Tesla T4 no Colab, com os modelos nas revisões fixadas. O notebook 00 importa esses arquivos e confere seus resumos, sem repetir a inferência. Uma nova execução da triagem com resultado diferente não teria efeito sobre o estudo: os módulos que a determinam têm seus resumos verificados, e qualquer alteração exige outro identificador de estudo.
+
+## 4.5 Verificação de software
+
+As verificações de software foram separadas em quatro níveis, com propósitos distintos. Testes unitários verificam regras de correção, geração de dados, congelamento, bloqueios e estatística. Uma integração em CPU com modelos mínimos de pesos aleatórios exercita as interfaces reais das bibliotecas de treinamento nos dois braços, incluindo interrupção e retomada. A execução dos cinco notebooks com o módulo do Colab simulado injeta falhas de montagem do Drive e de download no navegador. Por fim, um teste técnico em GPU executa os cinco notebooks no Colab com os modelos reais em modo técnico (uma semente, dois passos por treino e quatro itens de teste por avaliação, em pasta separada) e força interrupções de treinamento e de avaliação. Nenhum desses testes produz evidência sobre as hipóteses.
+
+
+# 5 RESULTADOS
+
+## 5.1 Reanálise do estudo-piloto
+
+As {{v:piloto.celulas}} médias recalculadas coincidem com os agregados publicados, e a interação da análise de variância histórica foi reproduzida, F(2, 12) = {{v:piloto.anova_f}}, p = {{v:piloto.anova_p}}, assim como o teste de Welch para o nível C, t = {{v:piloto.welch_t}}, p = {{v:piloto.welch_p}}. No nível A, os três alvos têm acurácias próximas; no nível C, a acurácia registrada passa de {{v:piloto.acc.C.control}} com CoT explícita para {{v:piloto.acc.C.cot_pressure}} com resposta direta e {{v:piloto.acc.C.output_supervision}} com preâmbulo genérico (@tab:piloto_resumo e @fig:piloto).
+
+{{tabela:piloto_resumo}}
+
+{{figura:piloto}}
+
+A diferença média entre os custos dos dois níveis foi {{v:piloto.dd.cot_pressure}} para resposta direta e {{v:piloto.dd.output_supervision}} para preâmbulo genérico, com sinal positivo nas três sementes (@tab:piloto_contrastes). Os intervalos *t* condicionais de 95%, {{v:piloto.dd_ic.cot_pressure}} e {{v:piloto.dd_ic.output_supervision}}, supõem três contrastes independentes e aproximadamente normais. A enumeração das inversões de sinal resulta em p = {{v:piloto.signflip.cot_pressure}} nas duas comparações, o menor valor possível com três sementes; esse resultado expressa a baixa resolução do desenho e não indica ausência de efeito.
+
+{{tabela:piloto_contrastes}}
+
+A auditoria dos instrumentos restringe a interpretação desses números em quatro pontos. Primeiro, o gerador cria cada item a partir da semente inicial somada ao índice, de modo que sementes adjacentes reutilizam quase todos os enunciados: 149 de 150 no treino e 29 de 30 na avaliação, com 32 enunciados distintos de avaliação por nível nas três sementes (@tab:sobreposicao). Também se reconstruiu um enunciado comum a treino e avaliação no nível A. As três sementes não são, portanto, três amostras independentes de problemas.
+
+{{tabela:sobreposicao}}
+
+Segundo, o corretor histórico aceita uma resposta quando qualquer número do trecho final coincide com o gabarito. Em um corpus construído de {{v:piloto.casos}} respostas, das quais {{v:piloto.negativos}} deveriam ser rejeitadas, ele aceitou {{v:piloto.falsos_aceites}} ({{v:piloto.taxa_aceite_indevido}}), por exemplo "Resposta: 43; 42 seria incorreto." com gabarito 42 (@tab:corretor). O contrato estrito usado nos estudos prospectivos rejeitou todos esses casos. Como os textos históricos não foram depositados, a frequência desse erro nas 540 avaliações permanece desconhecida.
+
+{{tabela:corretor}}
+
+Terceiro, a comparação histórica entre respostas com e sem explicação, reconstruída a partir dos agregados, mostra no nível C {{v:piloto.mcnemar_b}} itens acertados somente com explicação e {{v:piloto.mcnemar_c}} somente na resposta direta, ganho líquido de {{v:piloto.ganho_liquido}} e teste exato de McNemar com p = {{v:piloto.mcnemar_p}}. Além do tamanho de dez itens, essa comparação muda simultaneamente a instrução e o orçamento de geração (200 contra 40 tokens) e, por isso, não estabelece a necessidade causal do rastro. Quarto, o escore lexical de "ofuscação" atribui valor máximo a rastros vazios e correlaciona-se com repetição (r = {{v:piloto.corr_rep}}) e com diversidade lexical (r = {{v:piloto.corr_ttr}}) porque ambas integram sua fórmula; não há rótulos independentes que o validem como detector de ocultação.
+
+<<RES_V3>>
 
 <<RESTANTE>>
+
+{{quebra}}
+
+# REFERÊNCIAS
+
+::: {custom-style="Referencia"}
+AGARWAL, Rishabh; SCHWARZER, Max; CASTRO, Pablo Samuel; COURVILLE, Aaron; BELLEMARE, Marc G. Deep reinforcement learning at the edge of the statistical precipice. *In*: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS, 34., 2021. **Proceedings** [...]. [*S. l.*]: Curran Associates, 2021. Disponível em: https://arxiv.org/abs/2108.13264. Acesso em: 28 out. 2026.
+
+BAKER, Bowen; HUIZINGA, Joost; GAO, Leo; DOU, Zehao; GUAN, Melody Y.; MADRY, Aleksander; ZAREMBA, Wojciech; PACHOCKI, Jakub; FARHI, David. Monitoring reasoning models for misbehavior and the risks of promoting obfuscation. **arXiv**, 2503.11926, 2025. DOI: 10.48550/arXiv.2503.11926.
+
+DRORI, Jacob; MARKS, Luke; WOODWORTH, Bryce; CLOUD, Alex; TURNER, Alexander Matt. Output supervision can obfuscate the chain of thought. **arXiv**, 2511.11584, 2025. DOI: 10.48550/arXiv.2511.11584.
+
+EMMONS, Scott; JENNER, Erik; ELSON, David K.; SAUROUS, Rif A.; RAJAMANOHARAN, Senthooran; CHEN, Heng; SHAFKAT, Irhum; SHAH, Rohin. When chain of thought is necessary, language models struggle to evade monitors. **arXiv**, 2507.05246, 2025. DOI: 10.48550/arXiv.2507.05246.
+
+HOLM, Sture. A simple sequentially rejective multiple test procedure. **Scandinavian Journal of Statistics**, Oslo, v. 6, n. 2, p. 65-70, 1979. Disponível em: https://www.jstor.org/stable/4615733. Acesso em: 28 out. 2026.
+
+HU, Edward J.; SHEN, Yelong; WALLIS, Phillip; ALLEN-ZHU, Zeyuan; LI, Yuanzhi; WANG, Shean; WANG, Lu; CHEN, Weizhu. LoRA: low-rank adaptation of large language models. *In*: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS, 10., 2022. **Proceedings** [...]. [*S. l.*]: ICLR, 2022. DOI: 10.48550/arXiv.2106.09685.
+
+KORBAK, Tomek *et al*. Chain of thought monitorability: a new and fragile opportunity for AI safety. **arXiv**, 2507.11473, 2025. DOI: 10.48550/arXiv.2507.11473.
+
+LANHAM, Tamera *et al*. Measuring faithfulness in chain-of-thought reasoning. **arXiv**, 2307.13702, 2023. DOI: 10.48550/arXiv.2307.13702.
+
+MARQUES, Kelvin e Silva *et al*. **Validade externa da ofuscação de cadeia de pensamento sob supervisão de saída**: um teste empírico em tarefas com raciocínio causalmente necessário. Fortaleza: Centro Universitário Ateneu, 2026. Manuscrito não publicado, versão de 27 jun. 2026.
+
+MARQUES, Kelvin e Silva. **cot-obfuscation-h2a**: código, dados e protocolos do projeto. GitHub, 2026. Disponível em: https://github.com/Kelvin-Marques-Cyber/cot-obfuscation-h2a. Acesso em: 28 out. 2026.
+
+MARQUES, Kelvin e Silva. **Monitorabilidade e ofuscação da cadeia de pensamento**: pré-registro de experimentos SFT e GRPO com avaliação independente. OSF Registries, 19 out. 2026. Disponível em: https://osf.io/sjwdf/. Acesso em: 28 out. 2026.
+
+MITRANI HADIDA, Nathaniel; BHANJI, Sassan; TICE, Cameron; RADMARD, Puria. Chain-of-thought obfuscation learned from output supervision can generalise to unseen tasks. **arXiv**, 2601.23086v2, 2026. Versão de 20 maio 2026. DOI: 10.48550/arXiv.2601.23086.
+
+NOSEK, Brian A.; EBERSOLE, Charles R.; DEHAVEN, Alexander C.; MELLOR, David T. The preregistration revolution. **Proceedings of the National Academy of Sciences**, Washington, v. 115, n. 11, p. 2600-2606, 2018. DOI: 10.1073/pnas.1708274114.
+
+QWEN TEAM. Qwen2.5 technical report. **arXiv**, 2412.15115, 2024. DOI: 10.48550/arXiv.2412.15115.
+
+SHAO, Zhihong; WANG, Peiyi; ZHU, Qihao; XU, Runxin; SONG, Junxiao; BI, Xiao; ZHANG, Haowei; ZHANG, Mingchuan; LI, Y. K.; WU, Y.; GUO, Daya. DeepSeekMath: pushing the limits of mathematical reasoning in open language models. **arXiv**, 2402.03300, 2024. DOI: 10.48550/arXiv.2402.03300.
+
+TURPIN, Miles; MICHAEL, Julian; PEREZ, Ethan; BOWMAN, Samuel R. Language models don't always say what they think: unfaithful explanations in chain-of-thought prompting. *In*: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS, 36., 2023. **Proceedings** [...]. [*S. l.*]: Curran Associates, 2023. DOI: 10.48550/arXiv.2305.04388.
+
+VON WERRA, Leandro *et al*. **TRL**: Transformer Reinforcement Learning. Versão 0.22.2. GitHub, 2020. Disponível em: https://github.com/huggingface/trl. Acesso em: 28 out. 2026.
+
+WEI, Jason *et al*. Chain-of-thought prompting elicits reasoning in large language models. *In*: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS, 35., 2022. **Proceedings** [...]. [*S. l.*]: Curran Associates, 2022. DOI: 10.48550/arXiv.2201.11903.
+
+WOLF, Thomas *et al*. Transformers: state-of-the-art natural language processing. *In*: CONFERENCE ON EMPIRICAL METHODS IN NATURAL LANGUAGE PROCESSING: SYSTEM DEMONSTRATIONS, 2020. **Proceedings** [...]. [*S. l.*]: Association for Computational Linguistics, 2020. p. 38-45. DOI: 10.18653/v1/2020.emnlp-demos.6.
+
+YANG, An *et al*. Qwen3 technical report. **arXiv**, 2505.09388, 2025. DOI: 10.48550/arXiv.2505.09388.
+
+ZHENG, Lianmin *et al*. Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. *In*: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS, 36., 2023. **Proceedings** [...]. [*S. l.*]: Curran Associates, 2023. DOI: 10.48550/arXiv.2306.05685.
+:::
+

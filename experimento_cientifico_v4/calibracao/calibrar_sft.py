@@ -13,6 +13,13 @@ Regra declarada antes da execução (commit em que este arquivo foi criado):
    declarado inviável com esse modelo.
 5. A instrução neutra (SFT_SYSTEM) é medida apenas para descrição.
 O limiar de 0,80 dá margem acima do critério de 0,65 da triagem DEV.
+
+Rodada 2 (declarada depois da rodada 1 e antes de sua própria execução): na
+rodada 1 o modelo seguiu a instrução explícita escrevendo as contas, mas omitiu
+a tag <answer>, e o contrato estrito rejeitou todas as respostas. A rodada 2
+mede a mesma instrução acompanhada de duas demonstrações fixas do formato do
+alvo explícito (contrato.SFT_GATE_DEMOS), nos MESMOS itens de calibração, com a
+mesma regra de decisão. A instrução neutra não é repetida.
 """
 from __future__ import annotations
 
@@ -24,7 +31,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from cotv4 import contrato, tarefas  # noqa: E402
+from cotv4 import avaliacao, contrato, tarefas  # noqa: E402
 from cotv4.modelos import REVISIONS, chat, generate, load_model  # noqa: E402
 
 SEED = 20261028
@@ -52,7 +59,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=str(ROOT / 'calibracao' / 'resultados'))
     parser.add_argument('--device', choices=('cuda', 'cpu'), default='cuda')
+    parser.add_argument('--rodada', type=int, choices=(1, 2), default=1)
     args = parser.parse_args()
+    suffix = '' if args.rodada == 1 else '_r2'
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     items = calibration_items()
@@ -62,9 +71,16 @@ def main():
     model, tokenizer = load_model(model_id, REVISIONS[model_id], device=args.device,
                                   dtype='float16' if args.device == 'cuda' else 'float32')
     summary = {}
+    if args.rodada == 1:
+        variants = (('explicit', lambda row: [{'role': 'system', 'content': contrato.SFT_GATE_SYSTEM},
+                                              {'role': 'user', 'content': row['prompt']}]),
+                    ('neutral', lambda row: [{'role': 'system', 'content': contrato.SFT_SYSTEM},
+                                             {'role': 'user', 'content': row['prompt']}]))
+    else:
+        variants = (('explicit', lambda row: avaliacao.messages_for('sft', row, gate=True)),)
     for name, rows in items.items():
-        for prompt_name, system in (('explicit', contrato.SFT_GATE_SYSTEM), ('neutral', contrato.SFT_SYSTEM)):
-            target = out / f'sft_{name}_{prompt_name}.jsonl'
+        for prompt_name, messages in variants:
+            target = out / f'sft_{name}_{prompt_name}{suffix}.jsonl'
             done = {}
             if target.exists():
                 for line in target.read_text(encoding='utf-8').splitlines():
@@ -78,8 +94,7 @@ def main():
                 for row in rows:
                     if row['item_id'] in done:
                         continue
-                    prompt = chat(tokenizer, [{'role': 'system', 'content': system},
-                                              {'role': 'user', 'content': row['prompt']}])
+                    prompt = chat(tokenizer, messages(row))
                     started = time.perf_counter()
                     result = generate(model, tokenizer, prompt, 256)
                     record = dict(item_id=row['item_id'], candidate=name, prompt_type=prompt_name,
@@ -100,10 +115,10 @@ def main():
             if summary[f'{name}/explicit']['accuracy'] >= 0.80:
                 chosen = name
                 break
-    decision = dict(rule='hardest C with explicit accuracy >= 0.80; A explicit >= 0.80',
+    decision = dict(rule='hardest C with explicit accuracy >= 0.80; A explicit >= 0.80', round=args.rodada,
                     summary=summary, chosen_C=chosen, feasible=chosen is not None,
                     spec=CANDIDATES[chosen] if chosen else None)
-    (out / 'sft_calibration_decision.json').write_text(json.dumps(decision, indent=2), encoding='utf-8')
+    (out / f'sft_calibration_decision{suffix}.json').write_text(json.dumps(decision, indent=2), encoding='utf-8')
     print(json.dumps(decision, indent=2))
 
 
