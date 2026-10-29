@@ -110,7 +110,7 @@ INTRO = {
     '00': ('00 · Protocolo, dados e triagem DEV (v4)', '''
 **Ambiente: CPU.** Use **Ambiente de execução → Executar tudo** e autorize o Google Drive.
 
-1. Congela protocolo, código, dados (train/dev/test) e revisões dos quatro modelos.
+1. Congela protocolo, código, dados (train/dev/test) e revisões dos modelos.
 2. Importa a triagem DEV dos modelos-base, executada uma única vez antes do registro, e
    confere os SHA256. Se a triagem reprovar, os treinos ficam bloqueados.
 3. Exporta `pacote_registro_v4.zip` para o registro público (OSF ou equivalente).
@@ -127,22 +127,21 @@ Treina 3 condições (explicit, direct, generic) × 2 níveis (A, C) × 20 semen
 120 passos (LoRA fp16). Cada sessão conclui até `MAX_JOBS_PER_SESSION` treinos; reexecute para
 continuar. Treinos concluídos não são repetidos; treinos interrompidos retomam do último checkpoint.'''),
     '02': ('02 · Treinamento GRPO replicado (v4)', '''
-**Ambiente: GPU (T4 ou superior).** Executar tudo, com o mesmo `STUDY_ID`.
-
-Treina none, cot_monitor e summary_monitor × níveis low/high × 20 sementes = 120 treinos de
-120 passos. O monitor de recompensa (Qwen2.5-0.5B-Instruct) é distinto do monitor independente.
-Reexecute até concluir; checkpoints são retomados e treinos concluídos são preservados.'''),
+**Braço excluído do v4 antes do registro.** Na calibração, nenhum candidato a monitor
+independente nem a monitor de recompensa atingiu os critérios; pela regra declarada, H2 não é
+testável neste estudo e este notebook apenas informa a exclusão, sem treinar. O código do braço
+(none, cot_monitor e summary_monitor × low/high) permanece disponível para estudos futuros e é
+exercitado apenas no teste técnico de software.'''),
     '03': ('03 · Avaliação TEST pareada (v4)', '''
-**Ambiente: GPU.** Só abre TEST depois dos 240 treinos. Avalia cada adaptador no modo `full`,
-com orçamento de 256 tokens: 26.400 gerações SFT e 28.800 GRPO. Avaliações interrompidas
+**Ambiente: GPU.** Só abre TEST depois dos 120 treinos SFT. Avalia cada adaptador no modo
+`full`, com orçamento de 256 tokens: 26.400 gerações. Avaliações interrompidas
 retomam do último item gravado; avaliações concluídas têm hash conferido e não são refeitas.'''),
-    '04': ('04 · Monitor independente, anotação humana e inferência (v4)', '''
-**Ambiente: GPU.** Aplica o monitor independente congelado às 120 avaliações GRPO, exporta a
-amostra cega de 360 itens e calcula os contrastes por semente (inversão de sinais, bootstrap,
-Holm). Os arquivos humanos devem ser preenchidos por pessoas e salvos em `human/`:
-`completed_annotations.csv` (annotation_id, rater, label), `adjudication.csv` (annotation_id, label)
-e `independent_monitor_controls.csv` (question, trace, label, source=human, split=heldout), com
-pelo menos 100 positivos e 100 negativos. Sem eles, o relatório permanece `INSUFFICIENT_EVIDENCE`.'''),
+    '04': ('04 · Inferência e relatório final (v4)', '''
+**Ambiente: GPU.** Depois das 120 avaliações SFT, calcula o contraste de H1 por semente
+(inversão de sinais bilateral, intervalo bootstrap e efeito mínimo de 0,05) e grava o veredito em
+`analysis/final_verdict.json`. As etapas de monitor independente, amostra cega e anotação humana
+pertencem ao braço GRPO, excluído deste estudo antes do registro; o código permanece para
+estudos futuros. Sem registro público e triagem aprovada, o veredito é `INSUFFICIENT_EVIDENCE`.'''),
 }
 
 STEPS = {

@@ -36,16 +36,16 @@ fixadas em [requirements-gpu.txt](requirements-gpu.txt).
 2. Publique o registro (OSF ou equivalente) **antes de qualquer treino**,
    incluindo os SHA256 do pacote (`MANIFESTO_SHA256.json`). Preencha
    `PUBLIC_REGISTRATION_URL` no 00 e execute tudo de novo.
-3. **01 e 02 (GPU T4 ou superior):** executar tudo repetidas vezes, com o mesmo
-   `STUDY_ID`, até 120/120 treinos em cada braço. Cada sessão faz
-   `MAX_JOBS_PER_SESSION` treinos; treinos interrompidos retomam do último
-   checkpoint e treinos concluídos não são refeitos.
-4. **03 (GPU):** só abre TEST depois dos 240 treinos; repita até concluir as
-   240 avaliações (26.400 + 28.800 gerações).
-5. **04 (GPU):** monitor independente, amostra cega de 360 itens e relatório.
-   Os arquivos humanos (`human/completed_annotations.csv`,
-   `human/adjudication.csv`, `human/independent_monitor_controls.csv`) devem
-   ser preenchidos por pessoas.
+3. **01 (GPU T4 ou superior):** executar tudo repetidas vezes, com o mesmo
+   `STUDY_ID`, até 120/120 treinos SFT. Cada sessão faz `MAX_JOBS_PER_SESSION`
+   treinos; treinos interrompidos retomam do último checkpoint e treinos
+   concluídos não são refeitos.
+4. **02 (braço GRPO):** excluído do v4 antes do registro, porque nenhum monitor
+   foi aprovado na calibração; o notebook informa a exclusão e não treina.
+5. **03 (GPU):** só abre TEST depois dos 120 treinos SFT; repita até concluir
+   as 120 avaliações (26.400 gerações).
+6. **04 (GPU):** relatório final de H1. As etapas de monitor independente e de
+   anotação humana pertencem ao braço GRPO e não se aplicam a este estudo.
 
 A primeira célula mostra a situação de cada etapa: **CONCLUÍDA** (arquivos
 verificados), **BLOQUEADA** (critério do protocolo ou recurso ausente, com o

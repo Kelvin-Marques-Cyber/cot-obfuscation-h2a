@@ -52,6 +52,26 @@ def main():
                           ambiente='CPU x86_64, Python 3.12.3, PyTorch 2.8.0, fp32',
                           resultado='; '.join(f"{k}: {e['cpu_fp32']['correct']}/{e['cpu_fp32']['n']}"
                                               for k, e in diag['levels'].items() if 'cpu_fp32' in e)))
+    cal = V4 / 'calibracao' / 'resultados'
+    sft2, grpo2 = read(cal / 'sft_calibration_decision_r2.json'), read(cal / 'grpo_calibration_decision_r2.json')
+    if sft2 and grpo2:
+        table.append(dict(verificacao='Calibração exploratória do v4 (rodadas 1 e 2, itens próprios)',
+                          ambiente='Colab, Tesla T4, fp16, decodificação gulosa item a item',
+                          resultado=f"SFT: nível C = {sft2['chosen_C']}; GRPO: variante {grpo2['chosen'][0]}, "
+                                    f"faixa {grpo2['chosen'][1]} (regras gravadas antes de cada rodada)"))
+    mon1, mon2 = read(cal / 'monitor_feasibility_decision.json'), read(cal / 'monitor_feasibility_decision_r2.json')
+    if mon1 and mon2:
+        entries = mon1['summary'] + mon2['summary']
+        gpus = sorted({e.get('hardware', 'Tesla T4') for e in entries})
+        table.append(dict(verificacao=f'Viabilidade de {len(entries)} monitores em 320 controles construídos',
+                          ambiente='Colab, ' + ' e '.join(gpus) + ', fp32',
+                          resultado='nenhum monitor independente nem de recompensa aprovado; braço GRPO '
+                                    'excluído pela regra declarada'))
+        table.append(dict(verificacao='Encerramento de sessões do Colab durante a calibração',
+                          ambiente='Colab (sessões sem atividade foram recicladas pelo serviço)',
+                          resultado='etapas repetidas com o mesmo código; valores repetidos idênticos aos '
+                                    'observados; a 1ª execução da rodada 2 dos monitores morreu por falta '
+                                    'de RAM e foi repetida integralmente após declaração'))
     if gate and protocol:
         threshold = protocol['gate']['threshold']
         passed = all(e['accuracy'] >= threshold for levels in gate['summary'].values() for e in levels.values())
@@ -90,9 +110,11 @@ def main():
              base='valores documentados; reproduzidos exatamente na T4'),
         dict(conclusao='Causas da reprovação (incapacidade em C; instrução e contrato)', categoria='experimento exploratório',
              base='classificação das gerações reproduzidas'),
-        dict(conclusao='Monitores SmolLM2 não discriminam controles construídos', categoria='experimento exploratório',
-             base='320 controles rotulados por regra, não por pessoas'),
-        dict(conclusao='Escolhas de tarefa, instrução e monitor do v4', categoria='experimento exploratório',
+        dict(conclusao='Nenhum dos monitores avaliados discrimina controles construídos', categoria='experimento exploratório',
+             base='9 modelos em 320 controles rotulados por regra, não por pessoas'),
+        dict(conclusao='Exclusão do braço GRPO (H2 não testável no v4)', categoria='decisão de desenho',
+             base='regra gravada antes do resultado dos monitores'),
+        dict(conclusao='Escolhas de tarefa e instrução do v4', categoria='experimento exploratório',
              base='calibração em itens próprios, regras gravadas antes'),
         dict(conclusao='Resultado da triagem do v4', categoria='triagem de competência',
              base='120 itens DEV por nível, execução única'),
@@ -101,15 +123,41 @@ def main():
         dict(conclusao='Efeitos de H1 e H2', categoria='resultado confirmatório',
              base='não produzido: nenhum treino confirmatório executado'),
     ]
-    out = dict(date='2026-10-28', tabela=table, evidencias=evidencias, numeros=numbers,
+    gate_ok = bool(gate and protocol and all(e['accuracy'] >= protocol['gate']['threshold']
+                                             for e in gate['summary']['sft'].values()))
+    situacao = [
+        dict(experimento='Reanálise do estudo-piloto', situacao='concluído',
+             detalhe='médias, ANOVA e Welch reproduzidos; instrumentos auditados'),
+        dict(experimento='Estudo v3.2 (OSF sjwdf): treinos e TEST', situacao='bloqueado (encerrado)',
+             detalhe='triagem DEV reprovada nos quatro níveis; nenhum treino'),
+        dict(experimento='Diagnóstico da triagem do v3.2 (T4 e CPU)', situacao='concluído',
+             detalhe='quatro valores reproduzidos; causas classificadas'),
+        dict(experimento='Calibração do v4 (tarefas, instruções e monitores)', situacao='concluído',
+             detalhe='SFT C2; GRPO r2b; nenhum monitor aprovado'),
+        dict(experimento='Triagem DEV do v4 (execução única)', situacao=(
+            'concluído' if gate else 'não executado'), detalhe=(
+            ('SFT aprovado' if gate_ok else 'SFT reprovado') + '; GRPO descritivo' if gate else '')),
+        dict(experimento='Braço GRPO do v4 (H2)', situacao='excluído antes do registro',
+             detalhe='sem monitor independente nem de recompensa viável'),
+        dict(experimento='Registro público do v4', situacao='pendente (ação do pesquisador)' if gate_ok
+             else 'não aplicável', detalhe='publicar o pacote do notebook 00 antes do primeiro treino'),
+        dict(experimento='120 treinos SFT, 26.400 gerações TEST e inferência de H1',
+             situacao='pendente' if gate_ok else 'bloqueado',
+             detalhe='dependem do registro público' if gate_ok else 'triagem do v4 reprovada'),
+        dict(experimento='Teste técnico CUDA dos cinco notebooks v4', situacao='concluído' if cuda else 'não executado',
+             detalhe='modo técnico; não é evidência científica'),
+    ]
+    out = dict(date='2026-10-29', tabela=table, evidencias=evidencias, numeros=numbers, situacao=situacao,
                scientific_confirmatory_results=False)
     (ROOT / 'results' / 'validacao_2026_10_28.json').write_text(json.dumps(out, indent=2, ensure_ascii=False) + '\n',
                                                                 encoding='utf-8')
-    lines = ['# Relatório de validação e execuções — 28/10/2026', '',
+    lines = ['# Relatório de validação e execuções — 28 e 29/10/2026', '',
              'Este relatório lista o que foi executado nesta revisão, em que ambiente e com que resultado. '
              'Verificações de software não constituem evidência científica sobre as hipóteses.', '',
              '| Verificação | Ambiente | Resultado |', '|---|---|---|']
     lines += [f"| {r['verificacao']} | {r['ambiente']} | {r['resultado']} |" for r in table]
+    lines += ['', '## Situação dos experimentos', '', '| Experimento | Situação | Detalhe |', '|---|---|---|']
+    lines += [f"| {r['experimento']} | {r['situacao']} | {r['detalhe']} |" for r in situacao]
     lines += ['', '## Natureza da evidência', '', '| Conclusão | Categoria | Base |', '|---|---|---|']
     lines += [f"| {r['conclusao']} | {r['categoria']} | {r['base']} |" for r in evidencias]
     if local:
