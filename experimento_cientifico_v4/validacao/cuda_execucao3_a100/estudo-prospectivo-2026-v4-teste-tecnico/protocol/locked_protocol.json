@@ -1,0 +1,17 @@
+{
+  "schema": "scientific-prospective-v4.0",
+  "protocol_sha256": "94eac6cfcbef47f2a53fef3e9c0f16ec0220d401b34aacc234280d0d12cce437",
+  "code_sha256": {
+    "__init__.py": "903b3bdb88f326693084e14633a5ebce1f862506124b58f67dc751c2a2c96f76",
+    "avaliacao.py": "01b6f0f4f9e651dd2a1904eb19da2a8066a9366b976b768911722b9ada8d966f",
+    "contrato.py": "fc9d9130d8edb89a56c7cf8b52dbe4ebda3b4d60d81f7964b769cb8515caa4b1",
+    "estatistica.py": "7fd7615c0ead1e01c0d7e926e41c56a0b203b4ba493f3153362a9779c945bdfd",
+    "modelos.py": "ee02866b8eac6db6928233805f50c985352d5c57253a3bfcf01d7c56fe910811",
+    "monitor.py": "3635ed93e186e64dea87b0df428c8472434f40e2d243660b7ffb63ddce2a87f3",
+    "runtime.py": "c1f4326e798b39e8b90fc6099d1c8da8b31e14a0ec9b46bf678c43c2a77fe3b0",
+    "tarefas.py": "8b1a58ecc9df6b959741409f71811b7e90449bc41eedf7d860528f74732ba7fd",
+    "treino.py": "357cc924119facab1911ca07a8e76c987ce5c64e79050381887fcb0d72202fed"
+  },
+  "source_commit": "b858d128bcd545dd958e0dbed9978a7aea2591b3",
+  "technical_test": true
+}

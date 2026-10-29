@@ -1,0 +1,8 @@
+$ /usr/bin/python3 -m virtualenv --system-site-packages /content/cot-v4-envs/gpu-c7c633238e080188
+created virtual environment CPython3.13.16.final.0-64 in 243ms
+  creator CPython3Posix(dest=/content/cot-v4-envs/gpu-c7c633238e080188, clear=False, no_vcs_ignore=False, global=True)
+  seeder FromAppData(download=False, pip=bundle, via=copy, app_data_dir=/root/.local/share/virtualenv)
+    added seed packages: pip==25.2
+  activators BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator
+
+[exit=0 seconds=0.4]

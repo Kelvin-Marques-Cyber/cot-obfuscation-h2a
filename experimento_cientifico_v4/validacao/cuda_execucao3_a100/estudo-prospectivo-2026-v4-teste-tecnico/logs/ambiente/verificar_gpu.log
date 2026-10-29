@@ -1,0 +1,4 @@
+$ /content/cot-v4-envs/gpu-c7c633238e080188/bin/python /content/cot-v4/source/b858d128bcd545dd958e0dbed9978a7aea2591b3/experimento_cientifico_v4/colab/verificar_gpu.py 14.0
+GPU verificada: NVIDIA A100-SXM4-80GB, 79.3 GiB, capacidade 8.0, torch 2.11.0+cu130, CUDA 13.0
+
+[exit=0 seconds=12.5]

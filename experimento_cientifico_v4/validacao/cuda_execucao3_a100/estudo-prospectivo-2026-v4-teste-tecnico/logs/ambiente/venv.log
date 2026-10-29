@@ -1,0 +1,1 @@
+Error: Command '['/content/cot-v4-envs/gpu-c7c633238e080188/bin/python3', '-m', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.

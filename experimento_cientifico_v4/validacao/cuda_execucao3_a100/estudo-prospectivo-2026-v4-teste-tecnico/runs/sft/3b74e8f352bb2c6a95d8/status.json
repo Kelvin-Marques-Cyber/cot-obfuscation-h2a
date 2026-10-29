@@ -1,0 +1,11 @@
+{
+  "status": "trained",
+  "run_id": "3b74e8f352bb2c6a95d8",
+  "global_step": 2,
+  "first_loss": 3.408,
+  "last_loss": 3.3566,
+  "adapter_sha256": {
+    "adapter_model.safetensors": "d6bd8609135d37cd3758dfb853865907f79552880b52def47f8b3c6a522db6a4"
+  },
+  "resumed_from": null
+}

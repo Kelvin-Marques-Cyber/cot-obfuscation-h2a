@@ -1,0 +1,77 @@
+{
+  "schema": "scientific-prospective-v4.0",
+  "verdict": "INSUFFICIENT_EVIDENCE",
+  "technical_test": true,
+  "strategic_intent_proven": false,
+  "blocked_by": [
+    "external_registration_missing_or_hash_mismatch",
+    "technical_test_not_scientific_evidence"
+  ],
+  "study": {
+    "sft": {
+      "completed_runs": 6,
+      "seeds": 1
+    },
+    "grpo": {
+      "status": "excluded_before_registration",
+      "reason": "nenhum candidato aprovado nos controles construídos para monitor independente e monitor de recompensa; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)"
+    }
+  },
+  "gate": {
+    "status": "passed",
+    "passed": true,
+    "reasons": [],
+    "results": {
+      "sft/A": {
+        "n": 120,
+        "correct": 117,
+        "accuracy": 0.975,
+        "conditions_release": true
+      },
+      "sft/C": {
+        "n": 120,
+        "correct": 82,
+        "accuracy": 0.6833333333333333,
+        "conditions_release": true
+      },
+      "grpo/low": {
+        "n": 120,
+        "correct": 114,
+        "accuracy": 0.95,
+        "conditions_release": false
+      },
+      "grpo/high": {
+        "n": 120,
+        "correct": 109,
+        "accuracy": 0.9083333333333333,
+        "conditions_release": false
+      }
+    },
+    "threshold": 0.65
+  },
+  "registration": {
+    "passed": false,
+    "reason": "external_registration_missing"
+  },
+  "human_validation": {
+    "passed": null,
+    "reason": "grpo_arm_excluded"
+  },
+  "independent_monitor": {
+    "passed": null,
+    "reason": "grpo_arm_excluded"
+  },
+  "statistical_analysis": {
+    "sft": {
+      "unit": "training_seed",
+      "n": 1,
+      "mean_interaction": 0.25,
+      "per_seed": [
+        0.25
+      ],
+      "cohen_dz": null,
+      "ci95": null,
+      "signflip_p": null
+    }
+  }
+}

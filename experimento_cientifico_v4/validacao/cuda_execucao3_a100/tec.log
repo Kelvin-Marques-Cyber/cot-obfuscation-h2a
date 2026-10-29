@@ -1,0 +1,14 @@
+16:30:09 Executando 00_protocolo_dados_e_triagem.ipynb
+16:34:16 00_protocolo_dados_e_triagem.ipynb ok 246.5 s
+16:34:16 Executando 01_treinamento_sft.ipynb
+16:35:59 01_treinamento_sft.ipynb ok 103.5 s
+16:35:59 Executando 02_treinamento_grpo.ipynb
+16:36:03 02_treinamento_grpo.ipynb ok 3.3 s
+16:36:03 Executando 03_avaliacao_test.ipynb
+16:36:38 03_avaliacao_test.ipynb ok 35.6 s
+16:36:38 Executando 04_monitor_humanos_e_inferencia.ipynb
+16:36:43 04_monitor_humanos_e_inferencia.ipynb ok 4.7 s
+16:36:43 Interrupção de treino: iniciando SFT e matando após checkpoint-1
+16:37:21 Treino retomado: {'status': 'trained', 'run_id': '68cdb2fa03d2149c6f53', 'global_step': 2, 'first_loss': 0.7365, 'last_loss': 0.7354, 'adapter_sha256': {'adapter_model.safetensors': 'f9e32f7a48886336743491659be173b4d26e286b4eb02f4d3ac05071276a457a'}, 'resumed_from': 'checkpoint-1'}
+16:37:21 Interrupção de avaliação: avaliando um adaptador e matando após o primeiro item
+16:37:50 TESTE_TECNICO_V4_CONCLUIDO {"interrupcao_treino": {"killed_returncode": -9, "checkpoints_at_kill": ["checkpoint-1"], "status_after_kill": "running", "checkpoints_after_kill": ["README.md", "checkpoint-1"], "resume_returncode": 0, "status_final": {"status": "trained", "run_id": "68cdb2fa03d2149c6f53", "global_step": 2, "first_loss": 0.7365, "last_loss": 0.7354, "adapter_sha256": {"adapter_model.safetensors": "f9e32f7a48886336743491659be173b4d26e286b4eb02f4d3ac05071276a457a"}, "resumed_from": "checkpoint-1"}}, "interrupcao_avaliacao": {"lines_after_kill": 1, "resume_returncode": 0, "final_lines": 4, "unique_items": 4, "first_line_identical": true}}
