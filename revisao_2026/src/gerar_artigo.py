@@ -46,6 +46,14 @@ def frac(k, n):
     return f'{k}/{n}'
 
 
+def wilson(k, n, z=1.959963984540054):
+    """Intervalo de confiança de Wilson para uma proporção."""
+    p = k / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    return centre - half, centre + half
+
+
 def read_csv(path):
     with Path(path).open(encoding='utf-8') as handle:
         return list(csv.DictReader(handle))
@@ -168,6 +176,10 @@ def values():
             for level, entry in levels.items():
                 out[f'v4.gate.{mode}.{level}'] = pct(entry['accuracy'])
                 out[f'v4.gate.{mode}.{level}.k'] = frac(entry['correct'], entry['n'])
+                low, high = wilson(entry['correct'], entry['n'])
+                out[f'v4.gate.{mode}.{level}.ic'] = f'{pct(low)} a {pct(high)}'
+                out[f'v4.gate.{mode}.{level}.formato'] = frac(entry['format_valid'], entry['n'])
+                out[f'v4.gate.{mode}.{level}.trunc'] = str(entry['truncated'])
     if VALIDATION.exists():
         for key, value in read_json(VALIDATION).get('numeros', {}).items():
             out['val.' + key] = str(value)

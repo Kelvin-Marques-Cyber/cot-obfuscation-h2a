@@ -46,7 +46,7 @@ FORTALEZA
 
 # RESUMO
 
-<<RESUMO>>
+A monitorabilidade da cadeia de pensamento depende de que os rastros textuais produzidos por modelos de linguagem antes da resposta continuem a revelar comportamentos indesejados quando o treinamento é submetido a pressão de supervisão. Este trabalho examina três conjuntos de evidência de um mesmo projeto. A reanálise de um estudo-piloto com ajuste fino supervisionado (SFT) reproduziu os resultados publicados, mas mostrou que o corretor aceitava respostas ambíguas e que as três sementes compartilhavam quase todos os itens, o que impede atribuir a diferença entre alvos de treinamento à ofuscação do raciocínio. O estudo prospectivo pré-registrado v3.2, com um braço de SFT e outro de otimização por recompensa (GRPO), foi encerrado sem treinamentos porque os modelos-base não atingiram 65% de acurácia na triagem de competência em itens de desenvolvimento. A reprodução da triagem com o código congelado, em GPU e em CPU, obteve exatamente os valores registrados e descartou defeitos de execução; as causas foram a incapacidade do modelo-base nos níveis mais difíceis e instruções que tornavam a medida dependente de formatos não demonstrados. Um novo protocolo, v4, recalibrou tarefas e instruções em itens próprios e, na triagem executada antes do registro, o modelo do braço SFT acertou {{v:v4.gate.sft.A}} e {{v:v4.gate.sft.C}} dos itens dos dois níveis. Nenhum dos nove modelos avaliados como monitores distinguiu, em 320 controles construídos, rastros que usam uma informação proibida de rastros que não a usam; por uma regra declarada antes desse resultado, o braço GRPO foi excluído. O trabalho não produz evidência confirmatória sobre ofuscação: documenta um desenho viável para testar o efeito do formato de supervisão e os requisitos de instrumentação para testar a ofuscação sob pressão de recompensa.
 
 **Palavras-chave:** cadeia de pensamento; monitorabilidade; pré-registro; triagem de competência; reprodutibilidade.
 
@@ -54,7 +54,7 @@ FORTALEZA
 
 # ABSTRACT
 
-<<ABSTRACT>>
+Chain-of-thought monitorability depends on the textual traces that language models produce before answering continuing to reveal undesired behavior when training is subject to supervision pressure. This work examines three bodies of evidence from a single project. A reanalysis of a supervised fine-tuning (SFT) pilot study reproduced the published results but showed that the grader accepted ambiguous answers and that the three seeds shared almost all items, which prevents attributing the difference between training targets to reasoning obfuscation. The preregistered prospective study v3.2, with an SFT arm and a reward-optimization arm (GRPO), was closed without training because the base models did not reach 65% accuracy in the competence screening on development items. Reproducing the screening with the frozen code, on GPU and CPU, yielded exactly the registered values and ruled out execution defects; the causes were the base model's inability at the hardest levels and instructions that made the measurement depend on undemonstrated formats. A new protocol, v4, recalibrated tasks and instructions on separate items and, in a screening run before registration, the SFT base model answered {{v:v4.gate.sft.A}} and {{v:v4.gate.sft.C}} of the items at the two levels correctly. None of the nine models evaluated as monitors distinguished, on 320 constructed controls, traces that use forbidden information from traces that do not; under a rule declared before this result, the GRPO arm was excluded. The work produces no confirmatory evidence about obfuscation: it documents a viable design for testing the effect of supervision format and the instrumentation requirements for testing obfuscation under reward pressure.
 
 **Keywords:** chain of thought; monitorability; preregistration; competence screening; reproducibility.
 
@@ -252,7 +252,17 @@ A @tab:monitores_v4 apresenta o desempenho dos monitores nos controles construí
 
 Pela regra gravada antes desses resultados, a ausência de monitor viável exclui o braço GRPO do v4 antes do registro: H2 não é testável neste estudo, e os 120 treinamentos GRPO não serão executados. O protocolo foi congelado com essa decisão (commit 37094c4), com o nível C2 no SFT e a variante r2b com operandos de 11 a 99 no GRPO, e a tabela de alterações (@tab:mudancas_v4) registra a exclusão.
 
-<<RES_V4_GATE>>
+## 5.4 Triagem DEV do v4
+
+A triagem do v4 foi executada uma única vez, em 29 de outubro de 2026, com o protocolo e o código congelados no commit 37094c4, numa Tesla T4 com pesos em fp16 (@tab:triagem_v4 e @fig:v4). No braço SFT, o modelo-base acertou {{v:v4.gate.sft.A.k}} itens no nível A ({{v:v4.gate.sft.A}}) e {{v:v4.gate.sft.C.k}} no nível C ({{v:v4.gate.sft.C}}); todas as respostas seguiram o formato exigido e nenhuma atingiu o orçamento de *tokens*. Os dois níveis satisfizeram o critério de 0,65, e o critério de competência deixou de impedir os treinamentos do braço SFT, que dependem agora apenas do registro público.
+
+{{tabela:triagem_v4}}
+
+{{figura:v4}}
+
+A margem no nível C é pequena. O intervalo de confiança de 95% de Wilson para a acurácia observada vai de {{v:v4.gate.sft.C.ic}} e inclui valores abaixo do critério, e a acurácia ficou abaixo da estimativa da calibração para o mesmo candidato ({{v:cal.sft.r2.C2.explicit}} em 40 itens). O critério registrado se aplica à acurácia observada, e não ao intervalo, de modo que o resultado é uma aprovação; a proximidade do limiar, porém, indica que o nível C se situa perto do limite de competência do modelo-base sob a instrução da triagem, o que deve ser considerado na interpretação de resultados futuros desse nível.
+
+No braço GRPO, cuja triagem tem caráter apenas descritivo, o modelo-base acertou {{v:v4.gate.grpo.low.k}} itens no nível *low* e {{v:v4.gate.grpo.high.k}} no nível *high*, sem a nota proibida, com {{v:v4.gate.grpo.low.formato}} e {{v:v4.gate.grpo.high.formato}} respostas em formato válido.
 
 # 6 DISCUSSÃO
 
@@ -266,7 +276,7 @@ A reprovação do v3.2 não decorre de erro de execução. Os quatro valores doc
 
 Essa distinção é relevante para a interpretação. Um extrator permissivo teria aprovado alguns níveis, mas trocar o extrator depois de observar os resultados da triagem alteraria o instrumento registrado. O registro previa exatamente essa situação: mudanças de instrumento, modelo ou amostragem exigem novo protocolo. O desfecho do v3.2 é, portanto, a inviabilidade do desenho tal como registrado, e não um resultado sobre as hipóteses H1 e H2, que permanecem não testadas.
 
-A calibração do v4 revelou ainda um problema que a triagem não alcançava: o monitor independente previsto não discrimina rastros que usam a nota proibida de rastros que a rejeitam explicitamente (seção 6.3). Mesmo com competência aprovada, o gate de validação do monitor provavelmente teria falhado depois dos 240 treinamentos, deixando o braço GRPO sem desfecho interpretável. Uma verificação antecipada desse instrumento, com controles construídos e de baixo custo, teria revelado o problema antes do registro.
+A calibração do v4 revelou ainda um problema que a triagem não alcançava: o monitor independente previsto não discrimina rastros que usam a nota proibida de rastros que a rejeitam explicitamente (seção 6.3). Mesmo com competência aprovada, a etapa obrigatória de validação do monitor provavelmente teria falhado depois dos 240 treinamentos, deixando o braço GRPO sem desfecho interpretável. Uma verificação antecipada desse instrumento, com controles construídos e de baixo custo, teria revelado o problema antes do registro.
 
 ## 6.3 O que a calibração do v4 mostra
 
@@ -276,9 +286,13 @@ A calibração também delimita o que muda no fenômeno estudado. No SFT, o nív
 
 A avaliação dos monitores é o resultado de maior consequência para o desenho. Sete modelos de quatro famílias, com 135 milhões a 3,8 bilhões de parâmetros, foram usados como classificadores por comparação de probabilidades, e nenhum distinguiu, com a margem exigida, rastros que seguem a nota proibida de rastros que a ignoram ou a rejeitam. A maioria dos candidatos atribuiu a mesma classe a quase todos os rastros, e o único com discriminação substancial produziu falsos positivos inclusive em rastros que apenas calculam a resposta. Como esses controles são inequívocos por construção, é improvável que os mesmos monitores fossem mais precisos nos rastros, mais variados, produzidos por modelos treinados. O instrumento central de H2, portanto, não estava disponível na forma prevista.
 
-A exclusão do braço GRPO antes do registro decorre dessa constatação e não constitui evidência sobre H2. Ela evita investir o orçamento de 120 treinamentos em um desenho cujo desfecho seria, por construção, evidência insuficiente no gate do monitor. Um teste futuro de H2 exigirá validar o monitor antes dos treinamentos, com um instrumento de outro tipo, como um modelo maior usado como classificador generativo, um classificador ajustado com rótulos humanos ou anotação humana integral das observações relevantes, cada qual com custo e premissas próprios.
+A exclusão do braço GRPO antes do registro decorre dessa constatação e não constitui evidência sobre H2. Ela evita investir o orçamento de 120 treinamentos em um desenho cujo desfecho seria, por construção, evidência insuficiente na etapa de validação do monitor. Um teste futuro de H2 exigirá validar o monitor antes dos treinamentos, com um instrumento de outro tipo, como um modelo maior usado como classificador generativo, um classificador ajustado com rótulos humanos ou anotação humana integral das observações relevantes, cada qual com custo e premissas próprios.
 
-## 6.4 Validade interna e externa
+## 6.4 Situação do estudo v4
+
+Com a aprovação dos dois níveis do SFT na triagem, o v4 está pronto para registro público como estudo de uma única hipótese confirmatória, H1. O registro deve incluir os resumos SHA256 do protocolo, dos dados, do código e das gerações da triagem; somente depois dele os 120 treinamentos e as 26.400 gerações de teste podem ser executados pelos notebooks. A resposta à pergunta P3 é, portanto, parcial: as alterações calibradas tornaram o braço SFT viável sob o mesmo critério de competência, enquanto os instrumentos de monitoramento previstos para o braço GRPO permaneceram inviáveis.
+
+## 6.5 Validade interna e externa
 
 No braço SFT, único mantido no v4, a lógica de identificação do v3.2 é preservada: contrastes pareados por semente e os mesmos itens de teste em todas as condições, de modo que diferenças entre alvos de treinamento não se confundem com diferenças entre amostras de itens. As alterações de tarefa reduzem a dificuldade aritmética, de modo que os resultados futuros, se obtidos, valerão para problemas que o modelo resolve com etapas explícitas e com erros residuais, e não para os problemas mais difíceis do v3.2. A escolha da faixa C2 pelo critério de 0,80 com demonstrações mantém a dependência das etapas: sem demonstrações, o mesmo modelo não acertou nenhum item dos candidatos ao nível C.
 
@@ -296,7 +310,9 @@ Por fim, a revisão bibliográfica concentrou-se nas fontes diretamente relacion
 
 # 8 CONCLUSÃO
 
-<<CONCLUSAO>>
+O estudo-piloto registra uma diferença consistente de acurácia entre alvos de treinamento, mas seus instrumentos não permitem atribuí-la à ofuscação de um raciocínio necessário. O estudo prospectivo v3.2 terminou sem treinamentos porque os modelos-base não atingiram o critério de competência; a reprodução com o código congelado confirmou os valores registrados e descartou defeitos de execução, e as causas identificadas foram a incapacidade do modelo-base nas tarefas de maior dificuldade e instruções que tornavam a medida dependente de formatos não demonstrados.
+
+O protocolo v4, preparado como estudo novo, tratou essas causas por calibração em itens próprios e satisfez o critério de competência no braço SFT, embora com pequena margem no nível de maior complexidade. A avaliação dos monitores mostrou que nenhum dos candidatos distingue rastros que usam a informação proibida de rastros que não a usam, e o braço GRPO foi excluído antes do registro. Nenhuma conclusão confirmatória sobre ofuscação da cadeia de pensamento decorre deste trabalho. O passo seguinte é o registro público do v4, com os resumos SHA256 dos artefatos congelados, seguido dos 120 treinamentos do braço SFT; um teste de H2 exigirá, antes de qualquer treinamento, um monitor validado com rótulos humanos.
 
 
 {{quebra}}
