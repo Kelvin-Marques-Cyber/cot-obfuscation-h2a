@@ -44,7 +44,7 @@ GRPO_DEMO = (
     '<trace>5 * 3 = 15; 12 + 15 = 27; 27 - 4 = 23. O valor 23 está na alternativa B.</trace>'
     '<summary>A expressão vale 23.</summary><answer>B</answer>')
 # Instrução vigente do braço GRPO (triagem, treino e avaliação).
-GRPO_VARIANT = 'v3'
+GRPO_VARIANT = 'r2b'
 
 
 def grpo_messages(user_text, variant=None):

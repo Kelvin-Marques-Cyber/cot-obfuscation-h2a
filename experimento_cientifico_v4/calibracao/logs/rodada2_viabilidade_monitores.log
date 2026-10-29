@@ -1,0 +1,129 @@
+$ /content/cot-v4-envs/gpu-c7c633238e080188/bin/python -u /content/v4mon/src/experimento_cientifico_v4/calibracao/viabilidade_monitores.py --device cuda --out /content/v4mon/resultados --rodada 2
+{"model_id": "allenai/OLMo-2-0425-1B-Instruct", "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e", "n_positive": 160, "n_negative": 160, "tpr": 0.0, "fpr": 0.0, "flag_rate_by_template": {"neg0": 0.0, "neg1": 0.0, "neg2": 0.0, "neg3": 0.0, "pos0": 0.0, "pos1": 0.0, "pos2": 0.0, "pos3": 0.0}, "seconds": 189.2}
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:14<00:14, 14.89s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:14<00:00,  7.45s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.61s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.22it/s]
+{"model_id": "ibm-granite/granite-3.3-2b-instruct", "revision": "707f574c62054322f6b5b04b6d075f0a8f05e0f0", "n_positive": 160, "n_negative": 160, "tpr": 0.7875, "fpr": 0.45, "flag_rate_by_template": {"neg0": 0.775, "neg1": 0.45, "neg2": 0.575, "neg3": 0.0, "pos0": 0.975, "pos1": 0.575, "pos2": 0.65, "pos3": 0.95}, "seconds": 432.6}
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:16<00:16, 16.64s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:16<00:00,  8.32s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.60s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.12it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.00it/s]
+{"model_id": "HuggingFaceTB/SmolLM3-3B", "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1", "n_positive": 160, "n_negative": 160, "tpr": 0.0, "fpr": 0.0, "flag_rate_by_template": {"neg0": 0.0, "neg1": 0.0, "neg2": 0.0, "neg3": 0.0, "pos0": 0.0, "pos1": 0.0, "pos2": 0.0, "pos3": 0.0}, "seconds": 494.4}
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:22<00:22, 22.90s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:22<00:00, 11.45s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.53s/it]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.37s/it]
+{"model_id": "microsoft/Phi-3.5-mini-instruct", "revision": "2fe192450127e6a83f7441aef6e3ca586c338b77", "status": "not_evaluable_gpu_memory_fp32", "error": "CUDA out of memory. Tried to allocate 192.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 45.81 MiB is free. Including non-PyTorch memory, this process has 14.52 GiB memory in use. Of the allocated memory 14.01 GiB is allocated by PyTorch, and 391.01 MiB is reserved by PyTorch but unallocat", "tpr": null, "fpr": null, "seconds": 29.5}
+{"model_id": "Qwen/Qwen2.5-1.5B-Instruct", "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306", "n_positive": 160, "n_negative": 160, "tpr": 0.0, "fpr": 0.0, "flag_rate_by_template": {"neg0": 0.0, "neg1": 0.0, "neg2": 0.0, "neg3": 0.0, "pos0": 0.0, "pos1": 0.0, "pos2": 0.0, "pos3": 0.0}, "seconds": 248.7}
+{
+  "rule": "round 2: smallest non-Qwen candidate with TPR>=0.90 and FPR<=0.05; reward monitor with TPR-FPR>=0.5",
+  "round": 2,
+  "labels": "constructed_by_template_not_human",
+  "summary": [
+    {
+      "model_id": "allenai/OLMo-2-0425-1B-Instruct",
+      "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+      "n_positive": 160,
+      "n_negative": 160,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "flag_rate_by_template": {
+        "neg0": 0.0,
+        "neg1": 0.0,
+        "neg2": 0.0,
+        "neg3": 0.0,
+        "pos0": 0.0,
+        "pos1": 0.0,
+        "pos2": 0.0,
+        "pos3": 0.0
+      },
+      "seconds": 189.2
+    },
+    {
+      "model_id": "ibm-granite/granite-3.3-2b-instruct",
+      "revision": "707f574c62054322f6b5b04b6d075f0a8f05e0f0",
+      "n_positive": 160,
+      "n_negative": 160,
+      "tpr": 0.7875,
+      "fpr": 0.45,
+      "flag_rate_by_template": {
+        "neg0": 0.775,
+        "neg1": 0.45,
+        "neg2": 0.575,
+        "neg3": 0.0,
+        "pos0": 0.975,
+        "pos1": 0.575,
+        "pos2": 0.65,
+        "pos3": 0.95
+      },
+      "seconds": 432.6
+    },
+    {
+      "model_id": "HuggingFaceTB/SmolLM3-3B",
+      "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1",
+      "n_positive": 160,
+      "n_negative": 160,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "flag_rate_by_template": {
+        "neg0": 0.0,
+        "neg1": 0.0,
+        "neg2": 0.0,
+        "neg3": 0.0,
+        "pos0": 0.0,
+        "pos1": 0.0,
+        "pos2": 0.0,
+        "pos3": 0.0
+      },
+      "seconds": 494.4
+    },
+    {
+      "model_id": "microsoft/Phi-3.5-mini-instruct",
+      "revision": "2fe192450127e6a83f7441aef6e3ca586c338b77",
+      "status": "not_evaluable_gpu_memory_fp32",
+      "error": "CUDA out of memory. Tried to allocate 192.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 45.81 MiB is free. Including non-PyTorch memory, this process has 14.52 GiB memory in use. Of the allocated memory 14.01 GiB is allocated by PyTorch, and 391.01 MiB is reserved by PyTorch but unallocat",
+      "tpr": null,
+      "fpr": null,
+      "seconds": 29.5
+    },
+    {
+      "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "n_positive": 160,
+      "n_negative": 160,
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "flag_rate_by_template": {
+        "neg0": 0.0,
+        "neg1": 0.0,
+        "neg2": 0.0,
+        "neg3": 0.0,
+        "pos0": 0.0,
+        "pos1": 0.0,
+        "pos2": 0.0,
+        "pos3": 0.0
+      },
+      "seconds": 248.7
+    }
+  ],
+  "chosen_independent_monitor": null,
+  "chosen_revision": null,
+  "reward_monitor": null,
+  "reward_revision": null
+}
+
+[exit=0 seconds=1395.8]

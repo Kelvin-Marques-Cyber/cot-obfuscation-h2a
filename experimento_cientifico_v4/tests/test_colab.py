@@ -174,7 +174,7 @@ class SessionTests(unittest.TestCase):
             self.assertEqual(prepared, again)
             status = session.execute('status')
             self.assertTrue(status['prepared'])
-            self.assertEqual(status['expected'], {'sft': 120, 'grpo': 120})
+            self.assertEqual(status['expected'], {'sft': 120})  # braço GRPO excluído no protocolo congelado
             runs = session.storage / 'runs' / 'sft' / 'x'
             (runs / 'adapter').mkdir(parents=True)
             (runs / 'adapter' / 'adapter_config.json').write_text('{}')

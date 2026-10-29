@@ -71,6 +71,8 @@ class MinimalIntegration(unittest.TestCase):
         proto['grpo'].update(model=cls.models['actor_grpo'], revision='1' * 40, budget=12,
                              max_prompt_length=4096)
         proto['grpo']['monitor'] = dict(model=cls.models['reward_monitor'], revision='2' * 40)
+        # O braço GRPO foi excluído do v4 antes do registro; aqui ele é ativado só para testar o software.
+        proto['grpo']['enabled'] = True
         proto['independent_monitor'].update(model=cls.models['independent_monitor'], revision='3' * 40)
         cls.patch = patch.object(runtime, 'protocol', return_value=proto)
         cls.patch.start()

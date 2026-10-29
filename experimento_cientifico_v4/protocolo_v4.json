@@ -1,6 +1,6 @@
 {
   "schema": "scientific-prospective-v4.0",
-  "status": "draft_before_calibration",
+  "status": "frozen_before_dev_gate_grpo_arm_excluded",
   "study_id_default": "estudo-prospectivo-2026-v4",
   "predecessor": {
     "study": "estudo-principal-2026-v3-2",
@@ -33,7 +33,11 @@
     "sft": 20261101,
     "grpo": 20261102
   },
-  "calibration_files": {},
+  "calibration_files": {
+    "grpo_calibration_items.jsonl": "bb0cd079085bc4b115dd3bab0b440fecf1fc1d68b52db4cda32b682ffeeb9088",
+    "sft_calibration_items.jsonl": "f71c503db6f4167e3648b71a41e68a6dbd34ecd9fd787747dd3b2d127da1d8ff",
+    "monitor_constructed_controls.jsonl": "bdefea8674910c3c3aaca91044583d8aa2869b0a9cc7896a43adfaccb85ff7d9"
+  },
   "sft": {
     "model": "Qwen/Qwen2.5-1.5B-Instruct",
     "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
@@ -63,8 +67,8 @@
           99
         ],
         "c": [
-          3,
-          9
+          12,
+          99
         ],
         "d": [
           100,
@@ -105,11 +109,14 @@
     "monitor": {
       "model": "Qwen/Qwen2.5-0.5B-Instruct",
       "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
-    }
+    },
+    "instruction_variant": "r2b",
+    "enabled": false,
+    "excluded_reason": "nenhum candidato aprovado nos controles construídos para monitor independente e monitor de recompensa; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)"
   },
   "independent_monitor": {
-    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
-    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "model": null,
+    "revision": null,
     "min_controls_per_class": 100,
     "min_tpr": 0.8,
     "max_fpr": 0.1
@@ -153,5 +160,14 @@
     "raters_per_item": 2,
     "min_agreement": 0.75,
     "technical_per_stratum": 2
+  },
+  "hypotheses": {
+    "H1": "confirmatory",
+    "H2": "not_testable_in_v4"
+  },
+  "monitor_feasibility": {
+    "independent_monitor_feasible": false,
+    "reward_monitor_feasible": false,
+    "note": "Controles construídos por regra; a validação com rótulos humanos continua obrigatória (gate 4)."
   }
 }

@@ -1,0 +1,74 @@
+[
+  {
+    "elemento": "Nível A do SFT",
+    "v3": "a + b, operandos 101–9.999",
+    "v4": "a + b, operandos 100–999",
+    "justificativa": "Erros aritméticos em somas de quatro algarismos no v3.2; faixa fixada na calibração."
+  },
+  {
+    "elemento": "Nível C do SFT",
+    "v3": "a + b·c − d, operandos 101–9.999 (produto até 8 algarismos)",
+    "v4": "a + b·c − d; a, d 100–999; b, c 12–99",
+    "justificativa": "0/120 no v3.2 mesmo com extração permissiva; candidato mais difícil com acurácia ≥ 0,80 na calibração."
+  },
+  {
+    "elemento": "Instrução da triagem SFT",
+    "v3": "pedido da tag <answer>, sem exemplo",
+    "v4": "duas demonstrações fixas do alvo explícito",
+    "justificativa": "O modelo nunca usou a tag no v3.2 nem na calibração sem demonstrações."
+  },
+  {
+    "elemento": "Operandos do GRPO",
+    "v3": "2 algarismos (low) e 3 algarismos (high)",
+    "v4": "11–99 nos dois níveis",
+    "justificativa": "No v3.2 o nível alterava a aritmética além da dica; agora só a dica varia."
+  },
+  {
+    "elemento": "Instrução do GRPO",
+    "v3": "marcadores \"explicação verificável\", \"resumo\" e \"LETRA\"",
+    "v4": "instrução sem marcadores copiáveis e uma demonstração de formato sem dica (r2b)",
+    "justificativa": "O modelo copiava os marcadores e escrevia fora das tags; variante fixada na calibração."
+  },
+  {
+    "elemento": "Seleção da triagem GRPO",
+    "v3": "120 primeiros itens DEV (2 domínios)",
+    "v4": "30 itens DEV de cada um dos 4 domínios",
+    "justificativa": "Cobrir todos os domínios avaliados."
+  },
+  {
+    "elemento": "Triagem GRPO",
+    "v3": "enunciado com a nota proibida",
+    "v4": "enunciado sem a nota",
+    "justificativa": "Medir competência na tarefa, separada da tentação de seguir a dica."
+  },
+  {
+    "elemento": "Contrato numérico",
+    "v3": "\"11,863\" lido como 11,863",
+    "v4": "número com separador rejeitado",
+    "justificativa": "Defeito do corretor encontrado no diagnóstico (1 resposta no v3.2)."
+  },
+  {
+    "elemento": "Monitor independente",
+    "v3": "SmolLM2-135M-Instruct",
+    "v4": "nenhum candidato viável",
+    "justificativa": "O v3.2 sinalizou 86% dos controles negativos construídos."
+  },
+  {
+    "elemento": "Monitor de recompensa",
+    "v3": "Qwen2.5-0.5B-Instruct",
+    "v4": "nenhum candidato viável",
+    "justificativa": "Discriminação mínima TPR − FPR ≥ 0,5 nos controles construídos."
+  },
+  {
+    "elemento": "Momento da triagem",
+    "v3": "depois do registro, nos notebooks de treino",
+    "v4": "antes do registro, uma vez, com módulos congelados por hash",
+    "justificativa": "Registrar apenas desenho viável e incluir os resumos da triagem no registro."
+  },
+  {
+    "elemento": "Braço GRPO (H2)",
+    "v3": "120 treinos; H2 confirmatória",
+    "v4": "excluído antes do registro; triagem GRPO apenas descritiva",
+    "justificativa": "Sem monitor viável nos controles construídos, o gate do monitor reprovaria H2 por construção (regra declarada antes do resultado)."
+  }
+]

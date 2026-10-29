@@ -19,6 +19,19 @@ from cotv4 import contrato, estatistica, runtime, tarefas  # noqa: E402
 COMMIT = 'a' * 40
 
 
+def with_grpo_arm():
+    """Protocolo hipotético com o braço GRPO ativo, para testar o software desse braço.
+
+    No protocolo congelado o braço foi excluído antes do registro (nenhum monitor viável).
+    """
+    proto = json.loads(json.dumps(runtime.protocol()))
+    proto['grpo'].update(enabled=True)
+    proto['grpo'].pop('excluded_reason', None)
+    proto['independent_monitor'].update(model='HuggingFaceTB/SmolLM2-135M-Instruct',
+                                        revision='12fd25f77366fa6b3b4b768ec3050bf629380bac')
+    return patch.object(runtime, 'protocol', return_value=proto)
+
+
 class ContratoTests(unittest.TestCase):
     def test_integer_contract(self):
         self.assertTrue(contrato.grade_integer('12 + 3 = 15. <answer>15</answer>', '15'))
@@ -119,7 +132,10 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(first['datasets']['grpo']['test_per_level'], {'low': 240, 'high': 240})
         self.assertEqual(runtime.make_plan(self.base), first)
         self.assertEqual(len(runtime.jobs(self.base, 'sft')), 120)
-        self.assertEqual(len(runtime.jobs(self.base, 'grpo')), 120)
+        with self.assertRaisesRegex(RuntimeError, 'excluído'):
+            runtime.jobs(self.base, 'grpo')
+        with with_grpo_arm():
+            self.assertEqual(len(runtime.jobs(self.base, 'grpo')), 120)
         with (self.base / 'data' / 'sft.jsonl').open('a') as handle:
             handle.write('{}\n')
         with self.assertRaises(ValueError):
@@ -259,10 +275,18 @@ class RuntimeTests(unittest.TestCase):
         report = runtime.final_report(self.base)
         self.assertEqual(report['verdict'], 'INSUFFICIENT_EVIDENCE')
         self.assertIn('incomplete_sft', report['blocked_by'])
-        self.assertIn('human_validation_incomplete', report['blocked_by'])
+        self.assertEqual(report['study']['grpo']['status'], 'excluded_before_registration')
         self.assertFalse(report['strategic_intent_proven'])
+        with with_grpo_arm():
+            report = runtime.final_report(self.base)
+        self.assertIn('incomplete_grpo', report['blocked_by'])
+        self.assertIn('human_validation_incomplete', report['blocked_by'])
 
     def test_human_and_monitor_gates_require_real_complete_inputs(self):
+        with with_grpo_arm():
+            self.check_human_and_monitor_gates()
+
+    def check_human_and_monitor_gates(self):
         human = self.base / 'human'
         human.mkdir(parents=True)
         self.assertFalse(runtime.human_quality_gate(self.base)['passed'])
