@@ -236,6 +236,9 @@ class Session:
             rows.append(('Registro público', 'CONCLUÍDA' if reg['passed'] else
                          ('NÃO NECESSÁRIO (teste técnico)' if self.technical_test else 'PENDENTE'), reg['reason']))
             for mode, label in (('sft', '01 Treinos SFT'), ('grpo', '02 Treinos GRPO')):
+                if mode in result.get('excluded', {}):
+                    rows.append((label, 'EXCLUÍDA', 'braço excluído antes do registro (ver protocolo)'))
+                    continue
                 done, total = result['training'][mode], result['expected'][mode]
                 state = 'CONCLUÍDA' if done == total else ('BLOQUEADA' if not gate['passed'] and not self.technical_test
                                                            else 'EM ANDAMENTO' if done else 'NÃO EXECUTADA')

@@ -176,6 +176,33 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'triagem DEV'):
             runtime.train_batch(self.base, 'sft')
 
+    def test_excluded_grpo_arm_is_descriptive_and_never_trains(self):
+        proto = json.loads(json.dumps(runtime.protocol()))
+        proto['grpo'].update(enabled=False, excluded_reason='nenhum monitor independente viável')
+        proto['independent_monitor'].update(model=None, revision=None)
+        with patch.object(runtime, 'protocol', return_value=proto):
+            plan = runtime.make_plan(self.base)
+            self.assertEqual(len(plan['model_revisions']), 3)
+            gate_dir = Path(self.temp.name) / 'gate'
+            self.write_gate(gate_dir, {('sft', 'A'): 0.9, ('sft', 'C'): 0.8, ('grpo', 'low'): 0.1,
+                                       ('grpo', 'high'): 0.1})
+            with patch.object(runtime, 'GATE_DIR', gate_dir):
+                gate = runtime.import_gate(self.base)
+            self.assertTrue(gate['passed'])
+            self.assertFalse(gate['results']['grpo/low']['conditions_release'])
+            status = runtime.study_status(self.base)
+            self.assertEqual(set(status['expected']), {'sft'})
+            self.assertIn('grpo', status['excluded'])
+            runtime.declare_registration(self.base, 'https://osf.io/abcde/')
+            with self.assertRaisesRegex(RuntimeError, 'excluído'):
+                runtime.train_batch(self.base, 'grpo')
+            with self.assertRaisesRegex(RuntimeError, 'excluído'):
+                runtime.write_blind_sheet(self.base)
+            report = runtime.final_report(self.base)
+            self.assertEqual(report['study']['grpo']['status'], 'excluded_before_registration')
+            self.assertNotIn('human_validation_incomplete', report['blocked_by'])
+            self.assertEqual(report['verdict'], 'INSUFFICIENT_EVIDENCE')
+
     def test_registration_rules(self):
         runtime.make_plan(self.base)
         self.assertFalse(runtime.preregistration_gate(self.base)['passed'])

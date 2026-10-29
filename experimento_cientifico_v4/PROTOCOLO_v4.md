@@ -66,7 +66,8 @@ itens próprios de calibração, nunca em TEST. A tabela detalhada está em
 ## 4. Calibração (exploratória, em itens próprios)
 
 Regras gravadas no repositório antes de cada execução (commits 97eaf5e,
-4f2c503, e02eda4, d3e4258, 73a6b13 e a4668a5). Sementes de calibração
+4f2c503, e02eda4, d3e4258, 73a6b13 e a4668a5; repetição da rodada 2 dos
+monitores em 5a091d8; regra para monitores inviáveis em ad6b434). Sementes de calibração
 20261028–20261030; os enunciados e parâmetros usados são excluídos das
 partições do estudo. Resultados completos e arquivos de geração em
 `calibracao/resultados/`.

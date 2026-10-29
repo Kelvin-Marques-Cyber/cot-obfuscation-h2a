@@ -206,6 +206,8 @@ elif not gate_ok:
     print("ETAPA BLOQUEADA:", sessao.explain(status["gate"].get("reasons", [])))
 elif not registered:
     print("ETAPA BLOQUEADA: declare o registro público no notebook 00 antes de treinar.")
+elif "grpo" in status.get("excluded", {}):
+    print("ETAPA BLOQUEADA: braço GRPO excluído deste estudo antes do registro:", status["excluded"]["grpo"])
 else:
     try:
         progress = STUDY.execute("train", mode="grpo", max_jobs=MAX_JOBS_PER_SESSION)
@@ -221,7 +223,7 @@ if not status["all_training_complete"]:
     print("ETAPA BLOQUEADA: TEST só é aberto após todos os treinos:", status["training"], "de", status["expected"])
 else:
     try:
-        for mode in ("sft", "grpo"):
+        for mode in status["expected"]:
             progress = STUDY.execute("evaluate", mode=mode, max_jobs=MAX_JOBS_PER_SESSION)
             print(f"{mode.upper()}: {progress['completed']}/{progress['total']} avaliações ({progress['status']}).")
     except Blocked as reason:
@@ -233,6 +235,8 @@ STUDY.status()
 status = STUDY.execute("status")
 if not status["all_evaluation_complete"]:
     print("ETAPA BLOQUEADA: conclua todas as avaliações no notebook 03:", status["evaluation"])
+elif "grpo" in status.get("excluded", {}):
+    print("NÃO SE APLICA: braço GRPO excluído deste estudo antes do registro:", status["excluded"]["grpo"])
 else:
     try:
         print(STUDY.execute("monitor", mode="grpo", max_jobs=MAX_JOBS_PER_SESSION))
