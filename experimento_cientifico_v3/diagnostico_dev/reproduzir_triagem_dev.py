@@ -16,6 +16,7 @@ import hashlib
 import json
 import os
 import platform
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -109,7 +110,9 @@ def main():
     environment = dict(python=platform.python_version(), torch=torch.__version__,
                        cpu=platform.processor() or platform.machine(), threads=torch.get_num_threads(),
                        dtype=args.dtype, device='cpu', model_id=model_id, revision=revision,
-                       data_sha256=data_sha, budget=BUDGET, frozen_source=str(source))
+                       data_sha256=data_sha, budget=BUDGET,
+                       frozen_source=subprocess.run(['git', '-C', str(source), 'rev-parse', 'HEAD'],
+                                                    capture_output=True, text=True).stdout.strip() or source.name)
     import transformers
     environment['transformers'] = transformers.__version__
     (out / f'{args.mode}_{args.dtype}_environment.json').write_text(json.dumps(environment, indent=2))

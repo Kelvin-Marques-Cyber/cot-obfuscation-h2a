@@ -1,127 +1,82 @@
-# Ofuscação de cadeia de pensamento: reanálise e laboratório experimental
+# Ofuscação da cadeia de pensamento: reanálise, estudo pré-registrado e protocolo revisado
 
-Artigo, dados auditados e notebooks para investigar a relação entre formato de
-treinamento, desempenho e monitorabilidade. Revisão de 15 de outubro de 2026.
+Repositório do projeto `cot-obfuscation-h2a`, sob responsabilidade de Kelvin e
+Silva Marques. Reúne o artigo, os dados, o código e os notebooks de três
+conjuntos de trabalho que não devem ser confundidos:
 
-**[Baixar o artigo final em PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf)**
-
-## Experimento científico v3: sequência completa
-
-| Etapa | Abrir no Colab | Ambiente |
+| Conjunto | Situação em 28/10/2026 | Onde |
 |---|---|---|
-| 00. Protocolo e datasets | [Protocolo](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/00_protocolo_e_datasets.ipynb) | CPU |
-| 01. SFT replicado | [Treinamento SFT](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/01_treinamento_sft_replicado.ipynb) | GPU |
-| 02. GRPO replicado | [Treinamento GRPO](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/02_treinamento_grpo_replicado.ipynb) | GPU |
-| 03. Competência e teste cego | [Avaliação final](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/03_competencia_e_teste_cego.ipynb) | GPU |
-| 04. Monitor e inferência | [Monitor independente e relatório](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v3/04_monitor_independente_e_inferencia.ipynb) | GPU |
+| Estudo-piloto (SFT) e reanálise | Concluído: números reproduzidos; instrumentos auditados | [`revisao_2026/`](revisao_2026) |
+| Estudo prospectivo v3.2 (OSF [sjwdf](https://osf.io/sjwdf/)) | **Encerrado sem treinos**: triagem DEV reprovada; diagnóstico concluído | [`experimento_cientifico_v3/`](experimento_cientifico_v3) |
+| Estudo prospectivo v4 (novo `STUDY_ID`) | <<SITUACAO_V4>> | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
 
-Comece pelo **00** e use **Ambiente de execução → Executar tudo**. O pacote
-mantém o desenho de **240 treinos e 55.200 gerações TEST**, com 20 sementes,
-três condições e dois níveis por método. O notebook 00 exporta os hashes e o
-protocolo para registro público anterior aos treinos. Informe a URL real no
-campo `PUBLIC_REGISTRATION_URL` antes de iniciar 01/02. A etapa 04 depende
-das anotações humanas descritas no próprio notebook.
+**Artigo:** [PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf) ·
+[DOCX editável](revisao_2026/docs/Artigo_CoT_Versao_Final.docx) ·
+[fonte](revisao_2026/artigo.md) · [relatório de validação](revisao_2026/docs/RELATORIO_VALIDACAO.md)
 
-Os cinco compartilham o mesmo `STUDY_ID` e retomam os resultados do Drive.
-O padrão v3.2 usa `confirmatory_v3/estudo-principal-2026-v3-2/`, preservando
-estudos anteriores. **[Instruções e protocolo](experimento_cientifico_v3/README.md)**.
+Nenhum resultado confirmatório sobre as hipóteses H1 (custo do formato no SFT)
+e H2 (exploração não sinalizada no GRPO) foi produzido até esta data.
 
-Falhas de montagem do Drive têm duas tentativas de recuperação e verificação
-de gravação. Se a conexão falhar, o 00 prepara um ZIP local; os treinos
-aguardam armazenamento persistente. O modo local é temporário. Consulte as
-instruções acima para reconectar ou baixar o ZIP pelo painel Arquivos.
+## Estudo v4: os cinco notebooks
 
-## Laboratório de reanálise e testes curtos
+<<NOTEBOOKS_V4>>
 
-| Etapa | Abrir no Colab | Ambiente |
-|---|---|---|
-| 1. Reproduzir resultados e auditoria | [Reanálise](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/01_reanalise_reprodutivel.ipynb) | CPU |
-| 2. Testar alvos supervisionados corrigidos | [Piloto SFT](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/02_piloto_sft_corrigido.ipynb) | GPU T4 |
-| 3. Treinar contra monitores | [GRPO](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/03_grpo_multiescala.ipynb) | GPU T4 |
-| 4. Avaliar saídas e concordância | [Avaliação independente](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/revisao_2026/notebooks/04_avaliacao_monitores_anotacao.ipynb) | GPU T4 |
+## Estudo v3.2: desfecho
 
-Abra e use **Ambiente de execução → Executar tudo**. Autorize o Drive quando
-solicitado. Instalação, dados, treinos, avaliação e ZIP final já estão ativados.
-O padrão `quick` usa modelos públicos pequenos e três condições em SFT/GRPO,
-sem chave de API: os monitores são locais. `pilot` e `full` estão no formulário
-da primeira célula para ampliar depois. O teste curto não é o estudo completo.
+A triagem de competência exigia ≥ 65% em 120 itens DEV por nível. Os valores
+documentados em 19/10/2026 (SFT A 57,5%; SFT C 0%; GRPO low 43,33%; GRPO high
+15%) foram reproduzidos exatamente em 28/10/2026 pelo mesmo caminho dos
+notebooks, numa Tesla T4. O diagnóstico descarta erro de execução, modelo de
+conversa, precisão numérica e incompatibilidade de bibliotecas. A reprovação
+decorre da incapacidade do modelo-base (nível C do SFT; aritmética com três
+algarismos no GRPO-high, em que 48 respostas esgotaram o orçamento de 256
+tokens) e de instruções/contratos de formato que rejeitavam respostas corretas
+fora do formato pedido. Os monitores previstos também não discriminam
+controles construídos. Detalhes: [`experimento_cientifico_v3/ENCERRAMENTO_v3_2.md`](experimento_cientifico_v3/ENCERRAMENTO_v3_2.md)
+e [`diagnostico_dev/`](experimento_cientifico_v3/diagnostico_dev).
 
-Modelo, revisão, sementes, dataset, checkpoints e saídas integrais são registrados.
-Reexecutar retoma o trabalho pendente. Os quatro notebooks compartilham
-`Meu Drive/CoT_Obfuscation_Lab/colab_v3/`; não é preciso copiar arquivos.
-O código é baixado de um commit fixo, separado de clones antigos no Drive.
-**Se já abriu um notebook antigo, reabra-o pelo link acima**: as cópias do Colab
-mantêm o SHA antigo e não recebem correções automaticamente. Os notebooks
-fixam uma revisão imutável do código, exibida na primeira célula.
+Os cinco notebooks do v3.2 permanecem disponíveis, fixados nos commits
+originais, como registro do estudo encerrado.
 
-**[Guia para Colab, Vast.ai e Jupyter](revisao_2026/docs/GUIA_GPU.md)**
+## Verificar localmente
 
-## Resultados executados
+```bash
+python3 -m venv .venv && . .venv/bin/activate
+pip install -r revisao_2026/requirements.lock.txt
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install -r experimento_cientifico_v4/requirements-gpu.txt
+python revisao_2026/src/executar_validacao.py
+```
 
-- Reanálise das 540 linhas históricas, em 18 células.
-- Reprodução das médias e da ANOVA histórica.
-- Auditoria das sobreposições dos geradores.
-- Teste dos corretores em 2.000 respostas construídas.
-- Geração e conferência de 4.500 itens aritméticos disjuntos.
-- 71 testes locais de software aprovados, incluindo recuperação de ambientes e troca de versão na mesma sessão do Colab.
-- Integração real das APIs SFT/GRPO em CPU com miniatura aleatória, retomada de
-  checkpoint, avaliação, análise e monitores locais; sem resultados experimentais novos.
+O executor roda as suítes do laboratório, do v3.2 e do v4, a reanálise
+histórica, a integração com modelos mínimos de pesos aleatórios e os cinco
+notebooks v4 com o Colab simulado, e grava comandos, versões, duração, códigos
+de saída e hashes em `revisao_2026/results/execucoes_locais.json`.
 
-No corpus mecânico, o corretor histórico aceita 1.250 de 1.500 respostas que
-deveriam ser rejeitadas. O corretor estrito rejeita esses casos segundo o contrato.
-Esse teste não mede a prevalência do problema nas 540 avaliações, porque o CSV
-histórico não contém os textos gerados.
+## Gerar o artigo
 
-O contraste de desempenho publicado é reproduzível, mas não constitui uma
-refutação de ofuscação estratégica. O piloto altera alvos SFT; não executa
-supervisão exclusiva de saída por reforço. Sementes adjacentes compartilham
-29 dos 30 itens de avaliação.
+```bash
+python revisao_2026/src/gerar_artigo.py
+```
 
-**[Resultados e limites](revisao_2026/docs/RESULTADOS_E_LIMITES.md)**
+Requer pandoc 3, LibreOffice com o componente Math e poppler-utils. O DOCX é
+gerado pelo pandoc com o modelo de estilos `revisao_2026/src/modelo_docx.py`
+(ABNT: A4, margens 3/2 cm, Liberation Serif) e o PDF é convertido do mesmo DOCX
+pelo LibreOffice; o script confere a equivalência textual e grava
+`revisao_2026/docs/verificacao_documentos.json`.
 
-## Reproduzir em CPU
+## Laboratório de reanálise (histórico)
 
-    cd revisao_2026
-    python3 -m venv .venv
-    . .venv/bin/activate
-    pip install -r requirements.lock.txt
-    bash run.sh
+Os notebooks de [`revisao_2026/notebooks/`](revisao_2026/notebooks) reproduzem a
+reanálise e testes curtos do laboratório de 15/10/2026. Eles não fazem parte do
+estudo prospectivo. [Guia do laboratório](revisao_2026/README.md).
 
-No Windows, ative o ambiente virtual e execute:
+## Procedência e histórico
 
-    python -m unittest discover -s tests -v
-    python src/reanalyse.py
+Os commits deste repositório têm como autor Kelvin e Silva Marques; não há
+trailers de coautoria automática. Nenhuma reescrita de histórico foi necessária,
+e todos os commits fixados pelos notebooks e protocolos continuam acessíveis
+(ver [auditoria Git](revisao_2026/docs/AUDITORIA_GIT.md)).
 
-## Extensão em GPU
-
-Os notebooks 02 a 04 e o módulo gpu_lab foram preparados para novas execuções.
-Código, contratos e integração das APIs foram verificados, incluindo treinos
-mínimos em CPU com pesos aleatórios. Treino quantizado e inferência CUDA com
-os modelos públicos não foram realizados no ambiente desta revisão.
-
-O benchmark GRPO fornecido é sintético e separa a resposta objetiva da alternativa
-explorável. Há domínio reservado, família estrutural reservada, variante sem
-marcação, resposta antecipada, prefixo incorreto, monitor independente e sonda
-textual com separação por item. A dificuldade da dica é uma proxy que exige
-calibração no modelo base.
-
-Não se declara que esse benchmark replique os datasets do artigo-alvo ou
-substitua validação humana em domínios especializados. O plano multiescala prevê
-270 execuções; começar pelo smoke test é necessário para conferir o hardware e a
-configuração do monitor.
-
-## Organização
-
-- [Fonte editável do artigo](revisao_2026/artigo.md)
-- [Código e instrumentos](revisao_2026/src)
-- [Testes](revisao_2026/tests)
-- [Dados e resultados da reanálise](revisao_2026/results)
-- [Procedência](revisao_2026/provenance.json)
-- [Protocolo prospectivo](revisao_2026/protocol_extension.json)
-
-Os arquivos originais da raiz e o notebook histórico foram preservados para
-rastreabilidade. As conclusões científicas vigentes e suas limitações estão na
-versão revisada do artigo.
-
-Código sob licença MIT. Fontes e dados originais mantêm os avisos de licença
-declarados em sua origem.
+Código sob licença MIT. Os modelos usados (Qwen2.5, Qwen3, SmolLM2 e demais
+citados no protocolo v4) mantêm suas licenças de origem.
