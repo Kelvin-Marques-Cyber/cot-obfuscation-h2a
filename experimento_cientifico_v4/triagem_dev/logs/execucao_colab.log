@@ -1,0 +1,132 @@
+GPU: Tesla T4 | 14.6 GiB | PyTorch 2.11.0+cu130 | CUDA 13.0
+{
+  "protocol": {
+    "schema": "scientific-prospective-v4.0",
+    "protocol_sha256": "94eac6cfcbef47f2a53fef3e9c0f16ec0220d401b34aacc234280d0d12cce437",
+    "code_sha256": {
+      "__init__.py": "903b3bdb88f326693084e14633a5ebce1f862506124b58f67dc751c2a2c96f76",
+      "avaliacao.py": "01b6f0f4f9e651dd2a1904eb19da2a8066a9366b976b768911722b9ada8d966f",
+      "contrato.py": "fc9d9130d8edb89a56c7cf8b52dbe4ebda3b4d60d81f7964b769cb8515caa4b1",
+      "estatistica.py": "7fd7615c0ead1e01c0d7e926e41c56a0b203b4ba493f3153362a9779c945bdfd",
+      "modelos.py": "ee02866b8eac6db6928233805f50c985352d5c57253a3bfcf01d7c56fe910811",
+      "monitor.py": "3635ed93e186e64dea87b0df428c8472434f40e2d243660b7ffb63ddce2a87f3",
+      "runtime.py": "c1f4326e798b39e8b90fc6099d1c8da8b31e14a0ec9b46bf678c43c2a77fe3b0",
+      "tarefas.py": "8b1a58ecc9df6b959741409f71811b7e90449bc41eedf7d860528f74732ba7fd",
+      "treino.py": "2f672f04a987090d268b1b3e2da5291d2d19bb6ef5fc772aba83a4c9f40d0975"
+    },
+    "source_commit": "37094c4afd4fe2983ca56322750a8f1359f12bbb",
+    "technical_test": false
+  },
+  "datasets": {
+    "sft": {
+      "sha256": "f7ee42247e9256f7c0511707fac977b09d7b41a331ffe20177f531a774020af8",
+      "rows": 1320,
+      "counts": {
+        "train": 440,
+        "dev": 440,
+        "test": 440
+      },
+      "test_per_level": {
+        "A": 220,
+        "C": 220
+      }
+    },
+    "grpo": {
+      "sha256": "3423c66d5337fdf4044cbd9960bef7bfe9e1673b293f1ccda2156750d9712d31",
+      "rows": 1440,
+      "counts": {
+        "train": 480,
+        "dev": 480,
+        "test": 480
+      },
+      "test_per_level": {
+        "low": 240,
+        "high": 240
+      }
+    }
+  },
+  "model_revisions": {
+    "Qwen/Qwen2.5-1.5B-Instruct": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "Qwen/Qwen3-1.7B": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "Qwen/Qwen2.5-0.5B-Instruct": "7ae557604adf67be50417f59c2c2f167def9a775"
+  }
+}
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:11<00:11, 11.86s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:11<00:00,  5.93s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.17s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.72it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.49it/s]
+{
+  "schema": "scientific-prospective-v4.0",
+  "protocol_sha256": "94eac6cfcbef47f2a53fef3e9c0f16ec0220d401b34aacc234280d0d12cce437",
+  "code_sha256": {
+    "__init__.py": "903b3bdb88f326693084e14633a5ebce1f862506124b58f67dc751c2a2c96f76",
+    "avaliacao.py": "01b6f0f4f9e651dd2a1904eb19da2a8066a9366b976b768911722b9ada8d966f",
+    "contrato.py": "fc9d9130d8edb89a56c7cf8b52dbe4ebda3b4d60d81f7964b769cb8515caa4b1",
+    "estatistica.py": "7fd7615c0ead1e01c0d7e926e41c56a0b203b4ba493f3153362a9779c945bdfd",
+    "modelos.py": "ee02866b8eac6db6928233805f50c985352d5c57253a3bfcf01d7c56fe910811",
+    "monitor.py": "3635ed93e186e64dea87b0df428c8472434f40e2d243660b7ffb63ddce2a87f3",
+    "runtime.py": "c1f4326e798b39e8b90fc6099d1c8da8b31e14a0ec9b46bf678c43c2a77fe3b0",
+    "tarefas.py": "8b1a58ecc9df6b959741409f71811b7e90449bc41eedf7d860528f74732ba7fd",
+    "treino.py": "2f672f04a987090d268b1b3e2da5291d2d19bb6ef5fc772aba83a4c9f40d0975"
+  },
+  "datasets": {
+    "sft": "f7ee42247e9256f7c0511707fac977b09d7b41a331ffe20177f531a774020af8",
+    "grpo": "3423c66d5337fdf4044cbd9960bef7bfe9e1673b293f1ccda2156750d9712d31"
+  },
+  "device": "cuda",
+  "precision": "fp16",
+  "files": {
+    "dev_grpo_high_base.jsonl": "5095ec7f1c2b6120c4c24ec9446e22ee69dc41cf7cdc75544761454c2c7b39eb",
+    "dev_grpo_low_base.jsonl": "d6e039999b23ba27011b528437a466415780b4aef2d991cdf822fc955bd45002",
+    "dev_sft_A_base.jsonl": "97497ca9ec5e873495e1b4a50bf3d195046e3f73e4ba919c352a22426e32a0b0",
+    "dev_sft_C_base.jsonl": "ecc995a703535a15e29dad13a2ff6e5f3f097f8ab570e059994b1aee3a8c1098"
+  },
+  "summary": {
+    "sft": {
+      "A": {
+        "n": 120,
+        "correct": 117,
+        "accuracy": 0.975,
+        "format_valid": 120,
+        "truncated": 0,
+        "file": "dev_sft_A_base.jsonl",
+        "sha256": "97497ca9ec5e873495e1b4a50bf3d195046e3f73e4ba919c352a22426e32a0b0"
+      },
+      "C": {
+        "n": 120,
+        "correct": 82,
+        "accuracy": 0.6833333333333333,
+        "format_valid": 120,
+        "truncated": 0,
+        "file": "dev_sft_C_base.jsonl",
+        "sha256": "ecc995a703535a15e29dad13a2ff6e5f3f097f8ab570e059994b1aee3a8c1098"
+      }
+    },
+    "grpo": {
+      "low": {
+        "n": 120,
+        "correct": 114,
+        "accuracy": 0.95,
+        "format_valid": 120,
+        "truncated": 0,
+        "file": "dev_grpo_low_base.jsonl",
+        "sha256": "d6e039999b23ba27011b528437a466415780b4aef2d991cdf822fc955bd45002"
+      },
+      "high": {
+        "n": 120,
+        "correct": 109,
+        "accuracy": 0.9083333333333333,
+        "format_valid": 120,
+        "truncated": 0,
+        "file": "dev_grpo_high_base.jsonl",
+        "sha256": "5095ec7f1c2b6120c4c24ec9446e22ee69dc41cf7cdc75544761454c2c7b39eb"
+      }
+    }
+  }
+}
+TRIAGEM_V4_CONCLUIDA 1274.3 {"sft": {"A": {"n": 120, "correct": 117, "accuracy": 0.975, "format_valid": 120, "truncated": 0, "file": "dev_sft_A_base.jsonl", "sha256": "97497ca9ec5e873495e1b4a50bf3d195046e3f73e4ba919c352a22426e32a0b0"}, "C": {"n": 120, "correct": 82, "accuracy": 0.6833333333333333, "format_valid": 120, "truncated": 0, "file": "dev_sft_C_base.jsonl", "sha256": "ecc995a703535a15e29dad13a2ff6e5f3f097f8ab570e059994b1aee3a8c1098"}}, "grpo": {"low": {"n": 120, "correct": 114, "accuracy": 0.95, "format_valid": 120, "truncated": 0, "file": "dev_grpo_low_base.jsonl", "sha256": "d6e039999b23ba27011b528437a466415780b4aef2d991cdf822fc955bd45002"}, "high": {"n": 120, "correct": 109, "accuracy": 0.9083333333333333, "format_valid": 120, "truncated": 0, "file": "dev_grpo_high_base.jsonl", "sha256": "5095ec7f1c2b6120c4c24ec9446e22ee69dc41cf7cdc75544761454c2c7b39eb"}}}

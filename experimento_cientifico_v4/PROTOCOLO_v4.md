@@ -166,6 +166,31 @@ Valores no commit que contém a triagem DEV, gerados por `python resumos_registr
 do pacote produzido pelo notebook 00, que a contém.
 
 <!-- hashes:inicio -->
+| Elemento | Arquivo ou identificador | SHA256 / revisão |
+|---|---|---|
+| Protocolo | `protocolo_v4.json` | `94eac6cfcbef47f2a53fef3e9c0f16ec0220d401b34aacc234280d0d12cce437` |
+| Dados SFT | `1320 itens (train/dev/test)` | `f7ee42247e9256f7c0511707fac977b09d7b41a331ffe20177f531a774020af8` |
+| Dados GRPO | `1440 itens (train/dev/test)` | `3423c66d5337fdf4044cbd9960bef7bfe9e1673b293f1ccda2156750d9712d31` |
+| Código | `cotv4/__init__.py` | `903b3bdb88f326693084e14633a5ebce1f862506124b58f67dc751c2a2c96f76` |
+| Código | `cotv4/avaliacao.py` | `01b6f0f4f9e651dd2a1904eb19da2a8066a9366b976b768911722b9ada8d966f` |
+| Código | `cotv4/contrato.py` | `fc9d9130d8edb89a56c7cf8b52dbe4ebda3b4d60d81f7964b769cb8515caa4b1` |
+| Código | `cotv4/estatistica.py` | `7fd7615c0ead1e01c0d7e926e41c56a0b203b4ba493f3153362a9779c945bdfd` |
+| Código | `cotv4/modelos.py` | `ee02866b8eac6db6928233805f50c985352d5c57253a3bfcf01d7c56fe910811` |
+| Código | `cotv4/monitor.py` | `3635ed93e186e64dea87b0df428c8472434f40e2d243660b7ffb63ddce2a87f3` |
+| Código | `cotv4/runtime.py` | `c1f4326e798b39e8b90fc6099d1c8da8b31e14a0ec9b46bf678c43c2a77fe3b0` |
+| Código | `cotv4/tarefas.py` | `8b1a58ecc9df6b959741409f71811b7e90449bc41eedf7d860528f74732ba7fd` |
+| Código | `cotv4/treino.py` | `2f672f04a987090d268b1b3e2da5291d2d19bb6ef5fc772aba83a4c9f40d0975` |
+| Revisão do modelo | `Qwen/Qwen2.5-1.5B-Instruct` | `989aa7980e4cf806f80c7fef2b1adb7bc71aa306` |
+| Revisão do modelo | `Qwen/Qwen3-1.7B` | `70d244cc86ccca08cf5af4e1e306ecf908b1ad5e` |
+| Revisão do modelo | `Qwen/Qwen2.5-0.5B-Instruct` | `7ae557604adf67be50417f59c2c2f167def9a775` |
+| Triagem DEV | `triagem_dev/manifest.json` | `e17080a14219480d1b3cef2a46ff933f854960b0c01be42f0842807087818d2e` |
+| Triagem DEV | `triagem_dev/dev_grpo_high_base.jsonl` | `5095ec7f1c2b6120c4c24ec9446e22ee69dc41cf7cdc75544761454c2c7b39eb` |
+| Triagem DEV | `triagem_dev/dev_grpo_low_base.jsonl` | `d6e039999b23ba27011b528437a466415780b4aef2d991cdf822fc955bd45002` |
+| Triagem DEV | `triagem_dev/dev_sft_A_base.jsonl` | `97497ca9ec5e873495e1b4a50bf3d195046e3f73e4ba919c352a22426e32a0b0` |
+| Triagem DEV | `triagem_dev/dev_sft_C_base.jsonl` | `ecc995a703535a15e29dad13a2ff6e5f3f097f8ab570e059994b1aee3a8c1098` |
+| Calibração (excluída das partições) | `calibracao/resultados/grpo_calibration_items.jsonl` | `bb0cd079085bc4b115dd3bab0b440fecf1fc1d68b52db4cda32b682ffeeb9088` |
+| Calibração (excluída das partições) | `calibracao/resultados/sft_calibration_items.jsonl` | `f71c503db6f4167e3648b71a41e68a6dbd34ecd9fd787747dd3b2d127da1d8ff` |
+| Calibração (excluída das partições) | `calibracao/resultados/monitor_constructed_controls.jsonl` | `bdefea8674910c3c3aaca91044583d8aa2869b0a9cc7896a43adfaccb85ff7d9` |
 <!-- hashes:fim -->
 
 ## 9. Execução e custos
