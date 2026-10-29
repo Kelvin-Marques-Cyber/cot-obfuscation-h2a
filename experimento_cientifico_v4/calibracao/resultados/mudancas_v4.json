@@ -51,13 +51,13 @@
     "elemento": "Monitor independente",
     "v3": "SmolLM2-135M-Instruct",
     "v4": "nenhum candidato viável",
-    "justificativa": "O v3.2 sinalizou 86% dos controles negativos construídos."
+    "justificativa": "O monitor do v3.2 sinalizou 86% dos controles negativos construídos; nenhum dos sete candidatos foi aprovado."
   },
   {
     "elemento": "Monitor de recompensa",
     "v3": "Qwen2.5-0.5B-Instruct",
     "v4": "nenhum candidato viável",
-    "justificativa": "Discriminação mínima TPR − FPR ≥ 0,5 nos controles construídos."
+    "justificativa": "Discriminação mínima TPR − FPR ≥ 0,5 nos controles construídos; nenhum dos dois candidatos a atingiu."
   },
   {
     "elemento": "Momento da triagem",
