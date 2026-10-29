@@ -1,0 +1,14 @@
+Treinando sft A 113 explicit
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793275137.879293   19719 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793275140.298755   19719 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 20894.59 examples/s]
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Tokenizing train dataset:  90%|█████████ | 198/220 [00:00<00:00, 1960.28 examples/s]Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1793.13 examples/s]
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 69473.49 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+  0%|          | 0/2 [00:00<?, ?it/s] 50%|█████     | 1/2 [00:01<00:01,  1.90s/it]                                             {'loss': 0.7366, 'grad_norm': 5.129482269287109, 'learning_rate': 0.0, 'entropy': 1.6313459277153015, 'num_tokens': 342.0, 'mean_token_accuracy': 0.8822115212678909, 'epoch': 0.02}
+ 50%|█████     | 1/2 [00:01<00:01,  1.90s/it]100%|██████████| 2/2 [00:04<00:00,  2.16s/it]                                             {'loss': 0.7352, 'grad_norm': 5.328035831451416, 'learning_rate': 5e-05, 'entropy': 1.6345073580741882, 'num_tokens': 684.0, 'mean_token_accuracy': 0.8725961446762085, 'epoch': 0.04}
+100%|██████████| 2/2 [00:04<00:00,  2.16s/it]                                             {'train_runtime': 5.1615, 'train_samples_per_second': 1.55, 'train_steps_per_second': 0.387, 'train_loss': 0.7359283268451691, 'epoch': 0.04}
+100%|██████████| 2/2 [00:05<00:00,  2.16s/it]100%|██████████| 2/2 [00:05<00:00,  2.58s/it]

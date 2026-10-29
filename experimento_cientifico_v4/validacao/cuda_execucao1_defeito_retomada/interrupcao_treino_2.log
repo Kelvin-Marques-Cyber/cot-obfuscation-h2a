@@ -1,0 +1,47 @@
+Treinando sft A 113 explicit
+{'loss': 0.4784, 'grad_norm': 4.481017589569092, 'learning_rate': 0.0, 'entropy': 1.641709566116333, 'num_tokens': 342.0, 'mean_token_accuracy': 0.8926281929016113, 'epoch': 0.05}
+{'train_runtime': 2.8476, 'train_samples_per_second': 2.809, 'train_steps_per_second': 0.702, 'train_loss': 0.15945507089296976, 'epoch': 0.05}
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793275158.052689   19930 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793275160.518942   19930 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 19312.81 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  86%|████████▌ | 189/220 [00:00<00:00, 1872.17 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1703.37 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 49676.82 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+3it [00:01,  1.58it/s]               
+                      
+
+3it [00:01,  1.58it/s]
+                      
+
+3it [00:02,  1.58it/s]
+3it [00:02,  1.06it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/runtime.py", line 853, in <module>
+    main()
+    ~~~~^^
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/runtime.py", line 843, in main
+    result = stage()
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/runtime.py", line 835, in <lambda>
+    'train': lambda: train_batch(args.storage, args.mode, args.max_jobs, args.device),
+                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/runtime.py", line 419, in train_batch
+    executed.append(run(cfg, data))
+                    ~~~^^^^^^^^^^^
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/treino.py", line 235, in run
+    raise RuntimeError(f'Treino terminou no passo {trainer.state.global_step}, '
+                       f'esperado {config["max_steps"]}')
+RuntimeError: Treino terminou no passo 3, esperado 2

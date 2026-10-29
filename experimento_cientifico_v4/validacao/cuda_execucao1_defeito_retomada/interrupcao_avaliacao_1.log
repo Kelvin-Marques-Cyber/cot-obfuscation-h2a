@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; from cotv4.avaliacao import evaluate_run; print(evaluate_run(r"/content/cot-v4/studies/estudo-interrupcao-teste-tecnico/runs/sft/f4de658897e05b0349cd", r"/content/cot-v4/studies/estudo-interrupcao-teste-tecnico/data/sft.jsonl", "test", 256, device="cuda", precision="fp16", limit=4))
+                                                                ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/avaliacao.py", line 68, in evaluate_run
+    raise ValueError('Avalie somente execuções com status trained')
+ValueError: Avalie somente execuções com status trained

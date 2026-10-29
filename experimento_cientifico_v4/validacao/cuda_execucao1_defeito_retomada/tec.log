@@ -1,0 +1,42 @@
+11:52:47 Executando 00_protocolo_dados_e_triagem.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11:56:55 00_protocolo_dados_e_triagem.ipynb ok 248.1 s
+11:56:55 Executando 01_treinamento_sft.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11:58:05 01_treinamento_sft.ipynb ok 70.1 s
+11:58:05 Executando 02_treinamento_grpo.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11:58:09 02_treinamento_grpo.ipynb ok 3.4 s
+11:58:09 Executando 03_avaliacao_test.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11:58:46 03_avaliacao_test.ipynb ok 37.0 s
+11:58:46 Executando 04_monitor_humanos_e_inferencia.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11:58:50 04_monitor_humanos_e_inferencia.ipynb ok 4.7 s
+11:58:51 Interrupção de treino: iniciando SFT e matando após checkpoint-1
+11:59:32 Treino retomado: {'status': 'failed', 'run_id': 'f4de658897e05b0349cd', 'error_type': 'RuntimeError', 'error': 'Treino terminou no passo 3, esperado 2'}
+11:59:32 Interrupção de avaliação: avaliando um adaptador e matando após o primeiro item
+Traceback (most recent call last):
+  File "/content/v4_tecnico_runner.py", line 118, in <module>
+    with open(target, 'a') as handle:
+         ~~~~^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType

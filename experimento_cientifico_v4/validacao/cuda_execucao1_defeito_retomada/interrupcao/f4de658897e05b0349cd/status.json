@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "run_id": "f4de658897e05b0349cd",
+  "error_type": "RuntimeError",
+  "error": "Treino terminou no passo 3, esperado 2"
+}

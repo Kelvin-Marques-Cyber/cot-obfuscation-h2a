@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/content/v4tec/src/experimento_cientifico_v4/cotv4/treino.py", line 235, in run
+    raise RuntimeError(f'Treino terminou no passo {trainer.state.global_step}, '
+                       f'esperado {config["max_steps"]}')
+RuntimeError: Treino terminou no passo 3, esperado 2
