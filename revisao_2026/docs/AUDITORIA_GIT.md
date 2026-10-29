@@ -58,11 +58,14 @@ remoção de um caminho de arquivo que não constitui autoria.
 | `4b498226f0ce5a302e32dbf773a99365302149c2` | testes do v3 | ok |
 | `47d935f2bbfeb2638c0a734f4be91ac940df9c10` | testes do v3 | ok |
 | `e21cef8ad92369c56f3fcbbb6891fa49bda8c74b` | procedência do piloto | ok |
+| `37094c4afd4fe2983ca56322750a8f1359f12bbb` | protocolo v4 congelado antes da triagem | ok, busca rasa por SHA (29/10) |
+| `aef52d9369d0b3f3013f91da06a6f4869daea6b1` | triagem DEV do v4 | ok, busca rasa por SHA (29/10) |
+| `b858d128bcd545dd958e0dbed9978a7aea2591b3` | código fixado pelos cinco notebooks v4 | ok, busca rasa por SHA; `triagem_dev/manifest.json` com SHA256 `e17080a1…` |
 
 O teste reproduz o que os notebooks fazem: `git init`, `git fetch --depth 1
 origin <SHA>`, `git checkout --detach <SHA>` e conferência do `HEAD` e do
 SHA256 de `scientific_runtime.py` (`0ccc8cd6…`). Os notebooks v4 fixam
-commits publicados nesta revisão, verificados da mesma forma no Colab.
+commits publicados nesta revisão, verificados da mesma forma em clone limpo e no Colab.
 
 ## Limites
 
