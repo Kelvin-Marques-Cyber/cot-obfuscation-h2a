@@ -176,6 +176,7 @@ def values():
         for mode, levels in gate['summary'].items():
             for level, entry in levels.items():
                 out[f'v4.gate.{mode}.{level}'] = pct(entry['accuracy'])
+                out[f'v4.gate.{mode}.{level}.en'] = f"{100 * entry['accuracy']:.1f}%"
                 out[f'v4.gate.{mode}.{level}.k'] = frac(entry['correct'], entry['n'])
                 low, high = wilson(entry['correct'], entry['n'])
                 out[f'v4.gate.{mode}.{level}.ic'] = f'{pct(low)} a {pct(high)}'
@@ -201,8 +202,11 @@ def table_md(header, rows, align):
     dashes = [max(3, round(100 * n / total), -(-100 * (w + 2) // 70)) for n, w in zip(lengths, longest)]
     sep = {'l': lambda n: ':' + '-' * n, 'r': lambda n: '-' * n + ':', 'c': lambda n: ':' + '-' * n + ':'}
     lines = ['| ' + ' | '.join(header) + ' |', '|' + '|'.join(sep[a](n) for a, n in zip(align, dashes)) + '|']
+    def cell(value):
+        # Marcadores como <answer> viram código; o pandoc os descartaria como HTML.
+        return re.sub(r'(<[^<>\s]+>)', r'`\1`', str(value)).replace('|', '\\|')
     for row in rows:
-        lines.append('| ' + ' | '.join(str(c).replace('|', '\\|') for c in row) + ' |')
+        lines.append('| ' + ' | '.join(cell(c) for c in row) + ' |')
     return '\n'.join(lines)
 
 

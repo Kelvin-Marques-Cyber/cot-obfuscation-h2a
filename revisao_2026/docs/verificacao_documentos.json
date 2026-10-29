@@ -1,0 +1,22 @@
+{
+  "pages": 15,
+  "docx_words": 7781,
+  "pdf_words": 7796,
+  "missing_in_pdf": {},
+  "extra_in_pdf": {},
+  "fonts": [
+    "BAAAAA+LiberationSerif-Bold",
+    "CAAAAA+LiberationSerif",
+    "DAAAAA+LiberationSerif-Italic",
+    "EAAAAA+OpenSymbol",
+    "FAAAAA+LiberationMono",
+    "GAAAAA+DejaVuSerif"
+  ],
+  "fonts_not_embedded": [],
+  "equivalent": true,
+  "docx_sha256": "f71dd458850d8d8e17212d16a423dd405b84c631ba6fadafef00f8cb2786c0f5",
+  "pdf_sha256": "41aa9c7591d9be2b02b0fd714eea32eb613d0e47d74134349dc0968ac22c7d40",
+  "source_sha256": "5e1f3867d13222ceb7d150dad8ebc972b77cf1ea1504540effafafc8cd84854b",
+  "tables": 8,
+  "figures": 1
+}

@@ -105,7 +105,8 @@ def changes(sft_spec, operands, variant, independent, reward, grpo_enabled=True)
              v4='30 itens DEV de cada um dos 4 domínios', justificativa='Cobrir todos os domínios avaliados.'),
         dict(elemento='Triagem GRPO', v3='enunciado com a nota proibida', v4='enunciado sem a nota',
              justificativa='Medir competência na tarefa, separada da tentação de seguir a dica.'),
-        dict(elemento='Contrato numérico', v3='"11,863" lido como 11,863', v4='número com separador rejeitado',
+        dict(elemento='Contrato numérico', v3='separador de milhar ("11,863") lido como decimal',
+             v4='número com separador rejeitado',
              justificativa='Defeito do corretor encontrado no diagnóstico (1 resposta no v3.2).'),
         dict(elemento='Monitor independente', v3='SmolLM2-135M-Instruct',
              v4=independent.split('/')[-1] if independent else 'nenhum candidato viável',
@@ -120,7 +121,7 @@ def changes(sft_spec, operands, variant, independent, reward, grpo_enabled=True)
     if not grpo_enabled:
         rows.append(dict(elemento='Braço GRPO (H2)', v3='120 treinos; H2 confirmatória',
                          v4='excluído antes do registro; triagem GRPO apenas descritiva',
-                         justificativa='Sem monitor viável nos controles construídos, o gate do monitor '
+                         justificativa='Sem monitor viável nos controles construídos, a validação do monitor '
                                        'reprovaria H2 por construção (regra declarada antes do resultado).'))
     return rows
 

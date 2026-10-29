@@ -74,12 +74,13 @@ def main():
                                     'de RAM e foi repetida integralmente após declaração'))
     if gate and protocol:
         threshold = protocol['gate']['threshold']
-        passed = all(e['accuracy'] >= threshold for levels in gate['summary'].values() for e in levels.values())
+        active = [m for m in gate['summary'] if protocol[m].get('enabled', True)]
+        passed = all(e['accuracy'] >= threshold for m in active for e in gate['summary'][m].values())
         table.append(dict(verificacao='Triagem DEV do v4 (execução única, antes do registro)',
                           ambiente='Colab, Tesla T4, fp16, decodificação gulosa',
-                          resultado=('aprovada: ' if passed else 'reprovada: ') + '; '.join(
-                              f"{m.upper()} {lv} {e['correct']}/{e['n']}" for m, levels in gate['summary'].items()
-                              for lv, e in levels.items())))
+                          resultado=('aprovada' if passed else 'reprovada') + ' no braço que condiciona os treinos: ' +
+                          '; '.join(f"{m.upper()} {lv} {e['correct']}/{e['n']}" + ('' if m in active else ' (descritivo)')
+                                    for m, levels in gate['summary'].items() for lv, e in levels.items())))
     first = read(V4 / 'validacao' / 'cuda_execucao1_defeito_retomada' / 'relatorio_tecnico.json')
     if first:
         ok1 = sum(1 for n in first.get('notebooks', {}).values() if not n.get('error'))
@@ -93,7 +94,7 @@ def main():
         ok = sum(1 for n in notebooks.values() if not n.get('error'))
         table.append(dict(verificacao='Teste técnico CUDA: cinco notebooks v4 com modelos reais (TECHNICAL_TEST), '
                                       f"commit {cuda.get('commit', '')[:7]}",
-                          ambiente='Colab, ' + cuda.get('gpu', 'Tesla T4'),
+                          ambiente='Colab, ' + cuda.get('gpu', 'Tesla T4').split(',')[0] + ', fp16',
                           resultado=f'{ok} de {len(notebooks)} notebooks executados sem erro'))
         t = cuda.get('interrupcao_treino', {})
         if t:

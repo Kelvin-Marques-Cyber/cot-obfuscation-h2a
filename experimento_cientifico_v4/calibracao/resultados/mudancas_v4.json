@@ -43,7 +43,7 @@
   },
   {
     "elemento": "Contrato numérico",
-    "v3": "\"11,863\" lido como 11,863",
+    "v3": "separador de milhar (\"11,863\") lido como decimal",
     "v4": "número com separador rejeitado",
     "justificativa": "Defeito do corretor encontrado no diagnóstico (1 resposta no v3.2)."
   },
@@ -69,6 +69,6 @@
     "elemento": "Braço GRPO (H2)",
     "v3": "120 treinos; H2 confirmatória",
     "v4": "excluído antes do registro; triagem GRPO apenas descritiva",
-    "justificativa": "Sem monitor viável nos controles construídos, o gate do monitor reprovaria H2 por construção (regra declarada antes do resultado)."
+    "justificativa": "Sem monitor viável nos controles construídos, a validação do monitor reprovaria H2 por construção (regra declarada antes do resultado)."
   }
 ]

@@ -167,7 +167,7 @@ def build(root, repo, num, pct, frac):
                 prompt = ('explícita' + (' + demonstrações' if rnd == '2' else '')) if prompt == 'explicit' else 'neutra'
                 rows.append([rnd, 'SFT', label[cand], prompt, 'A' if cand == 'A' else 'C', '—',
                              f"{round(value['accuracy'] * value['n'])}/{value['n']}"])
-        glabel = {'G1': 'G1: operandos 11–99', 'G0': 'G0: operandos 2–20'}
+        glabel = {'G1': 'G1: 11–99', 'G0': 'G0: 2–20'}
         instr = {'v3': 'v3.2', 'r2a': 'r2a', 'r2b': 'r2b'}
         for rnd, name in (('1', 'grpo_calibration_decision.json'), ('2', 'grpo_calibration_decision_r2.json')):
             if not (cal / name).exists():
@@ -184,7 +184,7 @@ def build(root, repo, num, pct, frac):
                                    rows, ['c', 'l', 'l', 'l', 'l', 'r', 'r'],
                                    'experimento_cientifico_v4/calibracao/resultados/ (arquivos de decisão de cada rodada). '
                                    'Nota: no SFT, A = a + b com operandos de 100 a 999 e C = a + b·c − d com a e d de '
-                                   '100 a 999 e b de 12 a 99.')
+                                   '100 a 999 e b de 12 a 99; no GRPO, G1 e G0 são as faixas dos operandos.')
     monitors = cal / 'monitor_feasibility_decision.json'
     if monitors.exists():
         first = _json(monitors)

@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-29T11:53:48Z",
+  "date": "2026-10-29T12:17:26Z",
   "environment": {
     "python": "3.12.3",
     "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
@@ -20,7 +20,7 @@
     "pandoc": "pandoc 3.1.3",
     "libreoffice": "LibreOffice 24.2.7.2 420(Build:2)"
   },
-  "git_head": "6c412779f662be967b3d1c1329208faf229cd1ec",
+  "git_head": "8459c4ccefcef296ef54f903352209b4799b91bd",
   "scientific_evidence": false,
   "entries": [
     {
@@ -28,15 +28,15 @@
       "command": "python -m unittest discover -s tests",
       "cwd": "revisao_2026",
       "exit_code": 0,
-      "seconds": 12.6,
+      "seconds": 10.4,
       "summary": [
-        "Ran 71 tests in 10.561s",
+        "Ran 71 tests in 8.761s",
         "OK"
       ],
       "tail": [
         ".......................................................................",
         "----------------------------------------------------------------------",
-        "Ran 71 tests in 10.561s",
+        "Ran 71 tests in 8.761s",
         "",
         "OK"
       ],
@@ -47,7 +47,7 @@
       "command": "python src/reanalyse.py",
       "cwd": "revisao_2026",
       "exit_code": 0,
-      "seconds": 2.6,
+      "seconds": 2.5,
       "summary": [],
       "tail": [
         "    \"GRPO\",",
@@ -78,13 +78,13 @@
       "exit_code": 0,
       "seconds": 1.2,
       "summary": [
-        "Ran 29 tests in 1.062s",
+        "Ran 29 tests in 1.036s",
         "OK"
       ],
       "tail": [
         ".............................",
         "----------------------------------------------------------------------",
-        "Ran 29 tests in 1.062s",
+        "Ran 29 tests in 1.036s",
         "",
         "OK"
       ],
@@ -95,15 +95,15 @@
       "command": "python -m unittest tests.test_contratos tests.test_colab",
       "cwd": "experimento_cientifico_v4",
       "exit_code": 0,
-      "seconds": 2.1,
+      "seconds": 1.8,
       "summary": [
-        "Ran 35 tests in 1.971s",
+        "Ran 35 tests in 1.702s",
         "OK (skipped=1)"
       ],
       "tail": [
         "..................................s",
         "----------------------------------------------------------------------",
-        "Ran 35 tests in 1.971s",
+        "Ran 35 tests in 1.702s",
         "",
         "OK (skipped=1)"
       ],
@@ -114,16 +114,16 @@
       "command": "python -m unittest tests.test_integracao_minima",
       "cwd": "experimento_cientifico_v4",
       "exit_code": 0,
-      "seconds": 20.8,
+      "seconds": 19.3,
       "summary": [
-        "Ran 2 tests in 16.763s",
+        "Ran 3 tests in 16.260s",
         "OK"
       ],
       "tail": [
-        "100%|██████████| 2/2 [00:00<00:00,  5.40it/s]",
+        "100%|██████████| 2/2 [00:00<00:00, 20.33it/s]",
         "..",
         "----------------------------------------------------------------------",
-        "Ran 2 tests in 16.763s",
+        "Ran 3 tests in 16.260s",
         "",
         "OK"
       ],
@@ -134,14 +134,14 @@
       "command": "python tests/integracao_notebooks.py --report <temporário>",
       "cwd": "experimento_cientifico_v4",
       "exit_code": 0,
-      "seconds": 8.4,
+      "seconds": 7.2,
       "summary": [],
       "tail": [
         "  },",
         "  \"training_started\": false,",
         "  \"scientific_results_generated\": false,",
         "  \"live_colab_authentication_tested\": false,",
-        "  \"seconds\": 8.2",
+        "  \"seconds\": 7.1",
         "}"
       ],
       "produced": {},
@@ -166,7 +166,7 @@
         },
         "reused_session": {
           "distinct_modules": [
-            "cotv4_sessao_aef52d9369d0",
+            "cotv4_sessao_b858d128bcd5",
             "cotv4_sessao_eeeeeeeeeeee"
           ],
           "other_commit_same_study_refused": true,
@@ -175,7 +175,7 @@
         "training_started": false,
         "scientific_results_generated": false,
         "live_colab_authentication_tested": false,
-        "seconds": 8.2
+        "seconds": 7.1
       }
     }
   ],

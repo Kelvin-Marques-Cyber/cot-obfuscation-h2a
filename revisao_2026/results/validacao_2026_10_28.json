@@ -1,0 +1,196 @@
+{
+  "date": "2026-10-29",
+  "tabela": [
+    {
+      "verificacao": "Laboratório de reanálise: testes unitários",
+      "ambiente": "CPU (Intel(R) Xeon(R) Processor @ 2.10GHz, 4 núcleos), Python 3.12.3",
+      "resultado": "aprovado (Ran 71 tests in 8.761s OK; 10.4 s)"
+    },
+    {
+      "verificacao": "Reanálise histórica (reanalyse.py)",
+      "ambiente": "CPU (Intel(R) Xeon(R) Processor @ 2.10GHz, 4 núcleos), Python 3.12.3",
+      "resultado": "aprovado (código 0; 2.5 s)"
+    },
+    {
+      "verificacao": "Estudo v3.2: testes de contrato e armazenamento",
+      "ambiente": "CPU (Intel(R) Xeon(R) Processor @ 2.10GHz, 4 núcleos), Python 3.12.3",
+      "resultado": "aprovado (Ran 29 tests in 1.036s OK; 1.2 s)"
+    },
+    {
+      "verificacao": "Estudo v4: contratos, armazenamento e sessão",
+      "ambiente": "CPU (Intel(R) Xeon(R) Processor @ 2.10GHz, 4 núcleos), Python 3.12.3",
+      "resultado": "aprovado (Ran 35 tests in 1.702s OK (skipped=1); 1.8 s)"
+    },
+    {
+      "verificacao": "Estudo v4: integração com modelos mínimos de pesos aleatórios (CPU)",
+      "ambiente": "CPU (Intel(R) Xeon(R) Processor @ 2.10GHz, 4 núcleos), Python 3.12.3",
+      "resultado": "aprovado (Ran 3 tests in 16.260s OK; 19.3 s)"
+    },
+    {
+      "verificacao": "Estudo v4: cinco notebooks com Colab simulado (montagem e download falhando)",
+      "ambiente": "CPU (Intel(R) Xeon(R) Processor @ 2.10GHz, 4 núcleos), Python 3.12.3",
+      "resultado": "aprovado (código 0; 7.2 s)"
+    },
+    {
+      "verificacao": "Reprodução da triagem DEV v3.2 pelo caminho original (commits fde856f/4a2a133)",
+      "ambiente": "Colab, Tesla T4, Python 3.13.16, PyTorch 2.11.0+cu130, fp16",
+      "resultado": "quatro valores documentados reproduzidos exatamente"
+    },
+    {
+      "verificacao": "Reprodução da triagem DEV v3.2 com as mesmas funções em CPU",
+      "ambiente": "CPU x86_64, Python 3.12.3, PyTorch 2.8.0, fp32",
+      "resultado": "sft/A: 70/120; sft/C: 0/120; grpo/low: 52/120; grpo/high: 17/120"
+    },
+    {
+      "verificacao": "Calibração exploratória do v4 (rodadas 1 e 2, itens próprios)",
+      "ambiente": "Colab, Tesla T4, fp16, decodificação gulosa item a item",
+      "resultado": "SFT: nível C = C2; GRPO: variante r2b, faixa G1 (regras gravadas antes de cada rodada)"
+    },
+    {
+      "verificacao": "Viabilidade de 9 monitores em 320 controles construídos",
+      "ambiente": "Colab, NVIDIA L4 e Tesla T4, fp32",
+      "resultado": "nenhum monitor independente nem de recompensa aprovado; braço GRPO excluído pela regra declarada"
+    },
+    {
+      "verificacao": "Encerramento de sessões do Colab durante a calibração",
+      "ambiente": "Colab (sessões sem atividade foram recicladas pelo serviço)",
+      "resultado": "etapas repetidas com o mesmo código; valores repetidos idênticos aos observados; a 1ª execução da rodada 2 dos monitores morreu por falta de RAM e foi repetida integralmente após declaração"
+    },
+    {
+      "verificacao": "Triagem DEV do v4 (execução única, antes do registro)",
+      "ambiente": "Colab, Tesla T4, fp16, decodificação gulosa",
+      "resultado": "aprovada no braço que condiciona os treinos: SFT A 117/120; SFT C 82/120; GRPO low 114/120 (descritivo); GRPO high 109/120 (descritivo)"
+    },
+    {
+      "verificacao": "Teste técnico CUDA, 1ª execução (commit 6c41277)",
+      "ambiente": "Colab, Tesla T4, fp16",
+      "resultado": "5 de 5 notebooks sem erro; a interrupção após o checkpoint final revelou um passo extra na retomada, recusado pelo runtime; defeito reproduzido em CPU e corrigido (commit b858d12)"
+    },
+    {
+      "verificacao": "Teste técnico CUDA: cinco notebooks v4 com modelos reais (TECHNICAL_TEST), commit 4b7d1fd",
+      "ambiente": "Colab, Tesla T4, fp16",
+      "resultado": "5 de 5 notebooks executados sem erro"
+    },
+    {
+      "verificacao": "Interrupção forçada de treino SFT na GPU e retomada",
+      "ambiente": "Colab, Tesla T4, fp16",
+      "resultado": "retomado de checkpoint-1 até o passo 2 (trained)"
+    },
+    {
+      "verificacao": "Interrupção forçada de avaliação na GPU e retomada com linha parcial",
+      "ambiente": "Colab, Tesla T4, fp16",
+      "resultado": "4 linhas, 4 itens únicos; primeira linha idêntica: True"
+    }
+  ],
+  "evidencias": [
+    {
+      "conclusao": "Médias e interação do piloto reproduzidas",
+      "categoria": "resultado histórico",
+      "base": "540 linhas publicadas reprocessadas"
+    },
+    {
+      "conclusao": "Corretor histórico aceita respostas ambíguas",
+      "categoria": "verificação de software",
+      "base": "2.000 textos construídos"
+    },
+    {
+      "conclusao": "Sementes do piloto compartilham quase todos os itens",
+      "categoria": "verificação de software",
+      "base": "reexecução do gerador original"
+    },
+    {
+      "conclusao": "Triagem do v3.2 reprovada nos quatro níveis",
+      "categoria": "triagem de competência",
+      "base": "valores documentados; reproduzidos exatamente na T4"
+    },
+    {
+      "conclusao": "Causas da reprovação (incapacidade em C; instrução e contrato)",
+      "categoria": "experimento exploratório",
+      "base": "classificação das gerações reproduzidas"
+    },
+    {
+      "conclusao": "Nenhum dos monitores avaliados discrimina controles construídos",
+      "categoria": "experimento exploratório",
+      "base": "9 modelos em 320 controles rotulados por regra, não por pessoas"
+    },
+    {
+      "conclusao": "Exclusão do braço GRPO (H2 não testável no v4)",
+      "categoria": "decisão de desenho",
+      "base": "regra gravada antes do resultado dos monitores"
+    },
+    {
+      "conclusao": "Escolhas de tarefa e instrução do v4",
+      "categoria": "experimento exploratório",
+      "base": "calibração em itens próprios, regras gravadas antes"
+    },
+    {
+      "conclusao": "Resultado da triagem do v4",
+      "categoria": "triagem de competência",
+      "base": "120 itens DEV por nível, execução única"
+    },
+    {
+      "conclusao": "Software de treino, avaliação e retomada funciona em CPU e GPU",
+      "categoria": "verificação de software",
+      "base": "testes unitários, integração e modo técnico"
+    },
+    {
+      "conclusao": "Efeitos de H1 e H2",
+      "categoria": "resultado confirmatório",
+      "base": "não produzido: nenhum treino confirmatório executado"
+    }
+  ],
+  "numeros": {
+    "testes.0": "71",
+    "testes.1": "29",
+    "testes.2": "35",
+    "testes.3": "3"
+  },
+  "situacao": [
+    {
+      "experimento": "Reanálise do estudo-piloto",
+      "situacao": "concluído",
+      "detalhe": "médias, ANOVA e Welch reproduzidos; instrumentos auditados"
+    },
+    {
+      "experimento": "Estudo v3.2 (OSF sjwdf): treinos e TEST",
+      "situacao": "bloqueado (encerrado)",
+      "detalhe": "triagem DEV reprovada nos quatro níveis; nenhum treino"
+    },
+    {
+      "experimento": "Diagnóstico da triagem do v3.2 (T4 e CPU)",
+      "situacao": "concluído",
+      "detalhe": "quatro valores reproduzidos; causas classificadas"
+    },
+    {
+      "experimento": "Calibração do v4 (tarefas, instruções e monitores)",
+      "situacao": "concluído",
+      "detalhe": "SFT C2; GRPO r2b; nenhum monitor aprovado"
+    },
+    {
+      "experimento": "Triagem DEV do v4 (execução única)",
+      "situacao": "concluído",
+      "detalhe": "SFT aprovado; GRPO descritivo"
+    },
+    {
+      "experimento": "Braço GRPO do v4 (H2)",
+      "situacao": "excluído antes do registro",
+      "detalhe": "sem monitor independente nem de recompensa viável"
+    },
+    {
+      "experimento": "Registro público do v4",
+      "situacao": "pendente (ação do pesquisador)",
+      "detalhe": "publicar o pacote do notebook 00 antes do primeiro treino"
+    },
+    {
+      "experimento": "120 treinos SFT, 26.400 gerações TEST e inferência de H1",
+      "situacao": "pendente",
+      "detalhe": "dependem do registro público"
+    },
+    {
+      "experimento": "Teste técnico CUDA dos cinco notebooks v4",
+      "situacao": "concluído",
+      "detalhe": "modo técnico; não é evidência científica"
+    }
+  ],
+  "scientific_confirmatory_results": false
+}
