@@ -148,7 +148,8 @@ def figura_v4():
         for bar in bars[2:]:
             bar.set_facecolor('white')
             bar.set_hatch('///')
-        ax.legend([bars[0], bars[2]], ['condiciona os treinos', 'descritivo'], fontsize=7, loc='lower left')
+        ax.legend([bars[0], bars[2]], ['condiciona os treinos', 'descritivo (braço excluído)'], fontsize=7,
+                  loc='upper center', bbox_to_anchor=(0.5, -0.14), ncol=2, frameon=False)
     for i, v in enumerate(values):
         ax.text(i, v + 0.02, pct(v) + '%', ha='center', fontsize=8)
     ax.axhline(protocol['gate']['threshold'], color='black', linestyle='--', linewidth=0.8)

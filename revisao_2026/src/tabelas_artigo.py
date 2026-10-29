@@ -157,8 +157,7 @@ def build(root, repo, num, pct, frac):
                                  ['l', 'l', 'l', 'l'], 'experimento_cientifico_v4/PROTOCOLO_v4.md e protocolo_v4.json.')
     cal = v4 / 'calibracao' / 'resultados'
     if (cal / 'sft_calibration_decision.json').exists() and (cal / 'grpo_calibration_decision.json').exists():
-        label = {'A': 'A: a + b (100–999)', 'C1': 'C1: a + b·c − d, c de 3 a 9',
-                 'C2': 'C2: a + b·c − d, b e c de 12 a 99'}
+        label = {'A': 'A: a + b', 'C1': 'C1: c de 3 a 9', 'C2': 'C2: b e c de 12 a 99'}
         rows = []
         for rnd, name in (('1', 'sft_calibration_decision.json'), ('2', 'sft_calibration_decision_r2.json')):
             if not (cal / name).exists():
@@ -166,7 +165,7 @@ def build(root, repo, num, pct, frac):
             for key, value in _json(cal / name)['summary'].items():
                 cand, prompt = key.split('/')
                 prompt = ('explícita' + (' + demonstrações' if rnd == '2' else '')) if prompt == 'explicit' else 'neutra'
-                rows.append([rnd, 'SFT', label[cand], prompt, '—', '—',
+                rows.append([rnd, 'SFT', label[cand], prompt, 'A' if cand == 'A' else 'C', '—',
                              f"{round(value['accuracy'] * value['n'])}/{value['n']}"])
         glabel = {'G1': 'G1: operandos 11–99', 'G0': 'G0: operandos 2–20'}
         instr = {'v3': 'v3.2', 'r2a': 'r2a', 'r2b': 'r2b'}
@@ -183,7 +182,9 @@ def build(root, repo, num, pct, frac):
         tables['calibracao_v4'] = ('Calibração exploratória do v4 em itens próprios (Tesla T4, fp16, 40 itens por linha)',
                                    ['Rodada', 'Braço', 'Candidato', 'Instrução', 'Nível', 'Formato válido', 'Acertos'],
                                    rows, ['c', 'l', 'l', 'l', 'l', 'r', 'r'],
-                                   'experimento_cientifico_v4/calibracao/resultados/ (arquivos de decisão de cada rodada).')
+                                   'experimento_cientifico_v4/calibracao/resultados/ (arquivos de decisão de cada rodada). '
+                                   'Nota: no SFT, A = a + b com operandos de 100 a 999 e C = a + b·c − d com a e d de '
+                                   '100 a 999 e b de 12 a 99.')
     monitors = cal / 'monitor_feasibility_decision.json'
     if monitors.exists():
         first = _json(monitors)
@@ -212,13 +213,16 @@ def build(root, repo, num, pct, frac):
     gate = v4 / 'triagem_dev' / 'manifest.json'
     if gate.exists():
         data = _json(gate)
-        threshold = _json(v4 / 'protocolo_v4.json')['gate']['threshold']
+        protocol = _json(v4 / 'protocolo_v4.json')
+        threshold = protocol['gate']['threshold']
         rows = []
         for mode in ('sft', 'grpo'):
+            active = protocol[mode].get('enabled', True)
             for level, e in data['summary'][mode].items():
+                verdict = 'aprovado' if e['accuracy'] >= threshold else 'reprovado'
                 rows.append([f'{mode.upper()} · {level}', f"{e['correct']}/{e['n']}", pct(e['accuracy']),
-                             str(e['format_valid']), str(e['truncated']),
-                             'aprovado' if e['accuracy'] >= threshold else 'reprovado'])
+                             f"{e['format_valid']}/{e['n']}", str(e['truncated']),
+                             verdict if active else 'não se aplica (descritivo)'])
         tables['triagem_v4'] = ('Triagem DEV do protocolo v4, executada uma vez antes do registro',
                                 ['Nível', 'Acertos', 'Acurácia', 'Formato válido', 'Truncadas', 'Critério 0,65'],
                                 rows, ['l', 'r', 'r', 'r', 'r', 'l'],
