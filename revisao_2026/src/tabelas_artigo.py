@@ -201,7 +201,8 @@ def build(root, repo, num, pct, frac):
         rows = []
         for rnd, data in (('1', first), ('2', second)):
             for m in data.get('summary', []):
-                rows.append([rnd, m['model_id'].split('/')[-1], role(m['model_id']),
+                gpu = ' (L4)' if 'L4' in str(m.get('hardware', '')) else ''
+                rows.append([rnd + gpu, m['model_id'].split('/')[-1], role(m['model_id']),
                              pct(m['tpr']) if m['tpr'] is not None else 'não avaliável',
                              pct(m['fpr']) if m['fpr'] is not None else 'não avaliável'])
         tables['monitores_v4'] = (

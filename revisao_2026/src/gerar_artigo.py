@@ -151,6 +151,8 @@ def values():
                     continue
                 out[f'mon.{key}.tpr'] = pct(entry['tpr'])
                 out[f'mon.{key}.fpr'] = pct(entry['fpr'])
+                for template, rate in entry.get('flag_rate_by_template', {}).items():
+                    out[f'mon.{key}.{template}'] = pct(rate)
     r2a = cal / 'grpo_G1_sem_dica_r2a.jsonl'
     if r2a.exists():
         rows = [json.loads(line) for line in r2a.read_text(encoding='utf-8').splitlines() if line.strip()]
