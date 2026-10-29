@@ -161,6 +161,34 @@ class MinimalIntegration(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             rt.load_primary(self.base, 'sft')
 
+    def test_kill_after_final_checkpoint_resumes_without_extra_step(self):
+        """Falha vista na T4: processo morto depois do checkpoint final e antes do registro."""
+        rt = self.runtime
+        from cotv4 import treino
+        base = Path(self.temp.name) / 'estudo-checkpoint-final'
+        rt.make_plan(base)
+        cfg, data = rt.config_for(base, 'sft', 'A', 'explicit', rt.seeds()[0], device='cpu')
+        original = treino.atomic_json
+
+        def die_before_trained(path, value):
+            if value.get('status') == treino.STATUS_TRAINED:
+                raise KeyboardInterrupt('processo morto depois do checkpoint final')
+            return original(path, value)
+        with patch.object(treino, 'atomic_json', side_effect=die_before_trained):
+            with self.assertRaises(KeyboardInterrupt):
+                treino.run(cfg, data)
+        run_dir = next((base / 'runs' / 'sft').iterdir())
+        self.assertEqual(json.loads((run_dir / 'status.json').read_text())['status'], 'failed')
+        self.assertTrue((run_dir / 'checkpoints' / 'checkpoint-2').is_dir())
+        treino.run(cfg, data)
+        status = json.loads((run_dir / 'status.json').read_text())
+        self.assertEqual((status['status'], status['global_step'], status['resumed_from']),
+                         ('trained', 2, 'checkpoint-2'))
+        self.assertFalse((run_dir / 'checkpoints' / 'checkpoint-3').exists())
+        final = run_dir / 'adapter' / 'adapter_model.safetensors'
+        checkpoint = run_dir / 'checkpoints' / 'checkpoint-2' / 'adapter_model.safetensors'
+        self.assertEqual(final.read_bytes(), checkpoint.read_bytes())
+
     def test_score_completion_uses_monitor_on_visible_channel_only(self):
         from cotv4.treino import score_completion
 

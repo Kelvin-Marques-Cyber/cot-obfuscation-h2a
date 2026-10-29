@@ -146,6 +146,34 @@ def sha256_file(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def _finish_from_final_checkpoint(run_dir, checkpoint, state, run_id, status_path):
+    """Conclui um treino que gravou o checkpoint do último passo, mas morreu antes do registro.
+
+    O adaptador desse checkpoint é o resultado do treino. Retomar o Trainer nesse ponto faria a
+    biblioteca executar um passo além do protocolo (defeito observado na T4 e reproduzido em CPU).
+    """
+    import shutil
+    losses = [entry['loss'] for entry in state.get('log_history', []) if 'loss' in entry]
+    if not losses or not all(math.isfinite(float(x)) for x in losses):
+        raise FloatingPointError('Histórico de perdas ausente ou não finito no checkpoint final')
+    adapter = run_dir / 'adapter'
+    adapter.mkdir(parents=True, exist_ok=True)
+    for name in ('adapter_config.json', 'adapter_model.safetensors'):
+        source = checkpoint / name
+        if not source.is_file():
+            raise RuntimeError('Checkpoint final sem ' + name)
+        tmp = adapter / (name + '.partial')
+        shutil.copyfile(source, tmp)
+        tmp.replace(adapter / name)
+    atomic_json(run_dir / 'trainer_state.json', state)
+    weights = sorted(adapter.glob('*.safetensors'))
+    atomic_json(status_path, dict(status=STATUS_TRAINED, run_id=run_id, global_step=int(state['global_step']),
+                                  first_loss=losses[0], last_loss=losses[-1],
+                                  adapter_sha256={p.name: sha256_file(p) for p in weights},
+                                  resumed_from=checkpoint.name, finished_from_final_checkpoint=True))
+    return str(run_dir)
+
+
 def run(config, data_path):
     """Treina (ou retoma) uma execução; devolve o diretório com status trained."""
     validate_config(config)
@@ -170,6 +198,16 @@ def run(config, data_path):
     status_path = run_dir / 'status.json'
     if status_path.exists() and json.loads(status_path.read_text()).get('status') == STATUS_TRAINED:
         return str(run_dir)
+    output_dir = run_dir / 'checkpoints'
+    latest = get_last_checkpoint(str(output_dir)) if output_dir.exists() else None
+    if latest:
+        state = json.loads((Path(latest) / 'trainer_state.json').read_text())
+        if int(state.get('global_step', 0)) > int(config['max_steps']):
+            raise ValueError('Checkpoint além do número de passos registrado')
+        if int(state.get('global_step', 0)) == int(config['max_steps']):
+            if not manifest_path.exists():
+                raise RuntimeError('Checkpoint final sem manifesto do treino')
+            return _finish_from_final_checkpoint(run_dir, Path(latest), state, run_id, status_path)
     model, tokenizer, dtype = load_for_training(config)
     manifest = dict(run_id=run_id, resolved_config=resolved, environment=dict(
         python=platform.python_version(), torch=torch.__version__,
@@ -180,7 +218,6 @@ def run(config, data_path):
         atomic_json(manifest_path, manifest)
     lora = LoraConfig(r=config.get('lora_r', 8), lora_alpha=config.get('lora_alpha', 16), lora_dropout=0.0,
                       bias='none', task_type='CAUSAL_LM', target_modules='all-linear')
-    output_dir = run_dir / 'checkpoints'
     common = dict(output_dir=str(output_dir), max_steps=int(config['max_steps']),
                   per_device_train_batch_size=config.get('batch_size', 1),
                   gradient_accumulation_steps=config.get('grad_accum', 4),
@@ -225,11 +262,6 @@ def run(config, data_path):
                                   train_dataset=Dataset.from_list(examples), callbacks=[_finite_callback()],
                                   reward_funcs=reward_function(config['condition'], monitor,
                                                                config.get('monitor_weight', 0.6)))
-        latest = get_last_checkpoint(str(output_dir)) if output_dir.exists() else None
-        if latest:
-            state = json.loads((Path(latest) / 'trainer_state.json').read_text())
-            if int(state.get('global_step', 0)) > int(config['max_steps']):
-                raise ValueError('Checkpoint além do número de passos registrado')
         trainer.train(resume_from_checkpoint=latest)
         if trainer.state.global_step != int(config['max_steps']):
             raise RuntimeError(f'Treino terminou no passo {trainer.state.global_step}, '

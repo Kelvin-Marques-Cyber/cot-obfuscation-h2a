@@ -125,7 +125,8 @@ def prepare_storage(local_root, study_id, *, on_colab=False, mode='auto', storag
     else:
         print('MODO LOCAL TEMPORÁRIO:', storage, flush=True)
         print('Os arquivos desta pasta são apagados quando a sessão do Colab termina.', flush=True)
-        print('O notebook 00 pode preparar e exportar o pacote; treinos e avaliações ficam pausados.', flush=True)
+        print('Nesse modo, o notebook 00 prepara e exporta o pacote, e treinos e avaliações do estudo ficam '
+              'pausados; só o teste técnico (TECHNICAL_TEST=True) roda em pasta temporária.', flush=True)
         for line in diagnostics:
             print('  -', line, flush=True)
         print(RECONNECT, flush=True)

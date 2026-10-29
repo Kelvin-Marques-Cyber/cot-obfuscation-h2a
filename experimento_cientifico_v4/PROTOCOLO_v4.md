@@ -134,6 +134,11 @@ arquivos e manifesto em `triagem_dev/`. Com o braço GRPO excluído, somente os
 níveis do SFT condicionam os treinos; reprovação em qualquer um deles bloqueia
 todos os treinos deste estudo. Os níveis do GRPO são relatados como descrição.
 
+**Resultado (29/10/2026, execução única no commit `37094c4`, Tesla T4, fp16):**
+SFT A 117/120 (97,5%) e SFT C 82/120 (68,3%), ambos aprovados; GRPO low 114/120
+e high 109/120, apenas descritivos. Todas as respostas em formato válido; nenhuma
+truncada. Arquivos e SHA256 em `triagem_dev/manifest.json`.
+
 ## 6. Gates obrigatórios
 
 1. Registro público com data auditável **antes** do primeiro treino, contendo os
@@ -179,7 +184,7 @@ do pacote produzido pelo notebook 00, que a contém.
 | Código | `cotv4/monitor.py` | `3635ed93e186e64dea87b0df428c8472434f40e2d243660b7ffb63ddce2a87f3` |
 | Código | `cotv4/runtime.py` | `c1f4326e798b39e8b90fc6099d1c8da8b31e14a0ec9b46bf678c43c2a77fe3b0` |
 | Código | `cotv4/tarefas.py` | `8b1a58ecc9df6b959741409f71811b7e90449bc41eedf7d860528f74732ba7fd` |
-| Código | `cotv4/treino.py` | `2f672f04a987090d268b1b3e2da5291d2d19bb6ef5fc772aba83a4c9f40d0975` |
+| Código | `cotv4/treino.py` | `357cc924119facab1911ca07a8e76c987ce5c64e79050381887fcb0d72202fed` |
 | Revisão do modelo | `Qwen/Qwen2.5-1.5B-Instruct` | `989aa7980e4cf806f80c7fef2b1adb7bc71aa306` |
 | Revisão do modelo | `Qwen/Qwen3-1.7B` | `70d244cc86ccca08cf5af4e1e306ecf908b1ad5e` |
 | Revisão do modelo | `Qwen/Qwen2.5-0.5B-Instruct` | `7ae557604adf67be50417f59c2c2f167def9a775` |

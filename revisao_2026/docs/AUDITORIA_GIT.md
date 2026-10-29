@@ -31,8 +31,11 @@ fixados. Os commits novos desta revisão usam a mesma identidade do
 proprietário, sem assinatura de ferramenta e sem trailers de coautoria
 (`git log --format='%an|%cn|%(trailers)' 273d131..main`). O branch de trabalho
 usado durante a revisão foi incorporado à `main` por avanço rápido
-(*fast-forward*) e excluído, e o *pull request* de rascunho aberto para ele foi
-fechado sem *merge*.
+(*fast-forward*) e excluído. O *pull request* de rascunho aberto para esse
+branch passa a constar como incorporado quando a `main` alcança o mesmo commit;
+sua descrição foi editada para retirar a assinatura de ferramenta. O registro
+do *pull request* e o nome do branch excluído continuam visíveis no histórico de
+eventos do GitHub e não podem ser apagados pelo repositório.
 
 Achado durante a revisão: dois arquivos de ambiente do diagnóstico
 (`experimento_cientifico_v3/diagnostico_dev/resultados/*_float32_environment.json`)
