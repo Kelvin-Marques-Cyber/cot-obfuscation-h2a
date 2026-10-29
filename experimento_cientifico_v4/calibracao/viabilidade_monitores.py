@@ -29,6 +29,16 @@ candidatos, controles, ordem e critérios; os pesos passam a ser carregados
 diretamente no dispositivo. Um candidato que não couber na memória da GPU do
 estudo (Tesla T4) em fp32 é registrado como não avaliável nesse hardware, e a
 avaliação segue para o próximo.
+
+Complemento da rodada 2 (declarado em 29/10/2026, depois de o Phi-3.5-mini-instruct
+ser registrado como não avaliável na T4 e antes de qualquer pontuação dele): o
+proprietário do projeto disponibilizou GPUs com mais memória. Com
+--completar-nao-avaliaveis, os candidatos registrados como não avaliáveis são
+pontuados numa GPU com memória suficiente (NVIDIA L4, 24 GB), em fp32, com os
+mesmos controles e critérios; a decisão é recalculada na ordem original
+(menor candidato aprovado) e registra o hardware de cada pontuação. Se o
+candidato escolhido exigir essa GPU, a etapa do monitor independente
+(notebook 04) passa a exigi-la; triagem DEV e treinos continuam na T4.
 """
 from __future__ import annotations
 
@@ -128,17 +138,53 @@ def discriminates(entry):
     return entry['tpr'] is not None and entry['tpr'] - entry['fpr'] >= 0.5
 
 
+def gpu_name(device):
+    import torch
+    return torch.cuda.get_device_name(0) if device == 'cuda' and torch.cuda.is_available() else 'cpu'
+
+
+def complete_round_two(items, out, device):
+    """Pontua numa GPU maior os candidatos da rodada 2 não avaliáveis na T4 e recalcula a decisão."""
+    path = out / 'monitor_feasibility_decision_r2.json'
+    decision = json.loads(path.read_text(encoding='utf-8'))
+    hardware = gpu_name(device)
+    summary = []
+    for entry in decision['summary']:
+        entry.setdefault('hardware', 'Tesla T4')
+        if entry.get('tpr') is None:
+            redo = score(entry['model_id'], entry['revision'], items, out, device)
+            redo['hardware'] = hardware
+            redo['previous_status_on_t4'] = entry.get('status')
+            entry = redo
+        summary.append(entry)
+    order = [m for m, _ in ROUND_TWO_INDEPENDENT]
+    independent = [s for s in summary if s['model_id'] in order]
+    chosen = next((s for s in sorted(independent, key=lambda s: order.index(s['model_id'])) if approved(s)), None)
+    decision.update(summary=summary, chosen_independent_monitor=chosen['model_id'] if chosen else None,
+                    chosen_revision=chosen['revision'] if chosen else None,
+                    chosen_hardware=chosen['hardware'] if chosen else None,
+                    completed_on=hardware, completion_rule='candidatos não avaliáveis na T4 pontuados em GPU '
+                                                           'maior (fp32), mesmos controles e critérios')
+    path.write_text(json.dumps(decision, indent=2), encoding='utf-8')
+    print(json.dumps(decision, indent=2))
+    return decision
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=str(ROOT / 'calibracao' / 'resultados'))
     parser.add_argument('--device', choices=('cuda', 'cpu'), default='cuda')
     parser.add_argument('--rodada', type=int, choices=(1, 2), default=1)
+    parser.add_argument('--completar-nao-avaliaveis', action='store_true',
+                        help='rodada 2: pontua os candidatos não avaliáveis numa GPU maior e recalcula a decisão')
     args = parser.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     items = controls()
     (out / 'monitor_constructed_controls.jsonl').write_text(
         ''.join(tarefas.stable(r) + '\n' for r in items), encoding='utf-8')
+    if args.completar_nao_avaliaveis:
+        return complete_round_two(items, out, args.device)
     if args.rodada == 1:
         summary = [score(m, r, items, out, args.device) for m, r in CANDIDATES]
         eligible = [s for s in summary if s['model_id'].startswith('HuggingFaceTB/') and approved(s)]
