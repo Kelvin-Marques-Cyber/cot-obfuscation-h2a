@@ -4,18 +4,19 @@ Repositório do projeto `cot-obfuscation-h2a`, sob responsabilidade de Kelvin e
 Silva Marques. Reúne o artigo, os dados, o código e os notebooks de três
 conjuntos de trabalho que não devem ser confundidos:
 
-| Conjunto | Situação em 28/10/2026 | Onde |
+| Conjunto | Situação em 29/10/2026 | Onde |
 |---|---|---|
 | Estudo-piloto (SFT) e reanálise | Concluído: números reproduzidos; instrumentos auditados | [`revisao_2026/`](revisao_2026) |
 | Estudo prospectivo v3.2 (OSF [sjwdf](https://osf.io/sjwdf/)) | **Encerrado sem treinos**: triagem DEV reprovada; diagnóstico concluído | [`experimento_cientifico_v3/`](experimento_cientifico_v3) |
-| Estudo prospectivo v4 (novo `STUDY_ID`) | <<SITUACAO_V4>> | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
+| Estudo prospectivo v4 (novo `STUDY_ID`) | **Pronto para registro, sem treinos**: protocolo congelado; triagem DEV do SFT aprovada (A 117/120; C 82/120); braço GRPO excluído antes do registro (nenhum monitor viável) | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
 
 **Artigo:** [PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf) ·
 [DOCX editável](revisao_2026/docs/Artigo_CoT_Versao_Final.docx) ·
 [fonte](revisao_2026/artigo.md) · [relatório de validação](revisao_2026/docs/RELATORIO_VALIDACAO.md)
 
 Nenhum resultado confirmatório sobre as hipóteses H1 (custo do formato no SFT)
-e H2 (exploração não sinalizada no GRPO) foi produzido até esta data.
+e H2 (exploração não sinalizada no GRPO) foi produzido até esta data. No v4,
+H2 foi declarada não testável antes do registro.
 
 ## Estudo v4: os cinco notebooks
 

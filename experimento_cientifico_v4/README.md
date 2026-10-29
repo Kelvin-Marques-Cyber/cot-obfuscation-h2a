@@ -6,7 +6,11 @@ encerramento do v3.2 por reprovação na triagem de competência. Protocolo:
 [protocolo_v4.json](protocolo_v4.json) · calibração: [calibracao/](calibracao) ·
 triagem DEV: [triagem_dev/](triagem_dev).
 
-**Situação em 28/10/2026:** <<SITUACAO>>
+**Situação em 29/10/2026:** protocolo congelado (commit `37094c4`) e triagem DEV
+executada uma única vez na Tesla T4: SFT A 117/120 e C 82/120, ambos ≥ 0,65. O
+braço GRPO foi excluído antes do registro porque nenhum monitor foi aprovado na
+calibração (H2 não testável; triagem GRPO apenas descritiva). **Próximo passo:**
+publicar o registro com o pacote do notebook 00. Nenhum treino foi executado.
 
 ## Notebooks (abrir pelo link, nunca por cópia antiga)
 

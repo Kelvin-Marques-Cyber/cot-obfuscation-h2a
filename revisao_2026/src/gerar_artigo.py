@@ -112,6 +112,7 @@ def values():
             out[base + '.t4'] = pct(t4['accuracy'])
             out[base + '.t4_k'] = frac(t4['correct'], 120)
             out[base + '.perm'] = pct(entry['permissive_upper_bound'])
+            out[base + '.t4_trunc'] = str(entry['t4_truncated_estimated'])
             for name, count in entry['categories'].items():
                 out[f'{base}.cat.{name}'] = str(count)
             cpu = entry.get('cpu_fp32')
