@@ -11,6 +11,8 @@ executada uma única vez na Tesla T4: SFT A 117/120 e C 82/120, ambos ≥ 0,65. 
 braço GRPO foi excluído antes do registro porque nenhum monitor foi aprovado na
 calibração (H2 não testável; triagem GRPO apenas descritiva). **Próximo passo:**
 publicar o registro com o pacote do notebook 00. Nenhum treino foi executado.
+O texto de cada campo do formulário do OSF, o pacote e o código a anexar estão
+em [registro_osf/](registro_osf/REGISTRO_OSF_v4.md).
 
 ## Notebooks (abrir pelo link, nunca por cópia antiga)
 
@@ -38,7 +40,8 @@ fixadas em [requirements-gpu.txt](requirements-gpu.txt).
    Prepara e congela protocolo, dados e revisões, importa a triagem DEV
    conferindo os SHA256 e baixa `pacote_registro_v4.zip`.
 2. Publique o registro (OSF ou equivalente) **antes de qualquer treino**,
-   incluindo os SHA256 do pacote (`MANIFESTO_SHA256.json`). Preencha
+   incluindo os SHA256 do pacote (`MANIFESTO_SHA256.json`); campos e anexos em
+   [registro_osf/REGISTRO_OSF_v4.md](registro_osf/REGISTRO_OSF_v4.md). Preencha
    `PUBLIC_REGISTRATION_URL` no 00 e execute tudo de novo.
 3. **01 (GPU T4 ou superior):** executar tudo repetidas vezes, com o mesmo
    `STUDY_ID`, até 120/120 treinos SFT. Cada sessão faz `MAX_JOBS_PER_SESSION`
