@@ -155,39 +155,59 @@ def build(root, repo, num, pct, frac):
                                  ['Elemento', 'v3.2', 'v4', 'Justificativa'],
                                  [[c['elemento'], c['v3'], c['v4'], c['justificativa']] for c in _json(changes)],
                                  ['l', 'l', 'l', 'l'], 'experimento_cientifico_v4/PROTOCOLO_v4.md e protocolo_v4.json.')
-    sft_dec = v4 / 'calibracao' / 'resultados' / 'sft_calibration_decision.json'
-    grpo_dec = v4 / 'calibracao' / 'resultados' / 'grpo_calibration_decision.json'
-    if sft_dec.exists() and grpo_dec.exists():
-        sft, grpo = _json(sft_dec), _json(grpo_dec)
+    cal = v4 / 'calibracao' / 'resultados'
+    if (cal / 'sft_calibration_decision.json').exists() and (cal / 'grpo_calibration_decision.json').exists():
         label = {'A': 'A: a + b (100–999)', 'C1': 'C1: a + b·c − d, c de 3 a 9',
                  'C2': 'C2: a + b·c − d, b e c de 12 a 99'}
         rows = []
-        for key, value in sft['summary'].items():
-            name, prompt = key.split('/')
-            rows.append(['SFT', label[name], 'explícita' if prompt == 'explicit' else 'neutra', '—',
-                         f"{round(value['accuracy'] * value['n'])}/{value['n']}", pct(value['accuracy'])])
+        for rnd, name in (('1', 'sft_calibration_decision.json'), ('2', 'sft_calibration_decision_r2.json')):
+            if not (cal / name).exists():
+                continue
+            for key, value in _json(cal / name)['summary'].items():
+                cand, prompt = key.split('/')
+                prompt = ('explícita' + (' + demonstrações' if rnd == '2' else '')) if prompt == 'explicit' else 'neutra'
+                rows.append([rnd, 'SFT', label[cand], prompt, '—', '—',
+                             f"{round(value['accuracy'] * value['n'])}/{value['n']}"])
         glabel = {'G1': 'G1: operandos 11–99', 'G0': 'G0: operandos 2–20'}
-        for key, value in grpo['summary'].items():
-            name, condition = key.split('/')
-            for level in ('low', 'high'):
-                v = value[level]
-                rows.append(['GRPO', glabel[name], 'sem dica' if condition == 'sem_dica' else 'com dica', level,
-                             f"{round(v['accuracy'] * v['n'])}/{v['n']}", pct(v['accuracy'])])
-        tables['calibracao_v4'] = ('Calibração exploratória do v4 em itens próprios de calibração (T4, fp16)',
-                                   ['Braço', 'Candidato', 'Instrução', 'Nível', 'Acertos', 'Acurácia'], rows,
-                                   ['l', 'l', 'l', 'l', 'r', 'r'], 'experimento_cientifico_v4/calibracao/resultados/.')
-    monitors = v4 / 'calibracao' / 'resultados' / 'monitor_feasibility_decision.json'
+        instr = {'v3': 'v3.2', 'r2a': 'r2a', 'r2b': 'r2b'}
+        for rnd, name in (('1', 'grpo_calibration_decision.json'), ('2', 'grpo_calibration_decision_r2.json')):
+            if not (cal / name).exists():
+                continue
+            for key, value in _json(cal / name)['summary'].items():
+                parts = key.split('/')
+                variant, cand, cond = (['v3'] + parts) if len(parts) == 2 else parts
+                for level in ('low', 'high'):
+                    v = value[level]
+                    rows.append([rnd, 'GRPO', glabel[cand], f"{instr[variant]}, {'sem' if cond == 'sem_dica' else 'com'} dica",
+                                 level, pct(v['format_valid']), f"{round(v['accuracy'] * v['n'])}/{v['n']}"])
+        tables['calibracao_v4'] = ('Calibração exploratória do v4 em itens próprios (Tesla T4, fp16, 40 itens por linha)',
+                                   ['Rodada', 'Braço', 'Candidato', 'Instrução', 'Nível', 'Formato válido', 'Acertos'],
+                                   rows, ['c', 'l', 'l', 'l', 'l', 'r', 'r'],
+                                   'experimento_cientifico_v4/calibracao/resultados/ (arquivos de decisão de cada rodada).')
+    monitors = cal / 'monitor_feasibility_decision.json'
     if monitors.exists():
-        data = _json(monitors)
+        first = _json(monitors)
+        second = _json(cal / 'monitor_feasibility_decision_r2.json') if (cal / 'monitor_feasibility_decision_r2.json').exists() else {}
+        chosen = second.get('chosen_independent_monitor') or first.get('chosen_independent_monitor')
+        reward = second.get('reward_monitor')
+
+        def role(model_id):
+            if 'Qwen2.5' in model_id:
+                return 'recompensa' + (' (escolhido)' if model_id == reward else '')
+            if model_id == chosen:
+                return 'independente (escolhido)'
+            return 'independente no v3.2' if '135M' in model_id else 'candidato a independente'
+
+        rows = []
+        for rnd, data in (('1', first), ('2', second)):
+            for m in data.get('summary', []):
+                rows.append([rnd, m['model_id'].split('/')[-1], role(m['model_id']),
+                             pct(m['tpr']) if m['tpr'] is not None else 'não avaliável',
+                             pct(m['fpr']) if m['fpr'] is not None else 'não avaliável'])
         tables['monitores_v4'] = (
-            'Desempenho dos monitores em controles construídos (rótulos por regra, não humanos)',
-            ['Modelo', 'Função no protocolo', 'TPR', 'FPR'],
-            [[m['model_id'].split('/')[-1],
-              'recompensa (v3.2 e v4)' if 'Qwen2.5-0.5B' in m['model_id'] else
-              ('independente no v3.2' if '135M' in m['model_id'] else
-               ('independente no v4' if m['model_id'] == data['chosen_independent_monitor'] else 'candidato')),
-              pct(m['tpr']), pct(m['fpr'])] for m in data['summary']],
-            ['l', 'l', 'r', 'r'], 'experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision.json.')
+            'Desempenho dos monitores em 320 controles construídos (rótulos por regra, não humanos)',
+            ['Rodada', 'Modelo', 'Papel', 'TPR', 'FPR'], rows, ['c', 'l', 'l', 'r', 'r'],
+            'experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision*.json.')
     gate = v4 / 'triagem_dev' / 'manifest.json'
     if gate.exists():
         data = _json(gate)

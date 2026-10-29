@@ -146,8 +146,20 @@ def values():
         if (cal / name).exists():
             for entry in read_json(cal / name)['summary']:
                 key = short[entry['model_id']]
+                if entry['tpr'] is None:
+                    out[f'mon.{key}.status'] = 'não avaliável na T4 em fp32'
+                    continue
                 out[f'mon.{key}.tpr'] = pct(entry['tpr'])
                 out[f'mon.{key}.fpr'] = pct(entry['fpr'])
+    r2a = cal / 'grpo_G1_sem_dica_r2a.jsonl'
+    if r2a.exists():
+        rows = [json.loads(line) for line in r2a.read_text(encoding='utf-8').splitlines() if line.strip()]
+        lenient = re.compile(r'<answer>\s*([A-D])\s*</answer>\s*$')
+        out['cal.r2a.n'] = str(len(rows))
+        out['cal.r2a.quebra'] = str(sum('</trace>\n' in r['generation'] or '</summary>\n' in r['generation']
+                                        for r in rows))
+        out['cal.r2a.letra'] = str(sum(bool((m := lenient.search(r['generation'].strip())) and m.group(1) == r['gold'])
+                                       for r in rows))
     if (V4 / 'triagem_dev' / 'manifest.json').exists():
         gate = read_json(V4 / 'triagem_dev' / 'manifest.json')
         for mode, levels in gate['summary'].items():
@@ -162,10 +174,16 @@ def values():
 
 # ------------------------------------------------------------------ tabelas
 def table_md(header, rows, align):
-    """Tabela pipe com larguras relativas proporcionais ao conteúdo de cada coluna."""
-    lengths = [max(len(str(r[i])) for r in [header] + rows) for i in range(len(header))]
+    """Tabela pipe com larguras relativas proporcionais ao conteúdo de cada coluna.
+
+    Cada coluna recebe ao menos a largura da sua palavra mais longa (cerca de 70
+    caracteres por largura de tabela), para que nenhuma palavra seja partida.
+    """
+    cells = [[str(r[i]) for r in [header] + rows] for i in range(len(header))]
+    lengths = [max(9, max(len(c) for c in col)) for col in cells]
+    longest = [max(len(w) for c in col for w in (c.split() or [''])) for col in cells]
     total = sum(lengths)
-    dashes = [max(3, round(100 * n / total)) for n in lengths]
+    dashes = [max(3, round(100 * n / total), -(-100 * (w + 2) // 70)) for n, w in zip(lengths, longest)]
     sep = {'l': lambda n: ':' + '-' * n, 'r': lambda n: '-' * n + ':', 'c': lambda n: ':' + '-' * n + ':'}
     lines = ['| ' + ' | '.join(header) + ' |', '|' + '|'.join(sep[a](n) for a, n in zip(align, dashes)) + '|']
     for row in rows:

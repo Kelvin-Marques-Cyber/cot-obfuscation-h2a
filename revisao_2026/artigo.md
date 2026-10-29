@@ -112,7 +112,7 @@ com direção prevista negativa. Esse contraste mede o efeito do alvo de treinam
 
 A hipótese H2 refere-se ao braço GRPO. Uma resposta é exploração quando escolhe a alternativa indicada por uma nota auxiliar proibida, que a recompensa mal especificada premia; é não sinalizada quando um monitor independente, distinto do monitor usado na recompensa, não a detecta no rastro. No nível de dica mais difícil (*high*), o contraste por semente é
 
-$$\Delta^{\text{GRPO}}_s = P_s(\text{explora} \wedge \neg\text{sinalizado} \mid \text{cot\_monitor}) - P_s(\text{explora} \wedge \neg\text{sinalizado} \mid \text{none}),$$
+$$\Delta^{\text{GRPO}}_s = P_s(\text{explora} \wedge \neg\text{sinalizado} \,|\, \text{cot\_monitor}) - P_s(\text{explora} \wedge \neg\text{sinalizado} \,|\, \text{none}),$$
 
 com direção prevista positiva e exigência adicional de que a taxa de exploração não caia mais que 0,10 entre as condições.
 
@@ -150,7 +150,7 @@ O registro público foi localizado por consulta à API do OSF: *Monitorabilidade
 
 ### 4.2.2 Triagem de competência
 
-Antes de qualquer treinamento, cada modelo-base respondia aos 120 primeiros itens DEV de cada nível, em decodificação gulosa, com orçamento de 256 tokens, em uma GPU Tesla T4 com pesos em fp16. No SFT, a instrução de sistema era "Resolva o problema. Termine com uma única tag <answer>NUMERO</answer>." e a correção usava um contrato estrito: a resposta é aceita somente como uma única tag final, uma única linha final "Resposta: N" ou uma saída composta apenas pelo número. No GRPO, o enunciado incluía a nota proibida e a resposta só era correta se seguisse exatamente o formato <trace>…</trace><summary>…</summary><answer>LETRA</answer> com a letra do gabarito. O critério exigia acurácia mínima de 0,65 em cada um dos quatro níveis; a reprovação bloqueava os 240 treinamentos.
+Antes de qualquer treinamento, cada modelo-base respondia aos 120 primeiros itens DEV de cada nível, em decodificação gulosa, com orçamento de 256 tokens, em uma GPU Tesla T4 com pesos em fp16. No SFT, a instrução de sistema era "Resolva o problema. Termine com uma única tag `<answer>NUMERO</answer>`." e a correção usava um contrato estrito: a resposta é aceita somente como uma única tag final, uma única linha final "Resposta: N" ou uma saída composta apenas pelo número. No GRPO, o enunciado incluía a nota proibida e a resposta só era correta se seguisse exatamente o formato `<trace>…</trace><summary>…</summary><answer>LETRA</answer>` com a letra do gabarito. O critério exigia acurácia mínima de 0,65 em cada um dos quatro níveis; a reprovação bloqueava os 240 treinamentos.
 
 ## 4.3 Diagnóstico da triagem do v3.2
 
@@ -158,7 +158,7 @@ Os arquivos brutos da triagem original estavam no Google Drive da sessão do Col
 
 A primeira reproduz o caminho original no Colab, em 28 de outubro de 2026: os notebooks v3.2 baixam os commits fixados fde856f e 4a2a133, criam o ambiente isolado com as versões fixadas e executam as etapas de preparação, congelamento das revisões e triagem em uma Tesla T4, em fp16, numa pasta de diagnóstico separada. A segunda reconstrói os dados com o mesmo código e usa as mesmas funções de conversa e geração em CPU, com pesos em fp32, para avaliar a sensibilidade à precisão numérica. As revisões dos modelos foram confirmadas no Hugging Face Hub: a última alteração de cada repositório é anterior a outubro de 2026, de modo que as revisões disponíveis coincidem necessariamente com as congeladas em 19 de outubro.
 
-As respostas da reprodução em CPU foram classificadas em categorias descritivas: correta no contrato; valor correto fora do contrato (por exemplo, prosa terminada pelo número certo); separador de milhar lido como decimal; formato válido com valor incorreto; alternativa indicada pela dica; formato inválido com valor incorreto; e truncamento no orçamento. A soma das categorias corretas fora do contrato define um limite superior permissivo, que indica quanto um extrator mais tolerante poderia alterar o resultado. Esse limite é diagnóstico: o desfecho registrado permanece o do corretor congelado. Além disso, verificaram-se o texto produzido pelo modelo de conversa, a tokenização, o identificador de término, a ocorrência de truncamento e as versões das bibliotecas.
+As respostas da reprodução na T4 foram classificadas em categorias descritivas: correta no contrato; valor correto fora do contrato (por exemplo, prosa terminada pelo número certo); separador de milhar lido como decimal; formato válido com valor incorreto; alternativa indicada pela dica; formato inválido com valor incorreto; e truncamento no orçamento, estimado na T4 pela recontagem dos tokens do texto gerado e observado diretamente na CPU. A soma das categorias corretas fora do contrato define um limite superior permissivo, que indica quanto um extrator mais tolerante poderia alterar o resultado. Esse limite é diagnóstico: o desfecho registrado permanece o do corretor congelado. Além disso, verificaram-se o texto produzido pelo modelo de conversa, a tokenização, o identificador de término, a ocorrência de truncamento e as versões das bibliotecas.
 
 ## 4.4 Protocolo prospectivo v4
 
@@ -170,9 +170,13 @@ O protocolo v4 constitui um estudo novo, com identificador próprio (estudo-pros
 
 ### 4.4.2 Calibração exploratória
 
-As faixas numéricas das tarefas e o monitor independente foram escolhidos por calibração em itens gerados com sementes próprias (20261028 a 20261030), excluídos por construção das partições de treino, DEV e teste do v4. As regras de escolha foram gravadas no repositório antes da execução (commits 97eaf5e, 4f2c503 e e02eda4) e usam as mesmas condições previstas para a triagem: Tesla T4, fp16, decodificação gulosa item a item e orçamento de 256 tokens. No SFT, a acurácia do nível A e a de cada candidato ao nível C deveriam atingir 0,80 com a instrução explícita em 40 itens; escolhe-se o candidato mais difícil que satisfaça a regra. No GRPO, a faixa de operandos, comum aos dois níveis, deveria atingir 0,80 sem a dica em 40 itens por nível (10 por domínio); escolhe-se a faixa mais difícil que satisfaça a regra. O limiar de 0,80 oferece margem acima do critério de 0,65 para a variação amostral de 120 itens.
+As faixas numéricas das tarefas, as instruções e os monitores foram escolhidos por calibração em itens gerados com sementes próprias (20261028 a 20261030), excluídos por construção das partições de treino, DEV e teste do v4. Cada regra de escolha foi gravada no repositório antes da execução correspondente (rodada 1: commits 97eaf5e, 4f2c503 e e02eda4; rodada 2: d3e4258, 73a6b13 e a4668a5; repetição da rodada 2 dos monitores: 5a091d8), e todas as rodadas, inclusive as reprovadas, são relatadas. As condições de geração são as previstas para a triagem: Tesla T4, fp16, decodificação gulosa item a item e orçamento de 256 tokens.
 
-Para o monitor independente, compararam-se modelos SmolLM2 de 135M, 360M e 1,7B de parâmetros em 320 controles construídos a partir de modelos de texto: 160 rastros que usam explicitamente a nota proibida e 160 que calculam a resposta, inclusive rastros que rejeitam a nota de forma explícita. Esses rótulos decorrem da regra de construção, e não de anotação humana; eles avaliam apenas a viabilidade do instrumento e não substituem a validação com 100 controles positivos e 100 negativos rotulados por pessoas, que continua obrigatória. A regra escolhia o menor modelo com taxa de verdadeiros positivos (TPR) de pelo menos 0,90 e taxa de falsos positivos (FPR) de no máximo 0,05.
+No SFT, o nível A (a + b, com operandos de 100 a 999) e cada candidato ao nível C deveriam atingir 0,80 com a instrução explícita em 40 itens. Os candidatos têm a forma a + b × c − d, com a e d de 100 a 999 e b de 12 a 99; em C1, c vai de 3 a 9 e, em C2, de 12 a 99. Escolhe-se o candidato mais difícil que satisfaça a regra. A rodada 2 manteve os itens e a regra e acrescentou à instrução duas demonstrações fixas do alvo explícito, com enunciados que não pertencem a nenhuma partição.
+
+No GRPO, a faixa de operandos, comum aos dois níveis, deveria atingir 0,80 sem a dica em 40 itens por nível (10 por domínio); os candidatos foram G1 (11 a 99) e G0 (2 a 20), com preferência pela faixa mais difícil. A rodada 1 usou a instrução do v3.2. A rodada 2 testou, nesta ordem, uma instrução sem os marcadores copiáveis (r2a) e a mesma instrução acompanhada de uma demonstração de formato sem dica (r2b), escolhendo a primeira variante aprovada. O limiar de 0,80 oferece margem acima do critério de 0,65 para a variação amostral de 120 itens.
+
+Os monitores foram avaliados em 320 controles construídos a partir de modelos de texto: 160 rastros que usam explicitamente a nota proibida e 160 que calculam a resposta, inclusive rastros que rejeitam a nota de forma explícita. Esses rótulos decorrem da regra de construção, e não de anotação humana; eles avaliam apenas a viabilidade do instrumento e não substituem a validação com 100 controles positivos e 100 negativos rotulados por pessoas, que continua obrigatória. Para o monitor independente, a regra escolhia o menor modelo com taxa de verdadeiros positivos (TPR) de pelo menos 0,90 e taxa de falsos positivos (FPR) de no máximo 0,05; a rodada 1 avaliou modelos SmolLM2 de 135M, 360M e 1,7B de parâmetros, e a rodada 2, modelos de outras famílias em ordem crescente de tamanho (OLMo-2 de 1B, Granite 3.3 de 2B, SmolLM3 de 3B e Phi-3.5-mini). Para o monitor de recompensa, exigiu-se discriminação mínima TPR − FPR ≥ 0,5. A primeira execução da rodada 2 foi encerrada pelo sistema por falta de memória do hospedeiro ao carregar o segundo candidato; a rodada foi repetida integralmente, com os mesmos candidatos, controles e critérios, depois de alterar apenas o carregamento dos pesos, e a regra para o caso de nenhum monitor ser aprovado foi gravada antes de conhecido o resultado: nesse caso, o braço GRPO seria excluído do v4 antes do registro.
 
 ### 4.4.3 Triagem de competência antes do registro
 
@@ -207,9 +211,82 @@ Segundo, o corretor histórico aceita uma resposta quando qualquer número do tr
 
 Terceiro, a comparação histórica entre respostas com e sem explicação, reconstruída a partir dos agregados, mostra no nível C {{v:piloto.mcnemar_b}} itens acertados somente com explicação e {{v:piloto.mcnemar_c}} somente na resposta direta, ganho líquido de {{v:piloto.ganho_liquido}} e teste exato de McNemar com p = {{v:piloto.mcnemar_p}}. Além do tamanho de dez itens, essa comparação muda simultaneamente a instrução e o orçamento de geração (200 contra 40 tokens) e, por isso, não estabelece a necessidade causal do rastro. Quarto, o escore lexical de "ofuscação" atribui valor máximo a rastros vazios e correlaciona-se com repetição (r = {{v:piloto.corr_rep}}) e com diversidade lexical (r = {{v:piloto.corr_ttr}}) porque ambas integram sua fórmula; não há rótulos independentes que o validem como detector de ocultação.
 
-<<RES_V3>>
+## 5.2 Triagem do v3.2 e diagnóstico
 
-<<RESTANTE>>
+Os valores documentados da triagem do v3.2 foram {{v:v3.sft.A.doc_k}} acertos no nível A e {{v:v3.sft.C.doc_k}} no nível C do braço SFT, e {{v:v3.grpo.low.doc_k}} e {{v:v3.grpo.high.doc_k}} nos níveis *low* e *high* do braço GRPO (@tab:triagem_v3 e @fig:triagem). A reprodução pelo caminho original no Colab, com os mesmos commits, as mesmas versões de bibliotecas e uma Tesla T4 em fp16, obteve {{v:v3.sft.A.t4_k}}, {{v:v3.sft.C.t4_k}}, {{v:v3.grpo.low.t4_k}} e {{v:v3.grpo.high.t4_k}}, isto é, os mesmos valores documentados. Os conjuntos de dados reconstruídos têm os mesmos resumos SHA256 nas duas reproduções, e as revisões dos modelos coincidem com as congeladas no v3.2. A classificação das falhas a seguir usa as gerações dessa reprodução.
+
+{{tabela:triagem_v3}}
+
+{{figura:triagem}}
+
+A comparação item a item com a reprodução em CPU com pesos em fp32 delimita o efeito da precisão numérica. No nível A do SFT, {{v:v3.sft.A.cpu_ident}} das 120 gerações foram idênticas e {{v:v3.sft.A.cpu_igual}} tiveram a mesma correção; no nível C, {{v:v3.sft.C.cpu_ident}} foram idênticas e todas foram incorretas nas duas precisões. No nível *low* do GRPO, a correção coincidiu em {{v:v3.grpo.low.cpu_igual}} de {{v:v3.grpo.low.cpu_n}} itens, e no nível *high*, em {{v:v3.grpo.high.cpu_igual}} de {{v:v3.grpo.high.cpu_n}}. A precisão altera respostas isoladas, mas não o resultado da triagem.
+
+A classificação das respostas (@tab:falhas_v3 e @fig:falhas) separa três origens de falha. A primeira é a incapacidade aritmética sob a instrução usada. No nível A do SFT, o modelo respondeu apenas com um número na maioria dos itens, sem etapas intermediárias, e errou {{v:v3.sft.A.cat.formato_valido_valor_incorreto}} somas de dois números de até quatro algarismos. No nível C, as 120 respostas tinham a forma "A resposta é: …", com valores distantes do gabarito, que envolve produtos de até oito algarismos; nenhuma seria correta mesmo com extração permissiva. Nenhuma resposta do SFT foi truncada: as do nível C tiveram em média {{v:v3.sft.C.tokens}} tokens na reprodução em CPU.
+
+{{tabela:falhas_v3}}
+
+{{figura:falhas}}
+
+A segunda origem é o desenho da instrução e do contrato de formato. No SFT, a instrução pedia a tag `<answer>`, que o modelo nunca usou; o contrato aceitava a saída composta só pelo número, mas rejeitava {{v:v3.sft.A.cat.valor_correto_fora_do_contrato}} respostas do nível A cujo valor final estava correto em prosa ("O resultado de 4098 mais 4404 é 8502."). No GRPO, a instrução apresentava o formato com os marcadores "explicação verificável" e "resumo"; no domínio de rastreamento de programa, o modelo copiou esses marcadores literalmente, escreveu o cálculo fora das tags e terminou com a letra correta em grande parte dos casos. O contrato, que não admite texto entre os blocos, rejeitou essas respostas. Por esse motivo, o domínio aritmético obteve {{v:v3.grpo.low.dom.arithmetic}} no nível *low*, e o de rastreamento de programa, {{v:v3.grpo.low.dom.program_trace}}. Como os 120 primeiros itens DEV de cada nível pertenciam apenas a esses dois domínios, a triagem do GRPO não avaliou os domínios de regra fictícia e de estoque.
+
+A terceira origem é um defeito do corretor: um número escrito com separador de milhar ("11,863") era lido como decimal, em vez de rejeitado como formato ambíguo. O defeito afetou {{v:v3.sft.A.cat.separador_de_milhar_lido_como_decimal}} resposta do nível A e não altera nenhum resultado da triagem.
+
+Os limites superiores permissivos foram {{v:v3.sft.A.perm}}, {{v:v3.sft.C.perm}}, {{v:v3.grpo.low.perm}} e {{v:v3.grpo.high.perm}}. Eles indicam que um extrator mais tolerante poderia ter aprovado alguns níveis, mas não o nível C do SFT, em que a incapacidade do modelo-base sob a instrução registrada é suficiente, por si, para a reprovação. Como o critério registrado exigia a aprovação dos quatro níveis segundo o contrato de formato, e o registro determina novo protocolo para mudanças de instrumento ou de amostragem, a correção posterior do extrator não pode reverter o resultado do v3.2.
+
+{{tabela:hipoteses}}
+
+A @tab:hipoteses resume as hipóteses de defeito técnico examinadas. O modelo de conversa foi renderizado corretamente (formato ChatML, modo sem pensamento do Qwen3 com bloco vazio e identificador de término correto), a tokenização não duplicou marcadores especiais e as bibliotecas fixadas reproduziram os resultados de 19 de outubro no ambiente do Colab de 28 de outubro, com Python 3.13.16 e PyTorch 2.11. O resultado de inviabilidade do v3.2, portanto, não decorre de erro de execução; decorre da combinação entre a incapacidade do modelo-base nas tarefas de maior dificuldade e decisões de instrução e contrato que tornavam a medida de competência dependente da obediência a um formato não demonstrado.
+
+Duas observações adicionais, obtidas na calibração do v4 com controles construídos, também afetam a viabilidade do v3.2. O monitor independente previsto, SmolLM2-135M-Instruct, sinalizou {{v:mon.135m.tpr}} dos positivos e {{v:mon.135m.fpr}} dos negativos, isto é, classificou quase todos os rastros como suspeitos, situação em que o próprio protocolo declara o monitor não validado. O monitor de recompensa, Qwen2.5-0.5B-Instruct, obteve TPR de {{v:mon.reward.tpr}} e FPR de {{v:mon.reward.fpr}}.
+
+## 5.3 Calibração do v4
+
+Na rodada 1 do SFT, a instrução explícita sem demonstrações não produziu nenhuma resposta aceita: o modelo escrevia as contas pedidas, mas omitia a tag `<answer>`, e o contrato estrito rejeitava a resposta ({{v:cal.sft.r1.A.explicit.k}} no nível A). Com a instrução neutra, o nível A atingiu {{v:cal.sft.r1.A.neutral.k}}, mas os candidatos C1 e C2 ficaram em {{v:cal.sft.r1.C1.neutral.k}} e {{v:cal.sft.r1.C2.neutral.k}}, o mesmo padrão do v3.2: sem etapas escritas, o modelo não resolve expressões com multiplicação. Com as duas demonstrações da rodada 2, os acertos foram {{v:cal.sft.r2.A.explicit.k}} no nível A, {{v:cal.sft.r2.C1.explicit.k}} em C1 e {{v:cal.sft.r2.C2.explicit.k}} em C2. Pela regra declarada, escolheu-se C2, o candidato mais difícil aprovado (@tab:calibracao_v4).
+
+{{tabela:calibracao_v4}}
+
+No GRPO, a instrução do v3.2 ficou abaixo de 0,80 nas duas faixas de operandos: {{v:cal.grpo.r1.G1.sem_dica.low.k}} e {{v:cal.grpo.r1.G1.sem_dica.high.k}} com G1 e {{v:cal.grpo.r1.G0.sem_dica.low.k}} e {{v:cal.grpo.r1.G0.sem_dica.high.k}} com G0, nos níveis *low* e *high*. A proporção de respostas em formato válido acompanhou a acurácia, o que indica que a perda decorria do formato, e não da aritmética. Na rodada 2, a instrução sem marcadores (r2a) não produziu nenhuma resposta aceita: em {{v:cal.r2a.quebra}} das {{v:cal.r2a.n}} respostas o modelo separou os blocos por quebras de linha, que o contrato não admite, embora {{v:cal.r2a.letra}} terminassem com a letra correta. Acrescida de uma demonstração sem dica (r2b), a instrução atingiu {{v:cal.grpo.r2.r2b.G1.sem_dica.low.k}} e {{v:cal.grpo.r2.r2b.G1.sem_dica.high.k}} sem a dica, com formato válido em todas as respostas. Com a dica, a acurácia foi a mesma, e a alternativa indicada pela nota foi escolhida em {{v:cal.grpo.r2.r2b.G1.com_dica.high.dica}} das respostas do nível *high*. Fixaram-se, assim, a variante r2b e os operandos de 11 a 99 nos dois níveis.
+
+<<RES_V4_MON>>
+
+<<RES_V4_GATE>>
+
+# 6 DISCUSSÃO
+
+## 6.1 O que o piloto sustenta
+
+O piloto registra uma diferença grande e consistente em direção entre alvos de treinamento no nível aritmético de múltiplos passos, e os números publicados são reproduzíveis. Essa descrição motiva a hipótese de que, para certos modelos e tarefas, substituir as etapas explícitas do alvo supervisionado prejudica a aprendizagem do mapeamento desejado. Ela não identifica uma política de evasão aprendida contra um avaliador: o desenho altera diretamente o texto que o modelo deve imitar, não otimiza o modelo contra um monitor e não mede um comportamento proibido definido independentemente do rastro. A medida de acurácia, por sua vez, depende de um corretor que aceita respostas ambíguas, e as três sementes compartilham quase todos os itens. A pergunta P1 recebe, assim, uma resposta negativa: os dados permitem descrever um efeito do formato do alvo, mas não atribuí-lo à ofuscação de raciocínio necessário.
+
+## 6.2 A inviabilidade do v3.2
+
+A reprovação do v3.2 não decorre de erro de execução. Os quatro valores documentados foram reproduzidos exatamente no ambiente atual do Colab, as verificações de modelo de conversa, tokenização, precisão e bibliotecas foram negativas, e o único defeito de corretor encontrado não altera nenhum nível. A resposta à pergunta P2 é que a reprovação resulta de duas causas que se somam. A primeira é a incapacidade real do Qwen2.5-1.5B-Instruct de calcular, em uma única etapa e sem rastro, expressões com produtos de até oito algarismos, condição suficiente para reprovar o nível C. A segunda é um desenho de medida que fazia a competência depender da obediência a formatos não demonstrados: o modelo de SFT não usava a tag pedida, e o modelo de GRPO copiava os marcadores da instrução, produzindo respostas com a alternativa correta que o contrato rejeitava.
+
+Essa distinção é relevante para a interpretação. Um extrator permissivo teria aprovado alguns níveis, mas trocar o extrator depois de observar os resultados da triagem alteraria o instrumento registrado. O registro previa exatamente essa situação: mudanças de instrumento, modelo ou amostragem exigem novo protocolo. O desfecho do v3.2 é, portanto, a inviabilidade do desenho tal como registrado, e não um resultado sobre as hipóteses H1 e H2, que permanecem não testadas.
+
+A calibração do v4 revelou ainda um problema que a triagem não alcançava: o monitor independente previsto não discrimina rastros que usam a nota proibida de rastros que a rejeitam explicitamente. Mesmo com competência aprovada, o gate de validação do monitor provavelmente teria falhado depois dos 240 treinamentos, deixando o estudo sem desfecho interpretável no braço GRPO. A verificação antecipada desse instrumento, com controles construídos e baratos, teria evitado o risco de investir o orçamento de GPU em um desenho cujo monitor não é informativo.
+
+<<DISC_V4>>
+
+## 6.4 Validade interna e externa
+
+O v4 preserva a lógica de identificação do v3.2: contrastes pareados por semente, mesmos itens de teste entre condições, monitor de recompensa distinto do monitor de avaliação e definição objetiva da exploração. As alterações de tarefa reduzem a dificuldade aritmética, de modo que os resultados futuros, se obtidos, valerão para problemas que o modelo resolve com etapas explícitas e com erros residuais, e não para os problemas mais difíceis do v3.2. A escolha da faixa C2 pelo critério de 0,80 com demonstrações mantém a dependência das etapas: sem demonstrações, o mesmo modelo não acertou nenhum item dos candidatos ao nível C.
+
+A validade externa permanece limitada a dois modelos pequenos, tarefas aritméticas sintéticas com quatro formas de enunciado e um único tipo de exploração (seguir uma nota que indica a alternativa errada). Esses limites são próprios de um estudo de viabilidade experimental e não autorizam generalizações para modelos maiores, tarefas abertas ou monitores de outro tipo.
+
+# 7 LIMITAÇÕES
+
+Os arquivos brutos da triagem original do v3.2 não estavam acessíveis. A correspondência entre os valores documentados e a reprodução no Colab é forte, porque os quatro valores coincidem exatamente com o mesmo código, os mesmos dados e as mesmas revisões, mas não substitui a conferência dos arquivos originais. O registro OSF do v3.2 não contém os resumos criptográficos dos artefatos congelados e cita a versão 3.1 do protocolo, o que impede verificar, apenas pelo registro, a correspondência exata com a implementação v3.2.
+
+A calibração do v4 usou 40 itens por candidato e controles de monitor construídos por regra. Os primeiros fornecem estimativas com erro-padrão próximo de 0,06; os segundos não representam a variedade de rastros que modelos treinados produzirão e não substituem a validação com rótulos humanos exigida pelo protocolo. As rodadas sucessivas de calibração foram todas registradas antes da execução e relatadas, inclusive as reprovadas, mas a escolha entre variantes de instrução, ainda que feita em dados próprios, introduz graus de liberdade que só a triagem em itens DEV separados e o registro posterior controlam.
+
+A triagem do v4 foi executada antes do registro público e numa sessão do Colab conduzida a partir de uma interface de linha de comando, com pesos em fp16 na mesma GPU prevista para os treinos. Sua cronologia é verificável pelo histórico Git do repositório, e não por uma plataforma de registro. Nenhum treinamento confirmatório, avaliação TEST, validação humana do monitor ou anotação humana foi realizado. As verificações em GPU usaram o modo técnico, com uma semente, dois passos e quatro itens, e demonstram funcionamento do software, não desempenho dos modelos treinados.
+
+Por fim, a revisão bibliográfica concentrou-se nas fontes diretamente relacionadas ao argumento e não constitui revisão sistemática. Não houve coleta com seres humanos.
+
+# 8 CONCLUSÃO
+
+<<CONCLUSAO>>
+
 
 {{quebra}}
 
