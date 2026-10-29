@@ -74,10 +74,29 @@ def get_style(doc, name, kind=WD_STYLE_TYPE.PARAGRAPH, base='Normal'):
         return style
 
 
+HEADER_TEXT = 'OFUSCAÇÃO DA CoT SOB SUPERVISÃO | REANÁLISE E TRIAGEM DE COMPETÊNCIA'
+FOOTER_TEXT = 'Marques et al. | 2026'
+
+
+def running_header(section):
+    """Cabeçalho corrente, como no artigo original; a capa (primeira página) não o recebe."""
+    header = section.header
+    paragraph = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    run = paragraph.add_run(HEADER_TEXT)
+    run.font.name = FONT
+    run.font.size = Pt(9)
+
+
 def page_number_footer(section):
+    from docx.enum.text import WD_TAB_ALIGNMENT
     footer = section.footer
     paragraph = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
-    paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    paragraph.paragraph_format.tab_stops.add_tab_stop(Cm(16.0), WD_TAB_ALIGNMENT.RIGHT)
+    label = paragraph.add_run(FOOTER_TEXT + '\t')
+    label.font.name = FONT
+    label.font.size = Pt(9)
     run = paragraph.add_run()
     for kind, text in (('begin', None), (None, 'PAGE'), ('end', None)):
         if kind:
@@ -105,6 +124,10 @@ def build(target):
     section.top_margin, section.left_margin = Cm(3.0), Cm(3.0)
     section.bottom_margin, section.right_margin = Cm(2.0), Cm(2.0)
     section.footer_distance = Cm(1.0)
+    section.header_distance = Cm(1.5)
+    # Capa sem cabeçalho nem número; as demais páginas são numeradas fisicamente.
+    section.different_first_page_header_footer = True
+    running_header(section)
     page_number_footer(section)
 
     styles = doc.styles
@@ -150,7 +173,24 @@ def build(target):
     _paragraph(cover, after=0, line=1.3, align=WD_ALIGN_PARAGRAPH.CENTER, indent=Cm(0))
     cover_title = get_style(doc, 'Capa titulo')
     _font(cover_title, 15, bold=True)
-    _paragraph(cover_title, before=18, after=8, line=1.2, align=WD_ALIGN_PARAGRAPH.CENTER, indent=Cm(0))
+    _paragraph(cover_title, before=120, after=8, line=1.2, align=WD_ALIGN_PARAGRAPH.CENTER, indent=Cm(0))
+    cover_subtitle = get_style(doc, 'Capa subtitulo')
+    _font(cover_subtitle, 12, bold=False)
+    _paragraph(cover_subtitle, before=0, after=8, line=1.2, align=WD_ALIGN_PARAGRAPH.CENTER, indent=Cm(0))
+    cover_place = get_style(doc, 'Capa local')
+    _font(cover_place, 11, bold=False)
+    _paragraph(cover_place, before=190, after=0, line=1.3, align=WD_ALIGN_PARAGRAPH.CENTER, indent=Cm(0))
+    pre_title = get_style(doc, 'Titulo pretextual')
+    _font(pre_title, 12, bold=True)
+    _paragraph(pre_title, before=0, after=12, line=1.15, align=WD_ALIGN_PARAGRAPH.CENTER, indent=Cm(0))
+    from docx.enum.text import WD_TAB_ALIGNMENT, WD_TAB_LEADER
+    for level, bold in ((1, True), (2, False)):
+        toc = get_style(doc, f'Sumario {level}')
+        _font(toc, 11, bold=bold)
+        _paragraph(toc, before=6 if level == 1 else 0, after=2, line=1.2, align=WD_ALIGN_PARAGRAPH.LEFT,
+                   indent=Cm(0))
+        toc.paragraph_format.left_indent = Cm(0 if level == 1 else 0.6)
+        toc.paragraph_format.tab_stops.add_tab_stop(Cm(16.0), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
     resumo = get_style(doc, 'Resumo')
     _font(resumo, 11)
     _paragraph(resumo, after=6, line=1.0, align=WD_ALIGN_PARAGRAPH.JUSTIFY, indent=Cm(0))

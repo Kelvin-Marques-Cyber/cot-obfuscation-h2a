@@ -273,7 +273,7 @@ def expand(text, data, tables):
                 '::: {custom-style="Fonte"}\nFonte: %s\n:::\n' % (number['fig', key], title, path, source))
     text = re.sub(r'^\{\{(tabela|figura):([\w-]+)\}\}\s*$', block, text, flags=re.M)
     text = text.replace('{{quebra}}', '```{=openxml}\n<w:p><w:r><w:br w:type="page"/></w:r></w:p>\n```')
-    leftover = re.findall(r'\{\{[^}]*\}\}|<<[A-Z_]+>>', text)
+    leftover = [m for m in re.findall(r'\{\{[^}]*\}\}|<<[A-Z_]+>>', text) if m != '{{sumario}}']
     if leftover and not draft:
         raise ValueError('Marcadores não resolvidos: ' + ', '.join(leftover[:5]))
     return text, number
@@ -357,14 +357,18 @@ def docx_text(path):
     m = '{http://schemas.openxmlformats.org/officeDocument/2006/math}'
     parts = []
     for paragraph in root.iter(w + 'p'):
-        parts.append(''.join((node.text or '') if node.tag == w + 't' else ' ' + (node.text or '') + ' '
-                             for node in paragraph.iter() if node.tag in (w + 't', m + 't')))
+        parts.append(''.join((node.text or '') if node.tag == w + 't' else
+                             ' ' if node.tag in (w + 'tab', w + 'br') else ' ' + (node.text or '') + ' '
+                             for node in paragraph.iter() if node.tag in (w + 't', m + 't', w + 'tab', w + 'br')))
     return '\n'.join(parts)
 
 
 def verify(docx_path, pdf_path):
+    import modelo_docx
     pdf_text = subprocess.run(['pdftotext', '-layout', str(pdf_path), '-'], capture_output=True,
                               text=True, check=True).stdout
+    # Cabeçalho e rodapé se repetem em cada página do PDF e não pertencem ao corpo do DOCX.
+    pdf_text = pdf_text.replace(modelo_docx.HEADER_TEXT, ' ').replace(modelo_docx.FOOTER_TEXT, ' ')
     a, b = Counter(words(docx_text(docx_path))), Counter(words(pdf_text))
     page_numbers = {str(i) for i in range(1, 200)}
     missing = {w: c - b[w] for w, c in a.items() if c > b[w]}
@@ -379,18 +383,49 @@ def verify(docx_path, pdf_path):
                 equivalent=not missing and not not_embedded)
 
 
-def main():
-    global TITLE
-    import gerar_figuras
-    import modelo_docx
-    gerar_figuras.main()
-    BUILD.mkdir(exist_ok=True)
-    DOCS.mkdir(exist_ok=True)
-    text = SOURCE.read_text(encoding='utf-8')
-    TITLE = re.search(r'^::: \{custom-style="Capa titulo"\}\n(.+?)\n:::', text, re.M | re.S).group(1).strip()
-    expanded, numbers = expand(text, values(), tabelas())
+def headings_after_toc(expanded):
+    """Títulos de nível 1 e 2 que entram no sumário (os pré-textuais ficam antes do marcador)."""
+    body = expanded.split('{{sumario}}', 1)[1]
+    out = []
+    for line in body.splitlines():
+        match = re.match(r'^(#{1,2}) (.+?)\s*$', line)
+        if match:
+            out.append((len(match.group(1)), match.group(2)))
+    return out
+
+
+def toc_block(entries, pages):
+    """Sumário estático (o DOCX permanece editável; os números vêm do PDF gerado)."""
+    from xml.sax.saxutils import escape
+    paragraphs = ['<w:p><w:pPr><w:pStyle w:val="Titulopretextual"/></w:pPr><w:r><w:t>SUMÁRIO</w:t></w:r></w:p>']
+    for (level, title), page in zip(entries, pages):
+        paragraphs.append(f'<w:p><w:pPr><w:pStyle w:val="Sumario{level}"/></w:pPr>'
+                          f'<w:r><w:t xml:space="preserve">{escape(title)}</w:t></w:r><w:r><w:tab/></w:r>'
+                          f'<w:r><w:t>{page}</w:t></w:r></w:p>')
+    return '```{=openxml}\n' + '\n'.join(paragraphs) + '\n```'
+
+
+def find_pages(pdf_path, entries):
+    """Página física de cada título, procurada depois da página do sumário."""
+    info = subprocess.run(['pdfinfo', str(pdf_path)], capture_output=True, text=True, check=True).stdout
+    total = int(re.search(r'Pages:\s+(\d+)', info).group(1))
+    texts = [subprocess.run(['pdftotext', '-f', str(i), '-l', str(i), '-layout', str(pdf_path), '-'],
+                            capture_output=True, text=True, check=True).stdout for i in range(1, total + 1)]
+    start = next(i for i, page in enumerate(texts) if re.search(r'^\s*SUMÁRIO\s*$', page, re.M)) + 1
+    pages, cursor = [], start
+    for _, title in entries:
+        pattern = re.compile(r'^\s*' + r'\s+'.join(map(re.escape, title.split())) + r'\s*$', re.M)
+        found = next((i for i in range(cursor, total) if pattern.search(texts[i])), None)
+        if found is None:
+            raise RuntimeError('Título não localizado no PDF para o sumário: ' + title)
+        pages.append(found + 1)
+        cursor = found
+    return pages
+
+
+def render(expanded, reference):
+    """Pandoc (DOCX) e LibreOffice (PDF a partir do mesmo DOCX)."""
     (BUILD / 'artigo_expandido.md').write_text(expanded, encoding='utf-8')
-    reference = modelo_docx.build(BUILD / 'modelo.docx')
     docx_path = DOCS / f'{NAME}.docx'
     subprocess.run(['pandoc', str(BUILD / 'artigo_expandido.md'), '-f', 'markdown+pipe_tables', '-t', 'docx',
                     '--reference-doc', str(reference), '-o', str(docx_path)], check=True)
@@ -400,7 +435,34 @@ def main():
                     '--outdir', str(BUILD), str(docx_path)], check=True, capture_output=True, timeout=600)
     pdf_path = DOCS / f'{NAME}.pdf'
     shutil.move(str(BUILD / f'{NAME}.pdf'), pdf_path)
+    return docx_path, pdf_path
+
+
+def main():
+    global TITLE
+    import gerar_figuras
+    import modelo_docx
+    gerar_figuras.main()
+    BUILD.mkdir(exist_ok=True)
+    DOCS.mkdir(exist_ok=True)
+    text = SOURCE.read_text(encoding='utf-8')
+    title = re.search(r'^::: \{custom-style="Capa titulo"\}\n(.+?)\n:::', text, re.M | re.S).group(1).strip()
+    subtitle = re.search(r'^::: \{custom-style="Capa subtitulo"\}\n(.+?)\n:::', text, re.M | re.S)
+    TITLE = title + (': ' + subtitle.group(1).strip() if subtitle else '')
+    expanded, numbers = expand(text, values(), tabelas())
+    reference = modelo_docx.build(BUILD / 'modelo.docx')
+    entries = headings_after_toc(expanded)
+    pages = ['00'] * len(entries)
+    for _ in range(3):  # o sumário tem tamanho fixo; a segunda passagem já é estável
+        docx_path, pdf_path = render(expanded.replace('{{sumario}}', toc_block(entries, pages)), reference)
+        found = find_pages(pdf_path, entries)
+        if found == pages:
+            break
+        pages = found
+    else:
+        sys.exit('Números de página do sumário não estabilizaram')
     check = verify(docx_path, pdf_path)
+    check['sumario'] = [dict(titulo=title, pagina=page) for (_, title), page in zip(entries, pages)]
     pages = BUILD / 'paginas'
     shutil.rmtree(pages, ignore_errors=True)
     pages.mkdir()

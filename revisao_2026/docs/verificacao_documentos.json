@@ -1,12 +1,12 @@
 {
-  "pages": 15,
-  "docx_words": 7781,
-  "pdf_words": 7796,
+  "pages": 18,
+  "docx_words": 7894,
+  "pdf_words": 7911,
   "missing_in_pdf": {},
   "extra_in_pdf": {},
   "fonts": [
-    "BAAAAA+LiberationSerif-Bold",
-    "CAAAAA+LiberationSerif",
+    "BAAAAA+LiberationSerif",
+    "CAAAAA+LiberationSerif-Bold",
     "DAAAAA+LiberationSerif-Italic",
     "EAAAAA+OpenSymbol",
     "FAAAAA+LiberationMono",
@@ -14,9 +14,87 @@
   ],
   "fonts_not_embedded": [],
   "equivalent": true,
-  "docx_sha256": "f71dd458850d8d8e17212d16a423dd405b84c631ba6fadafef00f8cb2786c0f5",
-  "pdf_sha256": "41aa9c7591d9be2b02b0fd714eea32eb613d0e47d74134349dc0968ac22c7d40",
-  "source_sha256": "5e1f3867d13222ceb7d150dad8ebc972b77cf1ea1504540effafafc8cd84854b",
+  "sumario": [
+    {
+      "titulo": "1 INTRODUÇÃO",
+      "pagina": 5
+    },
+    {
+      "titulo": "2 FUNDAMENTAÇÃO",
+      "pagina": 5
+    },
+    {
+      "titulo": "3 HIPÓTESES E CATEGORIAS DE EVIDÊNCIA",
+      "pagina": 6
+    },
+    {
+      "titulo": "4 MATERIAIS E MÉTODOS",
+      "pagina": 7
+    },
+    {
+      "titulo": "4.1 Reanálise do estudo-piloto",
+      "pagina": 7
+    },
+    {
+      "titulo": "4.2 Estudo prospectivo v3.2",
+      "pagina": 7
+    },
+    {
+      "titulo": "4.3 Diagnóstico da triagem do v3.2",
+      "pagina": 8
+    },
+    {
+      "titulo": "4.4 Protocolo prospectivo v4",
+      "pagina": 9
+    },
+    {
+      "titulo": "4.5 Verificação de software",
+      "pagina": 10
+    },
+    {
+      "titulo": "5 RESULTADOS",
+      "pagina": 10
+    },
+    {
+      "titulo": "5.1 Reanálise do estudo-piloto",
+      "pagina": 10
+    },
+    {
+      "titulo": "5.2 Triagem do v3.2 e diagnóstico",
+      "pagina": 11
+    },
+    {
+      "titulo": "5.3 Calibração do v4",
+      "pagina": 13
+    },
+    {
+      "titulo": "5.4 Triagem DEV do v4",
+      "pagina": 14
+    },
+    {
+      "titulo": "5.5 Verificações de software",
+      "pagina": 14
+    },
+    {
+      "titulo": "6 DISCUSSÃO",
+      "pagina": 14
+    },
+    {
+      "titulo": "7 LIMITAÇÕES",
+      "pagina": 15
+    },
+    {
+      "titulo": "8 CONCLUSÃO",
+      "pagina": 16
+    },
+    {
+      "titulo": "REFERÊNCIAS",
+      "pagina": 16
+    }
+  ],
+  "docx_sha256": "9a63db8016a82656f7c9766137b71cb159753a8e80660906f01752d9dd12fd47",
+  "pdf_sha256": "7035d143e3d60c9dcd3b91ce674268b4795559b7adba084f89a028877d82adeb",
+  "source_sha256": "e01c69bc0a7113c1bfed4310b8daaf23807a875d6c3b28fc9741282abbc6ec6b",
   "tables": 8,
   "figures": 1
 }

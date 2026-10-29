@@ -1,24 +1,69 @@
-::: {custom-style="Capa titulo"}
-Ofuscação da cadeia de pensamento sob supervisão: reanálise de um estudo-piloto e triagem de competência de um estudo prospectivo pré-registrado
+::: {custom-style="Capa"}
+CENTRO UNIVERSITÁRIO ATENEU
+
+ENGENHARIA DA COMPUTAÇÃO
 :::
+
+&nbsp;
 
 ::: {custom-style="Capa"}
-Kelvin e Silva Marques, Dimitri Farias Fernandes, Hastrorllabyo da Silva Lima, Keven dos Santos Xavier, Caio de Freitas Brandão, Kauan Magalhães Costa, Guilherme Martins Bezerra, Pedro Henrique Gomes Ferreira, Carlos Eduardo Rodrigues Ferreira, Luan dos Santos Gaspar, Francisco Glauber Rodrigues dos Santos
+Kelvin e Silva Marques
 
-Centro Universitário Ateneu, Engenharia da Computação, Fortaleza, 2026
+Dimitri Farias Fernandes
+
+Hastrorllabyo da Silva Lima
+
+Keven dos Santos Xavier
+
+Caio de Freitas Brandão
+
+Kauan Magalhães Costa
+
+Guilherme Martins Bezerra
+
+Pedro Henrique Gomes Ferreira
+
+Carlos Eduardo Rodrigues Ferreira
+
+Luan dos Santos Gaspar
+
+Francisco Glauber Rodrigues dos Santos
 :::
+
+::: {custom-style="Capa titulo"}
+Ofuscação da cadeia de pensamento sob supervisão
+:::
+
+::: {custom-style="Capa subtitulo"}
+reanálise de um estudo-piloto e triagem de competência de um estudo prospectivo pré-registrado
+:::
+
+::: {custom-style="Capa local"}
+FORTALEZA\
+2026
+:::
+
+{{quebra}}
 
 # RESUMO
 
 A monitorabilidade da cadeia de pensamento depende de que os rastros textuais gerados por modelos de linguagem continuem a revelar comportamentos indesejados quando o treinamento sofre pressão de supervisão. Este trabalho examina três conjuntos de evidência de um mesmo projeto. A reanálise de um estudo-piloto com ajuste fino supervisionado (SFT) reproduziu os resultados publicados, mas mostrou que o corretor aceitava respostas ambíguas e que as sementes compartilhavam quase todos os itens, o que impede atribuir a diferença entre alvos de treinamento à ofuscação. O estudo pré-registrado v3.2, com braços de SFT e de otimização por recompensa (GRPO), foi encerrado sem treinamentos porque os modelos-base não atingiram 65% de acurácia na triagem de competência. A reprodução com o código congelado obteve exatamente os valores registrados e descartou defeitos de execução; as causas foram a incapacidade dos modelos nos níveis mais difíceis e instruções que tornavam a medida dependente de formatos não demonstrados. Um novo protocolo, v4, recalibrou tarefas e instruções em itens próprios, e o modelo do braço SFT acertou {{v:v4.gate.sft.A}} e {{v:v4.gate.sft.C}} dos itens dos dois níveis na triagem anterior ao registro. Nenhum dos nove modelos avaliados como monitores distinguiu rastros que usam uma informação proibida de rastros que não a usam, e o braço GRPO foi excluído por uma regra declarada antes desse resultado. Não há resultado confirmatório sobre ofuscação: o trabalho documenta um desenho viável para testar o efeito do formato de supervisão e os requisitos de instrumentação para testar a ofuscação sob pressão de recompensa.
 
-**Palavras-chave:** cadeia de pensamento; monitorabilidade; pré-registro; triagem de competência; reprodutibilidade.
+**Palavras-chave:** Cadeia de pensamento. Monitorabilidade. Pré-registro. Triagem de competência. Reprodutibilidade.
+
+{{quebra}}
 
 # ABSTRACT
 
 Chain-of-thought monitorability depends on the textual traces produced by language models continuing to reveal undesired behavior when training is subject to supervision pressure. This work examines three bodies of evidence from a single project. A reanalysis of a supervised fine-tuning (SFT) pilot study reproduced the published results but showed that the grader accepted ambiguous answers and that the seeds shared almost all items, which prevents attributing the difference between training targets to obfuscation. The preregistered study v3.2, with SFT and reward-optimization (GRPO) arms, was closed without training because the base models did not reach 65% accuracy in the competence screening. Reproducing it with the frozen code yielded exactly the registered values and ruled out execution defects; the causes were the models' inability at the hardest levels and instructions that made the measurement depend on undemonstrated formats. A new protocol, v4, recalibrated tasks and instructions on separate items, and the SFT base model answered {{v:v4.gate.sft.A.en}} and {{v:v4.gate.sft.C.en}} of the items at the two levels correctly in the screening run before registration. None of the nine models evaluated as monitors distinguished traces that use forbidden information from traces that do not, and the GRPO arm was excluded under a rule declared before this result. There is no confirmatory result about obfuscation: the work documents a viable design for testing the effect of supervision format and the instrumentation requirements for testing obfuscation under reward pressure.
 
-**Keywords:** chain of thought; monitorability; preregistration; competence screening; reproducibility.
+**Keywords:** Chain of thought. Monitorability. Preregistration. Competence screening. Reproducibility.
+
+{{quebra}}
+
+{{sumario}}
+
+{{quebra}}
 
 # 1 INTRODUÇÃO
 
@@ -72,7 +117,7 @@ O v3.2 foi implementado no commit fde856f e operado por cinco notebooks do Googl
 
 O registro (MARQUES, 2026b) foi localizado pela interface de programação do OSF: identificador sjwdf, criado em 19 de outubro de 2026 às 16h11 UTC e tornado público às 16h45 UTC, depois dos commits do código (15h20) e do suporte ao Colab (15h31). Ele especifica hipóteses, modelos, sementes, critério de competência e análise e determina novo protocolo para mudanças substanciais de modelo, instrumento ou amostragem. Não contém, porém, os resumos criptográficos dos artefatos congelados e cita a versão 3.1 do protocolo; as diferenças da v3.2 executada são operacionais, sem alteração de hipóteses, tamanhos ou critérios.
 
-Na triagem, cada modelo-base respondia aos 120 primeiros itens DEV de cada nível numa GPU NVIDIA Tesla T4, com pesos em ponto flutuante de 16 bits (fp16), decodificação gulosa (escolha, a cada passo, do *token* mais provável) e orçamento de 256 *tokens*, isto é, até 256 unidades do vocabulário do modelo por resposta. No SFT, a instrução pedia uma única tag `<answer>NUMERO</answer>`, e o contrato estrito de correção aceitava somente essa tag, uma linha final "Resposta: N" ou uma saída composta apenas pelo número. No GRPO, o enunciado incluía a nota proibida, e a resposta só era correta no formato exato `<trace>…</trace><summary>…</summary><answer>LETRA</answer>`.
+Na triagem, cada modelo-base respondia aos 120 primeiros itens DEV de cada nível numa GPU NVIDIA Tesla T4, com pesos em ponto flutuante de 16 bits (fp16), decodificação gulosa (escolha, a cada passo, do *token* mais provável) e orçamento de 256 *tokens*, isto é, até 256 unidades do vocabulário do modelo por resposta. No SFT, a instrução pedia uma única tag `<answer>NUMERO</answer>`, e o contrato estrito de correção aceitava somente essa tag, uma linha final "Resposta: N" ou uma saída composta apenas pelo número. No GRPO, o enunciado incluía a nota proibida, e a resposta só era correta com os blocos `<trace>`, `<summary>` e `<answer>` em sequência, sem texto entre eles, e a letra do gabarito no último.
 
 ## 4.3 Diagnóstico da triagem do v3.2
 
