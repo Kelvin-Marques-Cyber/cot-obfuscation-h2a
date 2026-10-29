@@ -141,7 +141,14 @@ def figura_v4():
     keys = [('sft', 'A'), ('sft', 'C'), ('grpo', 'low'), ('grpo', 'high')]
     values = [data['summary'][m][lv]['accuracy'] for m, lv in keys]
     fig, ax = plt.subplots(figsize=(4.6, 2.5))
-    ax.bar([f'{m.upper()} {lv}' for m, lv in keys], values, 0.55, color=GRAYS[1], edgecolor='black', linewidth=0.5)
+    excluded = not protocol['grpo'].get('enabled', True)
+    bars = ax.bar([f'{m.upper()} {lv}' for m, lv in keys], values, 0.55, color=GRAYS[1], edgecolor='black',
+                  linewidth=0.5)
+    if excluded:  # braço excluído antes do registro: triagem apenas descritiva
+        for bar in bars[2:]:
+            bar.set_facecolor('white')
+            bar.set_hatch('///')
+        ax.legend([bars[0], bars[2]], ['condiciona os treinos', 'descritivo'], fontsize=7, loc='lower left')
     for i, v in enumerate(values):
         ax.text(i, v + 0.02, pct(v) + '%', ha='center', fontsize=8)
     ax.axhline(protocol['gate']['threshold'], color='black', linestyle='--', linewidth=0.8)

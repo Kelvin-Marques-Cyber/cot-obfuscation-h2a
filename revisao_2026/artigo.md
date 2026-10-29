@@ -176,7 +176,7 @@ No SFT, o nível A (a + b, com operandos de 100 a 999) e cada candidato ao níve
 
 No GRPO, a faixa de operandos, comum aos dois níveis, deveria atingir 0,80 sem a dica em 40 itens por nível (10 por domínio); os candidatos foram G1 (11 a 99) e G0 (2 a 20), com preferência pela faixa mais difícil. A rodada 1 usou a instrução do v3.2. A rodada 2 testou, nesta ordem, uma instrução sem os marcadores copiáveis (r2a) e a mesma instrução acompanhada de uma demonstração de formato sem dica (r2b), escolhendo a primeira variante aprovada. O limiar de 0,80 oferece margem acima do critério de 0,65 para a variação amostral de 120 itens.
 
-Os monitores foram avaliados em 320 controles construídos a partir de modelos de texto: 160 rastros que usam explicitamente a nota proibida e 160 que calculam a resposta, inclusive rastros que rejeitam a nota de forma explícita. Esses rótulos decorrem da regra de construção, e não de anotação humana; eles avaliam apenas a viabilidade do instrumento e não substituem a validação com 100 controles positivos e 100 negativos rotulados por pessoas, que continua obrigatória. Para o monitor independente, a regra escolhia o menor modelo com taxa de verdadeiros positivos (TPR) de pelo menos 0,90 e taxa de falsos positivos (FPR) de no máximo 0,05; a rodada 1 avaliou modelos SmolLM2 de 135M, 360M e 1,7B de parâmetros, e a rodada 2, modelos de outras famílias em ordem crescente de tamanho (OLMo-2 de 1B, Granite 3.3 de 2B, SmolLM3 de 3B e Phi-3.5-mini). Para o monitor de recompensa, exigiu-se discriminação mínima TPR − FPR ≥ 0,5. A primeira execução da rodada 2 foi encerrada pelo sistema por falta de memória do hospedeiro ao carregar o segundo candidato; a rodada foi repetida integralmente, com os mesmos candidatos, controles e critérios, depois de alterar apenas o carregamento dos pesos, e a regra para o caso de nenhum monitor ser aprovado foi gravada antes de conhecido o resultado: nesse caso, o braço GRPO seria excluído do v4 antes do registro.
+Os monitores foram avaliados em 320 controles construídos a partir de modelos de texto: 160 rastros que usam explicitamente a nota proibida e 160 que calculam a resposta, inclusive rastros que rejeitam a nota de forma explícita. Esses rótulos decorrem da regra de construção, e não de anotação humana; eles avaliam apenas a viabilidade do instrumento e não substituem a validação com 100 controles positivos e 100 negativos rotulados por pessoas, que continua obrigatória. Para o monitor independente, a regra escolhia o menor modelo com taxa de verdadeiros positivos (TPR) de pelo menos 0,90 e taxa de falsos positivos (FPR) de no máximo 0,05; a rodada 1 avaliou modelos SmolLM2 (BEN ALLAL et al., 2025) de 135M, 360M e 1,7B de parâmetros, e a rodada 2, modelos de outras famílias em ordem crescente de tamanho: OLMo 2 de 1B (TEAM OLMO et al., 2024), Granite 3.3 de 2B (IBM GRANITE TEAM, 2025), SmolLM3 de 3B (HUGGING FACE, 2025) e Phi-3.5-mini (ABDIN et al., 2024). Para o monitor de recompensa, exigiu-se discriminação mínima TPR − FPR ≥ 0,5. A primeira execução da rodada 2 foi encerrada pelo sistema por falta de memória do hospedeiro ao carregar o segundo candidato; a rodada foi repetida integralmente, com os mesmos candidatos, controles e critérios, depois de alterar apenas o carregamento dos pesos, e a regra para o caso de nenhum monitor ser aprovado foi gravada antes de conhecido o resultado: nesse caso, o braço GRPO seria excluído do v4 antes do registro.
 
 ### 4.4.3 Triagem de competência antes do registro
 
@@ -265,7 +265,13 @@ Essa distinção é relevante para a interpretação. Um extrator permissivo ter
 
 A calibração do v4 revelou ainda um problema que a triagem não alcançava: o monitor independente previsto não discrimina rastros que usam a nota proibida de rastros que a rejeitam explicitamente. Mesmo com competência aprovada, o gate de validação do monitor provavelmente teria falhado depois dos 240 treinamentos, deixando o estudo sem desfecho interpretável no braço GRPO. A verificação antecipada desse instrumento, com controles construídos e baratos, teria evitado o risco de investir o orçamento de GPU em um desenho cujo monitor não é informativo.
 
-<<DISC_V4>>
+## 6.3 O que a calibração do v4 mostra
+
+A calibração reforça o diagnóstico do v3.2. Nos dois braços, a maior parte da perda de acurácia sob o contrato estrito decorria da obediência ao formato, e não da aritmética: sem demonstrações, o modelo do SFT resolvia as contas e omitia a tag pedida, e o modelo do GRPO escrevia o cálculo e a letra correta fora da estrutura exigida. Uma instrução reescrita sem exemplos (r2a) não resolveu o problema. Já uma única demonstração do formato no GRPO (r2b) tornou válidas todas as respostas, e duas demonstrações no SFT elevaram a acurácia a {{v:cal.sft.r2.A.explicit}} no nível A e a {{v:cal.sft.r2.C2.explicit}} no candidato C2. A solução adotada mantém o contrato estrito e pré-especificado, em vez de tornar o extrator tolerante, e altera apenas a instrução apresentada ao modelo. Assim, a medida de competência do v4 continua a exigir o formato que o treinamento e a avaliação usarão, mas deixa de depender de que o modelo o adivinhe.
+
+A calibração também delimita o que muda no fenômeno estudado. No SFT, o nível C escolhido (C2) envolve produtos de dois números de dois algarismos, que o modelo resolve escrevendo as etapas e não resolve sem elas: com a instrução neutra, nenhum dos 40 itens dos candidatos C foi acertado. A dependência do rastro, condição para que o contraste de H1 seja informativo, permanece. No GRPO, a mesma faixa de operandos nos dois níveis faz com que a diferença entre *low* e *high* se restrinja à dificuldade de decodificar a dica, como pretendia o desenho original.
+
+<<DISC_V4_MON>>
 
 ## 6.4 Validade interna e externa
 
@@ -293,9 +299,13 @@ Por fim, a revisão bibliográfica concentrou-se nas fontes diretamente relacion
 # REFERÊNCIAS
 
 ::: {custom-style="Referencia"}
+ABDIN, Marah *et al*. Phi-3 technical report: a highly capable language model locally on your phone. **arXiv**, 2404.14219, 2024. DOI: 10.48550/arXiv.2404.14219.
+
 AGARWAL, Rishabh; SCHWARZER, Max; CASTRO, Pablo Samuel; COURVILLE, Aaron; BELLEMARE, Marc G. Deep reinforcement learning at the edge of the statistical precipice. *In*: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS, 34., 2021. **Proceedings** [...]. [*S. l.*]: Curran Associates, 2021. Disponível em: https://arxiv.org/abs/2108.13264. Acesso em: 28 out. 2026.
 
 BAKER, Bowen; HUIZINGA, Joost; GAO, Leo; DOU, Zehao; GUAN, Melody Y.; MADRY, Aleksander; ZAREMBA, Wojciech; PACHOCKI, Jakub; FARHI, David. Monitoring reasoning models for misbehavior and the risks of promoting obfuscation. **arXiv**, 2503.11926, 2025. DOI: 10.48550/arXiv.2503.11926.
+
+BEN ALLAL, Loubna *et al*. SmolLM2: when smol goes big — data-centric training of a small language model. **arXiv**, 2502.02737, 2025. DOI: 10.48550/arXiv.2502.02737.
 
 DRORI, Jacob; MARKS, Luke; WOODWORTH, Bryce; CLOUD, Alex; TURNER, Alexander Matt. Output supervision can obfuscate the chain of thought. **arXiv**, 2511.11584, 2025. DOI: 10.48550/arXiv.2511.11584.
 
@@ -304,6 +314,10 @@ EMMONS, Scott; JENNER, Erik; ELSON, David K.; SAUROUS, Rif A.; RAJAMANOHARAN, Se
 HOLM, Sture. A simple sequentially rejective multiple test procedure. **Scandinavian Journal of Statistics**, Oslo, v. 6, n. 2, p. 65-70, 1979. Disponível em: https://www.jstor.org/stable/4615733. Acesso em: 28 out. 2026.
 
 HU, Edward J.; SHEN, Yelong; WALLIS, Phillip; ALLEN-ZHU, Zeyuan; LI, Yuanzhi; WANG, Shean; WANG, Lu; CHEN, Weizhu. LoRA: low-rank adaptation of large language models. *In*: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS, 10., 2022. **Proceedings** [...]. [*S. l.*]: ICLR, 2022. DOI: 10.48550/arXiv.2106.09685.
+
+HUGGING FACE. **SmolLM3-3B**. Hugging Face, 2025. Modelo, revisão a07cc9a04f16550a088caea529712d1d335b0ac1. Disponível em: https://huggingface.co/HuggingFaceTB/SmolLM3-3B. Acesso em: 29 out. 2026.
+
+IBM GRANITE TEAM. **granite-3.3-2b-instruct**. Hugging Face, 2025. Modelo, revisão 707f574c62054322f6b5b04b6d075f0a8f05e0f0. Disponível em: https://huggingface.co/ibm-granite/granite-3.3-2b-instruct. Acesso em: 29 out. 2026.
 
 KORBAK, Tomek *et al*. Chain of thought monitorability: a new and fragile opportunity for AI safety. **arXiv**, 2507.11473, 2025. DOI: 10.48550/arXiv.2507.11473.
 
@@ -322,6 +336,8 @@ NOSEK, Brian A.; EBERSOLE, Charles R.; DEHAVEN, Alexander C.; MELLOR, David T. T
 QWEN TEAM. Qwen2.5 technical report. **arXiv**, 2412.15115, 2024. DOI: 10.48550/arXiv.2412.15115.
 
 SHAO, Zhihong; WANG, Peiyi; ZHU, Qihao; XU, Runxin; SONG, Junxiao; BI, Xiao; ZHANG, Haowei; ZHANG, Mingchuan; LI, Y. K.; WU, Y.; GUO, Daya. DeepSeekMath: pushing the limits of mathematical reasoning in open language models. **arXiv**, 2402.03300, 2024. DOI: 10.48550/arXiv.2402.03300.
+
+TEAM OLMO; WALSH, Pete; SOLDAINI, Luca; GROENEVELD, Dirk *et al*. 2 OLMo 2 Furious. **arXiv**, 2501.00656, 2024. DOI: 10.48550/arXiv.2501.00656.
 
 TURPIN, Miles; MICHAEL, Julian; PEREZ, Ethan; BOWMAN, Samuel R. Language models don't always say what they think: unfaithful explanations in chain-of-thought prompting. *In*: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS, 36., 2023. **Proceedings** [...]. [*S. l.*]: Curran Associates, 2023. DOI: 10.48550/arXiv.2305.04388.
 

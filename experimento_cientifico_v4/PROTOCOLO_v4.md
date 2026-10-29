@@ -111,7 +111,12 @@ interpretado como prova de intenção estratégica ou de estados internos.
 
 ## 8. Resumos a registrar publicamente
 
-<<HASHES>>
+Valores no commit que contém a triagem DEV, gerados por `python resumos_registro.py
+--escrever`. O registro deve incluir esta tabela ou o `MANIFESTO_SHA256.json`
+do pacote produzido pelo notebook 00, que a contém.
+
+<!-- hashes:inicio -->
+<!-- hashes:fim -->
 
 ## 9. Execução e custos
 

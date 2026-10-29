@@ -19,7 +19,15 @@ e H2 (exploração não sinalizada no GRPO) foi produzido até esta data.
 
 ## Estudo v4: os cinco notebooks
 
-<<NOTEBOOKS_V4>>
+| Ordem | Notebook no Colab | Ambiente |
+|---|---|---|
+| 00 | [Protocolo, dados, triagem DEV e pacote de registro](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v4/00_protocolo_dados_e_triagem.ipynb) | CPU |
+| 01 | [Treinamento SFT (120 treinos)](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v4/01_treinamento_sft.ipynb) | GPU T4+ |
+| 02 | [Treinamento GRPO](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v4/02_treinamento_grpo.ipynb) | GPU T4+ |
+| 03 | [Avaliação TEST (`full`)](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v4/03_avaliacao_test.ipynb) | GPU T4+ |
+| 04 | [Monitor independente, anotação humana e inferência](https://colab.research.google.com/github/Kelvin-Marques-Cyber/cot-obfuscation-h2a/blob/main/experimento_cientifico_v4/04_monitor_humanos_e_inferencia.ipynb) | GPU T4+ |
+
+Instruções de execução, retomada e falhas de Drive: [`experimento_cientifico_v4/README.md`](experimento_cientifico_v4/README.md). Pacote ZIP: [`experimento_cientifico_v4/notebooks_v4.zip`](experimento_cientifico_v4/notebooks_v4.zip).
 
 ## Estudo v3.2: desfecho
 
