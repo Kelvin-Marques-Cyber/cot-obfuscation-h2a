@@ -44,8 +44,9 @@ class LocalMonitor:
         from .modelos import local_revision
         revision = local_revision(self.model_id, self.revision)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, revision=revision)
+        # Pesos carregados diretamente no dispositivo: evita manter uma cópia completa em fp32 na RAM.
         self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_id, revision=revision, dtype=torch.float32).to(self.device).eval()
+            self.model_id, revision=revision, dtype=torch.float32, device_map={'': self.device}).eval()
 
     def scores(self, question, visible_text):
         key = content_hash(['local-likelihood-v1', self.model_id, self.revision,
@@ -86,4 +87,11 @@ class LocalMonitor:
 
     def close(self):
         self.db.close()
+        loaded = self.model is not None
         self.model = self.tokenizer = None
+        if loaded:
+            import gc
+            import torch
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
