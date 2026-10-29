@@ -1,0 +1,68 @@
+{
+  "commit": "4b7d1fd1aa9c5014af32f4b251e353cceb45e02d",
+  "started": "2026-10-29T12:07:11Z",
+  "notebooks": {
+    "00_protocolo_dados_e_triagem.ipynb": {
+      "seconds": 246.6,
+      "error": null,
+      "blocked": 0,
+      "tail": "ft.json.\n\nRevisões dos quatro modelos confirmadas no Hugging Face Hub.\nEtapa \"gate\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/gate_sft.json.\n\nTriagem DEV sft/A: 117/120 (97.5%); critério 65%\nTriagem DEV sft/C: 82/120 (68.3%); critério 65%\nTriagem DEV grpo/low: 114/120 (95.0%); critério 65%\nTriagem DEV grpo/high: 109/120 (90.8%); critério 65%\n\nRegistro público ainda não informado. Publique o pacote e preencha PUBLIC_REGISTRATION_URL.\nZIP salvo: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/downloads/pacote_registro_v4_TESTE_TECNICO.zip (299 KiB, SHA256 4531916cbc956e36…)\n\nAtenção: o ZIP está em pasta temporária; baixe-o antes de encerrar a sessão.\n\n\n\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\n\nSITUAÇÃO DO ESTUDO — TESTE TÉCNICO (não é evidência científica)\n  00 Protocolo e dados         CONCLUÍDA        \n  Triagem DEV (65% por nível)  CONCLUÍDA        sft/A=97.5% sft/C=68.3% grpo/low=95.0% grpo/high=90.8%\n  Registro público             NÃO NECESSÁRIO (teste técnico) external_registration_missing\n  01 Treinos SFT               NÃO EXECUTADA    0/6\n  02 Treinos GRPO              EXCLUÍDA         braço excluído antes do registro (ver protocolo)\n  03 Avaliação TEST            BLOQUEADA        0/6\n  Armazenamento: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico | persistente: False\n\n"
+    },
+    "01_treinamento_sft.ipynb": {
+      "seconds": 70.8,
+      "error": null,
+      "blocked": 0,
+      "tail": "██| 2/2 [00:04<00:00,  2.18s/it]\n\n                                             \n\n{'train_runtime': 5.208, 'train_samples_per_second': 1.536, 'train_steps_per_second': 0.384, 'train_loss': 3.381057620048523, 'epoch': 0.04}\n\n\n\n100%|██████████| 2/2 [00:05<00:00,  2.18s/it]\n\n100%|██████████| 2/2 [00:05<00:00,  2.60s/it]\n\nEtapa \"train\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/train_sft.json.\n\nSFT: 6/6 treinos concluídos (all_training_complete).\nZIP salvo: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/downloads/resultados_v4_TESTE_TECNICO.zip (79 KiB, SHA256 7b697711b7a98374…)\n\nAtenção: o ZIP está em pasta temporária; baixe-o antes de encerrar a sessão.\n\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\n\nSITUAÇÃO DO ESTUDO — TESTE TÉCNICO (não é evidência científica)\n  00 Protocolo e dados         CONCLUÍDA        \n  Triagem DEV (65% por nível)  CONCLUÍDA        sft/A=97.5% sft/C=68.3% grpo/low=95.0% grpo/high=90.8%\n  Registro público             NÃO NECESSÁRIO (teste técnico) external_registration_missing\n  01 Treinos SFT               CONCLUÍDA        6/6\n  02 Treinos GRPO              EXCLUÍDA         braço excluído antes do registro (ver protocolo)\n  03 Avaliação TEST            EM ANDAMENTO     0/6\n  Armazenamento: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico | persistente: False\n\n"
+    },
+    "02_treinamento_grpo.ipynb": {
+      "seconds": 4.2,
+      "error": null,
+      "blocked": 1,
+      "tail": "\nCódigo: b858d128bcd545dd958e0dbed9978a7aea2591b3 | Estudo: estudo-prospectivo-2026-v4-teste-tecnico | Teste técnico: True\n\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\nETAPA BLOQUEADA: braço GRPO excluído deste estudo antes do registro: nenhum candidato aprovado nos controles construídos para monitor independente e monitor de recompensa; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)\nZIP salvo: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/downloads/resultados_v4_TESTE_TECNICO.zip (79 KiB, SHA256 636a7e57f7f3317e…)\n\nAtenção: o ZIP está em pasta temporária; baixe-o antes de encerrar a sessão.\n\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\n\nSITUAÇÃO DO ESTUDO — TESTE TÉCNICO (não é evidência científica)\n  00 Protocolo e dados         CONCLUÍDA        \n  Triagem DEV (65% por nível)  CONCLUÍDA        sft/A=97.5% sft/C=68.3% grpo/low=95.0% grpo/high=90.8%\n  Registro público             NÃO NECESSÁRIO (teste técnico) external_registration_missing\n  01 Treinos SFT               CONCLUÍDA        6/6\n  02 Treinos GRPO              EXCLUÍDA         braço excluído antes do registro (ver protocolo)\n  03 Avaliação TEST            EM ANDAMENTO     0/6\n  Armazenamento: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico | persistente: False\n\n"
+    },
+    "03_avaliacao_test.ipynb": {
+      "seconds": 38.4,
+      "error": null,
+      "blocked": 0,
+      "tail": "\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\nTESTE TÉCNICO em pasta temporária: \"evaluate\" será perdido ao fim da sessão e não constitui evidência científica.\n\nGPU: Tesla T4 | 14.6 GiB | PyTorch 2.11.0+cu130 | CUDA 13.0\n\nEtapa \"evaluate\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/evaluate_sft.json.\n\nSFT: 6/6 avaliações (all_evaluation_complete).\nZIP salvo: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/downloads/resultados_v4_TESTE_TECNICO.zip (86 KiB, SHA256 294300a688a439d3…)\n\nAtenção: o ZIP está em pasta temporária; baixe-o antes de encerrar a sessão.\n\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\n\nSITUAÇÃO DO ESTUDO — TESTE TÉCNICO (não é evidência científica)\n  00 Protocolo e dados         CONCLUÍDA        \n  Triagem DEV (65% por nível)  CONCLUÍDA        sft/A=97.5% sft/C=68.3% grpo/low=95.0% grpo/high=90.8%\n  Registro público             NÃO NECESSÁRIO (teste técnico) external_registration_missing\n  01 Treinos SFT               CONCLUÍDA        6/6\n  02 Treinos GRPO              EXCLUÍDA         braço excluído antes do registro (ver protocolo)\n  03 Avaliação TEST            CONCLUÍDA        6/6\n  Armazenamento: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico | persistente: False\n\n"
+    },
+    "04_monitor_humanos_e_inferencia.ipynb": {
+      "seconds": 4.7,
+      "error": null,
+      "blocked": 0,
+      "tail": " de recompensa; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)\n\nEtapa \"report\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/report_sft.json.\n\nVeredito: INSUFFICIENT_EVIDENCE\nPendências: ['external_registration_missing_or_hash_mismatch', 'technical_test_not_scientific_evidence']\nZIP salvo: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/downloads/resultados_v4_TESTE_TECNICO.zip (88 KiB, SHA256 3506c9f94ea33f04…)\n\nAtenção: o ZIP está em pasta temporária; baixe-o antes de encerrar a sessão.\n\n\n\nEtapa \"status\" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/status_sft.json.\n\n\nSITUAÇÃO DO ESTUDO — TESTE TÉCNICO (não é evidência científica)\n  00 Protocolo e dados         CONCLUÍDA        \n  Triagem DEV (65% por nível)  CONCLUÍDA        sft/A=97.5% sft/C=68.3% grpo/low=95.0% grpo/high=90.8%\n  Registro público             NÃO NECESSÁRIO (teste técnico) external_registration_missing\n  01 Treinos SFT               CONCLUÍDA        6/6\n  02 Treinos GRPO              EXCLUÍDA         braço excluído antes do registro (ver protocolo)\n  03 Avaliação TEST            CONCLUÍDA        6/6\n  04 Relatório                 INSUFFICIENT_EVIDENCE external_registration_missing_or_hash_mismatch, technical_test_not_scientific_evidence\n  Armazenamento: /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico | persistente: False\n\n"
+    }
+  },
+  "interrupcao_treino": {
+    "killed_returncode": -9,
+    "checkpoints_at_kill": [
+      "checkpoint-1"
+    ],
+    "status_after_kill": "running",
+    "checkpoints_after_kill": [
+      "README.md",
+      "checkpoint-1"
+    ],
+    "resume_returncode": 0,
+    "status_final": {
+      "status": "trained",
+      "run_id": "68cdb2fa03d2149c6f53",
+      "global_step": 2,
+      "first_loss": 0.7366,
+      "last_loss": 0.7352,
+      "adapter_sha256": {
+        "adapter_model.safetensors": "3d118bf7d3103ae5a17158fbe714c22ebc3235fc952f9813d6c51264fc1cd917"
+      },
+      "resumed_from": "checkpoint-1"
+    }
+  },
+  "interrupcao_avaliacao": {
+    "lines_after_kill": 2,
+    "resume_returncode": 0,
+    "final_lines": 4,
+    "unique_items": 4,
+    "first_line_identical": true
+  },
+  "gpu": "Tesla T4, 580.82.07, 15360 MiB",
+  "finished": "2026-10-29T12:14:25Z"
+}

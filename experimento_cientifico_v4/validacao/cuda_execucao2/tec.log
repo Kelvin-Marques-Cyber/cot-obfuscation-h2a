@@ -1,0 +1,38 @@
+12:07:13 Executando 00_protocolo_dados_e_triagem.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12:11:20 00_protocolo_dados_e_triagem.ipynb ok 246.6 s
+12:11:20 Executando 01_treinamento_sft.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12:12:31 01_treinamento_sft.ipynb ok 70.8 s
+12:12:31 Executando 02_treinamento_grpo.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12:12:35 02_treinamento_grpo.ipynb ok 4.2 s
+12:12:35 Executando 03_avaliacao_test.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12:13:13 03_avaliacao_test.ipynb ok 38.4 s
+12:13:13 Executando 04_monitor_humanos_e_inferencia.ipynb
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12:13:18 04_monitor_humanos_e_inferencia.ipynb ok 4.7 s
+12:13:18 Interrupção de treino: iniciando SFT e matando após checkpoint-1
+12:13:56 Treino retomado: {'status': 'trained', 'run_id': '68cdb2fa03d2149c6f53', 'global_step': 2, 'first_loss': 0.7366, 'last_loss': 0.7352, 'adapter_sha256': {'adapter_model.safetensors': '3d118bf7d3103ae5a17158fbe714c22ebc3235fc952f9813d6c51264fc1cd917'}, 'resumed_from': 'checkpoint-1'}
+12:13:56 Interrupção de avaliação: avaliando um adaptador e matando após o primeiro item
+12:14:26 TESTE_TECNICO_V4_CONCLUIDO {"interrupcao_treino": {"killed_returncode": -9, "checkpoints_at_kill": ["checkpoint-1"], "status_after_kill": "running", "checkpoints_after_kill": ["README.md", "checkpoint-1"], "resume_returncode": 0, "status_final": {"status": "trained", "run_id": "68cdb2fa03d2149c6f53", "global_step": 2, "first_loss": 0.7366, "last_loss": 0.7352, "adapter_sha256": {"adapter_model.safetensors": "3d118bf7d3103ae5a17158fbe714c22ebc3235fc952f9813d6c51264fc1cd917"}, "resumed_from": "checkpoint-1"}}, "interrupcao_avaliacao": {"lines_after_kill": 2, "resume_returncode": 0, "final_lines": 4, "unique_items": 4, "first_line_identical": true}}

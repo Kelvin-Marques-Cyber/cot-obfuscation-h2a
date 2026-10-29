@@ -1,0 +1,4 @@
+$ /usr/bin/python3 -u -m cotv4.runtime verify-revisions --storage /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico --mode sft --max-jobs 1 --device cpu --result-json /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/verify-revisions_sft.json --quiet
+Etapa "verify-revisions" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/verify-revisions_sft.json.
+
+[exit=0 seconds=1.2]

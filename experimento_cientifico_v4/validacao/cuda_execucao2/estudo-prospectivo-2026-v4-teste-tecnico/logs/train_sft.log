@@ -1,0 +1,178 @@
+$ /content/cot-v4-envs/gpu-c7c633238e080188/bin/python -u -m cotv4.runtime train --storage /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico --mode sft --max-jobs 6 --device cuda --result-json /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/train_sft.json --quiet
+Treinando sft A 113 explicit
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 14452.47 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  89%|████████▉ | 196/220 [00:00<00:00, 1939.88 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1769.53 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 65863.45 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+ 50%|█████     | 1/2 [00:01<00:01,  1.89s/it]
+                                             
+{'loss': 0.7366, 'grad_norm': 5.129482269287109, 'learning_rate': 0.0, 'entropy': 1.6313459277153015, 'num_tokens': 342.0, 'mean_token_accuracy': 0.8822115212678909, 'epoch': 0.02}
+
+ 50%|█████     | 1/2 [00:01<00:01,  1.89s/it]
+100%|██████████| 2/2 [00:04<00:00,  2.16s/it]
+                                             
+{'loss': 0.7352, 'grad_norm': 5.328035831451416, 'learning_rate': 5e-05, 'entropy': 1.6345073580741882, 'num_tokens': 684.0, 'mean_token_accuracy': 0.8725961446762085, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:04<00:00,  2.16s/it]
+                                             
+{'train_runtime': 5.1471, 'train_samples_per_second': 1.554, 'train_steps_per_second': 0.389, 'train_loss': 0.7359283268451691, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:05<00:00,  2.16s/it]
+100%|██████████| 2/2 [00:05<00:00,  2.57s/it]
+Treinando sft A 113 direct
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 20182.57 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  91%|█████████ | 200/220 [00:00<00:00, 1945.11 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1779.65 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 68764.21 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+ 50%|█████     | 1/2 [00:01<00:01,  1.45s/it]
+                                             
+{'loss': 0.5413, 'grad_norm': 6.884426593780518, 'learning_rate': 0.0, 'entropy': 1.966109186410904, 'num_tokens': 283.0, 'mean_token_accuracy': 0.9068181961774826, 'epoch': 0.02}
+
+ 50%|█████     | 1/2 [00:01<00:01,  1.45s/it]
+100%|██████████| 2/2 [00:03<00:00,  2.02s/it]
+                                             
+{'loss': 0.5965, 'grad_norm': 8.560001373291016, 'learning_rate': 5e-05, 'entropy': 1.9669941365718842, 'num_tokens': 566.0, 'mean_token_accuracy': 0.9068181961774826, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:03<00:00,  2.02s/it]
+                                             
+{'train_runtime': 4.8255, 'train_samples_per_second': 1.658, 'train_steps_per_second': 0.414, 'train_loss': 0.568944662809372, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:04<00:00,  2.02s/it]
+100%|██████████| 2/2 [00:04<00:00,  2.41s/it]
+Treinando sft A 113 generic
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 19425.02 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  65%|██████▌   | 144/220 [00:00<00:00, 1426.46 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1323.09 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 57556.57 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+ 50%|█████     | 1/2 [00:01<00:01,  1.48s/it]
+                                             
+{'loss': 3.1285, 'grad_norm': 5.169271469116211, 'learning_rate': 0.0, 'entropy': 1.957627683877945, 'num_tokens': 355.0, 'mean_token_accuracy': 0.5043103322386742, 'epoch': 0.02}
+
+ 50%|█████     | 1/2 [00:01<00:01,  1.48s/it]
+100%|██████████| 2/2 [00:03<00:00,  2.03s/it]
+                                             
+{'loss': 3.0722, 'grad_norm': 5.0589799880981445, 'learning_rate': 5e-05, 'entropy': 1.9573367536067963, 'num_tokens': 710.0, 'mean_token_accuracy': 0.49568964540958405, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:03<00:00,  2.03s/it]
+                                             
+{'train_runtime': 4.884, 'train_samples_per_second': 1.638, 'train_steps_per_second': 0.41, 'train_loss': 3.100350260734558, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:04<00:00,  2.03s/it]
+100%|██████████| 2/2 [00:04<00:00,  2.44s/it]
+Treinando sft C 113 explicit
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 20928.24 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  64%|██████▎   | 140/220 [00:00<00:00, 1381.70 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1241.14 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 63310.25 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+ 50%|█████     | 1/2 [00:01<00:01,  1.47s/it]
+                                             
+{'loss': 0.4217, 'grad_norm': 2.321748733520508, 'learning_rate': 0.0, 'entropy': 1.355922818183899, 'num_tokens': 500.0, 'mean_token_accuracy': 0.8949553072452545, 'epoch': 0.02}
+
+ 50%|█████     | 1/2 [00:01<00:01,  1.47s/it]
+100%|██████████| 2/2 [00:03<00:00,  1.99s/it]
+                                             
+{'loss': 0.4709, 'grad_norm': 3.2248644828796387, 'learning_rate': 5e-05, 'entropy': 1.3665131032466888, 'num_tokens': 1004.0, 'mean_token_accuracy': 0.8663793206214905, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:03<00:00,  1.99s/it]
+                                             
+{'train_runtime': 4.759, 'train_samples_per_second': 1.681, 'train_steps_per_second': 0.42, 'train_loss': 0.4463016390800476, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:04<00:00,  1.99s/it]
+100%|██████████| 2/2 [00:04<00:00,  2.38s/it]
+Treinando sft C 113 direct
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 21172.66 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  76%|███████▌  | 167/220 [00:00<00:00, 1646.20 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1566.66 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 71375.84 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+ 50%|█████     | 1/2 [00:01<00:01,  1.48s/it]
+                                             
+{'loss': 1.3718, 'grad_norm': 5.883978843688965, 'learning_rate': 0.0, 'entropy': 2.0947499871253967, 'num_tokens': 315.0, 'mean_token_accuracy': 0.6272727251052856, 'epoch': 0.02}
+
+ 50%|█████     | 1/2 [00:01<00:01,  1.48s/it]
+100%|██████████| 2/2 [00:04<00:00,  2.15s/it]
+                                             
+{'loss': 1.3897, 'grad_norm': 6.121179103851318, 'learning_rate': 5e-05, 'entropy': 2.0884432196617126, 'num_tokens': 631.0, 'mean_token_accuracy': 0.5681818276643753, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:04<00:00,  2.15s/it]
+                                             
+{'train_runtime': 5.0847, 'train_samples_per_second': 1.573, 'train_steps_per_second': 0.393, 'train_loss': 1.3807352781295776, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:05<00:00,  2.15s/it]
+100%|██████████| 2/2 [00:05<00:00,  2.54s/it]
+Treinando sft C 113 generic
+
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 21405.96 examples/s]
+
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Tokenizing train dataset:  68%|██████▊   | 150/220 [00:00<00:00, 1473.90 examples/s]
+Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1386.01 examples/s]
+
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 61125.26 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+
+  0%|          | 0/2 [00:00<?, ?it/s]
+ 50%|█████     | 1/2 [00:01<00:01,  1.51s/it]
+                                             
+{'loss': 3.4071, 'grad_norm': 7.1534104347229, 'learning_rate': 0.0, 'entropy': 2.0646005272865295, 'num_tokens': 387.0, 'mean_token_accuracy': 0.42610838264226913, 'epoch': 0.02}
+
+ 50%|█████     | 1/2 [00:01<00:01,  1.51s/it]
+100%|██████████| 2/2 [00:04<00:00,  2.18s/it]
+                                             
+{'loss': 3.355, 'grad_norm': 6.850892066955566, 'learning_rate': 5e-05, 'entropy': 2.060948610305786, 'num_tokens': 775.0, 'mean_token_accuracy': 0.4568965509533882, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:04<00:00,  2.18s/it]
+                                             
+{'train_runtime': 5.208, 'train_samples_per_second': 1.536, 'train_steps_per_second': 0.384, 'train_loss': 3.381057620048523, 'epoch': 0.04}
+
+100%|██████████| 2/2 [00:05<00:00,  2.18s/it]
+100%|██████████| 2/2 [00:05<00:00,  2.60s/it]
+Etapa "train" concluída; resultado completo em /content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/operations/train_sft.json.
+
+[exit=0 seconds=65.8]

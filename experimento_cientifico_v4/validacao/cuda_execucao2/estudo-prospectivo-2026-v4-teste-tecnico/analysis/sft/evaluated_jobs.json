@@ -1,0 +1,26 @@
+{
+  "A|113|explicit": {
+    "path": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft/f7e39ce6c526c6d023a5/evaluation_test_31ee2778a9215ff8.jsonl",
+    "sha256": "8244b19491e5baa8484edba5a1afa84dac107edb5d538dffbc97c2a8763f6d63"
+  },
+  "A|113|direct": {
+    "path": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft/555589342c21ec6d27e6/evaluation_test_e4b743a48deb9150.jsonl",
+    "sha256": "85a2b5ca65d760ffd48bc29802fc6ee97bd00225ce232c3aae2d589017ae5b48"
+  },
+  "A|113|generic": {
+    "path": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft/9b377f9fd994832ab3ec/evaluation_test_ed02e90e605307e0.jsonl",
+    "sha256": "9aaa8a97afb5a515a971210cd07d9389d03a3c3031be243ded0cdc97719b6e2c"
+  },
+  "C|113|explicit": {
+    "path": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft/d0dd204f68ca722fcad9/evaluation_test_a7c85a4650690e8f.jsonl",
+    "sha256": "2fd472d8553b731d4059d3563c5069a4d07f8e8ff22f1a6dc80ddb82b123d577"
+  },
+  "C|113|direct": {
+    "path": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft/c2a359120361011c6603/evaluation_test_dce708d7bd3b61d5.jsonl",
+    "sha256": "cc8eb680d9901f9a93c0c4cb47d67cf1296a0e8703e841646fdadd483f0406c0"
+  },
+  "C|113|generic": {
+    "path": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft/3b74e8f352bb2c6a95d8/evaluation_test_585c776ff28ab1a8.jsonl",
+    "sha256": "3b280388fbda023d353ad11409e5eebfe2e1023c9d7005dd3bb98c8a539e4608"
+  }
+}

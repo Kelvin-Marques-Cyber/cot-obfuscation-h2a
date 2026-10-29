@@ -1,0 +1,39 @@
+{
+  "run_id": "c2a359120361011c6603",
+  "resolved_config": {
+    "mode": "sft",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "train_seed": 113,
+    "data_seed": 20261101,
+    "condition": "direct",
+    "level": "C",
+    "output_root": "/content/cot-v4/studies/estudo-prospectivo-2026-v4-teste-tecnico/runs/sft",
+    "max_steps": 2,
+    "save_steps": 1,
+    "batch_size": 1,
+    "grad_accum": 4,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "logging_steps": 1,
+    "learning_rate": 5e-05,
+    "max_length": 512,
+    "device": "cuda",
+    "precision": "fp16",
+    "experiment_contract_sha": "83af6d0524e30f4e3435ffa51baa4053ab1c86e0d4157b67837fb472cb34de05",
+    "data_sha256": "f7ee42247e9256f7c0511707fac977b09d7b41a331ffe20177f531a774020af8"
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "device": "Tesla T4",
+    "compute_dtype": "torch.float16",
+    "packages": {
+      "transformers": "4.56.2",
+      "trl": "0.22.2",
+      "peft": "0.17.1",
+      "accelerate": "1.10.1",
+      "datasets": "4.3.0"
+    }
+  }
+}

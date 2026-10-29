@@ -1,0 +1,12 @@
+Treinando sft A 113 explicit
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793276004.198421   27883 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793276006.622239   27883 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 22033.64 examples/s]
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Tokenizing train dataset:  89%|████████▉ | 196/220 [00:00<00:00, 1935.62 examples/s]Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1761.88 examples/s]
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 66151.47 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+  0%|          | 0/2 [00:00<?, ?it/s] 50%|█████     | 1/2 [00:01<00:01,  1.88s/it]                                             {'loss': 0.7366, 'grad_norm': 5.129482269287109, 'learning_rate': 0.0, 'entropy': 1.6313459277153015, 'num_tokens': 342.0, 'mean_token_accuracy': 0.8822115212678909, 'epoch': 0.02}
+ 50%|█████     | 1/2 [00:01<00:01,  1.88s/it]
