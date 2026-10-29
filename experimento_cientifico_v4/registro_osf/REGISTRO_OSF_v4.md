@@ -9,6 +9,13 @@ OSF, **antes do primeiro treinamento**. Nenhum treino do v4 foi executado; os
 
 ## Passo a passo
 
+0. **Descartar a atualização aberta no v3.2.** Em 29/10/2026 a API pública do
+   OSF mostrava o registro https://osf.io/sjwdf/ com `revision_state:
+   in_progress`, e a página dele exibia "Updates being made". O v4 não é uma
+   atualização do v3.2: é um registro novo. Abrir https://osf.io/sjwdf/ →
+   menu **Updates** → **Continue Update** → **Delete Draft Update** →
+   **Delete**. Não enviar essa atualização (arquivos também não podem ser
+   anexados numa atualização).
 1. Entrar no OSF e abrir o projeto https://osf.io/7hzjb/ (o mesmo do v3.2).
 2. Aba **Registrations** → **New registration** → modelo **OSF Preregistration**.
 3. Preencher título, descrição e campos com os textos abaixo. Os campos de
@@ -34,9 +41,13 @@ OSF, **antes do primeiro treinamento**. Nenhum treino do v4 foi executado; os
    treinos.
 
 **Escolha da GPU.** O campo "Data collection procedures" fixa uma única classe
-de GPU para todo o estudo, a Tesla T4 (a mesma da triagem DEV). Para usar outra
-classe (L4 ou A100), altere o nome nesse parágrafo **antes** de registrar.
-Depois do registro, a classe não muda.
+de GPU para todo o estudo: **NVIDIA H100**, a classe mais rápida oferecida
+pelo Colab (as outras são T4, L4, G4 e A100), escolhida em 29/10/2026, antes
+do registro. A triagem DEV foi feita na Tesla T4 e não é repetida; o campo
+declara essa diferença. O código e o protocolo congelados exigem apenas
+"T4 ou superior" (`colab/sessao.py`, `PROTOCOLO_v4.md`, seção 9), de modo que a
+troca não altera nenhum SHA256. Para usar outra classe, altere o nome nesse
+parágrafo **antes** de registrar. Depois do registro, a classe não muda.
 
 **Conferência do pacote.** O pacote foi gerado com o código do commit
 `b858d128bcd545dd958e0dbed9978a7aea2591b3`, o mesmo fixado nos cinco notebooks,
@@ -127,11 +138,11 @@ existe. Os autores conhecem, porém, as seguintes evidências e materiais:
    partições do estudo, com regras gravadas no repositório antes de cada
    rodada.
 4. **Triagem DEV.** O modelo-base respondeu uma vez a 120 itens DEV por nível
-   (SFT A: 117/120; C: 82/120), em 29/10/2026, depois do congelamento do
+   (SFT A: 117/120; C: 82/120), na Tesla T4, em 29/10/2026, depois do congelamento do
    protocolo (commit 37094c4, 11h28 UTC) e antes deste registro. Os itens DEV
    não entram na análise de H1.
 5. **Testes técnicos de GPU (exposição parcial do TEST).** Para verificar o
-   software na GPU, os notebooks foram executados em modo técnico nos commits
+   software na GPU, os notebooks foram executados em modo técnico, na Tesla T4, nos commits
    6c41277 e 4b7d1fd: uma semente (113), as seis combinações de condição e
    nível, 2 passos de treino por adaptador e avaliação nos **4 primeiros
    itens TEST de cada nível** (8 itens no total). Esses adaptadores não
@@ -212,9 +223,15 @@ protocolo, do código e dos dados antes de cada etapa e recusa executar se algo
 divergir.
 
 **Classe de GPU.** Todos os 120 treinamentos e as 120 avaliações TEST usam a
-mesma classe de GPU, NVIDIA Tesla T4, em fp16, a mesma da triagem DEV. Se essa
-classe ficar indisponível, a coleta aguarda; não há troca de classe no meio do
-estudo. O nome da GPU de cada treinamento fica gravado no seu manifesto.
+mesma classe de GPU, NVIDIA H100, em fp16 (a precisão do protocolo; bf16 não
+é usado). A triagem DEV foi executada na Tesla T4 e não é repetida na H100.
+Classes diferentes de GPU não produzem resultados numericamente idênticos, e
+algumas respostas gulosas podem mudar; por isso a classe é única para todo o
+estudo e todas as condições, níveis e sementes são comparadas na mesma
+classe. Se a H100 ficar indisponível, a coleta aguarda; não há troca de classe
+no meio do estudo. O nome da GPU de cada treinamento fica gravado no seu
+manifesto; um treinamento ou uma avaliação executados em outra classe é falha
+de integridade, tratada como descrito em "Data inclusion and exclusion".
 
 Cada treinamento grava configuração, revisão do modelo, versões das
 bibliotecas, GPU, perdas e SHA256 do adaptador. Interrupções são retomadas do
@@ -328,7 +345,8 @@ Entram na análise todas as gerações TEST, modo `full`, dos 120 adaptadores
 registrados, nos 220 itens do nível correspondente. Nenhuma geração é excluída
 por acurácia, formato, truncamento ou valor extremo: respostas fora do
 contrato contam como incorretas. Duplicações, trocas de conjunto, divergência
-de hash ou de revisão do modelo são falhas de integridade, corrigidas apenas
+de hash ou de revisão do modelo e execução em classe de GPU diferente da
+registrada são falhas de integridade, corrigidas apenas
 por retomada ou repetição da mesma execução com os mesmos parâmetros; se não
 puderem ser corrigidas, o veredito é `INSUFFICIENT_EVIDENCE`.
 
