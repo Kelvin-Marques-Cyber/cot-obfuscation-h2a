@@ -1,0 +1,37 @@
+[
+  {
+    "hipotese": "Erro no corretor ou no extrator da resposta",
+    "verificacao": "Classificação das 480 respostas da reprodução T4 e testes do contrato",
+    "resultado": "Corretores operam como especificado; separador de milhar era lido como decimal (1 resposta em SFT A, sem efeito na triagem). Respostas certas fora do contrato não revertem SFT C."
+  },
+  {
+    "hipotese": "Uso incorreto do modelo de conversa",
+    "verificacao": "Renderização do chat template, tokenização e identificador de término",
+    "resultado": "Descartada: ChatML correto; Qwen3 no modo sem pensamento com bloco vazio; sem tokens especiais duplicados; término <|im_end|> (151645)."
+  },
+  {
+    "hipotese": "Truncamento e orçamento de geração",
+    "verificacao": "Motivo de término (CPU) e contagem de tokens re-tokenizados (T4)",
+    "resultado": "Causa parcial apenas no GRPO high: 48 respostas atingiram o orçamento de 256 tokens enquanto o modelo calculava a expressão da dica proibida; nenhuma truncagem no SFT nem no GRPO low."
+  },
+  {
+    "hipotese": "Instrução e contrato de formato",
+    "verificacao": "Inspeção das gerações por domínio e limite permissivo",
+    "resultado": "Confirmada como causa parcial: no GRPO o modelo copiava os marcadores da instrução e escrevia o cálculo fora das tags; no SFT o modelo não usava a tag <answer>."
+  },
+  {
+    "hipotese": "Precisão numérica e configuração de inferência",
+    "verificacao": "Comparação item a item entre T4 fp16 e CPU fp32; decodificação gulosa",
+    "resultado": "Descartada: diferenças isoladas entre precisões, sem alterar o resultado; avisos de amostragem são inócuos com do_sample=False."
+  },
+  {
+    "hipotese": "Incompatibilidade entre bibliotecas",
+    "verificacao": "Reexecução no Colab de 28/10/2026 (Python 3.13.16, PyTorch 2.11) com as versões fixadas",
+    "resultado": "Descartada: os quatro valores documentados foram reproduzidos exatamente."
+  },
+  {
+    "hipotese": "Incapacidade real do modelo-base",
+    "verificacao": "Respostas do SFT C e erros aritméticos do SFT A sob a instrução registrada",
+    "resultado": "Confirmada para SFT C (nenhuma resposta correta mesmo com extração permissiva), para o GRPO high (18/60 no domínio aritmético com operandos de três algarismos) e parcialmente para SFT A."
+  }
+]

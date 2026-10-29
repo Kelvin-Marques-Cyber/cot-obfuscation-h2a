@@ -1,0 +1,14 @@
+{
+  "low": {
+    "n": 120,
+    "accuracy": 0.43333333333333335,
+    "file": "/content/diag-v3/studies/diagnostico-triagem-v3-2/analysis/grpo/dev_low_base_generations.jsonl",
+    "sha256": "c71e0ea4db29212895094a0183ca14d39ed2de972157068172f0c0f34fa06631"
+  },
+  "high": {
+    "n": 120,
+    "accuracy": 0.15,
+    "file": "/content/diag-v3/studies/diagnostico-triagem-v3-2/analysis/grpo/dev_high_base_generations.jsonl",
+    "sha256": "d972233945ae67ca0d59f5d803fa380564d6f09d6502777d79948cd1bafb7918"
+  }
+}

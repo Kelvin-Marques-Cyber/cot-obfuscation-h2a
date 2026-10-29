@@ -1,0 +1,30 @@
+{
+  "sft": {
+    "file": "/content/diag-v3/studies/diagnostico-triagem-v3-2/data/sft.jsonl",
+    "sha256": "9adaebe7cfe808002a23ce655d6e6df66659795eacffa367f1483b75aa0578e3",
+    "counts": {
+      "train": 660,
+      "dev": 660,
+      "test": 660
+    },
+    "rows": 1980,
+    "test_per_level": {
+      "A": 220,
+      "C": 220
+    }
+  },
+  "grpo": {
+    "file": "/content/diag-v3/studies/diagnostico-triagem-v3-2/data/grpo.jsonl",
+    "sha256": "372ba9539425bb7dd463086c7dc274730abdd3c9c4f57f45f059948f36492616",
+    "counts": {
+      "train": 720,
+      "dev": 720,
+      "test": 720
+    },
+    "rows": 2160,
+    "test_per_level": {
+      "low": 240,
+      "high": 240
+    }
+  }
+}

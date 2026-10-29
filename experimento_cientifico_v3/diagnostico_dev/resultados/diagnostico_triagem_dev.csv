@@ -1,0 +1,5 @@
+mode,level,documented_correct,t4_correct,cpu_correct,cpu_n,permissive_upper_bound,correto_estrito,formato_valido_valor_incorreto,separador_de_milhar_lido_como_decimal,valor_correto_fora_do_contrato,alternativa_correta_fora_do_contrato,dica_fora_do_contrato,formato_invalido_valor_incorreto,formato_valido_escolheu_dica,formato_valido_outra_alternativa,outra_alternativa_fora_do_contrato,sem_tag_answer,truncado_no_orcamento
+sft,A,69,69,70,120,0.7166666666666667,69,34,1,16,,,,,,,,
+sft,C,0,0,0,120,0.0,,,,,,,120,,,,,
+grpo,low,52,52,52,120,0.7583333333333333,52,,,,39,1,,2,4,2,20,
+grpo,high,18,18,17,120,0.30833333333333335,18,,,,19,4,,3,11,14,3,48

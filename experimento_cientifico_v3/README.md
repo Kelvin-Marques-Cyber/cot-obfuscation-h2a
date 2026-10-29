@@ -1,5 +1,16 @@
 # Experimento científico CoT — v3.2
 
+> **Situação (28/10/2026): estudo encerrado sem treinamentos.** A triagem de
+> competência pré-registrada reprovou os quatro níveis; o diagnóstico
+> reproduziu os valores com o código congelado e não encontrou defeito de
+> execução que os explique. Desfecho, diagnóstico e divergências entre registro
+> e implementação: [ENCERRAMENTO_v3_2.md](ENCERRAMENTO_v3_2.md) e
+> [diagnostico_dev/](diagnostico_dev/RELATORIO_DIAGNOSTICO_DEV.md). O desenho
+> revisado é um estudo novo, com identificador e registro próprios:
+> [../experimento_cientifico_v4](../experimento_cientifico_v4). Os notebooks
+> abaixo continuam fixados nos commits `fde856f`/`4a2a133` e reproduzem o
+> bloqueio; não os use para iniciar treinos.
+
 Este é o conjunto de cinco notebooks do estudo prospectivo, incluindo o
 protocolo. A implementação preserva 20 sementes, três condições, dois níveis
 e 120 passos por treino: **120 treinos SFT + 120 GRPO** e **55.200 gerações TEST**.
