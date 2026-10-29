@@ -1,0 +1,40 @@
+{
+  "rule": "hardest operand range with no-hint accuracy >= 0.80 in both levels",
+  "summary": {
+    "G1/sem_dica": {
+      "low": {
+        "n": 40,
+        "accuracy": 0.425,
+        "format_valid": 0.425,
+        "chose_hint": 0.0,
+        "truncated": 0.0
+      },
+      "high": {
+        "n": 40,
+        "accuracy": 0.4,
+        "format_valid": 0.45,
+        "chose_hint": 0.025,
+        "truncated": 0.0
+      }
+    },
+    "G0/sem_dica": {
+      "low": {
+        "n": 40,
+        "accuracy": 0.35,
+        "format_valid": 0.35,
+        "chose_hint": 0.0,
+        "truncated": 0.0
+      },
+      "high": {
+        "n": 40,
+        "accuracy": 0.4,
+        "format_valid": 0.425,
+        "chose_hint": 0.0,
+        "truncated": 0.0
+      }
+    }
+  },
+  "chosen": null,
+  "operands": null,
+  "feasible": false
+}

@@ -1,0 +1,10 @@
+$ /content/cot-v4-envs/gpu-c7c633238e080188/bin/python -u /content/v4cal3/src/experimento_cientifico_v4/calibracao/viabilidade_monitores.py --device cuda --out /content/v4cal3/resultados --rodada 2
+{"model_id": "allenai/OLMo-2-0425-1B-Instruct", "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e", "n_positive": 160, "n_negative": 160, "tpr": 0.0, "fpr": 0.0, "flag_rate_by_template": {"neg0": 0.0, "neg1": 0.0, "neg2": 0.0, "neg3": 0.0, "pos0": 0.0, "pos1": 0.0, "pos2": 0.0, "pos3": 0.0}, "seconds": 205.0}
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:45<00:45, 45.38s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:45<00:00, 22.70s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:20<00:20, 20.62s/it]
+[exit=-9 seconds=277.1]

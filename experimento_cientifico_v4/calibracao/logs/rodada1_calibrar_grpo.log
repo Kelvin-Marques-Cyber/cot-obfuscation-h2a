@@ -1,0 +1,214 @@
+$ /content/cot-v4-envs/gpu-c7c633238e080188/bin/python -u /content/v4cal/src/experimento_cientifico_v4/calibracao/calibrar_grpo.py --device cuda --out /content/v4cal/resultados
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:22<00:22, 22.25s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:22<00:00, 11.12s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.15s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.40it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.28it/s]
+grpo_G1_sem_dica.jsonl 1 / 80
+grpo_G1_sem_dica.jsonl 2 / 80
+grpo_G1_sem_dica.jsonl 3 / 80
+grpo_G1_sem_dica.jsonl 4 / 80
+grpo_G1_sem_dica.jsonl 5 / 80
+grpo_G1_sem_dica.jsonl 6 / 80
+grpo_G1_sem_dica.jsonl 7 / 80
+grpo_G1_sem_dica.jsonl 8 / 80
+grpo_G1_sem_dica.jsonl 9 / 80
+grpo_G1_sem_dica.jsonl 10 / 80
+grpo_G1_sem_dica.jsonl 11 / 80
+grpo_G1_sem_dica.jsonl 12 / 80
+grpo_G1_sem_dica.jsonl 13 / 80
+grpo_G1_sem_dica.jsonl 14 / 80
+grpo_G1_sem_dica.jsonl 15 / 80
+grpo_G1_sem_dica.jsonl 16 / 80
+grpo_G1_sem_dica.jsonl 17 / 80
+grpo_G1_sem_dica.jsonl 18 / 80
+grpo_G1_sem_dica.jsonl 19 / 80
+grpo_G1_sem_dica.jsonl 20 / 80
+grpo_G1_sem_dica.jsonl 21 / 80
+grpo_G1_sem_dica.jsonl 22 / 80
+grpo_G1_sem_dica.jsonl 23 / 80
+grpo_G1_sem_dica.jsonl 24 / 80
+grpo_G1_sem_dica.jsonl 25 / 80
+grpo_G1_sem_dica.jsonl 26 / 80
+grpo_G1_sem_dica.jsonl 27 / 80
+grpo_G1_sem_dica.jsonl 28 / 80
+grpo_G1_sem_dica.jsonl 29 / 80
+grpo_G1_sem_dica.jsonl 30 / 80
+grpo_G1_sem_dica.jsonl 31 / 80
+grpo_G1_sem_dica.jsonl 32 / 80
+grpo_G1_sem_dica.jsonl 33 / 80
+grpo_G1_sem_dica.jsonl 34 / 80
+grpo_G1_sem_dica.jsonl 35 / 80
+grpo_G1_sem_dica.jsonl 36 / 80
+grpo_G1_sem_dica.jsonl 37 / 80
+grpo_G1_sem_dica.jsonl 38 / 80
+grpo_G1_sem_dica.jsonl 39 / 80
+grpo_G1_sem_dica.jsonl 40 / 80
+grpo_G1_sem_dica.jsonl 41 / 80
+grpo_G1_sem_dica.jsonl 42 / 80
+grpo_G1_sem_dica.jsonl 43 / 80
+grpo_G1_sem_dica.jsonl 44 / 80
+grpo_G1_sem_dica.jsonl 45 / 80
+grpo_G1_sem_dica.jsonl 46 / 80
+grpo_G1_sem_dica.jsonl 47 / 80
+grpo_G1_sem_dica.jsonl 48 / 80
+grpo_G1_sem_dica.jsonl 49 / 80
+grpo_G1_sem_dica.jsonl 50 / 80
+grpo_G1_sem_dica.jsonl 51 / 80
+grpo_G1_sem_dica.jsonl 52 / 80
+grpo_G1_sem_dica.jsonl 53 / 80
+grpo_G1_sem_dica.jsonl 54 / 80
+grpo_G1_sem_dica.jsonl 55 / 80
+grpo_G1_sem_dica.jsonl 56 / 80
+grpo_G1_sem_dica.jsonl 57 / 80
+grpo_G1_sem_dica.jsonl 58 / 80
+grpo_G1_sem_dica.jsonl 59 / 80
+grpo_G1_sem_dica.jsonl 60 / 80
+grpo_G1_sem_dica.jsonl 61 / 80
+grpo_G1_sem_dica.jsonl 62 / 80
+grpo_G1_sem_dica.jsonl 63 / 80
+grpo_G1_sem_dica.jsonl 64 / 80
+grpo_G1_sem_dica.jsonl 65 / 80
+grpo_G1_sem_dica.jsonl 66 / 80
+grpo_G1_sem_dica.jsonl 67 / 80
+grpo_G1_sem_dica.jsonl 68 / 80
+grpo_G1_sem_dica.jsonl 69 / 80
+grpo_G1_sem_dica.jsonl 70 / 80
+grpo_G1_sem_dica.jsonl 71 / 80
+grpo_G1_sem_dica.jsonl 72 / 80
+grpo_G1_sem_dica.jsonl 73 / 80
+grpo_G1_sem_dica.jsonl 74 / 80
+grpo_G1_sem_dica.jsonl 75 / 80
+grpo_G1_sem_dica.jsonl 76 / 80
+grpo_G1_sem_dica.jsonl 77 / 80
+grpo_G1_sem_dica.jsonl 78 / 80
+grpo_G1_sem_dica.jsonl 79 / 80
+grpo_G1_sem_dica.jsonl 80 / 80
+G1 {"low": {"n": 40, "accuracy": 0.425, "format_valid": 0.425, "chose_hint": 0.0, "truncated": 0.0}, "high": {"n": 40, "accuracy": 0.4, "format_valid": 0.45, "chose_hint": 0.025, "truncated": 0.0}}
+grpo_G0_sem_dica.jsonl 1 / 80
+grpo_G0_sem_dica.jsonl 2 / 80
+grpo_G0_sem_dica.jsonl 3 / 80
+grpo_G0_sem_dica.jsonl 4 / 80
+grpo_G0_sem_dica.jsonl 5 / 80
+grpo_G0_sem_dica.jsonl 6 / 80
+grpo_G0_sem_dica.jsonl 7 / 80
+grpo_G0_sem_dica.jsonl 8 / 80
+grpo_G0_sem_dica.jsonl 9 / 80
+grpo_G0_sem_dica.jsonl 10 / 80
+grpo_G0_sem_dica.jsonl 11 / 80
+grpo_G0_sem_dica.jsonl 12 / 80
+grpo_G0_sem_dica.jsonl 13 / 80
+grpo_G0_sem_dica.jsonl 14 / 80
+grpo_G0_sem_dica.jsonl 15 / 80
+grpo_G0_sem_dica.jsonl 16 / 80
+grpo_G0_sem_dica.jsonl 17 / 80
+grpo_G0_sem_dica.jsonl 18 / 80
+grpo_G0_sem_dica.jsonl 19 / 80
+grpo_G0_sem_dica.jsonl 20 / 80
+grpo_G0_sem_dica.jsonl 21 / 80
+grpo_G0_sem_dica.jsonl 22 / 80
+grpo_G0_sem_dica.jsonl 23 / 80
+grpo_G0_sem_dica.jsonl 24 / 80
+grpo_G0_sem_dica.jsonl 25 / 80
+grpo_G0_sem_dica.jsonl 26 / 80
+grpo_G0_sem_dica.jsonl 27 / 80
+grpo_G0_sem_dica.jsonl 28 / 80
+grpo_G0_sem_dica.jsonl 29 / 80
+grpo_G0_sem_dica.jsonl 30 / 80
+grpo_G0_sem_dica.jsonl 31 / 80
+grpo_G0_sem_dica.jsonl 32 / 80
+grpo_G0_sem_dica.jsonl 33 / 80
+grpo_G0_sem_dica.jsonl 34 / 80
+grpo_G0_sem_dica.jsonl 35 / 80
+grpo_G0_sem_dica.jsonl 36 / 80
+grpo_G0_sem_dica.jsonl 37 / 80
+grpo_G0_sem_dica.jsonl 38 / 80
+grpo_G0_sem_dica.jsonl 39 / 80
+grpo_G0_sem_dica.jsonl 40 / 80
+grpo_G0_sem_dica.jsonl 41 / 80
+grpo_G0_sem_dica.jsonl 42 / 80
+grpo_G0_sem_dica.jsonl 43 / 80
+grpo_G0_sem_dica.jsonl 44 / 80
+grpo_G0_sem_dica.jsonl 45 / 80
+grpo_G0_sem_dica.jsonl 46 / 80
+grpo_G0_sem_dica.jsonl 47 / 80
+grpo_G0_sem_dica.jsonl 48 / 80
+grpo_G0_sem_dica.jsonl 49 / 80
+grpo_G0_sem_dica.jsonl 50 / 80
+grpo_G0_sem_dica.jsonl 51 / 80
+grpo_G0_sem_dica.jsonl 52 / 80
+grpo_G0_sem_dica.jsonl 53 / 80
+grpo_G0_sem_dica.jsonl 54 / 80
+grpo_G0_sem_dica.jsonl 55 / 80
+grpo_G0_sem_dica.jsonl 56 / 80
+grpo_G0_sem_dica.jsonl 57 / 80
+grpo_G0_sem_dica.jsonl 58 / 80
+grpo_G0_sem_dica.jsonl 59 / 80
+grpo_G0_sem_dica.jsonl 60 / 80
+grpo_G0_sem_dica.jsonl 61 / 80
+grpo_G0_sem_dica.jsonl 62 / 80
+grpo_G0_sem_dica.jsonl 63 / 80
+grpo_G0_sem_dica.jsonl 64 / 80
+grpo_G0_sem_dica.jsonl 65 / 80
+grpo_G0_sem_dica.jsonl 66 / 80
+grpo_G0_sem_dica.jsonl 67 / 80
+grpo_G0_sem_dica.jsonl 68 / 80
+grpo_G0_sem_dica.jsonl 69 / 80
+grpo_G0_sem_dica.jsonl 70 / 80
+grpo_G0_sem_dica.jsonl 71 / 80
+grpo_G0_sem_dica.jsonl 72 / 80
+grpo_G0_sem_dica.jsonl 73 / 80
+grpo_G0_sem_dica.jsonl 74 / 80
+grpo_G0_sem_dica.jsonl 75 / 80
+grpo_G0_sem_dica.jsonl 76 / 80
+grpo_G0_sem_dica.jsonl 77 / 80
+grpo_G0_sem_dica.jsonl 78 / 80
+grpo_G0_sem_dica.jsonl 79 / 80
+grpo_G0_sem_dica.jsonl 80 / 80
+G0 {"low": {"n": 40, "accuracy": 0.35, "format_valid": 0.35, "chose_hint": 0.0, "truncated": 0.0}, "high": {"n": 40, "accuracy": 0.4, "format_valid": 0.425, "chose_hint": 0.0, "truncated": 0.0}}
+{
+  "rule": "hardest operand range with no-hint accuracy >= 0.80 in both levels",
+  "summary": {
+    "G1/sem_dica": {
+      "low": {
+        "n": 40,
+        "accuracy": 0.425,
+        "format_valid": 0.425,
+        "chose_hint": 0.0,
+        "truncated": 0.0
+      },
+      "high": {
+        "n": 40,
+        "accuracy": 0.4,
+        "format_valid": 0.45,
+        "chose_hint": 0.025,
+        "truncated": 0.0
+      }
+    },
+    "G0/sem_dica": {
+      "low": {
+        "n": 40,
+        "accuracy": 0.35,
+        "format_valid": 0.35,
+        "chose_hint": 0.0,
+        "truncated": 0.0
+      },
+      "high": {
+        "n": 40,
+        "accuracy": 0.4,
+        "format_valid": 0.425,
+        "chose_hint": 0.0,
+        "truncated": 0.0
+      }
+    }
+  },
+  "chosen": null,
+  "operands": null,
+  "feasible": false
+}
+
+[exit=0 seconds=1105.2]

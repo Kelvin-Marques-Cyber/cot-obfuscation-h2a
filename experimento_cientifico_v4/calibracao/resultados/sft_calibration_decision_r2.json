@@ -1,0 +1,49 @@
+{
+  "rule": "hardest C with explicit accuracy >= 0.80; A explicit >= 0.80",
+  "round": 2,
+  "summary": {
+    "A/explicit": {
+      "n": 40,
+      "accuracy": 0.975,
+      "truncated": 0
+    },
+    "C1/explicit": {
+      "n": 40,
+      "accuracy": 1.0,
+      "truncated": 0
+    },
+    "C2/explicit": {
+      "n": 40,
+      "accuracy": 0.825,
+      "truncated": 0
+    }
+  },
+  "chosen_C": "C2",
+  "feasible": true,
+  "spec": {
+    "A": {
+      "ab": [
+        100,
+        999
+      ]
+    },
+    "C": {
+      "a": [
+        100,
+        999
+      ],
+      "b": [
+        12,
+        99
+      ],
+      "c": [
+        12,
+        99
+      ],
+      "d": [
+        100,
+        999
+      ]
+    }
+  }
+}
