@@ -1,0 +1,28 @@
+{
+  "sft": {
+    "sha256": "f7ee42247e9256f7c0511707fac977b09d7b41a331ffe20177f531a774020af8",
+    "rows": 1320,
+    "counts": {
+      "train": 440,
+      "dev": 440,
+      "test": 440
+    },
+    "test_per_level": {
+      "A": 220,
+      "C": 220
+    }
+  },
+  "grpo": {
+    "sha256": "3423c66d5337fdf4044cbd9960bef7bfe9e1673b293f1ccda2156750d9712d31",
+    "rows": 1440,
+    "counts": {
+      "train": 480,
+      "dev": 480,
+      "test": 480
+    },
+    "test_per_level": {
+      "low": 240,
+      "high": 240
+    }
+  }
+}

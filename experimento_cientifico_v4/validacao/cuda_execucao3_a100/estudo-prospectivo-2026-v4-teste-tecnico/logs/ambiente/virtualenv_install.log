@@ -1,0 +1,3 @@
+$ /usr/bin/python3 -m pip install --quiet --disable-pip-version-check --target /content/cot-v4-envs/virtualenv-bootstrap virtualenv==20.35.3
+
+[exit=0 seconds=2.3]

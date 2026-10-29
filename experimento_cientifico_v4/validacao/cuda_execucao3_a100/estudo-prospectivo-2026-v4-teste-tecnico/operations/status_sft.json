@@ -1,0 +1,53 @@
+{
+  "prepared": true,
+  "gate": {
+    "status": "passed",
+    "passed": true,
+    "reasons": [],
+    "results": {
+      "sft/A": {
+        "n": 120,
+        "correct": 117,
+        "accuracy": 0.975,
+        "conditions_release": true
+      },
+      "sft/C": {
+        "n": 120,
+        "correct": 82,
+        "accuracy": 0.6833333333333333,
+        "conditions_release": true
+      },
+      "grpo/low": {
+        "n": 120,
+        "correct": 114,
+        "accuracy": 0.95,
+        "conditions_release": false
+      },
+      "grpo/high": {
+        "n": 120,
+        "correct": 109,
+        "accuracy": 0.9083333333333333,
+        "conditions_release": false
+      }
+    },
+    "threshold": 0.65
+  },
+  "registration": {
+    "passed": false,
+    "reason": "external_registration_missing"
+  },
+  "training": {
+    "sft": 6
+  },
+  "evaluation": {
+    "sft": 6
+  },
+  "expected": {
+    "sft": 6
+  },
+  "excluded": {
+    "grpo": "nenhum candidato aprovado nos controles construídos para monitor independente e monitor de recompensa; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)"
+  },
+  "all_training_complete": true,
+  "all_evaluation_complete": true
+}

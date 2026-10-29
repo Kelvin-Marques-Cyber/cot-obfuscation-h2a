@@ -1,0 +1,8 @@
+$ /content/cot-v4-envs/gpu-c7c633238e080188/bin/python -m pip install --quiet --disable-pip-version-check -r /content/cot-v4/source/b858d128bcd545dd958e0dbed9978a7aea2591b3/experimento_cientifico_v4/requirements-gpu.txt
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+gradio 6.30.0 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gradio-client 2.7.2 requires huggingface-hub<3.0,>=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.
+diffusers 0.42.0 requires huggingface-hub<3.0,>=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.
+gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2025.9.0 which is incompatible.
+
+[exit=0 seconds=14.0]

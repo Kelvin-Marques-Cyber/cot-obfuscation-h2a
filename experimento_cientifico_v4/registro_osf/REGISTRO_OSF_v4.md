@@ -41,10 +41,13 @@ OSF, **antes do primeiro treinamento**. Nenhum treino do v4 foi executado; os
    treinos.
 
 **Escolha da GPU.** O campo "Data collection procedures" fixa uma única classe
-de GPU para todo o estudo: **NVIDIA H100**, a classe mais rápida oferecida
-pelo Colab (as outras são T4, L4, G4 e A100), escolhida em 29/10/2026, antes
-do registro. A triagem DEV foi feita na Tesla T4 e não é repetida; o campo
-declara essa diferença. O código e o protocolo congelados exigem apenas
+de GPU para todo o estudo: **NVIDIA A100-SXM4-80GB** (Colab: acelerador A100,
+máquina High-RAM), escolhida em 29/10/2026, antes do registro. A H100, mais
+rápida, foi pedida primeiro e recusada pelo Colab para esta conta (HTTP 400,
+sem direito de uso do acelerador). O software foi verificado na A100 pelo
+teste técnico de `../validacao/cuda_execucao3_a100/`, declarado no item 5 de
+"Explanation of foreknowledge". A triagem DEV foi feita na Tesla T4 e não é
+repetida; o campo declara essa diferença. O código e o protocolo congelados exigem apenas
 "T4 ou superior" (`colab/sessao.py`, `PROTOCOLO_v4.md`, seção 9), de modo que a
 troca não altera nenhum SHA256. Para usar outra classe, altere o nome nesse
 parágrafo **antes** de registrar. Depois do registro, a classe não muda.
@@ -149,6 +152,11 @@ existe. Os autores conhecem, porém, as seguintes evidências e materiais:
    pertencem ao estudo (pasta separada, 2 passos em vez de 120) e as
    respostas, publicadas em `experimento_cientifico_v4/validacao/`, não foram
    usadas em nenhuma decisão de desenho; o protocolo já estava congelado.
+   Em 29/10/2026 o mesmo teste, com o mesmo código (commit 4b7d1fd), foi
+   repetido uma vez na NVIDIA A100-SXM4-80GB, a classe de GPU do estudo, para
+   verificar o software nessa classe; a classe já estava escolhida e o
+   resultado não alterou nenhuma decisão. Ele avaliou os mesmos 8 itens TEST;
+   23 das 24 respostas coincidiram com as da T4.
    Para tornar essa exposição verificável, a análise secundária S1 (campo
    "Other planned analysis") repete o contraste H1 sem esses 8 itens.
 
@@ -223,13 +231,14 @@ protocolo, do código e dos dados antes de cada etapa e recusa executar se algo
 divergir.
 
 **Classe de GPU.** Todos os 120 treinamentos e as 120 avaliações TEST usam a
-mesma classe de GPU, NVIDIA H100, em fp16 (a precisão do protocolo; bf16 não
-é usado). A triagem DEV foi executada na Tesla T4 e não é repetida na H100.
-Classes diferentes de GPU não produzem resultados numericamente idênticos, e
-algumas respostas gulosas podem mudar; por isso a classe é única para todo o
-estudo e todas as condições, níveis e sementes são comparadas na mesma
-classe. Se a H100 ficar indisponível, a coleta aguarda; não há troca de classe
-no meio do estudo. O nome da GPU de cada treinamento fica gravado no seu
+mesma classe de GPU, NVIDIA A100-SXM4-80GB (Colab: acelerador A100, máquina
+High-RAM), em fp16 (a precisão do protocolo; bf16 não é usado). A triagem DEV
+foi executada na Tesla T4 e não é repetida na A100. Classes diferentes de GPU
+não produzem resultados numericamente idênticos, e algumas respostas gulosas
+podem mudar (no teste técnico, 1 de 24 respostas diferiu entre T4 e A100); por
+isso a classe é única para todo o estudo e todas as condições, níveis e
+sementes são comparadas na mesma classe. Se a A100-SXM4-80GB ficar
+indisponível, a coleta aguarda; não há troca de classe no meio do estudo. O nome da GPU de cada treinamento fica gravado no seu
 manifesto; um treinamento ou uma avaliação executados em outra classe é falha
 de integridade, tratada como descrito em "Data inclusion and exclusion".
 

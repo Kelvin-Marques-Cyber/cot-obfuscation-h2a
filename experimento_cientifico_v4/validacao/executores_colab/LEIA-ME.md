@@ -1,7 +1,8 @@
 # Executores usados nas sessões de GPU do Colab
 
 Scripts executados numa máquina virtual do Colab (Tesla T4; Phi-3.5-mini numa
-NVIDIA L4), enviados e acionados por linha de comando (`google-colab-cli`), sem
+NVIDIA L4; teste técnico repetido na NVIDIA A100-SXM4-80GB, em
+`../cuda_execucao3_a100/`), enviados e acionados por linha de comando (`google-colab-cli`), sem
 alterar os notebooks. Cada um baixa o commit indicado, confere o `HEAD`, cria o
 ambiente isolado de `requirements-gpu.txt` pelo mesmo código dos notebooks
 (`colab/sessao.py`) e grava logs com código de saída e duração.

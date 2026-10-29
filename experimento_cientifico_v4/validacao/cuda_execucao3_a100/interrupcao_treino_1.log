@@ -1,0 +1,14 @@
+Treinando sft A 113 explicit
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793291809.264879    4002 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1793291809.342199    4002 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793291811.790293    4002 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1793291811.790793    4002 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+Adding EOS to train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Adding EOS to train dataset: 100%|██████████| 220/220 [00:00<00:00, 20176.39 examples/s]
+Tokenizing train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Tokenizing train dataset:  86%|████████▌ | 189/220 [00:00<00:00, 1861.87 examples/s]Tokenizing train dataset: 100%|██████████| 220/220 [00:00<00:00, 1707.51 examples/s]
+Truncating train dataset:   0%|          | 0/220 [00:00<?, ? examples/s]Truncating train dataset: 100%|██████████| 220/220 [00:00<00:00, 65096.78 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+  0%|          | 0/2 [00:00<?, ?it/s] 50%|█████     | 1/2 [00:01<00:01,  1.92s/it]                                             {'loss': 0.7365, 'grad_norm': 5.1306304931640625, 'learning_rate': 0.0, 'entropy': 1.6339618265628815, 'num_tokens': 342.0, 'mean_token_accuracy': 0.8822115212678909, 'epoch': 0.02}
+ 50%|█████     | 1/2 [00:01<00:01,  1.92s/it]
