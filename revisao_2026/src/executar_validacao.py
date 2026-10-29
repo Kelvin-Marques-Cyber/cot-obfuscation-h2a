@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 import platform
+import re
 import subprocess
 import sys
 import tempfile
@@ -51,14 +52,26 @@ def versions():
     return out
 
 
+def clean(value):
+    """Remove caminhos locais (interpretador, repositório, temporários) dos registros publicados."""
+    if isinstance(value, dict):
+        return {k: clean(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [clean(v) for v in value]
+    if not isinstance(value, str):
+        return value
+    value = value.replace(sys.executable, 'python').replace(str(REPO), '.')
+    return re.sub(r'(?:/tmp|' + re.escape(tempfile.gettempdir()) + r')/[^\s\'",)]*', '<temporário>', value)
+
+
 def run(name, command, cwd, produced=(), env=None, timeout=3600):
     started = time.time()
     result = subprocess.run(command, cwd=cwd, capture_output=True, text=True, env=env, timeout=timeout)
     text = result.stdout + result.stderr
     summary = [line for line in text.splitlines() if line.startswith(('Ran ', 'OK', 'FAILED'))]
-    entry = dict(name=name, command=' '.join(map(str, command)), cwd=str(Path(cwd).relative_to(REPO)),
+    entry = dict(name=name, command=clean(' '.join(map(str, command))), cwd=str(Path(cwd).relative_to(REPO)),
                  exit_code=result.returncode, seconds=round(time.time() - started, 1), summary=summary[-3:],
-                 tail=text.strip().splitlines()[-6:],
+                 tail=clean(text.strip().splitlines()[-6:]),
                  produced={str(Path(p).relative_to(REPO)): sha(p) for p in produced if Path(p).exists()})
     print(f'[{entry["exit_code"]}] {name} ({entry["seconds"]} s) {" ".join(summary[-2:])}', flush=True)
     return entry
@@ -87,7 +100,7 @@ def main():
                            [py, 'tests/integracao_notebooks.py', '--report', str(report)], v4,
                            env=dict(os.environ, COT_TEST_TMP=temp)))
         if report.exists():
-            entries[-1]['report'] = json.loads(report.read_text())
+            entries[-1]['report'] = clean(json.loads(report.read_text()))
     data = dict(date=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), environment=versions(),
                 git_head=subprocess.run(['git', '-C', str(REPO), 'rev-parse', 'HEAD'], capture_output=True,
                                         text=True).stdout.strip(),

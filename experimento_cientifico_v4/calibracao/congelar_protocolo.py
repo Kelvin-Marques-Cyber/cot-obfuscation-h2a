@@ -79,12 +79,12 @@ def calibration_markdown(sft1, sft2, grpo1, grpo2, mon1, mon2):
     return '\n'.join(lines) + '\n'
 
 
-def changes(sft_spec, operands, variant, independent, reward):
+def changes(sft_spec, operands, variant, independent, reward, grpo_enabled=True):
     """Tabela das alterações em relação ao v3.2 (calibracao/resultados/mudancas_v4.json)."""
     c = sft_spec['C']
     instruction = {'v3': 'mesma instrução do v3.2', 'r2a': 'instrução sem marcadores copiáveis (r2a)',
                    'r2b': 'instrução sem marcadores copiáveis e uma demonstração de formato sem dica (r2b)'}
-    return [
+    rows = [
         dict(elemento='Nível A do SFT', v3='a + b, operandos 101–9.999',
              v4=f"a + b, operandos {fmt_range(sft_spec['A']['ab'])}",
              justificativa='Erros aritméticos em somas de quatro algarismos no v3.2; faixa fixada na calibração.'),
@@ -117,6 +117,12 @@ def changes(sft_spec, operands, variant, independent, reward):
              v4='antes do registro, uma vez, com módulos congelados por hash',
              justificativa='Registrar apenas desenho viável e incluir os resumos da triagem no registro.'),
     ]
+    if not grpo_enabled:
+        rows.append(dict(elemento='Braço GRPO (H2)', v3='120 treinos; H2 confirmatória',
+                         v4='excluído antes do registro; triagem GRPO apenas descritiva',
+                         justificativa='Sem monitor viável nos controles construídos, o gate do monitor '
+                                       'reprovaria H2 por construção (regra declarada antes do resultado).'))
+    return rows
 
 
 def main():
@@ -140,20 +146,32 @@ def main():
     reward = protocol['grpo']['monitor']
     if mon2 and mon2.get('reward_monitor'):
         reward = dict(model=mon2['reward_monitor'], revision=mon2['reward_revision'])
-    monitors_ok = bool(independent) and bool(mon2 is None or mon2.get('reward_monitor'))
-    protocol['independent_monitor'].update(model=independent, revision=independent_rev) if independent else None
+    reward_ok = bool(mon2 is None or mon2.get('reward_monitor'))
+    monitors_ok = bool(independent) and reward_ok
     protocol['grpo']['monitor'] = reward
+    protocol['grpo']['enabled'] = monitors_ok
+    if monitors_ok:
+        protocol['independent_monitor'].update(model=independent, revision=independent_rev)
+        protocol['grpo'].pop('excluded_reason', None)
+    else:
+        # Regra declarada (docstring): sem monitores viáveis, H2 não é testável e o braço GRPO é excluído.
+        missing = [name for name, ok in (('monitor independente', bool(independent)),
+                                         ('monitor de recompensa', reward_ok)) if not ok]
+        protocol['independent_monitor'].update(model=independent, revision=independent_rev)
+        protocol['grpo']['excluded_reason'] = (
+            'nenhum candidato aprovado nos controles construídos para ' + ' e '.join(missing) +
+            '; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)')
+    protocol['hypotheses'] = dict(H1='confirmatory', H2='confirmatory' if monitors_ok else 'not_testable_in_v4')
     protocol['monitor_feasibility'] = dict(
-        independent_monitor_feasible=bool(independent), reward_monitor_feasible=bool(
-            mon2 is None or mon2.get('reward_monitor')),
+        independent_monitor_feasible=bool(independent), reward_monitor_feasible=reward_ok,
         note='Controles construídos por regra; a validação com rótulos humanos continua obrigatória (gate 4).')
     protocol['calibration_files'] = {p.name: sha(p) for p in sorted(RESULTS.glob('*_items.jsonl'))} | {
         'monitor_constructed_controls.jsonl': sha(RESULTS / 'monitor_constructed_controls.jsonl')}
-    protocol['status'] = 'frozen_before_dev_gate' if monitors_ok else 'frozen_before_dev_gate_grpo_monitor_unvalidated'
+    protocol['status'] = 'frozen_before_dev_gate' if monitors_ok else 'frozen_before_dev_gate_grpo_arm_excluded'
     (ROOT / 'protocolo_v4.json').write_text(json.dumps(protocol, indent=2, ensure_ascii=False) + '\n',
                                             encoding='utf-8')
     (RESULTS / 'mudancas_v4.json').write_text(json.dumps(changes(
-        sft['spec'], grpo['operands'], variant, independent, reward if monitors_ok else None),
+        sft['spec'], grpo['operands'], variant, independent, reward if reward_ok else None, monitors_ok),
         indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
     doc = ROOT / 'PROTOCOLO_v4.md'
     text = doc.read_text(encoding='utf-8')
@@ -171,7 +189,8 @@ def main():
     contrato.write_text(text, encoding='utf-8')
     print(json.dumps(dict(decisions=decisions, sft_spec=sft['spec'], grpo_variant=variant,
                           grpo_operands=grpo['operands'], independent_monitor=independent,
-                          reward_monitor=reward, status=protocol['status']), indent=2, ensure_ascii=False))
+                          reward_monitor=reward, grpo_enabled=monitors_ok, status=protocol['status']),
+                     indent=2, ensure_ascii=False))
 
 
 if __name__ == '__main__':

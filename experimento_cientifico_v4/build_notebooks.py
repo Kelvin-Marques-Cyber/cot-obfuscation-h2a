@@ -1,8 +1,10 @@
 """Gera os cinco notebooks do estudo v4 a partir de um commit de código fixado.
 
-Uso: python build_notebooks.py --code-ref SHA_COMPLETO
+Uso: python build_notebooks.py --code-ref SHA_COMPLETO [--zip]
 O SHA deve conter cotv4/, colab/, protocolo_v4.json e triagem_dev/ exatamente
 como neste diretório; os hashes são embutidos e conferidos no Colab.
+Com --zip, grava também notebooks_v4.zip (determinístico) com os cinco
+notebooks, o README, o protocolo e as dependências fixadas.
 """
 from __future__ import annotations
 
@@ -298,7 +300,33 @@ def build(code_ref):
     print('Cinco notebooks v4 gerados para o commit', code_ref)
 
 
+def write_zip(code_ref):
+    """ZIP reprodutível: mesma ordem, datas e permissões fixas."""
+    import zipfile
+    files = list(NAMES.values()) + ['README.md', 'PROTOCOLO_v4.md', 'protocolo_v4.json', 'requirements-gpu.txt']
+    target = ROOT / 'notebooks_v4.zip'
+    with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
+        for name in files:
+            info = zipfile.ZipInfo('notebooks_v4/' + name, date_time=(2026, 10, 29, 0, 0, 0))
+            info.external_attr = 0o644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            archive.writestr(info, (ROOT / name).read_bytes())
+        note = (f'Notebooks do estudo v4 fixados no commit {code_ref}.\n'
+                'Abra cada notebook no Google Colab (Arquivo > Fazer upload de notebook) ou, de preferência,\n'
+                'pelos links do README, e use Ambiente de execução > Executar tudo.\n'
+                'Ordem: 00 (CPU), 01 e 02 (GPU), 03 (GPU), 04 (GPU).\n')
+        info = zipfile.ZipInfo('notebooks_v4/LEIA-ME.txt', date_time=(2026, 10, 29, 0, 0, 0))
+        info.external_attr = 0o644 << 16
+        info.compress_type = zipfile.ZIP_DEFLATED
+        archive.writestr(info, note)
+    print('ZIP:', target, sha(target))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--code-ref', required=True)
-    build(parser.parse_args().code_ref)
+    parser.add_argument('--zip', action='store_true')
+    args = parser.parse_args()
+    build(args.code_ref)
+    if args.zip:
+        write_zip(args.code_ref)
