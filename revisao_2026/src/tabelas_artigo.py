@@ -300,6 +300,27 @@ def build(root, repo, num, pct, frac, lang='pt'):
                                  t('Critério 0,65', 'Criterion 0.65')],
                                 rows, ['l', 'r', 'r', 'r', 'r', 'l'],
                                 'experimento_cientifico_v4/triagem_dev/manifest.json.')
+    secondary = repo / 'experimento_cientifico_v4' / 'resultados_coleta' / 'analises_secundarias.json'
+    if secondary.exists():
+        s = _json(secondary)
+        names = {'explicit': t('Rastro explícito', 'Explicit trace'), 'direct': t('Resposta direta', 'Direct answer'),
+                 'generic': t('Preâmbulo genérico', 'Generic preamble')}
+        rows = []
+        for level in ('A', 'C'):
+            for condition in ('explicit', 'direct', 'generic'):
+                key = f'{level}/{condition}'
+                acc, fmt, trunc = s['S2_acuracia'][key], s['S4_formato_valido'][key], s['S4_truncamento'][key]
+                rows.append([level, names[condition], f"{pct(acc['mean'])} ({pct(acc['sd'])})",
+                             pct(fmt['mean']), pct(trunc['mean'])])
+        tables['resultados_v4'] = (
+            t('Acurácia TEST do v4 por nível e alvo de treinamento (20 sementes, 220 itens por nível)',
+              'v4 TEST accuracy by level and training target (20 seeds, 220 items per level)'),
+            [t('Nível', 'Level'), t('Alvo de treinamento', 'Training target'),
+             t('Acurácia média (DP entre sementes)', 'Mean accuracy (SD across seeds)'),
+             t('Formato válido', 'Valid format'), t('Truncadas', 'Truncated')],
+            rows, ['l', 'l', 'r', 'r', 'r'],
+            t('análises S2 e S4 (experimento_cientifico_v4/resultados_coleta/analises_secundarias.json).',
+              'analyses S2 and S4 (experimento_cientifico_v4/resultados_coleta/analises_secundarias.json).'))
     validation = root / 'results' / 'validacao_2026_10_28.json'
     if validation.exists():
         data = _json(validation)

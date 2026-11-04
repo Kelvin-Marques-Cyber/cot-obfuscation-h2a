@@ -65,6 +65,19 @@ def frac(k, n):
     return f'{k}/{n}'
 
 
+def pp(value, digits=1):
+    """Diferença de proporções em pontos percentuais."""
+    return num(100 * value, digits) + (' pp' if LANG == 'en' else ' p.p.')
+
+
+def pval(value):
+    return ('< ' + num(0.001, 3)) if value < 0.001 else num(value, 3)
+
+
+def pp_ci(ci):
+    return f"{num(100 * ci[0], 1)} {label('to')} {pp(ci[1])}"
+
+
 def wilson(k, n, z=1.959963984540054):
     """Intervalo de confiança de Wilson para uma proporção."""
     p = k / n
@@ -90,6 +103,7 @@ V5 = REPO / 'preparacao_v5' / 'resultados'
 MON_R3 = V5 / 'monitores_rodada3' / 'monitor_feasibility_decision_r3.json'
 TRACES_V5 = V5 / 'rastros_anotacao' / 'resumo_geracoes.json'
 A100 = V4 / 'validacao' / 'cuda_execucao3_a100' / 'comparacao_t4.json'
+COLETA = V4 / 'resultados_coleta'  # veredito, análises secundárias e S5 da coleta confirmatória
 
 
 def values():
@@ -228,9 +242,65 @@ def values():
                 out[f'v4.gate.{mode}.{level}.ic'] = f"{pct(low)} {label('to')} {pct(high)}"
                 out[f'v4.gate.{mode}.{level}.formato'] = frac(entry['format_valid'], entry['n'])
                 out[f'v4.gate.{mode}.{level}.trunc'] = str(entry['truncated'])
+    if (COLETA / 'final_verdict.json').exists():
+        out.update(valores_coleta())
     if VALIDATION.exists():
         for key, value in read_json(VALIDATION).get('numeros', {}).items():
             out['val.' + key] = str(value)
+    return out
+
+
+def valores_coleta():
+    """Resultado confirmatório de H1 (final_report), análises secundárias S1–S4 e S5 (desvio 1)."""
+    out = {}
+    verdict = read_json(COLETA / 'final_verdict.json')
+    protocol = read_json(V4 / 'protocolo_v4.json')
+    out['v4.veredito'] = verdict['verdict']
+    out['v4.pendencias'] = ', '.join(verdict['blocked_by']) or '—'
+    out['v4.mde'] = pp(protocol['analysis']['minimum_effect'], 0)
+    sft = verdict['statistical_analysis'].get('sft')
+    if sft:
+        out['v4.h1.decisao'] = sft.get('decision', '—')
+        out['v4.h1.n'] = str(sft['n'])
+        out['v4.h1.media'] = pp(sft['mean_interaction'])
+        out['v4.h1.ic'] = pp_ci(sft['ci95'])
+        out['v4.h1.p'] = pval(sft['signflip_p'])
+        out['v4.h1.dz'] = num(sft['cohen_dz'], 2) if sft['cohen_dz'] is not None else '—'
+        out['v4.h1.negativas'] = str(sum(v < 0 for v in sft['per_seed']))
+        out['v4.h1.positivas'] = str(sum(v > 0 for v in sft['per_seed']))
+        out['v4.h1.min'] = pp(min(sft['per_seed']))
+        out['v4.h1.max'] = pp(max(sft['per_seed']))
+    out['v4.treinos'] = str(verdict['study']['sft'].get('completed_runs', '—'))
+    secondary = COLETA / 'analises_secundarias.json'
+    if secondary.exists():
+        s = read_json(secondary)
+        s1 = s['S1_sem_itens_do_teste_tecnico']
+        for key, entry in (('s1', s1), ('s3.ge', s['S3_generic']['generic_menos_explicit']),
+                           ('s3.dg', s['S3_generic']['direct_menos_generic'])):
+            out[f'v4.{key}.media'] = pp(entry['mean'])
+            out[f'v4.{key}.ic'] = pp_ci(entry['ci95'])
+            out[f'v4.{key}.p'] = pval(entry['signflip_p'])
+        out['v4.s1.itens'] = str(s1['items_per_level']['A'])
+        for cell, entry in s['S2_acuracia'].items():
+            out[f'v4.acc.{cell.replace("/", ".")}'] = pct(entry['mean'])
+        for name, field in (('formato', 'S4_formato_valido'), ('trunc', 'S4_truncamento')):
+            cells = s[field].values()
+            out[f'v4.{name}.min'] = pct(min(e['mean'] for e in cells))
+            out[f'v4.{name}.max'] = pct(max(e['mean'] for e in cells))
+    deviation = COLETA / 'analise_desvio_01.json'
+    if deviation.exists():
+        d = read_json(deviation)
+        skipped = d['skipped_fp16_steps']
+        out['v4.descartes.treinos'] = str(skipped['runs_with_skips'])
+        out['v4.descartes.passos'] = str(skipped['skipped_steps_total'])
+        out['v4.descartes.max'] = str(max(c['max_skipped_in_one_run'] for c in skipped['per_cell'].values()))
+        s5 = d['S5_sementes_sem_descartes']
+        out['v4.s5.n'] = str(s5['n'])
+        out['v4.s5.excluidas'] = str(len(s5['seeds_excluded']))
+        if s5.get('mean_interaction') is not None:
+            out['v4.s5.media'] = pp(s5['mean_interaction'])
+            out['v4.s5.ic'] = pp_ci(s5['ci95'])
+            out['v4.s5.p'] = pval(s5['signflip_p'])
     return out
 
 
@@ -270,6 +340,10 @@ FIGURAS_PT = {
                'Classificação descritiva das 480 respostas; o desfecho registrado usa apenas o corretor congelado.'),
     'v4': ('fig4_triagem_v4.png', 'Triagem DEV do protocolo v4 antes do registro',
            'Arquivos de experimento_cientifico_v4/triagem_dev. Linha tracejada: critério de 0,65.'),
+    'h1': ('fig5_h1_v4.png', 'Teste confirmatório de H1 no v4',
+           'experimento_cientifico_v4/resultados_coleta. Esquerda: acurácia TEST por nível e alvo (barras: média '
+           'das 20 sementes; traços: desvio-padrão). Direita: D1(s) de cada semente; faixa cinza: IC de 95% da '
+           'média (linha contínua); tracejado: efeito mínimo registrado.'),
 }
 FIGURAS_EN = {
     'piloto': ('en/fig1_piloto_acuracia.png', 'Accuracy recorded in the pilot study by level and training target',
@@ -280,6 +354,10 @@ FIGURAS_EN = {
                'Descriptive classification of the 480 responses; the registered outcome uses only the frozen grader.'),
     'v4': ('en/fig4_triagem_v4.png', 'DEV screening of protocol v4 before registration',
            'Files in experimento_cientifico_v4/triagem_dev. Dashed line: 0.65 criterion.'),
+    'h1': ('en/fig5_h1_v4.png', 'Confirmatory test of H1 in v4',
+           'experimento_cientifico_v4/resultados_coleta. Left: TEST accuracy by level and target (bars: mean of '
+           'the 20 seeds; whiskers: standard deviation). Right: D1(s) for each seed; gray band: 95% CI of the '
+           'mean (solid line); dashed: registered minimum effect.'),
 }
 FIGURAS = FIGURAS_PT
 

@@ -31,6 +31,9 @@ EN = {
     'Sem letra extraível': 'No extractable letter', 'Sem resposta extraível': 'No extractable answer',
     'Truncada no orçamento': 'Truncated at the budget', 'Respostas (de 120)': 'Responses (of 120)',
     'condiciona os treinos': 'gates the training runs', 'descritivo (braço excluído)': 'descriptive (arm excluded)',
+    'Rastro explícito': 'Explicit trace', 'Acurácia TEST (média ± DP)': 'TEST accuracy (mean ± SD)',
+    'D1 por semente (p.p.)': 'D1 per seed (pp)', 'Sementes (ordenadas)': 'Seeds (sorted)',
+    'média e IC 95%': 'mean and 95% CI', 'efeito mínimo': 'minimum effect',
 }
 
 
@@ -183,6 +186,46 @@ def figura_v4():
     return save(fig, 'fig4_triagem_v4.png')
 
 
+def figura_h1():
+    """Teste confirmatório de H1: acurácia por célula (S2) e contraste D1 por semente."""
+    coleta = V4 / 'resultados_coleta'
+    if not (coleta / 'final_verdict.json').exists() or not (coleta / 'analises_secundarias.json').exists():
+        return None
+    verdict = json.loads((coleta / 'final_verdict.json').read_text(encoding='utf-8'))
+    s2 = json.loads((coleta / 'analises_secundarias.json').read_text(encoding='utf-8'))['S2_acuracia']
+    protocol = json.loads((V4 / 'protocolo_v4.json').read_text(encoding='utf-8'))
+    sft = verdict['statistical_analysis']['sft']
+    fig, (left, right) = plt.subplots(1, 2, figsize=(6.6, 2.6), gridspec_kw=dict(width_ratios=[1, 1.25]))
+    conditions = [('explicit', 'Rastro explícito'), ('direct', 'Resposta direta'), ('generic', 'Preâmbulo genérico')]
+    width = 0.26
+    for i, (condition, name) in enumerate(conditions):
+        xs = [j + (i - 1) * width for j in range(2)]
+        cells = [s2[f'{level}/{condition}'] for level in ('A', 'C')]
+        left.bar(xs, [c['mean'] for c in cells], width, yerr=[c['sd'] for c in cells], color=GRAYS[i],
+                 edgecolor='black', linewidth=0.5, hatch=HATCHES[i], label=tr(name),
+                 error_kw=dict(elinewidth=0.6, capsize=2))
+    left.set_xticks([0, 1], [tr('Nível A'), tr('Nível C')])
+    left.set_ylim(0, 1.05)
+    left.set_ylabel(tr('Acurácia TEST (média ± DP)'))
+    left.legend(fontsize=7, loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=3, frameon=False,
+                handlelength=1.2, columnspacing=0.8)
+    values = sorted(100 * v for v in sft['per_seed'])
+    xs = range(1, len(values) + 1)
+    low, high = (100 * v for v in sft['ci95'])
+    right.axhspan(low, high, color=GRAYS[3], label=tr('média e IC 95%'))
+    right.axhline(100 * sft['mean_interaction'], color='black', linewidth=0.9)
+    right.axhline(0, color='#666666', linewidth=0.6)
+    right.axhline(-100 * protocol['analysis']['minimum_effect'], color='black', linestyle='--', linewidth=0.8,
+                  label=tr('efeito mínimo'))
+    right.scatter(xs, values, s=14, color='black', zorder=3)
+    right.set_xticks([])
+    right.set_xlabel(tr('Sementes (ordenadas)'))
+    right.set_ylabel(tr('D1 por semente (p.p.)'))
+    right.legend(fontsize=7, loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=2, frameon=False)
+    fig.subplots_adjust(wspace=0.35)
+    return save(fig, 'fig5_h1_v4.png')
+
+
 def main(lang='pt'):
     global LANG
     LANG = lang
@@ -190,6 +233,7 @@ def main(lang='pt'):
     if DIAG.exists():
         made += [figura_triagem(), figura_falhas()]
     made.append(figura_v4())
+    made.append(figura_h1())
     for path in made:
         if path:
             print(path.relative_to(REPO))
