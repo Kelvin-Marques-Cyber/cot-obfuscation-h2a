@@ -6,7 +6,8 @@ tabelas -> LibreOffice converte o MESMO DOCX em PDF -> verificações (páginas,
 fontes incorporadas, equivalência textual DOCX/PDF) -> PNG de todas as páginas.
 
 Uso (a partir da raiz do repositório):
-    python revisao_2026/src/gerar_artigo.py
+    python revisao_2026/src/gerar_artigo.py            # português (artigo.md)
+    python revisao_2026/src/gerar_artigo.py --lang en  # inglês (artigo_en.md)
 Requer pandoc 3, LibreOffice com o componente Math, poppler-utils, python-docx
 e matplotlib.
 """
@@ -29,12 +30,30 @@ SOURCE = ROOT / 'artigo.md'
 BUILD = ROOT / 'build'
 DOCS = ROOT / 'docs'
 NAME = 'Artigo_CoT_Versao_Final'
+LANG = 'pt'
+# Rótulos que o gerador escreve no texto, por idioma.
+LABELS = {
+    'pt': dict(source='artigo.md', name='Artigo_CoT_Versao_Final', check='verificacao_documentos.json',
+               table='Tabela', figure='Figura', from_='Fonte', toc='SUMÁRIO', to='a',
+               keywords='cadeia de pensamento; monitorabilidade; pré-registro; reprodutibilidade',
+               not_evaluable='não avaliável na T4 em fp32'),
+    'en': dict(source='artigo_en.md', name='Article_CoT_Final_EN', check='verificacao_documentos_en.json',
+               table='Table', figure='Figure', from_='Source', toc='CONTENTS', to='to',
+               keywords='chain of thought; monitorability; preregistration; reproducibility',
+               not_evaluable='not evaluable on the T4 in fp32'),
+}
+
+
+def label(key):
+    return LABELS[LANG][key]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 # --------------------------------------------------------------- formatação
 def num(value, digits=2):
     text = f'{value:,.{digits}f}'
+    if LANG == 'en':
+        return text
     return text.replace(',', '§').replace('.', ',').replace('§', '.')
 
 
@@ -156,7 +175,7 @@ def values():
             for entry in read_json(cal / name)['summary']:
                 key = short[entry['model_id']]
                 if entry['tpr'] is None:
-                    out[f'mon.{key}.status'] = 'não avaliável na T4 em fp32'
+                    out[f'mon.{key}.status'] = label('not_evaluable')
                     continue
                 out[f'mon.{key}.tpr'] = pct(entry['tpr'])
                 out[f'mon.{key}.fpr'] = pct(entry['fpr'])
@@ -179,7 +198,7 @@ def values():
                 out[f'v4.gate.{mode}.{level}.en'] = f"{100 * entry['accuracy']:.1f}%"
                 out[f'v4.gate.{mode}.{level}.k'] = frac(entry['correct'], entry['n'])
                 low, high = wilson(entry['correct'], entry['n'])
-                out[f'v4.gate.{mode}.{level}.ic'] = f'{pct(low)} a {pct(high)}'
+                out[f'v4.gate.{mode}.{level}.ic'] = f"{pct(low)} {label('to')} {pct(high)}"
                 out[f'v4.gate.{mode}.{level}.formato'] = frac(entry['format_valid'], entry['n'])
                 out[f'v4.gate.{mode}.{level}.trunc'] = str(entry['truncated'])
     if VALIDATION.exists():
@@ -212,10 +231,10 @@ def table_md(header, rows, align):
 
 def tabelas():
     import tabelas_artigo
-    return tabelas_artigo.build(ROOT, REPO, num, pct, frac)
+    return tabelas_artigo.build(ROOT, REPO, num, pct, frac, lang=LANG)
 
 
-FIGURAS = {
+FIGURAS_PT = {
     'piloto': ('fig1_piloto_acuracia.png', 'Acurácia registrada no estudo-piloto por nível e alvo de treinamento',
                'Reanálise dos 540 registros publicados. Barras: média das três sementes; círculos: sementes.'),
     'triagem': ('fig2_triagem_v3.png', 'Triagem DEV do estudo v3.2: valores documentados e reproduções',
@@ -225,6 +244,17 @@ FIGURAS = {
     'v4': ('fig4_triagem_v4.png', 'Triagem DEV do protocolo v4 antes do registro',
            'Arquivos de experimento_cientifico_v4/triagem_dev. Linha tracejada: critério de 0,65.'),
 }
+FIGURAS_EN = {
+    'piloto': ('en/fig1_piloto_acuracia.png', 'Accuracy recorded in the pilot study by level and training target',
+               'Reanalysis of the 540 published records. Bars: mean of the three seeds; circles: seeds.'),
+    'triagem': ('en/fig2_triagem_v3.png', 'DEV screening of study v3.2: documented values and reproductions',
+                'v3 README (commit 273d131) and reproductions in this review. Dashed line: 0.65 criterion.'),
+    'falhas': ('en/fig3_falhas_v3.png', 'Composition of the responses in the T4 reproduction of the v3.2 DEV screening',
+               'Descriptive classification of the 480 responses; the registered outcome uses only the frozen grader.'),
+    'v4': ('en/fig4_triagem_v4.png', 'DEV screening of protocol v4 before registration',
+           'Files in experimento_cientifico_v4/triagem_dev. Dashed line: 0.65 criterion.'),
+}
+FIGURAS = FIGURAS_PT
 
 
 # ---------------------------------------------------------------- expansão
@@ -239,7 +269,7 @@ def expand(text, data, tables):
         kind, key = match.group(1), match.group(2)
         if (kind, key) not in number:
             raise KeyError(f'Referência sem destino: @{kind}:{key}')
-        return ('Tabela ' if kind == 'tab' else 'Figura ') + str(number[kind, key])
+        return label('table' if kind == 'tab' else 'figure') + ' ' + str(number[kind, key])
     text = re.sub(r'@(tab|fig):([\w-]+)', ref, text)
 
     draft = os.environ.get('COT_RASCUNHO') == '1'
@@ -259,18 +289,20 @@ def expand(text, data, tables):
             if key not in tables and draft:
                 return f'**[tabela {key} pendente]**\n'
             title, header, rows, align, source = tables[key]
-            return ('::: {custom-style="Legenda"}\nTabela %d – %s\n:::\n\n%s\n\n'
-                    '::: {custom-style="Fonte"}\nFonte: %s\n:::\n' % (number['tab', key], title,
-                                                                    table_md(header, rows, align), source))
+            return ('::: {custom-style="Legenda"}\n%s %d – %s\n:::\n\n%s\n\n'
+                    '::: {custom-style="Fonte"}\n%s: %s\n:::\n' % (label('table'), number['tab', key], title,
+                                                                 table_md(header, rows, align), label('from_'),
+                                                                 source))
         image, title, source = FIGURAS[key]
         path = ROOT / 'figures' / image
         if not path.exists():
             if draft:
                 return f'**[figura {key} pendente]**\n'
             raise FileNotFoundError(path)
-        return ('::: {custom-style="Legenda"}\nFigura %d – %s\n:::\n\n'
+        return ('::: {custom-style="Legenda"}\n%s %d – %s\n:::\n\n'
                 '::: {custom-style="Figura"}\n![](%s){width=15cm}\n:::\n\n'
-                '::: {custom-style="Fonte"}\nFonte: %s\n:::\n' % (number['fig', key], title, path, source))
+                '::: {custom-style="Fonte"}\n%s: %s\n:::\n' % (label('figure'), number['fig', key], title, path,
+                                                             label('from_'), source))
     text = re.sub(r'^\{\{(tabela|figura):([\w-]+)\}\}\s*$', block, text, flags=re.M)
     text = text.replace('{{quebra}}', '```{=openxml}\n<w:p><w:r><w:br w:type="page"/></w:r></w:p>\n```')
     leftover = [m for m in re.findall(r'\{\{[^}]*\}\}|<<[A-Z_]+>>', text) if m != '{{sumario}}']
@@ -333,7 +365,7 @@ def style_tables(docx_path):
             paragraph.paragraph_format.keep_with_next = True
     doc.core_properties.title = TITLE
     doc.core_properties.author = 'Kelvin e Silva Marques et al.'
-    doc.core_properties.keywords = 'cadeia de pensamento; monitorabilidade; pré-registro; reprodutibilidade'
+    doc.core_properties.keywords = label('keywords')
     doc.save(str(docx_path))
 
 
@@ -397,7 +429,8 @@ def headings_after_toc(expanded):
 def toc_block(entries, pages):
     """Sumário estático (o DOCX permanece editável; os números vêm do PDF gerado)."""
     from xml.sax.saxutils import escape
-    paragraphs = ['<w:p><w:pPr><w:pStyle w:val="Titulopretextual"/></w:pPr><w:r><w:t>SUMÁRIO</w:t></w:r></w:p>']
+    paragraphs = ['<w:p><w:pPr><w:pStyle w:val="Titulopretextual"/></w:pPr><w:r><w:t>%s</w:t></w:r></w:p>'
+                  % label('toc')]
     for (level, title), page in zip(entries, pages):
         paragraphs.append(f'<w:p><w:pPr><w:pStyle w:val="Sumario{level}"/></w:pPr>'
                           f'<w:r><w:t xml:space="preserve">{escape(title)}</w:t></w:r><w:r><w:tab/></w:r>'
@@ -411,7 +444,8 @@ def find_pages(pdf_path, entries):
     total = int(re.search(r'Pages:\s+(\d+)', info).group(1))
     texts = [subprocess.run(['pdftotext', '-f', str(i), '-l', str(i), '-layout', str(pdf_path), '-'],
                             capture_output=True, text=True, check=True).stdout for i in range(1, total + 1)]
-    start = next(i for i, page in enumerate(texts) if re.search(r'^\s*SUMÁRIO\s*$', page, re.M)) + 1
+    start = next(i for i, page in enumerate(texts)
+                 if re.search(r'^\s*' + label('toc') + r'\s*$', page, re.M)) + 1
     pages, cursor = [], start
     for _, title in entries:
         pattern = re.compile(r'^\s*' + r'\s+'.join(map(re.escape, title.split())) + r'\s*$', re.M)
@@ -439,10 +473,17 @@ def render(expanded, reference):
 
 
 def main():
-    global TITLE
+    global TITLE, LANG, SOURCE, NAME, FIGURAS
+    import argparse
     import gerar_figuras
     import modelo_docx
-    gerar_figuras.main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--lang', choices=sorted(LABELS), default='pt')
+    LANG = parser.parse_args().lang
+    SOURCE, NAME = ROOT / label('source'), label('name')
+    FIGURAS = FIGURAS_EN if LANG == 'en' else FIGURAS_PT
+    modelo_docx.set_language(LANG)
+    gerar_figuras.main(LANG)
     BUILD.mkdir(exist_ok=True)
     DOCS.mkdir(exist_ok=True)
     text = SOURCE.read_text(encoding='utf-8')
@@ -471,11 +512,11 @@ def main():
                  pdf_sha256=hashlib.sha256(pdf_path.read_bytes()).hexdigest(),
                  source_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
                  tables=len([k for k in numbers if k[0] == 'tab']), figures=len([k for k in numbers if k[0] == 'fig']))
-    (DOCS / 'verificacao_documentos.json').write_text(json.dumps(check, indent=2, ensure_ascii=False) + '\n',
+    (DOCS / label('check')).write_text(json.dumps(check, indent=2, ensure_ascii=False) + '\n',
                                                       encoding='utf-8')
     print(json.dumps(check, indent=2, ensure_ascii=False))
     if not check['equivalent']:
-        sys.exit('DOCX e PDF divergem ou há fontes não incorporadas; veja verificacao_documentos.json')
+        sys.exit('DOCX e PDF divergem ou há fontes não incorporadas; veja ' + label('check'))
 
 
 if __name__ == '__main__':

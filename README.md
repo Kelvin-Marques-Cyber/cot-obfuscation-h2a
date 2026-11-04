@@ -14,6 +14,9 @@ conjuntos de trabalho que não devem ser confundidos:
 [DOCX editável](revisao_2026/docs/Artigo_CoT_Versao_Final.docx) ·
 [fonte](revisao_2026/artigo.md) · [relatório de validação](revisao_2026/docs/RELATORIO_VALIDACAO.md)
 
+**English version:** [PDF](revisao_2026/docs/Article_CoT_Final_EN.pdf) ·
+[DOCX](revisao_2026/docs/Article_CoT_Final_EN.docx) · [source](revisao_2026/artigo_en.md)
+
 Nenhum resultado confirmatório sobre as hipóteses H1 (custo do formato no SFT)
 e H2 (exploração não sinalizada no GRPO) foi produzido até esta data. No v4,
 H2 foi declarada não testável antes do registro.
@@ -66,6 +69,12 @@ de saída e hashes em `revisao_2026/results/execucoes_locais.json`.
 
 ```bash
 python revisao_2026/src/gerar_artigo.py
+```
+
+A versão em inglês sai do mesmo processo, a partir de `revisao_2026/artigo_en.md`:
+
+```bash
+python revisao_2026/src/gerar_artigo.py --lang en
 ```
 
 Requer pandoc 3, LibreOffice com o componente Math e poppler-utils. O DOCX é

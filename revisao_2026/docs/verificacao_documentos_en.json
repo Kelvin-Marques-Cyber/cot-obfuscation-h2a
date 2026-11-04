@@ -1,0 +1,100 @@
+{
+  "pages": 17,
+  "docx_words": 7673,
+  "pdf_words": 7689,
+  "missing_in_pdf": {},
+  "extra_in_pdf": {},
+  "fonts": [
+    "BAAAAA+LiberationSerif",
+    "CAAAAA+LiberationSerif-Bold",
+    "DAAAAA+LiberationSerif-Italic",
+    "EAAAAA+OpenSymbol",
+    "FAAAAA+LiberationMono",
+    "GAAAAA+DejaVuSerif"
+  ],
+  "fonts_not_embedded": [],
+  "equivalent": true,
+  "sumario": [
+    {
+      "titulo": "1 INTRODUCTION",
+      "pagina": 4
+    },
+    {
+      "titulo": "2 BACKGROUND",
+      "pagina": 4
+    },
+    {
+      "titulo": "3 HYPOTHESES AND CATEGORIES OF EVIDENCE",
+      "pagina": 5
+    },
+    {
+      "titulo": "4 MATERIALS AND METHODS",
+      "pagina": 6
+    },
+    {
+      "titulo": "4.1 Reanalysis of the pilot study",
+      "pagina": 6
+    },
+    {
+      "titulo": "4.2 Prospective study v3.2",
+      "pagina": 6
+    },
+    {
+      "titulo": "4.3 Diagnosis of the v3.2 screening",
+      "pagina": 7
+    },
+    {
+      "titulo": "4.4 Prospective protocol v4",
+      "pagina": 7
+    },
+    {
+      "titulo": "4.5 Software verification",
+      "pagina": 9
+    },
+    {
+      "titulo": "5 RESULTS",
+      "pagina": 9
+    },
+    {
+      "titulo": "5.1 Reanalysis of the pilot study",
+      "pagina": 9
+    },
+    {
+      "titulo": "5.2 v3.2 screening and diagnosis",
+      "pagina": 11
+    },
+    {
+      "titulo": "5.3 v4 calibration",
+      "pagina": 12
+    },
+    {
+      "titulo": "5.4 v4 DEV screening",
+      "pagina": 13
+    },
+    {
+      "titulo": "5.5 Software checks",
+      "pagina": 13
+    },
+    {
+      "titulo": "6 DISCUSSION",
+      "pagina": 13
+    },
+    {
+      "titulo": "7 LIMITATIONS",
+      "pagina": 14
+    },
+    {
+      "titulo": "8 CONCLUSION",
+      "pagina": 15
+    },
+    {
+      "titulo": "REFERENCES",
+      "pagina": 15
+    }
+  ],
+  "docx_sha256": "4498dcbcd9107d538ac4b7dc9ed10f7f8f7ebcc45d91b5be4c247473b427bf2b",
+  "pdf_sha256": "816054d1814526f02d6c4c687d966195de19a39ecdc11f3efa06b0cdff40c2e0",
+  "source_sha256": "5db4926b8e93ae30fc11b4689f6bcfa4a697ac661086d6143c5d966fc889d5d7",
+  "tables": 8,
+  "figures": 1
+}

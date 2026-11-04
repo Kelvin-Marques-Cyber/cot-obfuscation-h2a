@@ -74,8 +74,16 @@ def get_style(doc, name, kind=WD_STYLE_TYPE.PARAGRAPH, base='Normal'):
         return style
 
 
-HEADER_TEXT = 'OFUSCAÇÃO DA CoT SOB SUPERVISÃO | REANÁLISE E TRIAGEM DE COMPETÊNCIA'
+HEADERS = {'pt': 'OFUSCAÇÃO DA CoT SOB SUPERVISÃO | REANÁLISE E TRIAGEM DE COMPETÊNCIA',
+           'en': 'CoT OBFUSCATION UNDER SUPERVISION | REANALYSIS AND COMPETENCE SCREENING'}
+HEADER_TEXT = HEADERS['pt']
 FOOTER_TEXT = 'Marques et al. | 2026'
+
+
+def set_language(lang):
+    """Cabeçalho corrente no idioma do artigo; o rodapé é o mesmo nos dois."""
+    global HEADER_TEXT
+    HEADER_TEXT = HEADERS[lang]
 
 
 def running_header(section):

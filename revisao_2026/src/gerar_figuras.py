@@ -1,6 +1,6 @@
 """Figuras do artigo, geradas dos arquivos de resultados (tons de cinza, 300 dpi).
 
-python src/gerar_figuras.py  (a partir de revisao_2026/)
+python src/gerar_figuras.py [en]  (a partir de revisao_2026/; em inglês, grava em figures/en/)
 """
 from __future__ import annotations
 
@@ -16,6 +16,30 @@ import matplotlib.pyplot as plt  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 REPO = ROOT.parent
 OUT = ROOT / 'figures'
+LANG = 'pt'
+# Textos das figuras em inglês; a chave é o texto em português.
+EN = {
+    'CoT explícita': 'Explicit CoT', 'Resposta direta': 'Direct answer', 'Preâmbulo genérico': 'Generic preamble',
+    'Nível A': 'Level A', 'Nível C': 'Level C', 'Acurácia registrada': 'Recorded accuracy',
+    'Documentada (T4, 19/10)': 'Documented (T4, Oct 19)', 'Reprodução T4 fp16 (28/10)': 'T4 fp16 reproduction (Oct 28)',
+    'Reprodução CPU fp32': 'CPU fp32 reproduction', 'Limite permissivo': 'Permissive bound',
+    'critério 0,65': '0.65 criterion', 'Acurácia DEV (n = 120)': 'DEV accuracy (n = 120)',
+    'Correta no contrato': 'Correct under the contract', 'Valor correto fora do contrato': 'Correct value outside the contract',
+    'Separador de milhar': 'Thousands separator', 'Erro de cálculo ou escolha': 'Calculation or choice error',
+    'Seguiu a dica proibida': 'Followed the forbidden hint',
+    'Formato inválido e valor incorreto': 'Invalid format and incorrect value',
+    'Sem letra extraível': 'No extractable letter', 'Sem resposta extraível': 'No extractable answer',
+    'Truncada no orçamento': 'Truncated at the budget', 'Respostas (de 120)': 'Responses (of 120)',
+    'condiciona os treinos': 'gates the training runs', 'descritivo (braço excluído)': 'descriptive (arm excluded)',
+}
+
+
+def tr(text):
+    return EN.get(text, text) if LANG == 'en' else text
+
+
+def decimal(text):
+    return text if LANG == 'en' else text.replace('.', ',')
 DIAG = REPO / 'experimento_cientifico_v3' / 'diagnostico_dev' / 'resultados' / 'diagnostico_triagem_dev.json'
 V4 = REPO / 'experimento_cientifico_v4'
 GRAYS = ['#1a1a1a', '#6e6e6e', '#b3b3b3', '#e0e0e0']
@@ -27,21 +51,22 @@ plt.rcParams.update({'font.family': 'serif', 'font.serif': ['Liberation Serif', 
 
 
 def pct(value):
-    return f'{100 * value:.1f}'.replace('.', ',')
+    return decimal(f'{100 * value:.1f}')
 
 
 def decimal_comma(ax):
     from matplotlib.ticker import FuncFormatter
-    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f'{v:.1f}'.replace('.', ',')))
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: decimal(f'{v:.1f}')))
 
 
 def save(fig, name):
     for ax in fig.axes:
         decimal_comma(ax)
-    OUT.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT / name, bbox_inches='tight', facecolor='white')
+    out = OUT / 'en' if LANG == 'en' else OUT
+    out.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out / name, bbox_inches='tight', facecolor='white')
     plt.close(fig)
-    return OUT / name
+    return out / name
 
 
 def figura_piloto():
@@ -55,14 +80,14 @@ def figura_piloto():
                  for lv in ('A', 'C')]
         xs = [lv + (index - 1) * width for lv in range(2)]
         ax.bar(xs, means, width, color=GRAYS[index], edgecolor='black', linewidth=0.5,
-               hatch=HATCHES[index], label=names[condition])
+               hatch=HATCHES[index], label=tr(names[condition]))
         for level_index, level in enumerate(('A', 'C')):
             points = [float(r['accuracy']) for r in seeds if r['level'] == level and r['condition'] == condition]
             ax.scatter([xs[level_index]] * len(points), points, s=9, color='white', edgecolor='black',
                        linewidth=0.6, zorder=3)
-    ax.set_xticks([0, 1], ['Nível A', 'Nível C'])
+    ax.set_xticks([0, 1], [tr('Nível A'), tr('Nível C')])
     ax.set_ylim(0, 1.05)
-    ax.set_ylabel('Acurácia registrada')
+    ax.set_ylabel(tr('Acurácia registrada'))
     ax.legend(ncol=3, loc='upper center', bbox_to_anchor=(0.5, 1.18))
     return save(fig, 'fig1_piloto_acuracia.png')
 
@@ -82,12 +107,12 @@ def figura_triagem():
     for index, (name, values) in enumerate(series):
         xs = [i + (index - (len(series) - 1) / 2) * width for i in range(len(keys))]
         ax.bar(xs, values, width, color=GRAYS[index], edgecolor='black', linewidth=0.5,
-               hatch=HATCHES[index], label=name)
+               hatch=HATCHES[index], label=tr(name))
     ax.axhline(data['threshold'], color='black', linestyle='--', linewidth=0.8)
-    ax.text(len(keys) - 0.45, data['threshold'] + 0.02, 'critério 0,65', ha='right', fontsize=8)
+    ax.text(len(keys) - 0.45, data['threshold'] + 0.02, tr('critério 0,65'), ha='right', fontsize=8)
     ax.set_xticks(range(len(keys)), labels)
     ax.set_ylim(0, 1.0)
-    ax.set_ylabel('Acurácia DEV (n = 120)')
+    ax.set_ylabel(tr('Acurácia DEV (n = 120)'))
     ax.legend(ncol=2, loc='upper center', bbox_to_anchor=(0.5, 1.25))
     return save(fig, 'fig2_triagem_v3.png')
 
@@ -124,9 +149,9 @@ def figura_falhas():
     hatch = ['', '', '///', '', '...', '', 'xx', '\\\\\\']
     for index, group in enumerate(present):
         ax.bar(labels, totals[group], bottom=bottom, color=shades[index % len(shades)], edgecolor='black',
-               linewidth=0.5, hatch=hatch[index % len(hatch)], label=group)
+               linewidth=0.5, hatch=hatch[index % len(hatch)], label=tr(group))
         bottom = [b + v for b, v in zip(bottom, totals[group])]
-    ax.set_ylabel('Respostas (de 120)')
+    ax.set_ylabel(tr('Respostas (de 120)'))
     ax.set_ylim(0, 120)
     ax.legend(loc='center left', bbox_to_anchor=(1.0, 0.5), fontsize=8)
     return save(fig, 'fig3_falhas_v3.png')
@@ -148,17 +173,19 @@ def figura_v4():
         for bar in bars[2:]:
             bar.set_facecolor('white')
             bar.set_hatch('///')
-        ax.legend([bars[0], bars[2]], ['condiciona os treinos', 'descritivo (braço excluído)'], fontsize=7,
+        ax.legend([bars[0], bars[2]], [tr('condiciona os treinos'), tr('descritivo (braço excluído)')], fontsize=7,
                   loc='upper center', bbox_to_anchor=(0.5, -0.14), ncol=2, frameon=False)
     for i, v in enumerate(values):
         ax.text(i, v + 0.02, pct(v) + '%', ha='center', fontsize=8)
     ax.axhline(protocol['gate']['threshold'], color='black', linestyle='--', linewidth=0.8)
     ax.set_ylim(0, 1.08)
-    ax.set_ylabel('Acurácia DEV (n = 120)')
+    ax.set_ylabel(tr('Acurácia DEV (n = 120)'))
     return save(fig, 'fig4_triagem_v4.png')
 
 
-def main():
+def main(lang='pt'):
+    global LANG
+    LANG = lang
     made = [figura_piloto()]
     if DIAG.exists():
         made += [figura_triagem(), figura_falhas()]
@@ -169,4 +196,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(sys.argv[1] if len(sys.argv) > 1 else 'pt')

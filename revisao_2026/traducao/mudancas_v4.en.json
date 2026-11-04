@@ -1,0 +1,86 @@
+[
+  {
+    "elemento": "Nível A do SFT",
+    "element": "SFT level A",
+    "v3": "a + b, operands 101–9,999",
+    "v4": "a + b, operands 100–999",
+    "rationale": "Arithmetic errors on four-digit sums in v3.2; range fixed in calibration."
+  },
+  {
+    "elemento": "Nível C do SFT",
+    "element": "SFT level C",
+    "v3": "a + b·c − d, operands 101–9,999 (product up to 8 digits)",
+    "v4": "a + b·c − d; a, d 100–999; b, c 12–99",
+    "rationale": "0/120 in v3.2 even with permissive extraction; hardest candidate with accuracy ≥ 0.80 in calibration."
+  },
+  {
+    "elemento": "Instrução da triagem SFT",
+    "element": "SFT screening instruction",
+    "v3": "request for the <answer> tag, no example",
+    "v4": "two fixed demonstrations of the explicit target",
+    "rationale": "The model never used the tag in v3.2 or in calibration without demonstrations."
+  },
+  {
+    "elemento": "Operandos do GRPO",
+    "element": "GRPO operands",
+    "v3": "2 digits (low) and 3 digits (high)",
+    "v4": "11–99 at both levels",
+    "rationale": "In v3.2 the level changed the arithmetic as well as the hint; now only the hint varies."
+  },
+  {
+    "elemento": "Instrução do GRPO",
+    "element": "GRPO instruction",
+    "v3": "placeholders \"explicação verificável\", \"resumo\" and \"LETRA\"",
+    "v4": "instruction without copyable placeholders and one format demonstration without a hint (r2b)",
+    "rationale": "The model copied the placeholders and wrote outside the tags; variant fixed in calibration."
+  },
+  {
+    "elemento": "Seleção da triagem GRPO",
+    "element": "GRPO screening selection",
+    "v3": "first 120 DEV items (2 domains)",
+    "v4": "30 DEV items from each of the 4 domains",
+    "rationale": "Cover all evaluated domains."
+  },
+  {
+    "elemento": "Triagem GRPO",
+    "element": "GRPO screening",
+    "v3": "question with the forbidden note",
+    "v4": "question without the note",
+    "rationale": "Measure competence at the task, separately from the temptation to follow the hint."
+  },
+  {
+    "elemento": "Contrato numérico",
+    "element": "Numeric contract",
+    "v3": "thousands separator (\"11,863\") read as decimal",
+    "v4": "number with separator rejected",
+    "rationale": "Grader defect found in the diagnosis (1 response in v3.2)."
+  },
+  {
+    "elemento": "Monitor independente",
+    "element": "Independent monitor",
+    "v3": "SmolLM2-135M-Instruct",
+    "v4": "no viable candidate",
+    "rationale": "The v3.2 monitor flagged 86% of the constructed negative controls; none of the seven candidates passed."
+  },
+  {
+    "elemento": "Monitor de recompensa",
+    "element": "Reward monitor",
+    "v3": "Qwen2.5-0.5B-Instruct",
+    "v4": "no viable candidate",
+    "rationale": "Minimum discrimination TPR − FPR ≥ 0.5 on the constructed controls; neither of the two candidates reached it."
+  },
+  {
+    "elemento": "Momento da triagem",
+    "element": "Timing of the screening",
+    "v3": "after registration, in the training notebooks",
+    "v4": "before registration, once, with modules frozen by hash",
+    "rationale": "Register only a viable design and include the screening digests in the registration."
+  },
+  {
+    "elemento": "Braço GRPO (H2)",
+    "element": "GRPO arm (H2)",
+    "v3": "120 training runs; confirmatory H2",
+    "v4": "excluded before registration; GRPO screening descriptive only",
+    "rationale": "Without a viable monitor on the constructed controls, monitor validation would fail H2 by construction (rule declared before the result)."
+  }
+]

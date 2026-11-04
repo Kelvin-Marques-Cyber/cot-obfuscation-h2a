@@ -1,6 +1,8 @@
 """Tabelas do artigo. Cada tabela lê seus valores dos arquivos indicados na fonte.
 
-Retorna {chave: (título, cabeçalho, linhas, alinhamentos, fonte)}.
+Retorna {chave: (título, cabeçalho, linhas, alinhamentos, fonte)}. Com lang='en', as
+tabelas citadas no artigo saem em inglês; as alterações do v4 vêm de
+revisao_2026/traducao/mudancas_v4.en.json, tradução do arquivo congelado.
 """
 from __future__ import annotations
 
@@ -19,12 +21,18 @@ def _json(path):
 
 
 COND = {'control': 'CoT explícita', 'cot_pressure': 'Resposta direta', 'output_supervision': 'Preâmbulo genérico'}
+COND_EN = {'control': 'Explicit CoT', 'cot_pressure': 'Direct answer', 'output_supervision': 'Generic preamble'}
 LEVEL = {'sft/A': 'SFT · A', 'sft/C': 'SFT · C', 'grpo/low': 'GRPO · low', 'grpo/high': 'GRPO · high'}
 
 
-def build(root, repo, num, pct, frac):
+def build(root, repo, num, pct, frac, lang='pt'):
     results = root / 'results'
     tables = {}
+    en = lang == 'en'
+
+    def t(pt_text, en_text):
+        return en_text if en else pt_text
+    cond_names = COND_EN if en else COND
 
     tables['desenho_piloto'] = (
         'Desenho do estudo-piloto reanalisado',
@@ -47,14 +55,16 @@ def build(root, repo, num, pct, frac):
 
     paired = _csv(results / 'paired_costs.csv')
     contrasts = {r['condition']: r for r in _csv(results / 'contrasts.csv')}
-    rows = [[r['seed'], COND[r['condition']], num(float(r['cost_A']), 3), num(float(r['cost_C']), 3),
+    rows = [[r['seed'], cond_names[r['condition']], num(float(r['cost_A']), 3), num(float(r['cost_C']), 3),
              num(float(r['difference_in_differences']), 3)] for r in paired]
     for condition, r in contrasts.items():
-        rows.append(['Média', COND[condition], '', '', num(float(r['mean']), 3)])
+        rows.append([t('Média', 'Mean'), cond_names[condition], '', '', num(float(r['mean']), 3)])
     tables['piloto_contrastes'] = (
-        'Custo de acurácia em relação à CoT explícita e diferença entre níveis, por semente',
-        ['Semente', 'Alvo', 'Custo em A', 'Custo em C', 'C − A'],
-        rows, ['l', 'l', 'r', 'r', 'r'], 'revisao_2026/results/paired_costs.csv e contrasts.csv.')
+        t('Custo de acurácia em relação à CoT explícita e diferença entre níveis, por semente',
+          'Accuracy cost relative to explicit CoT and difference between levels, by seed'),
+        [t('Semente', 'Seed'), t('Alvo', 'Target'), t('Custo em A', 'Cost at A'), t('Custo em C', 'Cost at C'), 'C − A'],
+        rows, ['l', 'l', 'r', 'r', 'r'], t('revisao_2026/results/paired_costs.csv e contrasts.csv.',
+                                           'revisao_2026/results/paired_costs.csv and contrasts.csv.'))
 
     overlap = _csv(results / 'overlap_audit.csv')
     tables['sobreposicao'] = (
@@ -76,13 +86,16 @@ def build(root, repo, num, pct, frac):
         ['l', 'r', 'r', 'r', 'r'], 'revisao_2026/results/grading_stress_summary.csv (2.000 textos construídos).')
 
     tables['desenho_v3'] = (
-        'Desenho registrado do estudo prospectivo v3.2',
-        ['Braço', 'Modelo-base', 'Condições × níveis × sementes', 'Treinos', 'Itens TEST por nível', 'Gerações TEST'],
+        t('Desenho registrado do estudo prospectivo v3.2', 'Registered design of prospective study v3.2'),
+        [t('Braço', 'Arm'), t('Modelo-base', 'Base model'), t('Condições × níveis × sementes', 'Conditions × levels × seeds'),
+         t('Treinos', 'Training runs'), t('Itens TEST por nível', 'TEST items per level'),
+         t('Gerações TEST', 'TEST generations')],
         [['SFT', 'Qwen2.5-1.5B-Instruct', '3 × 2 × 20', '120', '220', num(120 * 220, 0)],
          ['GRPO', 'Qwen3-1.7B', '3 × 2 × 20', '120', '240', num(120 * 240, 0)],
          ['Total', '', '', '240', '', num(120 * 220 + 120 * 240, 0)]],
         ['l', 'l', 'c', 'r', 'r', 'r'],
-        'PROTOCOLO_PRE_REGISTRO_v3.md e scientific_runtime.py (commit fde856f); registro OSF sjwdf.')
+        t('PROTOCOLO_PRE_REGISTRO_v3.md e scientific_runtime.py (commit fde856f); registro OSF sjwdf.',
+          'PROTOCOLO_PRE_REGISTRO_v3.md and scientific_runtime.py (commit fde856f); OSF registration sjwdf.'))
 
     tables['cronologia'] = (
         'Cronologia do estudo v3.2 reconstruída a partir de registros verificáveis (UTC)',
@@ -105,14 +118,18 @@ def build(root, repo, num, pct, frac):
             t4, cpu = e['t4_fp16'], e.get('cpu_fp32')
             rows.append([label, f"{frac(e['documented_correct'], 120)} ({pct(e['documented_accuracy'])})",
                          f"{frac(t4['correct'], 120)} ({pct(t4['accuracy'])})",
-                         f"{frac(cpu['correct'], cpu['n'])} ({pct(cpu['correct'] / cpu['n'])})" if cpu else 'não executada',
+                         f"{frac(cpu['correct'], cpu['n'])} ({pct(cpu['correct'] / cpu['n'])})" if cpu
+                         else t('não executada', 'not run'),
                          pct(e['permissive_upper_bound'])])
         tables['triagem_v3'] = (
-            'Triagem DEV do v3.2: valores documentados e reproduções com o código congelado',
-            ['Nível', 'Documentado (T4, 19/10)', 'Reprodução T4 fp16 (28/10)', 'Reprodução CPU fp32',
-             'Limite permissivo (T4)'],
+            t('Triagem DEV do v3.2: valores documentados e reproduções com o código congelado',
+              'v3.2 DEV screening: documented values and reproductions with the frozen code'),
+            [t('Nível', 'Level'), t('Documentado (T4, 19/10)', 'Documented (T4, Oct 19)'),
+             t('Reprodução T4 fp16 (28/10)', 'T4 fp16 reproduction (Oct 28)'),
+             t('Reprodução CPU fp32', 'CPU fp32 reproduction'), t('Limite permissivo (T4)', 'Permissive bound (T4)')],
             rows, ['l', 'r', 'r', 'r', 'r'],
-            'README do v3 (commit 273d131) e experimento_cientifico_v3/diagnostico_dev/resultados/.')
+            t('README do v3 (commit 273d131) e experimento_cientifico_v3/diagnostico_dev/resultados/.',
+              'v3 README (commit 273d131) and experimento_cientifico_v3/diagnostico_dev/resultados/.'))
         names = {'correto_estrito': 'Correta no contrato',
                  'valor_correto_fora_do_contrato': 'Valor correto fora do contrato',
                  'alternativa_correta_fora_do_contrato': 'Valor correto fora do contrato',
@@ -126,6 +143,18 @@ def build(root, repo, num, pct, frac):
                  'sem_tag_answer': 'Sem letra extraível (p. ex., "LETRA" copiado)',
                  'sem_numero_final': 'Sem resposta extraível',
                  'truncado_no_orcamento': 'Truncada no orçamento'}
+        if en:
+            names_en = {'Correta no contrato': 'Correct under the contract',
+                        'Valor correto fora do contrato': 'Correct value outside the contract',
+                        'Separador de milhar lido como decimal': 'Thousands separator read as decimal',
+                        'Formato válido, valor incorreto': 'Valid format, incorrect value',
+                        'Formato válido, alternativa da dica': 'Valid format, hint option',
+                        'Alternativa da dica, fora do contrato': 'Hint option, outside the contract',
+                        'Fora do contrato, valor incorreto': 'Outside the contract, incorrect value',
+                        'Sem letra extraível (p. ex., "LETRA" copiado)': 'No extractable letter (e.g., "LETRA" copied)',
+                        'Sem resposta extraível': 'No extractable answer',
+                        'Truncada no orçamento': 'Truncated at the budget'}
+            names = {k: names_en[v] for k, v in names.items()}
         groups = []
         for label in names.values():
             if label not in groups:
@@ -137,8 +166,9 @@ def build(root, repo, num, pct, frac):
                 counts[g].append(sum(v for k, v in categories.items() if names.get(k) == g))
         rows = [[g] + [str(v) for v in counts[g]] for g in groups if any(counts[g])]
         tables['falhas_v3'] = (
-            'Classificação das respostas da reprodução T4 (fp16) da triagem DEV v3.2',
-            ['Categoria', 'SFT · A', 'SFT · C', 'GRPO · low', 'GRPO · high'], rows,
+            t('Classificação das respostas da reprodução T4 (fp16) da triagem DEV v3.2',
+              'Classification of the responses in the T4 (fp16) reproduction of the v3.2 DEV screening'),
+            [t('Categoria', 'Category'), 'SFT · A', 'SFT · C', 'GRPO · low', 'GRPO · high'], rows,
             ['l', 'r', 'r', 'r', 'r'], 'experimento_cientifico_v3/diagnostico_dev/resultados/diagnostico_triagem_dev.json.')
     hyp = repo / 'experimento_cientifico_v3' / 'diagnostico_dev' / 'resultados' / 'hipoteses_tecnicas.json'
     if hyp.exists():
@@ -151,20 +181,30 @@ def build(root, repo, num, pct, frac):
     v4 = repo / 'experimento_cientifico_v4'
     changes = v4 / 'calibracao' / 'resultados' / 'mudancas_v4.json'
     if changes.exists():
-        tables['mudancas_v4'] = ('Alterações do protocolo v4 em relação ao v3.2',
-                                 ['Elemento', 'v3.2', 'v4', 'Justificativa'],
-                                 [[c['elemento'], c['v3'], c['v4'], c['justificativa']] for c in _json(changes)],
-                                 ['l', 'l', 'l', 'l'], 'experimento_cientifico_v4/PROTOCOLO_v4.md e protocolo_v4.json.')
+        source = _json(changes)
+        if en:
+            translated = _json(root / 'traducao' / 'mudancas_v4.en.json')
+            if [c['elemento'] for c in translated] != [c['elemento'] for c in source]:
+                raise ValueError('traducao/mudancas_v4.en.json não corresponde a mudancas_v4.json')
+            source = [dict(elemento=c['element'], v3=c['v3'], v4=c['v4'], justificativa=c['rationale'])
+                      for c in translated]
+        tables['mudancas_v4'] = (t('Alterações do protocolo v4 em relação ao v3.2', 'Changes in protocol v4 relative to v3.2'),
+                                 [t('Elemento', 'Element'), 'v3.2', 'v4', t('Justificativa', 'Rationale')],
+                                 [[c['elemento'], c['v3'], c['v4'], c['justificativa']] for c in source],
+                                 ['l', 'l', 'l', 'l'], t('experimento_cientifico_v4/PROTOCOLO_v4.md e protocolo_v4.json.',
+                                                         'experimento_cientifico_v4/PROTOCOLO_v4.md and protocolo_v4.json.'))
     cal = v4 / 'calibracao' / 'resultados'
     if (cal / 'sft_calibration_decision.json').exists() and (cal / 'grpo_calibration_decision.json').exists():
-        label = {'A': 'A: a + b', 'C1': 'C1: c de 3 a 9', 'C2': 'C2: b e c de 12 a 99'}
+        label = {'A': 'A: a + b', 'C1': t('C1: c de 3 a 9', 'C1: c from 3 to 9'),
+                 'C2': t('C2: b e c de 12 a 99', 'C2: b and c from 12 to 99')}
         rows = []
         for rnd, name in (('1', 'sft_calibration_decision.json'), ('2', 'sft_calibration_decision_r2.json')):
             if not (cal / name).exists():
                 continue
             for key, value in _json(cal / name)['summary'].items():
                 cand, prompt = key.split('/')
-                prompt = ('explícita' + (' + demonstrações' if rnd == '2' else '')) if prompt == 'explicit' else 'neutra'
+                prompt = ((t('explícita', 'explicit') + (t(' + demonstrações', ' + demonstrations') if rnd == '2' else ''))
+                          if prompt == 'explicit' else t('neutra', 'neutral'))
                 rows.append([rnd, 'SFT', label[cand], prompt, 'A' if cand == 'A' else 'C', '—',
                              f"{round(value['accuracy'] * value['n'])}/{value['n']}"])
         glabel = {'G1': 'G1: 11–99', 'G0': 'G0: 2–20'}
@@ -177,14 +217,21 @@ def build(root, repo, num, pct, frac):
                 variant, cand, cond = (['v3'] + parts) if len(parts) == 2 else parts
                 for level in ('low', 'high'):
                     v = value[level]
-                    rows.append([rnd, 'GRPO', glabel[cand], f"{instr[variant]}, {'sem' if cond == 'sem_dica' else 'com'} dica",
+                    hint = (t('sem dica', 'no hint') if cond == 'sem_dica' else t('com dica', 'with hint'))
+                    rows.append([rnd, 'GRPO', glabel[cand], f"{instr[variant]}, {hint}",
                                  level, pct(v['format_valid']), f"{round(v['accuracy'] * v['n'])}/{v['n']}"])
-        tables['calibracao_v4'] = ('Calibração exploratória do v4 em itens próprios (Tesla T4, fp16, 40 itens por linha)',
-                                   ['Rodada', 'Braço', 'Candidato', 'Instrução', 'Nível', 'Formato válido', 'Acertos'],
+        tables['calibracao_v4'] = (t('Calibração exploratória do v4 em itens próprios (Tesla T4, fp16, 40 itens por linha)',
+                                     'Exploratory v4 calibration on separate items (Tesla T4, fp16, 40 items per row)'),
+                                   [t('Rodada', 'Round'), t('Braço', 'Arm'), t('Candidato', 'Candidate'),
+                                    t('Instrução', 'Instruction'), t('Nível', 'Level'), t('Formato válido', 'Valid format'),
+                                    t('Acertos', 'Correct')],
                                    rows, ['c', 'l', 'l', 'l', 'l', 'r', 'r'],
-                                   'experimento_cientifico_v4/calibracao/resultados/ (arquivos de decisão de cada rodada). '
-                                   'Nota: no SFT, A = a + b com operandos de 100 a 999 e C = a + b·c − d com a e d de '
-                                   '100 a 999 e b de 12 a 99; no GRPO, G1 e G0 são as faixas dos operandos.')
+                                   t('experimento_cientifico_v4/calibracao/resultados/ (arquivos de decisão de cada rodada). '
+                                     'Nota: no SFT, A = a + b com operandos de 100 a 999 e C = a + b·c − d com a e d de '
+                                     '100 a 999 e b de 12 a 99; no GRPO, G1 e G0 são as faixas dos operandos.',
+                                     'experimento_cientifico_v4/calibracao/resultados/ (decision files of each round). '
+                                     'Note: in SFT, A = a + b with operands from 100 to 999 and C = a + b·c − d with a and d '
+                                     'from 100 to 999 and b from 12 to 99; in GRPO, G1 and G0 are the operand ranges.'))
     monitors = cal / 'monitor_feasibility_decision.json'
     if monitors.exists():
         first = _json(monitors)
@@ -194,21 +241,24 @@ def build(root, repo, num, pct, frac):
 
         def role(model_id):
             if 'Qwen2.5' in model_id:
-                return 'recompensa' + (' (escolhido)' if model_id == reward else '')
+                return t('recompensa', 'reward') + (t(' (escolhido)', ' (chosen)') if model_id == reward else '')
             if model_id == chosen:
-                return 'independente (escolhido)'
-            return 'independente no v3.2' if '135M' in model_id else 'candidato a independente'
+                return t('independente (escolhido)', 'independent (chosen)')
+            return (t('independente no v3.2', 'independent in v3.2') if '135M' in model_id
+                    else t('candidato a independente', 'independent candidate'))
 
         rows = []
         for rnd, data in (('1', first), ('2', second)):
             for m in data.get('summary', []):
                 gpu = ' (L4)' if 'L4' in str(m.get('hardware', '')) else ''
                 rows.append([rnd + gpu, m['model_id'].split('/')[-1], role(m['model_id']),
-                             pct(m['tpr']) if m['tpr'] is not None else 'não avaliável',
-                             pct(m['fpr']) if m['fpr'] is not None else 'não avaliável'])
+                             pct(m['tpr']) if m['tpr'] is not None else t('não avaliável', 'not evaluable'),
+                             pct(m['fpr']) if m['fpr'] is not None else t('não avaliável', 'not evaluable')])
         tables['monitores_v4'] = (
-            'Desempenho dos monitores em 320 controles construídos (rótulos por regra, não humanos)',
-            ['Rodada', 'Modelo', 'Papel', 'TPR', 'FPR'], rows, ['c', 'l', 'l', 'r', 'r'],
+            t('Desempenho dos monitores em 320 controles construídos (rótulos por regra, não humanos)',
+              'Monitor performance on 320 constructed controls (rule-based labels, not human)'),
+            [t('Rodada', 'Round'), t('Modelo', 'Model'), t('Papel', 'Role'), 'TPR', 'FPR'], rows,
+            ['c', 'l', 'l', 'r', 'r'],
             'experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision*.json.')
     gate = v4 / 'triagem_dev' / 'manifest.json'
     if gate.exists():
@@ -219,12 +269,15 @@ def build(root, repo, num, pct, frac):
         for mode in ('sft', 'grpo'):
             active = protocol[mode].get('enabled', True)
             for level, e in data['summary'][mode].items():
-                verdict = 'aprovado' if e['accuracy'] >= threshold else 'reprovado'
+                verdict = t('aprovado', 'passed') if e['accuracy'] >= threshold else t('reprovado', 'failed')
                 rows.append([f'{mode.upper()} · {level}', f"{e['correct']}/{e['n']}", pct(e['accuracy']),
                              f"{e['format_valid']}/{e['n']}", str(e['truncated']),
-                             verdict if active else 'não se aplica (descritivo)'])
-        tables['triagem_v4'] = ('Triagem DEV do protocolo v4, executada uma vez antes do registro',
-                                ['Nível', 'Acertos', 'Acurácia', 'Formato válido', 'Truncadas', 'Critério 0,65'],
+                             verdict if active else t('não se aplica (descritivo)', 'not applicable (descriptive)')])
+        tables['triagem_v4'] = (t('Triagem DEV do protocolo v4, executada uma vez antes do registro',
+                                  'DEV screening of protocol v4, run once before registration'),
+                                [t('Nível', 'Level'), t('Acertos', 'Correct'), t('Acurácia', 'Accuracy'),
+                                 t('Formato válido', 'Valid format'), t('Truncadas', 'Truncated'),
+                                 t('Critério 0,65', 'Criterion 0.65')],
                                 rows, ['l', 'r', 'r', 'r', 'r', 'l'],
                                 'experimento_cientifico_v4/triagem_dev/manifest.json.')
     validation = root / 'results' / 'validacao_2026_10_28.json'

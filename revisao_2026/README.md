@@ -77,6 +77,7 @@ abra os links atuais do README.
 - results/: medições, corpora construídos e registros de execução.
 - figures/: figuras regeneradas.
 - artigo.md: fonte editável do texto final.
+- artigo_en.md: versão em inglês (gerar com `--lang en`); traducao/ guarda a tradução dos dados em português usados nas tabelas.
 - protocol_extension.json: desenho prospectivo; não constitui pré-registro público.
 - provenance.json e checksums.sha256: origem e integridade dos arquivos.
 
