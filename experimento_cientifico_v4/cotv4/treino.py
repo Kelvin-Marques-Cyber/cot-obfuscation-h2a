@@ -3,6 +3,13 @@
 Cada execução é identificada pelo hash da configuração resolvida. Um diretório
 retomado só é aceito se o manifesto registrar exatamente a mesma configuração.
 Perdas não finitas interrompem o treino e marcam o status como falho.
+
+Desvio 1 (04/11/2026, ver DESVIO_01.md): em fp16, o escalonador de gradientes
+descarta o passo em que o gradiente estoura, e a norma registrada nesse passo é
+nan. Um passo descartado não interrompe mais o treino: é gravado em
+passos_descartados.json. Continua interrompendo o treino uma perda não finita,
+uma norma não finita em passo que não foi descartado, mais de 10% dos passos
+descartados ou um adaptador final com pesos não finitos.
 """
 from __future__ import annotations
 
@@ -19,6 +26,8 @@ from . import contrato, tarefas
 from .modelos import chat
 
 STATUS_TRAINED = 'trained'
+MAX_SKIPPED_FRACTION = 0.10
+SKIPPED_FILE = 'passos_descartados.json'
 
 
 def atomic_json(path, value):
@@ -108,17 +117,54 @@ def reward_function(condition, monitor=None, monitor_weight=0.6):
     return reward
 
 
-def _finite_callback():
+def _finite_callback(run_dir=None, max_steps=None):
     from transformers import TrainerCallback
 
     class FiniteLoss(TrainerCallback):
-        """Interrompe o treino diante de perda ou norma de gradiente não finita."""
+        """Interrompe o treino diante de perda não finita; registra os passos descartados pelo fp16."""
+        def __init__(self):
+            self.path = Path(run_dir) / SKIPPED_FILE if run_dir else None
+            self.skipped = (json.loads(self.path.read_text(encoding='utf-8'))
+                            if self.path is not None and self.path.exists() else [])
+
+        def _record(self, step):
+            if step in self.skipped:
+                return
+            self.skipped = sorted(self.skipped + [step])
+            if self.path is not None:
+                atomic_json(self.path, self.skipped)
+            if max_steps and len(self.skipped) > MAX_SKIPPED_FRACTION * int(max_steps):
+                raise FloatingPointError(f'{len(self.skipped)} passos descartados pelo fp16, acima de '
+                                         f'{MAX_SKIPPED_FRACTION:.0%} de {max_steps}')
+
+        def on_step_end(self, args, state, control, optimizer=None, **kwargs):
+            if getattr(optimizer, 'step_was_skipped', False):
+                self._record(int(state.global_step))
+
         def on_log(self, args, state, control, logs=None, **kwargs):
-            for key in ('loss', 'grad_norm'):
-                value = (logs or {}).get(key)
-                if value is not None and not math.isfinite(float(value)):
-                    raise FloatingPointError(f'{key} não finito no passo {state.global_step}: {value}')
+            loss = (logs or {}).get('loss')
+            if loss is not None and not math.isfinite(float(loss)):
+                raise FloatingPointError(f'loss não finito no passo {state.global_step}: {loss}')
+            grad = (logs or {}).get('grad_norm')
+            if grad is not None and not math.isfinite(float(grad)):
+                if not (args.fp16 and int(state.global_step) in self.skipped):
+                    raise FloatingPointError(f'grad_norm não finito no passo {state.global_step}: {grad}')
     return FiniteLoss()
+
+
+def check_finite_adapter(adapter):
+    """O adaptador salvo não pode conter pesos não finitos."""
+    import torch
+    from safetensors.torch import load_file
+    for path in sorted(Path(adapter).glob('*.safetensors')):
+        for name, tensor in load_file(str(path)).items():
+            if not bool(torch.isfinite(tensor).all()):
+                raise FloatingPointError(f'Peso não finito no adaptador: {path.name}:{name}')
+
+
+def skipped_steps(run_dir):
+    path = Path(run_dir) / SKIPPED_FILE
+    return json.loads(path.read_text(encoding='utf-8')) if path.exists() else []
 
 
 def load_for_training(c):
@@ -165,12 +211,14 @@ def _finish_from_final_checkpoint(run_dir, checkpoint, state, run_id, status_pat
         tmp = adapter / (name + '.partial')
         shutil.copyfile(source, tmp)
         tmp.replace(adapter / name)
+    check_finite_adapter(adapter)
     atomic_json(run_dir / 'trainer_state.json', state)
     weights = sorted(adapter.glob('*.safetensors'))
     atomic_json(status_path, dict(status=STATUS_TRAINED, run_id=run_id, global_step=int(state['global_step']),
                                   first_loss=losses[0], last_loss=losses[-1],
                                   adapter_sha256={p.name: sha256_file(p) for p in weights},
-                                  resumed_from=checkpoint.name, finished_from_final_checkpoint=True))
+                                  resumed_from=checkpoint.name, finished_from_final_checkpoint=True,
+                                  skipped_fp16_steps=skipped_steps(run_dir)))
     return str(run_dir)
 
 
@@ -228,6 +276,13 @@ def run(config, data_path):
                   save_strategy='steps', save_total_limit=2, report_to='none', optim='adamw_torch',
                   max_grad_norm=1.0, warmup_ratio=0.05, use_cpu=config['device'] == 'cpu')
     monitor = None
+    # Passos descartados de uma tentativa anterior valem só até o checkpoint de onde o treino retoma.
+    start = int(json.loads((Path(latest) / 'trainer_state.json').read_text())['global_step']) if latest else 0
+    kept = [s for s in skipped_steps(run_dir) if s <= start]
+    if kept:
+        atomic_json(run_dir / SKIPPED_FILE, kept)
+    elif (run_dir / SKIPPED_FILE).exists():
+        (run_dir / SKIPPED_FILE).unlink()
     atomic_json(status_path, dict(status='running', run_id=run_id))
     try:
         if config['mode'] == 'sft':
@@ -238,7 +293,8 @@ def run(config, data_path):
             args = SFTConfig(**common, max_length=config.get('max_length', 512),
                              completion_only_loss=True, packing=False)
             trainer = SFTTrainer(model=model, args=args, train_dataset=Dataset.from_list(examples),
-                                 processing_class=tokenizer, peft_config=lora, callbacks=[_finite_callback()])
+                                 processing_class=tokenizer, peft_config=lora,
+                                 callbacks=[_finite_callback(run_dir, config['max_steps'])])
         else:
             from trl import GRPOConfig, GRPOTrainer
             if config['condition'] != 'none':
@@ -259,7 +315,8 @@ def run(config, data_path):
                               beta=config.get('beta', 0.04), use_vllm=False,
                               remove_unused_columns=False, mask_truncated_completions=True)
             trainer = GRPOTrainer(model=model, args=args, processing_class=tokenizer, peft_config=lora,
-                                  train_dataset=Dataset.from_list(examples), callbacks=[_finite_callback()],
+                                  train_dataset=Dataset.from_list(examples),
+                                  callbacks=[_finite_callback(run_dir, config['max_steps'])],
                                   reward_funcs=reward_function(config['condition'], monitor,
                                                                config.get('monitor_weight', 0.6)))
         trainer.train(resume_from_checkpoint=latest)
@@ -276,11 +333,13 @@ def run(config, data_path):
         weights = sorted(adapter.glob('*.safetensors'))
         if not weights:
             raise RuntimeError('Adaptador não foi salvo')
+        check_finite_adapter(adapter)
         atomic_json(status_path, dict(status=STATUS_TRAINED, run_id=run_id,
                                       global_step=trainer.state.global_step,
                                       first_loss=losses[0], last_loss=losses[-1],
                                       adapter_sha256={p.name: sha256_file(p) for p in weights},
-                                      resumed_from=Path(latest).name if latest else None))
+                                      resumed_from=Path(latest).name if latest else None,
+                                      skipped_fp16_steps=skipped_steps(run_dir)))
     except BaseException as exc:
         atomic_json(status_path, dict(status='failed', run_id=run_id, error_type=type(exc).__name__,
                                       error=str(exc)[:500]))

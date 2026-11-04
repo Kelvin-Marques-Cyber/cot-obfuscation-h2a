@@ -95,7 +95,7 @@ class MinimalIntegration(unittest.TestCase):
                 if state.global_step == 1:
                     raise KeyboardInterrupt('interrupção simulada após checkpoint-1')
         original = treino._finite_callback
-        with patch.object(treino, '_finite_callback', side_effect=lambda: [original(), Interrupt()][1]):
+        with patch.object(treino, '_finite_callback', side_effect=lambda *a, **k: [original(*a, **k), Interrupt()][1]):
             with self.assertRaises(KeyboardInterrupt):
                 rt.train_batch(self.base, 'sft', max_jobs=1, device='cpu')
         first = next((self.base / 'runs' / 'sft').iterdir())
