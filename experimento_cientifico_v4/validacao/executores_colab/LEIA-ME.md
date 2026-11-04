@@ -11,6 +11,7 @@ ambiente isolado de `requirements-gpu.txt` pelo mesmo código dos notebooks
 |---|---|---|
 | `calibracao.py` | calibrações e viabilidade dos monitores | `COMMIT PASTA "script [opções]"…` |
 | `triagem_dev.py` | triagem DEV do v4 (execução única) | `COMMIT` (commit congelado `37094c4`) |
+| `coleta_v4.py` | coleta confirmatória (notebooks 00, 01, 03 e 04 reais; só depois do registro público) | `COMMIT` dos notebooks e URL do registro no OSF |
 | `teste_tecnico_cuda.py` | cinco notebooks em `TECHNICAL_TEST=True` e interrupções forçadas | `COMMIT` dos notebooks |
 
 A reprodução da triagem do v3.2 usou `../../experimento_cientifico_v3/diagnostico_dev/executor_colab_t4.py`.

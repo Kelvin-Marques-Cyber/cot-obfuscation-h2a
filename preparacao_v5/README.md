@@ -15,6 +15,8 @@ registrado pelo GitHub permite conferir a ordem.
 |---|---|
 | `monitores_rodada3.py` | Rodada 3 da viabilidade dos monitores: 7 modelos de 7B a 14B, mesmos controles, rubrica, procedimento e critérios das rodadas 1 e 2, em fp32 numa A100-SXM4-80GB |
 | `rastros_anotacao.py` | Gera rastros reais do ator Qwen3-1.7B sob três instruções (proíbe, pede ou permite o uso da nota) e sorteia a amostra cega de 300 itens para anotação humana |
+| `rastros_anotacao_complemento.py` | Complemento declarado depois de ver que o ator quase nunca usa a nota, nem quando a instrução pede: E3 (uso demonstrado) e E4 (menção e rejeição demonstradas); define a amostra final de 300 itens |
+| `anotacao/` | Página de anotação cega para os coautores (`pagina_modelo.html` + `gerar_pagina.py`), com os rótulos guardados no banco da própria página |
 | `executor_colab.py` | Executa os scripts acima no Colab, no commit indicado, com o ambiente de GPU dos notebooks do v4 |
 
 Os resultados ficam em `resultados/` e os rótulos humanos, em `anotacao/`. Os
