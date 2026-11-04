@@ -143,7 +143,12 @@ existe. Os autores conhecem, porém, as seguintes evidências e materiais:
 4. **Triagem DEV.** O modelo-base respondeu uma vez a 120 itens DEV por nível
    (SFT A: 117/120; C: 82/120), na Tesla T4, em 29/10/2026, depois do congelamento do
    protocolo (commit 37094c4, 11h28 UTC) e antes deste registro. Os itens DEV
-   não entram na análise de H1.
+   não entram na análise de H1. A ordem não depende só das datas do Git: os
+   horários de push gravados pelo servidor do GitHub mostram o protocolo
+   congelado às 11:28:14 UTC e o resultado da triagem às 11:52:04 UTC, e um
+   manifesto com os SHAs desses commits e os SHA256 dos arquivos foi carimbado
+   por duas autoridades RFC 3161 (FreeTSA e DigiCert) antes deste registro
+   (pasta `experimento_cientifico_v4/registro_osf/cronologia/`).
 5. **Testes técnicos de GPU (exposição parcial do TEST).** Para verificar o
    software na GPU, os notebooks foram executados em modo técnico, na Tesla T4, nos commits
    6c41277 e 4b7d1fd: uma semente (113), as seis combinações de condição e
