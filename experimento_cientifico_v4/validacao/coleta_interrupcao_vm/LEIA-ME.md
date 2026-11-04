@@ -52,7 +52,10 @@ começado.
 
 ## Resultado da verificação
 
-Pendente até a conclusão do treino refeito.
+O treino refeito na `v4f` (concluído antes de 23:57 UTC de 04/11/2026) produziu um adaptador
+com SHA256 `cee192f2d3e4957e3634ee0f205cb4b85c4b4dfd98d9bf5200580fd5a5c6dec2`, **idêntico** ao
+registrado na `v4d`, com as mesmas perdas inicial e final (1,2812 e 0,574) e nenhum passo
+descartado. O conteúdo do estudo é, portanto, o mesmo que teria resultado sem a interrupção.
 
 ## Arquivos
 
