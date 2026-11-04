@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "run_id": "191d16c4b6131856cfb4",
+  "error_type": "FloatingPointError",
+  "error": "grad_norm não finito no passo 15: nan"
+}

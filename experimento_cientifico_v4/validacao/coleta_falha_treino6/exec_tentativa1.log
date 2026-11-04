@@ -1,0 +1,27 @@
+2026-11-04T13:19:44Z 00_protocolo_dados_e_triagem.ipynb ok 5 s
+2026-11-04T13:35:37Z 01_treinamento_sft.ipynb erro 953 s
+01_treinamento_sft.ipynb falhou: CellExecutionError: 88/lib/python3.13/site-packages/transformers/trainer.py", line 3223, in _maybe_log_save_evaluate
+    self.log(logs, start_time)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/content/cot-v4-envs/gpu-c7c633238e080188/lib/python3.13/site-packages/trl/trainer/sft_trainer.py", line 1124, in log
+    super().log(logs, start_time)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/content/cot-v4-envs/gpu-c7c633238e080188/lib/python3.13/site-packages/transformers/trainer.py", line 3790, in log
+    self.control = self.callback_handler.on_log(self.args, self.state, self.control, logs)
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/cot-v4-envs/gpu-c7c633238e080188/lib/python3.13/site-packages/transformers/trainer_callback.py", line 549, in on_log
+    return self.call_event("on_log", args, state, control, logs=logs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/cot-v4-envs/gpu-c7c633238e080188/lib/python3.13/site-packages/transformers/trainer_callback.py", line 556, in call_event
+    result = getattr(callback, event)(
+        args,
+    ...<8 lines>...
+        **kwargs,
+    )
+  File "/content/cot-v4/source/b858d128bcd545dd958e0dbed9978a7aea2591b3/experimento_cientifico_v4/cotv4/treino.py", line 120, in on_log
+    raise FloatingPointError(f'{key} não finito no passo {state.global_step}: {value}')
+FloatingPointError: grad_norm não finito no passo 15: nan
+
+ 12%|█▎        | 15/120 [00:20<02:23,  1.37s/it]
+
+
