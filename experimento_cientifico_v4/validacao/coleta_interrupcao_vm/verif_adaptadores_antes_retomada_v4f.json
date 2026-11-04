@@ -1,0 +1,861 @@
+[
+ {
+  "run": "021aee6112a3ff2c2015",
+  "level": "A",
+  "seed": 122,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "05ce7c7eaf5deadea8ee",
+  "level": "C",
+  "seed": 122,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "08269c50629fdb7c5f98",
+  "level": "C",
+  "seed": 123,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "09d751c2dae05fdf0890",
+  "level": "A",
+  "seed": 117,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "0a465f6cbebfabb33a85",
+  "level": "C",
+  "seed": 128,
+  "condition": "direct",
+  "status": "trained",
+  "problems": [
+   "sem adapter_config.json",
+   "ausente adapter_model.safetensors"
+  ]
+ },
+ {
+  "run": "0c6e23d63c64a346748d",
+  "level": "C",
+  "seed": 116,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "0e68e8f64c6d43b872cb",
+  "level": "C",
+  "seed": 119,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "11bfb62d4e503af0d254",
+  "level": "A",
+  "seed": 113,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "11c6ae8b7ca548fdbd45",
+  "level": "A",
+  "seed": 118,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "12a2252deb02e6b08c15",
+  "level": "A",
+  "seed": 124,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "146db8ea3b74d9a4569e",
+  "level": "A",
+  "seed": 128,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "1816dd66cb9594eda070",
+  "level": "A",
+  "seed": 127,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "1b269f2f7430d68acdf7",
+  "level": "A",
+  "seed": 127,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "1dd515f2c41d5176d954",
+  "level": "A",
+  "seed": 122,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "21ec0c4453fba21d28d0",
+  "level": "C",
+  "seed": 127,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "24ebde9c88fd4cde0a7d",
+  "level": "C",
+  "seed": 125,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "2725939c9b964fa61802",
+  "level": "A",
+  "seed": 115,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "28208fc3a0d8e0d07274",
+  "level": "A",
+  "seed": 126,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "2ab9cbbca729c5d4d0c6",
+  "level": "A",
+  "seed": 124,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "309f73e3b4eeaa7a3652",
+  "level": "C",
+  "seed": 123,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "31fb00a99899f2b9f453",
+  "level": "C",
+  "seed": 123,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "36ef3a7e30572031cce7",
+  "level": "C",
+  "seed": 113,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "3ce4f4e06ff748692dd8",
+  "level": "A",
+  "seed": 120,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "3d3f0bf1b83dedeefc1d",
+  "level": "C",
+  "seed": 116,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "3eed09afc83b1a9374b3",
+  "level": "C",
+  "seed": 116,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "440a9712754fca9859cc",
+  "level": "A",
+  "seed": 125,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "45e2d62cae5d70ea3973",
+  "level": "A",
+  "seed": 131,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "46f98b1981877252cdfd",
+  "level": "A",
+  "seed": 121,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "479b47d122185ed43856",
+  "level": "C",
+  "seed": 113,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "4829e98610f63ef0ec35",
+  "level": "C",
+  "seed": 120,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "4ad05fe9cdbb27f06bfb",
+  "level": "A",
+  "seed": 116,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "4da8affb3e4799503f64",
+  "level": "C",
+  "seed": 119,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "4e10ffefc0a790ec8201",
+  "level": "A",
+  "seed": 118,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "4ef1cced5c2ca1242e68",
+  "level": "C",
+  "seed": 121,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "4fd099c59370194b61cc",
+  "level": "A",
+  "seed": 117,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "50bcf56f12f9a4f3c9c5",
+  "level": "C",
+  "seed": 125,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "5532c324e37f96a1b041",
+  "level": "C",
+  "seed": 125,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "5866a2bbf815bbffbecb",
+  "level": "C",
+  "seed": 122,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "613b093f0f89b7f7d777",
+  "level": "A",
+  "seed": 114,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "6365f9138a0c37e3aa35",
+  "level": "A",
+  "seed": 116,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "658cf5260e42c72f7d2b",
+  "level": "C",
+  "seed": 120,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "660ce94d94e2a1391bf2",
+  "level": "A",
+  "seed": 123,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "6907f591e745b2b6686c",
+  "level": "C",
+  "seed": 118,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "6d20b97edd57291aacb7",
+  "level": "A",
+  "seed": 128,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "6d89e937620004d633a3",
+  "level": "A",
+  "seed": 114,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "701c160d3ca2547df8e7",
+  "level": "A",
+  "seed": 119,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7230137f57c0dd72f8a9",
+  "level": "A",
+  "seed": 130,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7455dea93ef9292d027f",
+  "level": "A",
+  "seed": 129,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7769f1b062794c263363",
+  "level": "A",
+  "seed": 114,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7a7410dc9150fb6fc745",
+  "level": "C",
+  "seed": 126,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7be72f7743bf2ca9597b",
+  "level": "C",
+  "seed": 122,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7c30edd479e068fd11c9",
+  "level": "A",
+  "seed": 120,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "7da6937185966958e68c",
+  "level": "C",
+  "seed": 118,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "801ce88f942fd745f611",
+  "level": "C",
+  "seed": 128,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "851135b4a689b67aea52",
+  "level": "A",
+  "seed": 130,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "858ef1fbe30b9c16ba6d",
+  "level": "C",
+  "seed": 121,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "87e412b77fc40af06cda",
+  "level": "A",
+  "seed": 121,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "881a053ea8c2826a5daa",
+  "level": "A",
+  "seed": 122,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "8b7c0f62c72da54fc423",
+  "level": "A",
+  "seed": 123,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "8caa4829dca878269fde",
+  "level": "A",
+  "seed": 115,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "8dece254344db38a341d",
+  "level": "A",
+  "seed": 130,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "97b7fe0e96fa73a05b69",
+  "level": "A",
+  "seed": 129,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "986628fa4f5356ed8a0e",
+  "level": "C",
+  "seed": 127,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "9b7d3437e41b6743bbc9",
+  "level": "A",
+  "seed": 132,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "9d7525e3ac4ae409bf9a",
+  "level": "C",
+  "seed": 126,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a1f2abd5f3a702114de0",
+  "level": "C",
+  "seed": 115,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a1fdffa88f1631b582ba",
+  "level": "C",
+  "seed": 120,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a322ec4b21142c33597f",
+  "level": "A",
+  "seed": 125,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a3bdfdce3ed5e909bf68",
+  "level": "C",
+  "seed": 124,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a44177e766009ece24d8",
+  "level": "C",
+  "seed": 115,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a68c98f6731ada4f774d",
+  "level": "C",
+  "seed": 126,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a69100eeb5253a7c27c5",
+  "level": "C",
+  "seed": 124,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "a6c74a584673de47b0a4",
+  "level": "C",
+  "seed": 115,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "aaecaf1e3fe55c40ec3b",
+  "level": "A",
+  "seed": 129,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "ab9b91bf829c12180a75",
+  "level": "A",
+  "seed": 113,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "aeceddd3cbf2fa404358",
+  "level": "A",
+  "seed": 127,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "af7ece07460ff7de7bd0",
+  "level": "C",
+  "seed": 119,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "b0fe6d9ad7ffbba17914",
+  "level": "A",
+  "seed": 125,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "b3f45aa0507a58ce8598",
+  "level": "A",
+  "seed": 120,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "b5c7364f405823af1597",
+  "level": "A",
+  "seed": 132,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "b6512d219b153e353abb",
+  "level": "A",
+  "seed": 118,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "bd1255db55094f98dad8",
+  "level": "A",
+  "seed": 115,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "bd9f1a4eaa0729c7ba6b",
+  "level": "A",
+  "seed": 131,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "c004050688b88f7b348a",
+  "level": "C",
+  "seed": 117,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "c4173d65c2779e281138",
+  "level": "C",
+  "seed": 118,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "c7dcf6376448ecd06b35",
+  "level": "C",
+  "seed": 113,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "c9b00ba65c12ae16c4da",
+  "level": "A",
+  "seed": 117,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "cb53989636fd53f00b4f",
+  "level": "A",
+  "seed": 128,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "cc94113a6c8564faad46",
+  "level": "A",
+  "seed": 119,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "d23732b59cd4815a6aed",
+  "level": "C",
+  "seed": 114,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "d291d7cd0e4e982b1304",
+  "level": "A",
+  "seed": 132,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "d2c5676e933537307748",
+  "level": "A",
+  "seed": 126,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "d3f52717aba0cb39ba3b",
+  "level": "A",
+  "seed": 121,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "d8b0f7565e660bc2185d",
+  "level": "C",
+  "seed": 127,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "d96cb36354f1a2f91e54",
+  "level": "A",
+  "seed": 124,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "ddb69aacaf72bc3f635a",
+  "level": "A",
+  "seed": 113,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "e01391dbb8213e8a87ce",
+  "level": "A",
+  "seed": 131,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "e41ccd479e2919a7686d",
+  "level": "C",
+  "seed": 121,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "e4d6d5a287a0b0a4917e",
+  "level": "C",
+  "seed": 117,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "eb12204dec28cffb5f42",
+  "level": "A",
+  "seed": 126,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "eb185d2762ac58562cd5",
+  "level": "C",
+  "seed": 117,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "ec9463b3626205aca871",
+  "level": "C",
+  "seed": 114,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "ecf5108ec8af8fb43c9c",
+  "level": "C",
+  "seed": 124,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "edd9031479cbca760736",
+  "level": "C",
+  "seed": 114,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "f8bce7437af3f6cf98ea",
+  "level": "A",
+  "seed": 123,
+  "condition": "explicit",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "f9c8c8beedc75891f7e8",
+  "level": "A",
+  "seed": 119,
+  "condition": "direct",
+  "status": "trained",
+  "problems": []
+ },
+ {
+  "run": "ff6a056e8a02ccac1d38",
+  "level": "A",
+  "seed": 116,
+  "condition": "generic",
+  "status": "trained",
+  "problems": []
+ }
+]
