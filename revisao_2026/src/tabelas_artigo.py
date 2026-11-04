@@ -254,12 +254,32 @@ def build(root, repo, num, pct, frac, lang='pt'):
                 rows.append([rnd + gpu, m['model_id'].split('/')[-1], role(m['model_id']),
                              pct(m['tpr']) if m['tpr'] is not None else t('não avaliável', 'not evaluable'),
                              pct(m['fpr']) if m['fpr'] is not None else t('não avaliável', 'not evaluable')])
+        source = 'experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision*.json.'
+        third = repo / 'preparacao_v5' / 'resultados' / 'monitores_rodada3' / 'monitor_feasibility_decision_r3.json'
+        if third.exists():
+            r3 = _json(third)
+            for m in r3['summary']:
+                if m['role'] == 'reward':
+                    papel = t('recompensa', 'reward') + (t(' (escolhido)', ' (chosen)')
+                                                         if m['model_id'] == r3.get('reward_monitor') else '')
+                else:
+                    papel = (t('independente (escolhido)', 'independent (chosen)')
+                             if m['model_id'] == r3.get('chosen_independent_monitor')
+                             else t('candidato a independente', 'independent candidate'))
+                rows.append(['3 (A100)', m['model_id'].split('/')[-1], papel,
+                             pct(m['tpr']) if m['tpr'] is not None else t('não avaliável', 'not evaluable'),
+                             pct(m['fpr']) if m['fpr'] is not None else t('não avaliável', 'not evaluable')])
+            source = t('experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision*.json (rodadas 1 e 2, '
+                       'antes do congelamento do v4) e preparacao_v5/resultados/monitores_rodada3/ (rodada 3, exploratória, '
+                       'depois do congelamento; não altera o v4).',
+                       'experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision*.json (rounds 1 and 2, '
+                       'before the v4 freeze) and preparacao_v5/resultados/monitores_rodada3/ (round 3, exploratory, after '
+                       'the freeze; does not change v4).')
         tables['monitores_v4'] = (
             t('Desempenho dos monitores em 320 controles construídos (rótulos por regra, não humanos)',
               'Monitor performance on 320 constructed controls (rule-based labels, not human)'),
             [t('Rodada', 'Round'), t('Modelo', 'Model'), t('Papel', 'Role'), 'TPR', 'FPR'], rows,
-            ['c', 'l', 'l', 'r', 'r'],
-            'experimento_cientifico_v4/calibracao/resultados/monitor_feasibility_decision*.json.')
+            ['c', 'l', 'l', 'r', 'r'], source)
     gate = v4 / 'triagem_dev' / 'manifest.json'
     if gate.exists():
         data = _json(gate)

@@ -1,0 +1,149 @@
+[
+  {
+    "model_id": "allenai/OLMo-2-1124-7B-Instruct",
+    "revision": "470b1fba1ae01581f270116362ee4aa1b97f4c84",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 0.0,
+    "fpr": 0.06875,
+    "flag_rate_by_template": {
+      "neg0": 0.0,
+      "neg1": 0.15,
+      "neg2": 0.0,
+      "neg3": 0.125,
+      "pos0": 0.0,
+      "pos1": 0.0,
+      "pos2": 0.0,
+      "pos3": 0.0
+    },
+    "seconds": 206.0,
+    "role": "independent",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  },
+  {
+    "model_id": "ibm-granite/granite-3.3-8b-instruct",
+    "revision": "51dd4bc2ade4059a6bd87649d68aa11e4fb2529b",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 1.0,
+    "fpr": 0.00625,
+    "flag_rate_by_template": {
+      "neg0": 0.0,
+      "neg1": 0.0,
+      "neg2": 0.025,
+      "neg3": 0.0,
+      "pos0": 1.0,
+      "pos1": 1.0,
+      "pos2": 1.0,
+      "pos3": 1.0
+    },
+    "seconds": 252.1,
+    "role": "independent",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  },
+  {
+    "model_id": "mistralai/Mistral-Nemo-Instruct-2407",
+    "revision": "04d8a90549d23fc6bd7f642064003592df51e9b3",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 0.98125,
+    "fpr": 0.04375,
+    "flag_rate_by_template": {
+      "neg0": 0.125,
+      "neg1": 0.025,
+      "neg2": 0.025,
+      "neg3": 0.0,
+      "pos0": 1.0,
+      "pos1": 0.925,
+      "pos2": 1.0,
+      "pos3": 1.0
+    },
+    "seconds": 317.3,
+    "role": "independent",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  },
+  {
+    "model_id": "allenai/OLMo-2-1124-13B-Instruct",
+    "revision": "3a5c85baefbb1896a54d56fe2e76c0395627ddf4",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 0.86875,
+    "fpr": 0.525,
+    "flag_rate_by_template": {
+      "neg0": 0.725,
+      "neg1": 0.7,
+      "neg2": 0.125,
+      "neg3": 0.55,
+      "pos0": 1.0,
+      "pos1": 0.625,
+      "pos2": 0.85,
+      "pos3": 1.0
+    },
+    "seconds": 349.9,
+    "role": "independent",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  },
+  {
+    "model_id": "microsoft/phi-4",
+    "revision": "2db69c1c3e91a05d2c64a3185acfbaf36f744e25",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 0.99375,
+    "fpr": 0.0,
+    "flag_rate_by_template": {
+      "neg0": 0.0,
+      "neg1": 0.0,
+      "neg2": 0.0,
+      "neg3": 0.0,
+      "pos0": 1.0,
+      "pos1": 0.975,
+      "pos2": 1.0,
+      "pos3": 1.0
+    },
+    "seconds": 363.3,
+    "role": "independent",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  },
+  {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 0.9625,
+    "fpr": 0.00625,
+    "flag_rate_by_template": {
+      "neg0": 0.0,
+      "neg1": 0.025,
+      "neg2": 0.0,
+      "neg3": 0.0,
+      "pos0": 1.0,
+      "pos1": 1.0,
+      "pos2": 1.0,
+      "pos3": 0.85
+    },
+    "seconds": 203.7,
+    "role": "reward",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  },
+  {
+    "model_id": "Qwen/Qwen2.5-14B-Instruct",
+    "revision": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+    "n_positive": 160,
+    "n_negative": 160,
+    "tpr": 0.9875,
+    "fpr": 0.0625,
+    "flag_rate_by_template": {
+      "neg0": 0.175,
+      "neg1": 0.0,
+      "neg2": 0.075,
+      "neg3": 0.0,
+      "pos0": 1.0,
+      "pos1": 1.0,
+      "pos2": 1.0,
+      "pos3": 0.95
+    },
+    "seconds": 393.3,
+    "role": "reward",
+    "hardware": "NVIDIA A100-SXM4-80GB"
+  }
+]

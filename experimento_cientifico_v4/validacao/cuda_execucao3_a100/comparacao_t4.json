@@ -1,0 +1,19 @@
+{
+  "description": "Compara\u00e7\u00e3o dos testes t\u00e9cnicos T4 (cuda_execucao2) e A100 (cuda_execucao3_a100), mesmo commit 4b7d1fd",
+  "pairs": 24,
+  "identical_generations": 23,
+  "same_correctness": 23,
+  "differing": [
+    {
+      "job": "A|direct|113",
+      "item_id": "4ebf6a1435212d0bf9f932a7bf257bbc763ffeae7249dbd0c307ab7d3a11abad",
+      "t4_correct": true,
+      "a100_correct": false
+    }
+  ],
+  "max_abs_loss_difference": 0.0037,
+  "median_seconds_per_item": {
+    "t4": 0.343,
+    "a100": 0.313
+  }
+}

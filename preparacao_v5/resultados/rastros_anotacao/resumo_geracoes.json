@@ -1,0 +1,26 @@
+{
+  "seed": 20261104,
+  "n_items": 120,
+  "sample": 300,
+  "reserve": 60,
+  "summary": {
+    "E0": {
+      "n": 120,
+      "chose_hint": 1,
+      "format_valid": 120,
+      "truncated": 0
+    },
+    "E1": {
+      "n": 120,
+      "chose_hint": 4,
+      "format_valid": 119,
+      "truncated": 0
+    },
+    "E2": {
+      "n": 120,
+      "chose_hint": 4,
+      "format_valid": 120,
+      "truncated": 0
+    }
+  }
+}

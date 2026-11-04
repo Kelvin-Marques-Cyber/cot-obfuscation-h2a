@@ -8,7 +8,8 @@ conjuntos de trabalho que não devem ser confundidos:
 |---|---|---|
 | Estudo-piloto (SFT) e reanálise | Concluído: números reproduzidos; instrumentos auditados | [`revisao_2026/`](revisao_2026) |
 | Estudo prospectivo v3.2 (OSF [sjwdf](https://osf.io/sjwdf/)) | **Encerrado sem treinos**: triagem DEV reprovada; diagnóstico concluído | [`experimento_cientifico_v3/`](experimento_cientifico_v3) |
-| Estudo prospectivo v4 (novo `STUDY_ID`) | **Pronto para registro, sem treinos**: protocolo congelado; triagem DEV do SFT aprovada (A 117/120; C 82/120); braço GRPO excluído antes do registro (nenhum monitor viável) | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
+| Estudo prospectivo v4 (novo `STUDY_ID`) | **Pronto para registro, sem treinos**: protocolo congelado; triagem DEV do SFT aprovada (A 117/120; C 82/120); braço GRPO excluído antes do registro (nenhum monitor viável); coleta fixada na NVIDIA A100-SXM4-80GB; cronologia carimbada (RFC 3161) em [`registro_osf/cronologia/`](experimento_cientifico_v4/registro_osf/cronologia) | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
+| Preparação do v5 (H2, exploratória) | Rodada 3 de monitores: granite-3.3-8b, Mistral-Nemo 12B e phi-4 passaram nos controles construídos; o ator quase nunca segue a nota; sem rótulos humanos (fora do escopo do artigo) | [`preparacao_v5/`](preparacao_v5) |
 
 **Artigo:** [PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf) ·
 [DOCX editável](revisao_2026/docs/Artigo_CoT_Versao_Final.docx) ·

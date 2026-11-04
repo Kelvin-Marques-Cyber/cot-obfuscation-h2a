@@ -1,0 +1,8 @@
+{
+  "commit": "5952a88fbb532d8c5e12f4bffe0aed4f49ed8e70",
+  "gpu": "NVIDIA A100-SXM4-80GB, 580.82.07, 81920 MiB",
+  "timings": {
+    "rastros_anotacao.py": 1163.1,
+    "monitores_rodada3.py": 2088.9
+  }
+}

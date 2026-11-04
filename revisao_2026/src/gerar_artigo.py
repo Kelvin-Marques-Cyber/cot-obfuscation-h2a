@@ -86,6 +86,10 @@ def read_json(path):
 DIAG = REPO / 'experimento_cientifico_v3' / 'diagnostico_dev' / 'resultados' / 'diagnostico_triagem_dev.json'
 V4 = REPO / 'experimento_cientifico_v4'
 VALIDATION = ROOT / 'results' / 'validacao_2026_10_28.json'
+V5 = REPO / 'preparacao_v5' / 'resultados'
+MON_R3 = V5 / 'monitores_rodada3' / 'monitor_feasibility_decision_r3.json'
+TRACES_V5 = V5 / 'rastros_anotacao' / 'resumo_geracoes.json'
+A100 = V4 / 'validacao' / 'cuda_execucao3_a100' / 'comparacao_t4.json'
 
 
 def values():
@@ -169,7 +173,10 @@ def values():
              'HuggingFaceTB/SmolLM2-1.7B-Instruct': 'smol17b', 'Qwen/Qwen2.5-0.5B-Instruct': 'reward',
              'Qwen/Qwen2.5-1.5B-Instruct': 'qwen15b', 'allenai/OLMo-2-0425-1B-Instruct': 'olmo1b',
              'ibm-granite/granite-3.3-2b-instruct': 'granite2b', 'HuggingFaceTB/SmolLM3-3B': 'smol3',
-             'microsoft/Phi-3.5-mini-instruct': 'phi35'}
+             'microsoft/Phi-3.5-mini-instruct': 'phi35', 'allenai/OLMo-2-1124-7B-Instruct': 'olmo7b',
+             'ibm-granite/granite-3.3-8b-instruct': 'granite8b', 'mistralai/Mistral-Nemo-Instruct-2407': 'nemo12b',
+             'allenai/OLMo-2-1124-13B-Instruct': 'olmo13b', 'microsoft/phi-4': 'phi4',
+             'Qwen/Qwen2.5-7B-Instruct': 'qwen7b', 'Qwen/Qwen2.5-14B-Instruct': 'qwen14b'}
     for name in ('monitor_feasibility_decision.json', 'monitor_feasibility_decision_r2.json'):
         if (cal / name).exists():
             for entry in read_json(cal / name)['summary']:
@@ -181,6 +188,26 @@ def values():
                 out[f'mon.{key}.fpr'] = pct(entry['fpr'])
                 for template, rate in entry.get('flag_rate_by_template', {}).items():
                     out[f'mon.{key}.{template}'] = pct(rate)
+    if MON_R3.exists():
+        r3 = read_json(MON_R3)
+        for entry in r3['summary']:
+            key = short[entry['model_id']]
+            if entry['tpr'] is None:
+                out[f'mon.{key}.status'] = label('not_evaluable')
+                continue
+            out[f'mon.{key}.tpr'] = pct(entry['tpr'])
+            out[f'mon.{key}.fpr'] = pct(entry['fpr'])
+        passed = [e for e in r3['summary'] if e['role'] == 'independent' and e['tpr'] is not None
+                  and e['tpr'] >= 0.90 and e['fpr'] <= 0.05]
+        out['mon3.aprovados'] = str(len(passed))
+        out['mon3.candidatos'] = str(sum(e['role'] == 'independent' for e in r3['summary']))
+    if TRACES_V5.exists():
+        for condition, entry in read_json(TRACES_V5)['summary'].items():
+            out[f'v5.{condition}.dica'] = frac(entry['chose_hint'], entry['n'])
+    if A100.exists():
+        comparison = read_json(A100)
+        out['a100.iguais'] = str(comparison['identical_generations'])
+        out['a100.pares'] = str(comparison['pairs'])
     r2a = cal / 'grpo_G1_sem_dica_r2a.jsonl'
     if r2a.exists():
         rows = [json.loads(line) for line in r2a.read_text(encoding='utf-8').splitlines() if line.strip()]

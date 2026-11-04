@@ -1,7 +1,7 @@
 {
-  "pages": 18,
-  "docx_words": 7894,
-  "pdf_words": 7911,
+  "pages": 19,
+  "docx_words": 8725,
+  "pdf_words": 8743,
   "missing_in_pdf": {},
   "extra_in_pdf": {},
   "fonts": [
@@ -53,15 +53,15 @@
     },
     {
       "titulo": "5 RESULTADOS",
-      "pagina": 10
+      "pagina": 11
     },
     {
       "titulo": "5.1 Reanálise do estudo-piloto",
-      "pagina": 10
+      "pagina": 11
     },
     {
       "titulo": "5.2 Triagem do v3.2 e diagnóstico",
-      "pagina": 11
+      "pagina": 12
     },
     {
       "titulo": "5.3 Calibração do v4",
@@ -76,25 +76,29 @@
       "pagina": 14
     },
     {
-      "titulo": "6 DISCUSSÃO",
-      "pagina": 14
-    },
-    {
-      "titulo": "7 LIMITAÇÕES",
+      "titulo": "5.6 Rodada exploratória posterior",
       "pagina": 15
     },
     {
-      "titulo": "8 CONCLUSÃO",
+      "titulo": "6 DISCUSSÃO",
+      "pagina": 15
+    },
+    {
+      "titulo": "7 LIMITAÇÕES",
       "pagina": 16
     },
     {
+      "titulo": "8 CONCLUSÃO",
+      "pagina": 17
+    },
+    {
       "titulo": "REFERÊNCIAS",
-      "pagina": 16
+      "pagina": 17
     }
   ],
-  "docx_sha256": "9a63db8016a82656f7c9766137b71cb159753a8e80660906f01752d9dd12fd47",
-  "pdf_sha256": "7035d143e3d60c9dcd3b91ce674268b4795559b7adba084f89a028877d82adeb",
-  "source_sha256": "e01c69bc0a7113c1bfed4310b8daaf23807a875d6c3b28fc9741282abbc6ec6b",
+  "docx_sha256": "beccc8bc4f9e02bf6b7c5e90c7bd17ed215ed2f3c5309e0a20a8a2f491d58fb5",
+  "pdf_sha256": "c58c2ed492a36c1f141cb1c7d174eca281a2285fa072bea2c9a6550026214de4",
+  "source_sha256": "307213e48de5639cf95df20dbdd60a8d074a0b2b3e98e3a1fdeb88752e7dd6dd",
   "tables": 8,
   "figures": 1
 }
