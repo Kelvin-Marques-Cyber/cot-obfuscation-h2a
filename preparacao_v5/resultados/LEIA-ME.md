@@ -1,7 +1,9 @@
 # Resultados da preparação do v5 (04/11/2026)
 
 Executados numa NVIDIA A100-SXM4-80GB (Colab, High-RAM) pelo `../executor_colab.py`,
-no commit `5952a88`, em que as regras dos dois scripts já estavam gravadas.
+no commit `5952a88` (hoje `84e747e`, mesmo conteúdo; ver
+`../../experimento_cientifico_v4/registro_osf/cronologia/reescrita_autoria_2026-11-04.json`), em que as
+regras dos dois scripts já estavam gravadas.
 Logs em `../logs/`. Tudo aqui é exploratório e não altera o v4.
 
 ## Rodada 3 dos monitores (`monitores_rodada3/`)
@@ -37,7 +39,7 @@ as alternativas, sem menção à nota.
 
 ## O que não foi executado
 
-O complemento `../rastros_anotacao_complemento.py` (E3 e E4, commit `fe3271d`) foi declarado
+O complemento `../rastros_anotacao_complemento.py` (E3 e E4, commit `fe3271d`, hoje `5f0cb3d`) foi declarado
 antes de qualquer geração dessas condições, mas **não foi executado**: em 04/11/2026 decidiu-se
 que o artigo se concentra na reanálise do piloto e no teste confirmatório da H1 (v4), e que a
 H2 fica para um estudo futuro. Pela mesma razão, a página de anotação (`../anotacao/`) não foi

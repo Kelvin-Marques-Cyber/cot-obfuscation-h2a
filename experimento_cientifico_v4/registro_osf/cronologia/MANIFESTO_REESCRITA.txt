@@ -1,0 +1,2 @@
+00aadd06c5ea77ededc91e8b11af528cf18984d1df6cad936c4e917c133cccdc  github_activity_2026-11-04.json
+d41a8fbbfe84106f504b01f188000c97a7a571b28364ebd218b0028099638f81  reescrita_autoria_2026-11-04.json

@@ -1,0 +1,70 @@
+{
+  "descricao": "Reescrita de autoria em 04/11/2026: os commits desta branch posteriores a f2ef270 passaram a ter somente a identidade do proprietário, sem trailers. O conteúdo (árvore) de cada commit é idêntico ao original; datas preservadas. Os horários de push dos commits originais estão em github_activity_2026-11-04.json.",
+  "base": "f2ef2707a7997bfe7c07e7c4949a9d4934ff0ab3",
+  "commits": [
+    {
+      "commit_original": "f542d961bdd6963360b4350b2472e6d884a7c8eb",
+      "commit_reescrito": "661d821b0957b439afd1135ad58e78b3f4d471bd",
+      "arvore": "c2ec57ee43ed3fd0c2f4bfa4d25a9bcb2adc91d7",
+      "data_original": "2026-10-29T16:26:02+00:00",
+      "push_original_github": "2026-10-29T16:26:06Z",
+      "assunto": "Registro OSF v4: classe de GPU do estudo passa a ser NVIDIA H100 (triagem DEV na T4 declarada) e passo para descartar a atualização aberta no v3.2"
+    },
+    {
+      "commit_original": "411469882b137ccdd0bfd1c4af95b778a51acd07",
+      "commit_reescrito": "6a770fa96d367d3d380e7060d27e8bcc25f56f33",
+      "arvore": "325f3a65e475433c8839e758b381751ac5df4aee",
+      "data_original": "2026-10-29T16:42:24+00:00",
+      "push_original_github": "2026-10-29T16:42:26Z",
+      "assunto": "Validação CUDA na A100-SXM4-80GB (teste técnico aprovado, 23/24 respostas iguais à T4); registro OSF fixa a A100 porque a H100 foi recusada pelo Colab"
+    },
+    {
+      "commit_original": "e40c088cdb17abe4f3727576dbf2e35f44c568e0",
+      "commit_reescrito": "1858191178904cb5c034030b674b79098be23b47",
+      "arvore": "49294d2b98e1fdffda5990b92b905b4ba318be33",
+      "data_original": "2026-11-04T11:36:46+00:00",
+      "push_original_github": "2026-11-04T11:36:48Z",
+      "assunto": "Cronologia do v4 independente do Git: horários de push do GitHub e carimbos RFC 3161 (FreeTSA e DigiCert) sobre commits e SHA256 congelados"
+    },
+    {
+      "commit_original": "5952a88fbb532d8c5e12f4bffe0aed4f49ed8e70",
+      "commit_reescrito": "84e747ede89101db8a05c62a1a9d239617b4efc3",
+      "arvore": "fa3a76053dec3934ee507c7ad7182f649bec8dd5",
+      "data_original": "2026-11-04T11:45:09+00:00",
+      "push_original_github": "2026-11-04T11:45:11Z",
+      "assunto": "Preparação do v5: regras declaradas antes da execução para a rodada 3 de monitores (7B–14B) e para os rastros da anotação humana"
+    },
+    {
+      "commit_original": "baa3cbe5ef0848ddbb9cde15a0be116635b83a3c",
+      "commit_reescrito": "c7322b3f0975441cea27295e5c1c9ff8803fb969",
+      "arvore": "aee97897a97074de4e5a7a0afebd88b81a27dae5",
+      "data_original": "2026-11-04T11:55:09+00:00",
+      "push_original_github": "2026-11-04T11:55:11Z",
+      "assunto": "Artigo em inglês (PDF e DOCX) pelo mesmo gerador, com tabelas e figuras traduzidas; versão em português inalterada"
+    },
+    {
+      "commit_original": "fe3271d837f87c0de2a511a9ad44e09b69654d8d",
+      "commit_reescrito": "5f0cb3df7df672925c3cef30e34d90ea6c1ca3ef",
+      "arvore": "eb7b3c6475dd62976472cd97dee987a747b3d6b1",
+      "data_original": "2026-11-04T11:57:54+00:00",
+      "push_original_github": "2026-11-04T11:57:55Z",
+      "assunto": "Preparação do v5: complemento declarado antes de gerar E3 (uso demonstrado) e E4 (rejeição demonstrada), pois E1 quase não usou a nota"
+    },
+    {
+      "commit_original": "b4b42aa7ac54df775edfbbcf69bd6cab6a0230fd",
+      "commit_reescrito": "d17088db749aad88fc67788e77eaa29f5df786a9",
+      "arvore": "a86c4a5169c24d7eb2242c8a15becc9aa9475f2a",
+      "data_original": "2026-11-04T12:02:36+00:00",
+      "push_original_github": "2026-11-04T12:02:38Z",
+      "assunto": "Executor da coleta confirmatória do v4 (notebooks reais, Drive, checagem da A100) e modelo da página de anotação cega"
+    },
+    {
+      "commit_original": "5399f1f0c058138366caad66c26a1fb768a91ade",
+      "commit_reescrito": "263b826fa979c9b09b441cdd566bee6249665148",
+      "arvore": "f4e609908fb6d51157a743d2f4c21af25eab4c58",
+      "data_original": "2026-11-04T12:44:41+00:00",
+      "push_original_github": "2026-11-04T12:44:43Z",
+      "assunto": "Artigo reenquadrado na refutação da inferência do piloto (PT e EN): cronologia carimbada, coleta na A100, rodada 3 exploratória dos monitores e limitações de escala; resultados da preparação do v5 arquivados"
+    }
+  ]
+}
