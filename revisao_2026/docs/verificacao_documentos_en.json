@@ -1,7 +1,7 @@
 {
   "pages": 21,
-  "docx_words": 10087,
-  "pdf_words": 10107,
+  "docx_words": 10102,
+  "pdf_words": 10122,
   "missing_in_pdf": {},
   "extra_in_pdf": {},
   "fonts": [
@@ -104,9 +104,9 @@
       "pagina": 19
     }
   ],
-  "docx_sha256": "3aa6bb259452134a599c6e7195dfba066b9bfa724cb268843bc44b90c5ecffb5",
-  "pdf_sha256": "8c3723089102e0bdd81c7e8524a3b9a7d140a2d4432430b9b5c52760115acc2b",
-  "source_sha256": "b4b8e57ec8952b85a5253612bf4af28a305d6d6e44efb4f4a494a96f44c24d39",
+  "docx_sha256": "4b12c186d8d2ea7a8051744296bf7024fd61ee07c829eb57b9b6ff9295cbb85e",
+  "pdf_sha256": "0594103d050df2b10bbabdfb2184bc957df4da59acfc8370397a8d67ef749ed7",
+  "source_sha256": "e6e383c3c4ac2e008d7d2bb21c210120d7190bd93a8cdce18fe5cf0256f131f0",
   "tables": 9,
   "figures": 2
 }
