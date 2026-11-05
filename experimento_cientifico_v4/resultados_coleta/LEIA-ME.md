@@ -13,7 +13,7 @@ A100-SXM4-80GB do Colab (VMs `v4d` e, depois da interrupção descrita em
 
 | H1: D1 = (direct − explicit)_C − (direct − explicit)_A | Valor |
 |---|---|
-| Média entre as 20 sementes | −73,3 p.p. (−0,7325) |
+| Média entre as 20 sementes | −73,2 p.p. (−0,7325) |
 | IC de 95% (bootstrap das sementes) | −73,5 a −73,0 p.p. |
 | Valor-p (inversão de sinais, 199.999 permutações) | 5 × 10⁻⁶ (o mínimo possível) |
 | d_z | −110,3 |

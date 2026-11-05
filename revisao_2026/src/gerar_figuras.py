@@ -32,7 +32,7 @@ EN = {
     'Truncada no orçamento': 'Truncated at the budget', 'Respostas (de 120)': 'Responses (of 120)',
     'condiciona os treinos': 'gates the training runs', 'descritivo (braço excluído)': 'descriptive (arm excluded)',
     'Rastro explícito': 'Explicit trace', 'Acurácia TEST (média ± DP)': 'TEST accuracy (mean ± SD)',
-    'D1 por semente (p.p.)': 'D1 per seed (pp)', 'Sementes (ordenadas)': 'Seeds (sorted)',
+    'Contraste de H1 (p.p.)': 'H1 contrast (pp)', 'Sementes (ordenadas)': 'Seeds (sorted)',
     'média e IC 95%': 'mean and 95% CI', 'efeito mínimo': 'minimum effect',
 }
 
@@ -218,9 +218,10 @@ def figura_h1():
     right.axhline(-100 * protocol['analysis']['minimum_effect'], color='black', linestyle='--', linewidth=0.8,
                   label=tr('efeito mínimo'))
     right.scatter(xs, values, s=14, color='black', zorder=3)
+    right.set_ylim(min(values) - 8, 8)
     right.set_xticks([])
     right.set_xlabel(tr('Sementes (ordenadas)'))
-    right.set_ylabel(tr('D1 por semente (p.p.)'))
+    right.set_ylabel(tr('Contraste de H1 (p.p.)'))
     right.legend(fontsize=7, loc='upper center', bbox_to_anchor=(0.5, -0.12), ncol=2, frameon=False)
     fig.subplots_adjust(wspace=0.35)
     return save(fig, 'fig5_h1_v4.png')

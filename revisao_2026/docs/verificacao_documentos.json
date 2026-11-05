@@ -1,7 +1,7 @@
 {
-  "pages": 19,
-  "docx_words": 8806,
-  "pdf_words": 8824,
+  "pages": 22,
+  "docx_words": 10432,
+  "pdf_words": 10453,
   "missing_in_pdf": {},
   "extra_in_pdf": {},
   "fonts": [
@@ -52,6 +52,10 @@
       "pagina": 10
     },
     {
+      "titulo": "4.6 Coleta confirmatória do v4",
+      "pagina": 11
+    },
+    {
       "titulo": "5 RESULTADOS",
       "pagina": 11
     },
@@ -65,40 +69,44 @@
     },
     {
       "titulo": "5.3 Calibração do v4",
-      "pagina": 13
+      "pagina": 14
     },
     {
       "titulo": "5.4 Triagem DEV do v4",
-      "pagina": 14
+      "pagina": 15
     },
     {
       "titulo": "5.5 Verificações de software",
-      "pagina": 14
-    },
-    {
-      "titulo": "5.6 Rodada exploratória posterior",
       "pagina": 15
     },
     {
-      "titulo": "6 DISCUSSÃO",
-      "pagina": 15
-    },
-    {
-      "titulo": "7 LIMITAÇÕES",
+      "titulo": "5.6 Teste confirmatório de H1",
       "pagina": 16
     },
     {
-      "titulo": "8 CONCLUSÃO",
+      "titulo": "5.7 Rodada exploratória posterior",
       "pagina": 17
     },
     {
-      "titulo": "REFERÊNCIAS",
+      "titulo": "6 DISCUSSÃO",
       "pagina": 17
+    },
+    {
+      "titulo": "7 LIMITAÇÕES",
+      "pagina": 19
+    },
+    {
+      "titulo": "8 CONCLUSÃO",
+      "pagina": 19
+    },
+    {
+      "titulo": "REFERÊNCIAS",
+      "pagina": 20
     }
   ],
-  "docx_sha256": "1680f08b61672dc0ec4b0f13b7d50b2ca759b5fea5c1dd67f6696225336a75fb",
-  "pdf_sha256": "c0aa23671ec1ed0ba2db218e38cd089ae5ee912cbba04aafb74dd567b90e74e1",
-  "source_sha256": "61e1110b40e6b15a4d63a829b256a047ee3451820a00c4e78f2da51c4856d39c",
-  "tables": 8,
-  "figures": 1
+  "docx_sha256": "6f89058a97d00c38f0f4bb4e0c632cf2be922b53a02e97086f18c2191dcf6ea9",
+  "pdf_sha256": "0ab5811bb25530b22fdba59815296f1cf956ce865fa016c50d042cd37b33a1cd",
+  "source_sha256": "e6726cc5553358c53399b560f317e8ea12bc7f34ff213709bb499bd3007eb3ca",
+  "tables": 9,
+  "figures": 2
 }

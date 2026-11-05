@@ -1,7 +1,7 @@
 {
-  "pages": 18,
-  "docx_words": 8594,
-  "pdf_words": 8611,
+  "pages": 21,
+  "docx_words": 10087,
+  "pdf_words": 10107,
   "missing_in_pdf": {},
   "extra_in_pdf": {},
   "fonts": [
@@ -52,6 +52,10 @@
       "pagina": 9
     },
     {
+      "titulo": "4.6 Confirmatory collection of v4",
+      "pagina": 10
+    },
+    {
       "titulo": "5 RESULTS",
       "pagina": 10
     },
@@ -61,11 +65,11 @@
     },
     {
       "titulo": "5.2 v3.2 screening and diagnosis",
-      "pagina": 11
+      "pagina": 12
     },
     {
       "titulo": "5.3 v4 calibration",
-      "pagina": 12
+      "pagina": 13
     },
     {
       "titulo": "5.4 v4 DEV screening",
@@ -76,29 +80,33 @@
       "pagina": 14
     },
     {
-      "titulo": "5.6 Later exploratory round",
-      "pagina": 14
-    },
-    {
-      "titulo": "6 DISCUSSION",
+      "titulo": "5.6 Confirmatory test of H1",
       "pagina": 15
     },
     {
-      "titulo": "7 LIMITATIONS",
+      "titulo": "5.7 Later exploratory round",
       "pagina": 16
+    },
+    {
+      "titulo": "6 DISCUSSION",
+      "pagina": 16
+    },
+    {
+      "titulo": "7 LIMITATIONS",
+      "pagina": 18
     },
     {
       "titulo": "8 CONCLUSION",
-      "pagina": 16
+      "pagina": 18
     },
     {
       "titulo": "REFERENCES",
-      "pagina": 17
+      "pagina": 19
     }
   ],
-  "docx_sha256": "1e4513082eb02e5cf1fe0d87bf9922f2fe6a5c782b3686a93ba9fec7d202ba3c",
-  "pdf_sha256": "6594877dd23e049a4975f843bee5f2cae0a0ea7d36ae5b75497dd38fbdfae32f",
-  "source_sha256": "b0397c049fe73b009ff8f12c92b39ae9b8b8a08e53204f9fe10438d1ad58a50d",
-  "tables": 8,
-  "figures": 1
+  "docx_sha256": "3aa6bb259452134a599c6e7195dfba066b9bfa724cb268843bc44b90c5ecffb5",
+  "pdf_sha256": "8c3723089102e0bdd81c7e8524a3b9a7d140a2d4432430b9b5c52760115acc2b",
+  "source_sha256": "b4b8e57ec8952b85a5253612bf4af28a305d6d6e44efb4f4a494a96f44c24d39",
+  "tables": 9,
+  "figures": 2
 }

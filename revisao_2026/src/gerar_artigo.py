@@ -65,17 +65,23 @@ def frac(k, n):
     return f'{k}/{n}'
 
 
+def minus(text):
+    """Sinal de menos tipográfico, como no texto do artigo."""
+    return text.replace('-', '−')
+
+
 def pp(value, digits=1):
     """Diferença de proporções em pontos percentuais."""
-    return num(100 * value, digits) + (' pp' if LANG == 'en' else ' p.p.')
+    return minus(num(100 * value, digits)) + (' pp' if LANG == 'en' else ' p.p.')
 
 
 def pval(value):
-    return ('< ' + num(0.001, 3)) if value < 0.001 else num(value, 3)
+    """Valor-p com o sinal: '< 0,001' ou '= 0,012'."""
+    return ('< ' + num(0.001, 3)) if value < 0.001 else '= ' + num(value, 3)
 
 
 def pp_ci(ci):
-    return f"{num(100 * ci[0], 1)} {label('to')} {pp(ci[1])}"
+    return f"{minus(num(100 * ci[0], 1))} {label('to')} {pp(ci[1])}"
 
 
 def wilson(k, n, z=1.959963984540054):
@@ -265,11 +271,15 @@ def valores_coleta():
         out['v4.h1.media'] = pp(sft['mean_interaction'])
         out['v4.h1.ic'] = pp_ci(sft['ci95'])
         out['v4.h1.p'] = pval(sft['signflip_p'])
-        out['v4.h1.dz'] = num(sft['cohen_dz'], 2) if sft['cohen_dz'] is not None else '—'
+        out['v4.h1.dz'] = minus(num(sft['cohen_dz'], 1)) if sft['cohen_dz'] is not None else '—'
         out['v4.h1.negativas'] = str(sum(v < 0 for v in sft['per_seed']))
         out['v4.h1.positivas'] = str(sum(v > 0 for v in sft['per_seed']))
         out['v4.h1.min'] = pp(min(sft['per_seed']))
         out['v4.h1.max'] = pp(max(sft['per_seed']))
+        # Versões em inglês, para o ABSTRACT do artigo em português.
+        out['v4.h1.media.en'] = minus(f"{100 * sft['mean_interaction']:.1f} pp")
+        out['v4.h1.ic.en'] = minus(f"{100 * sft['ci95'][0]:.1f} to {100 * sft['ci95'][1]:.1f} pp")
+        out['v4.h1.p.en'] = '< 0.001' if sft['signflip_p'] < 0.001 else f"= {sft['signflip_p']:.3f}"
     out['v4.treinos'] = str(verdict['study']['sft'].get('completed_runs', '—'))
     secondary = COLETA / 'analises_secundarias.json'
     if secondary.exists():
@@ -281,8 +291,12 @@ def valores_coleta():
             out[f'v4.{key}.ic'] = pp_ci(entry['ci95'])
             out[f'v4.{key}.p'] = pval(entry['signflip_p'])
         out['v4.s1.itens'] = str(s1['items_per_level']['A'])
+        acc = {cell: entry['mean'] for cell, entry in s['S2_acuracia'].items()}
+        for level in ('A', 'C'):  # custo da resposta direta em relação ao rastro explícito
+            out[f'v4.custo.{level}'] = pp(acc[f'{level}/explicit'] - acc[f'{level}/direct'])
         for cell, entry in s['S2_acuracia'].items():
             out[f'v4.acc.{cell.replace("/", ".")}'] = pct(entry['mean'])
+            out[f'v4.acc.{cell.replace("/", ".")}.en'] = f"{100 * entry['mean']:.1f}%"
         for name, field in (('formato', 'S4_formato_valido'), ('trunc', 'S4_truncamento')):
             cells = s[field].values()
             out[f'v4.{name}.min'] = pct(min(e['mean'] for e in cells))
@@ -342,8 +356,8 @@ FIGURAS_PT = {
            'Arquivos de experimento_cientifico_v4/triagem_dev. Linha tracejada: critério de 0,65.'),
     'h1': ('fig5_h1_v4.png', 'Teste confirmatório de H1 no v4',
            'experimento_cientifico_v4/resultados_coleta. Esquerda: acurácia TEST por nível e alvo (barras: média '
-           'das 20 sementes; traços: desvio-padrão). Direita: D1(s) de cada semente; faixa cinza: IC de 95% da '
-           'média (linha contínua); tracejado: efeito mínimo registrado.'),
+           'das 20 sementes; traços: desvio-padrão). Direita: contraste de H1 em cada semente; faixa cinza: IC de '
+           '95% da média (linha contínua); tracejado: efeito mínimo registrado.'),
 }
 FIGURAS_EN = {
     'piloto': ('en/fig1_piloto_acuracia.png', 'Accuracy recorded in the pilot study by level and training target',
@@ -356,8 +370,8 @@ FIGURAS_EN = {
            'Files in experimento_cientifico_v4/triagem_dev. Dashed line: 0.65 criterion.'),
     'h1': ('en/fig5_h1_v4.png', 'Confirmatory test of H1 in v4',
            'experimento_cientifico_v4/resultados_coleta. Left: TEST accuracy by level and target (bars: mean of '
-           'the 20 seeds; whiskers: standard deviation). Right: D1(s) for each seed; gray band: 95% CI of the '
-           'mean (solid line); dashed: registered minimum effect.'),
+           'the 20 seeds; whiskers: standard deviation). Right: H1 contrast for each seed; gray band: 95% CI of '
+           'the mean (solid line); dashed: registered minimum effect.'),
 }
 FIGURAS = FIGURAS_PT
 

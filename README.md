@@ -1,14 +1,14 @@
-# Ofuscação da cadeia de pensamento: reanálise, estudo pré-registrado e protocolo revisado
+# Ofuscação da cadeia de pensamento: reanálise, estudos pré-registrados e teste confirmatório
 
 Repositório do projeto `cot-obfuscation-h2a`, sob responsabilidade de Kelvin e
 Silva Marques. Reúne o artigo, os dados, o código e os notebooks de três
 conjuntos de trabalho que não devem ser confundidos:
 
-| Conjunto | Situação em 29/10/2026 | Onde |
+| Conjunto | Situação em 05/11/2026 | Onde |
 |---|---|---|
 | Estudo-piloto (SFT) e reanálise | Concluído: números reproduzidos; instrumentos auditados | [`revisao_2026/`](revisao_2026) |
 | Estudo prospectivo v3.2 (OSF [sjwdf](https://osf.io/sjwdf/)) | **Encerrado sem treinos**: triagem DEV reprovada; diagnóstico concluído | [`experimento_cientifico_v3/`](experimento_cientifico_v3) |
-| Estudo prospectivo v4 (novo `STUDY_ID`) | **Pronto para registro, sem treinos**: protocolo congelado; triagem DEV do SFT aprovada (A 117/120; C 82/120); braço GRPO excluído antes do registro (nenhum monitor viável); coleta fixada na NVIDIA A100-SXM4-80GB; cronologia carimbada (RFC 3161) em [`registro_osf/cronologia/`](experimento_cientifico_v4/registro_osf/cronologia) | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
+| Estudo prospectivo v4 (OSF [hb64a](https://osf.io/hb64a/)) | **Concluído: H1 sustentada** (`SUPPORT_FOR_SFT_CONTRAST`), com um desvio declarado antes de qualquer geração TEST ([`DESVIO_01.md`](experimento_cientifico_v4/DESVIO_01.md)): contraste −73,2 p.p. (IC 95%: −73,5 a −73,0; 20 sementes, 120 treinos, 26.400 gerações na A100); no nível C, 75,9% com rastro explícito e 0,0% com resposta direta. Braço GRPO excluído antes do registro. Resultados em [`resultados_coleta/`](experimento_cientifico_v4/resultados_coleta); cronologia carimbada (RFC 3161) em [`registro_osf/cronologia/`](experimento_cientifico_v4/registro_osf/cronologia) | [`experimento_cientifico_v4/`](experimento_cientifico_v4) |
 | Preparação do v5 (H2, exploratória) | Rodada 3 de monitores: granite-3.3-8b, Mistral-Nemo 12B e phi-4 passaram nos controles construídos; o ator quase nunca segue a nota; sem rótulos humanos (fora do escopo do artigo) | [`preparacao_v5/`](preparacao_v5) |
 
 **Artigo:** [PDF](revisao_2026/docs/Artigo_CoT_Versao_Final.pdf) ·
@@ -18,9 +18,10 @@ conjuntos de trabalho que não devem ser confundidos:
 **English version:** [PDF](revisao_2026/docs/Article_CoT_Final_EN.pdf) ·
 [DOCX](revisao_2026/docs/Article_CoT_Final_EN.docx) · [source](revisao_2026/artigo_en.md)
 
-Nenhum resultado confirmatório sobre as hipóteses H1 (custo do formato no SFT)
-e H2 (exploração não sinalizada no GRPO) foi produzido até esta data. No v4,
-H2 foi declarada não testável antes do registro.
+O único resultado confirmatório é o de H1 (custo do formato no SFT) no v4: treinar
+respostas diretas custa quase toda a acurácia quando o cálculo exige etapas escritas, e
+as respostas diretas erradas não indicam cálculo oculto; não é evidência de ofuscação.
+H2 (exploração não sinalizada no GRPO) foi declarada não testável antes do registro do v4.
 
 ## Estudo v4: os cinco notebooks
 

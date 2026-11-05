@@ -6,13 +6,16 @@ encerramento do v3.2 por reprovação na triagem de competência. Protocolo:
 [protocolo_v4.json](protocolo_v4.json) · calibração: [calibracao/](calibracao) ·
 triagem DEV: [triagem_dev/](triagem_dev).
 
-**Situação em 29/10/2026:** protocolo congelado (commit `37094c4`) e triagem DEV
-executada uma única vez na Tesla T4: SFT A 117/120 e C 82/120, ambos ≥ 0,65. O
-braço GRPO foi excluído antes do registro porque nenhum monitor foi aprovado na
-calibração (H2 não testável; triagem GRPO apenas descritiva). **Próximo passo:**
-publicar o registro com o pacote do notebook 00. Nenhum treino foi executado.
-O texto de cada campo do formulário do OSF, o pacote e o código a anexar estão
-em [registro_osf/](registro_osf/REGISTRO_OSF_v4.md).
+**Situação em 05/11/2026: concluído.** Protocolo congelado (commit `37094c4`) e
+triagem DEV executada uma única vez na Tesla T4: SFT A 117/120 e C 82/120, ambos ≥ 0,65.
+O braço GRPO foi excluído antes do registro porque nenhum monitor foi aprovado na
+calibração (H2 não testável). Registro público: https://osf.io/hb64a/ (04/11/2026,
+13:01 UTC; [registro_osf/REGISTRO_PUBLICADO.md](registro_osf/REGISTRO_PUBLICADO.md)).
+Coleta na NVIDIA A100-SXM4-80GB com um desvio declarado antes de qualquer geração TEST
+([DESVIO_01.md](DESVIO_01.md)) e uma interrupção da VM sem efeito nos dados
+([validacao/coleta_interrupcao_vm/](validacao/coleta_interrupcao_vm)). **Veredito:
+`SUPPORT_FOR_SFT_CONTRAST`** — contraste de H1 de −73,2 p.p. (IC 95%: −73,5 a −73,0);
+resultados em [resultados_coleta/](resultados_coleta).
 
 ## Notebooks (abrir pelo link, nunca por cópia antiga)
 
