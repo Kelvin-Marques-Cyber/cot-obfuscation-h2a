@@ -15,3 +15,20 @@ O registro é posterior ao congelamento do protocolo (29/10/2026 11:28 UTC), à 
 (11:52 UTC) e aos carimbos de tempo da pasta `cronologia/` (29/10/2026 16:49:08 UTC), e
 anterior a qualquer treinamento do estudo. A URL é declarada ao runtime pelo notebook 00
 (`PUBLIC_REGISTRATION_URL`) ou por `validacao/executores_colab/coleta_v4.py`.
+
+## Atualização 1 (desvio 1), publicada em 05/11/2026
+
+Atualização do registro pelo fluxo "Updates" do OSF (resposta `6aec883f1dc5d8a4c80d61d8`),
+submetida e aprovada pelo único administrador em 05/11/2026 às 13:44:53 UTC, com o texto do
+fim de `../DESVIO_01.md`:
+
+- **justificativa:** o parágrafo "Desvio 1, declarado em 04/11/2026 antes de qualquer geração
+  TEST […]";
+- **único campo alterado:** 344-47 ("Data collection procedures"), em que "sempre com o código do
+  commit b858d12…" passou a "com o código do commit b858d12…, alterado somente no guarda de
+  valores não finitos do treino pelo desvio 1 (commit 9066d81…; ver DESVIO_01.md no
+  repositório)". Os outros 28 campos são idênticos aos da resposta original.
+
+A atualização foi publicada depois da coleta, mas o desvio que ela descreve foi declarado,
+carimbado (`cronologia/MANIFESTO_DESVIO_01.*`, 04/11/2026 14:21:10 UTC) e enviado ao GitHub
+antes de qualquer geração TEST. Resposta da API: `atualizacao_01_osf.json`.
