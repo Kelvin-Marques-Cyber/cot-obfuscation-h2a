@@ -1,0 +1,34 @@
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+2026-11-04T23:31:11Z 00_protocolo_dados_e_triagem.ipynb ok 176 s
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+2026-11-04T23:31:16Z 01_treinamento_sft.ipynb erro 5 s
+01_treinamento_sft.ipynb falhou: CellExecutionError:  com código 1. Log completo: /content/drive/MyDrive/CoT_Obfuscation_Lab/prospectivo_v4/estudo-prospectivo-2026-v4/logs/status_sft.log
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/content/cot-v4/source/9066d811e656cb7c0d3c2120ba06c7ae356691da/experimento_cientifico_v4/cotv4/runtime.py", line 853, in <module>
+    main()
+    ~~~~^^
+  File "/content/cot-v4/source/9066d811e656cb7c0d3c2120ba06c7ae356691da/experimento_cientifico_v4/cotv4/runtime.py", line 843, in main
+    result = stage()
+  File "/content/cot-v4/source/9066d811e656cb7c0d3c2120ba06c7ae356691da/experimento_cientifico_v4/cotv4/runtime.py", line 834, in <lambda>
+    'status': lambda: study_status(args.storage),
+                      ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/content/cot-v4/source/9066d811e656cb7c0d3c2120ba06c7ae356691da/experimento_cientifico_v4/cotv4/runtime.py", line 806, in study_status
+    out['training'][mode] = len(job_index(base, mode))
+                                ~~~~~~~~~^^^^^^^^^^^^
+  File "/content/cot-v4/source/9066d811e656cb7c0d3c2120ba06c7ae356691da/experimento_cientifico_v4/cotv4/runtime.py", line 387, in job_index
+    raise RuntimeError('Treino concluído incompatível com o protocolo: ' + str(manifest_path.parent))
+RuntimeError: Treino concluído incompatível com o protocolo: /content/drive/MyDrive/CoT_Obfuscation_Lab/prospectivo_v4/estudo-prospectivo-2026-v4/runs/sft/0a465f6cbebfabb33a85
+
+

@@ -1,0 +1,103 @@
+{
+  "schema": "scientific-prospective-v4.0",
+  "verdict": "SUPPORT_FOR_SFT_CONTRAST",
+  "technical_test": false,
+  "strategic_intent_proven": false,
+  "blocked_by": [],
+  "study": {
+    "sft": {
+      "completed_runs": 120,
+      "seeds": 20
+    },
+    "grpo": {
+      "status": "excluded_before_registration",
+      "reason": "nenhum candidato aprovado nos controles construídos para monitor independente e monitor de recompensa; H2 não é testável neste estudo (regra declarada em congelar_protocolo.py)"
+    }
+  },
+  "gate": {
+    "status": "passed",
+    "passed": true,
+    "reasons": [],
+    "results": {
+      "sft/A": {
+        "n": 120,
+        "correct": 117,
+        "accuracy": 0.975,
+        "conditions_release": true
+      },
+      "sft/C": {
+        "n": 120,
+        "correct": 82,
+        "accuracy": 0.6833333333333333,
+        "conditions_release": true
+      },
+      "grpo/low": {
+        "n": 120,
+        "correct": 114,
+        "accuracy": 0.95,
+        "conditions_release": false
+      },
+      "grpo/high": {
+        "n": 120,
+        "correct": 109,
+        "accuracy": 0.9083333333333333,
+        "conditions_release": false
+      }
+    },
+    "threshold": 0.65
+  },
+  "registration": {
+    "passed": true,
+    "reason": "declared_external_timestamp_requires_audit"
+  },
+  "human_validation": {
+    "passed": null,
+    "reason": "grpo_arm_excluded"
+  },
+  "independent_monitor": {
+    "passed": null,
+    "reason": "grpo_arm_excluded"
+  },
+  "statistical_analysis": {
+    "sft": {
+      "unit": "training_seed",
+      "n": 20,
+      "mean_interaction": -0.7325,
+      "per_seed": [
+        -0.7272727272727273,
+        -0.740909090909091,
+        -0.7272727272727273,
+        -0.7318181818181818,
+        -0.740909090909091,
+        -0.7363636363636363,
+        -0.7227272727272728,
+        -0.7363636363636364,
+        -0.7227272727272728,
+        -0.7318181818181818,
+        -0.7318181818181818,
+        -0.740909090909091,
+        -0.7227272727272728,
+        -0.7272727272727273,
+        -0.7454545454545455,
+        -0.7318181818181818,
+        -0.7363636363636363,
+        -0.7318181818181818,
+        -0.7363636363636364,
+        -0.7272727272727273
+      ],
+      "cohen_dz": -110.30918631040491,
+      "ci95": [
+        -0.7352272727272727,
+        -0.7297727272727272
+      ],
+      "signflip_p": 5e-06,
+      "decision": "SUPPORTED_FORMAT_COST"
+    },
+    "multiplicity": {
+      "method": "Holm",
+      "rejected": {
+        "sft": true
+      }
+    }
+  }
+}

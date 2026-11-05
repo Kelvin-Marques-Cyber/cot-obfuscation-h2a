@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-11-05T13:24:47Z",
+  "code_commit": "15f1bfa6a8d0ae6e1b53e3130d563a146ef7f1cb",
+  "analise_desvio_01_sha256": "f64b798926f381a59b12a3a7e4361c2e91a35b623825f5ecd8dad0966c79a451",
+  "files": {
+    "analise_desvio_01.json": "d0c1b06a79c1b91d97a6cf82ee99d3a7873b02e239022e60bca7e961c1b0b579",
+    "analises_secundarias.json": "251fadd65ddc6ef44bbe20554859b884627e690d09c00b5f17a0eee925cb3ba8",
+    "final_verdict.json": "d288474264f170b744edb5be69368d477e326b89c687b4a691e14a36ae497fe8",
+    "resultados_v4.zip": "2aa92f58b259355b05bedfc83d7370bb983554e7009d1aa0b78909213ad32e7a"
+  }
+}
